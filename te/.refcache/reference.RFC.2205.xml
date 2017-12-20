@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<reference anchor='RFC2205'>
+
+<front>
+<title abbrev='RSVP'>Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification</title>
+<author initials='B.' surname='Braden' fullname='Bob Braden'>
+<organization>USC Information Sciences Institute</organization>
+<address>
+<postal>
+<street>4676 Admiralty Way</street>
+<street>Marina del Rey</street>
+<street>CA 90292</street></postal>
+<phone>(310) 822-1511</phone>
+<email>Braden@ISI.EDU</email></address></author>
+<author initials='L.' surname='Zhang' fullname='Lixia Zhang'>
+<organization>UCLA Computer Science Department</organization>
+<address>
+<postal>
+<street>4531G Boelter Hall</street>
+<street>Los Angeles</street>
+<street>CA 90095-1596</street>
+<country>USA</country></postal>
+<phone>310-825-2695</phone>
+<email>lixia@cs.ucla.edu</email></address></author>
+<author initials='S.' surname='Berson' fullname='Steve Berson'>
+<organization>USC Information Sciences Institute</organization>
+<address>
+<postal>
+<street>4676 Admiralty Way</street>
+<street>Marina del Rey</street>
+<street>CA 90292</street></postal>
+<phone>(310) 822-1511</phone>
+<email>Berson@ISI.EDU</email></address></author>
+<author initials='S.' surname='Herzog' fullname='Shai Herzog'>
+<organization>IBM T. J. Watson Research Center</organization>
+<address>
+<postal>
+<street>P.O Box 704</street>
+<street>Yorktown Heights</street>
+<street>NY 10598</street></postal>
+<phone>(914) 784-6059</phone>
+<email>Herzog@WATSON.IBM.COM</email></address></author>
+<author initials='S.' surname='Jamin' fullname='Sugih Jamin'>
+<organization>University of Michigan</organization>
+<address>
+<postal>
+<street>CSE/EECS</street>
+<street>1301 Beal Ave.</street>
+<street>Ann Arbor</street>
+<street>MI 48109-2122</street></postal>
+<phone>(313) 763-1583</phone>
+<email>jamin@EECS.UMICH.EDU</email></address></author>
+<date year='1997' month='September' />
+<area>Transport</area>
+<keyword>multicast</keyword>
+<keyword>resource reservation protocol</keyword>
+<keyword>RSVP</keyword>
+<abstract>
+<t>
+   This memo describes version 1 of RSVP, a resource reservation setup
+   protocol designed for an integrated services Internet.  RSVP provides
+   receiver-initiated setup of resource reservations for multicast or
+   unicast data flows, with good scaling and robustness properties.
+   What&apos;s Changed
+</t>
+<t>
+   This revision contains the following very minor changes from the ID14
+   version.
+
+<list>
+<t>
+      o    For clarity, each message type is now defined separately in
+           Section 3.1.
+</t>
+<t>
+      o    We added more precise and complete rules for accepting Path
+           messages for unicast and multicast destinations (Section
+           3.1.3).
+</t>
+<t>
+      o    We added more precise and complete rules for processing and
+           forwarding PathTear messages (Section 3.1.5).
+</t>
+<t>
+      o    A note was added that a SCOPE object will be ignored if it
+           appears in a ResvTear message (Section 3.1.6).
+</t>
+<t>
+      o    A note was added that a SENDER_TSPEC or ADSPEC object will be
+           ignored if it appears in a PathTear message (Section 3.1.5).
+</t>
+<t>
+      o    The obsolete error code Ambiguous Filter Spec (09) was
+           removed, and a new (and more consistent) name was given to
+           error code 08 (Appendix B).
+</t>
+<t>
+      o    In the generic interface to traffic control, the Adspec was
+           added as a parameter to the AddFlow and ModFlow calls
+           (3.11.2).  This is needed to accommodate a node that updates
+           the slack term (S) of Guaranteed service.
+</t>
+<t>
+      o    An error subtype was added for an Adspec error (Appendix B).
+</t>
+<t>
+      o    Additional explanation was added for handling a CONFIRM
+           object (Section 3.1.4).
+</t>
+<t>
+      o    The rules for forwarding objects with unknown class type were
+           clarified.
+</t>
+<t>
+      o    Additional discussion was added to the Introduction and to
+           Section 3.11.2 about the relationship of RSVP to the link
+           layer.  (Section 3.10).
+</t>
+<t>
+      o    Section 2.7 on Policy and Security was split into two
+           sections, and some additional discussion of security was
+           included.
+</t>
+<t>
+      o    There were some minor editorial improvements.
+</t></list></t></abstract></front>
+
+<seriesInfo name='RFC' value='2205' />
+<format type='TXT' octets='223974' target='http://www.rfc-editor.org/rfc/rfc2205.txt' />
+<format type='XML' octets='225955' target='http://xml.resource.org/public/rfc/xml/rfc2205.xml' />
+</reference>

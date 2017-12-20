@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<reference anchor='RFC1925'>
+
+<front>
+<title abbrev='Fundamental Truths of Networking'>The Twelve Networking Truths</title>
+<author initials='R.' surname='Callon' fullname='Ross Callon'>
+<organization>Internet Order of Old Farts</organization>
+<address>
+<postal>
+<street>3 Federal Street</street>
+<city>Billerica</city>
+<region>MA</region>
+<code>01821</code>
+<country>US</country></postal>
+<phone>+1 508 436 3936</phone>
+<email>rcallon@baynetworks.com</email></address></author>
+<date year='1996' month='April' day='1' />
+<abstract>
+<t>This memo documents the fundamental truths of networking for the Internet community. This memo does not specify a standard, except in the sense that all standards must implicitly follow the fundamental truths.</t></abstract></front>
+
+<seriesInfo name='RFC' value='1925' />
+<format type='TXT' octets='4294' target='http://www.rfc-editor.org/rfc/rfc1925.txt' />
+</reference>

@@ -1,0 +1,170 @@
+Add reference to consolodated MPLS model
+rename to ephemeral tunnels
+Add clear description for counters.
+
+ietf-rsvp.yang.tree
+      |  +--rw authentication {authentication}?
+      |  |  +--rw config
+      |  |  |  +--rw (authentication-type)?              
+      |  |  |     +--:(string)
+      |  |  |     |  +--rw secret?        string         /* can secret be changed to secretkey or key? */
+[TS]: password, key-string?
+      |  |  |     |  +--rw algorithm?     identityref    /* where define the MD5 algorithm. */
+[TS]: defined in ietf-rsvp.yang 
+      |  |  |     +--:(key-chain) {authentication}?      
+      |  |  |        +--rw key-chain?     string
+      |  |  |        +--rw lifetime?      uint32         /* this shouldn't be under key-chain and should under config. for string type it's useful too. */
+      |  |  |        +--rw window-size?   uint32         /* this shouldn't be under key-chain and should under config. for string type it's useful too. */
+      |  |  |        +--rw challenge?     empty          /* this shouldn't be under key-chain and should under config. for string type it's useful too. */
+      |  |  |        +--rw retransmits?   uint32         /* this shouldn't be under key-chain and should under config. for string type it's useful too. */
+[TS]: agreed, fixed
+      |  |  +--ro state
+      |  |     +--ro (authentication-type)?
+      |  |        +--:(string)
+      |  |        |  +--ro secret?        string         /* when get the secret key, from security point of view this can be displayed as NULL and not return the sercret key.  */
+[TS] configuration can accept either "clear text" or encrypted. I think get-config should return encrypted always. State shows encrypted?
+implementaiton dependent.
+      |  |        |  +--ro algorithm?     identityref
+      |  |        +--:(key-chain) {authentication}?
+      |  |           +--ro key-chain?     string
+      |  |           +--ro lifetime?      uint32
+      |  |           +--ro window-size?   uint32
+      |  |           +--ro challenge?     empty
+      |  |           +--ro retransmits?   uint32      
+      +--ro global-state
+      |  +--ro statistics
+      |     +--ro discontinuity-time?   yang:date-and-time
+      |     +--ro packet
+      |     |  +--ro sent?         yang:counter32
+      |     |  +--ro rcvd?         yang:counter32
+      |     |  +--ro tx-dropped?   yang:counter32    /* how this can be collected at the protocol plane?  */
+[TS]: may happen if RSVP msgs are dropped due to a policy (filter or TTL?) due to exceeding egress interface MTU?
+      |     |  +--ro rx-dropped?   yang:counter32    /* how this can be collected at the protocol plane?  */
+[TS]: policy filter, out-of-order messages (authentication), messages for no matching state..
+      |     |  +--ro tx-error?     yang:counter32    /* how this can be collected at the protocol plane?  */
+[TS]: mtu, large message, no route, 
+      |     |  +--ro rx-error?     yang:counter32    
+[TS]: sanity check, checksum
+      
+      +--ro interface-state                    
+      |  +--ro interface* [interface]
+      |     +--ro interface     if:interface-ref
+      |     +--ro statistics
+      |        +--ro discontinuity-time?   yang:date-and-time
+      |        +--ro packet
+      |        |  +--ro sent?         yang:counter32
+      |        |  +--ro rcvd?         yang:counter32
+      |        |  +--ro tx-dropped?   yang:counter32   /* how this can be collected at the protocol plane? or at the protocol plane only error packet is dropped. */
+      |        |  +--ro rx-dropped?   yang:counter32   /* how this can be collected at the protocol plane?  */
+      |        |  +--ro tx-error?     yang:counter32   /* how this can be collected at the protocol plane?  */
+      |        |  +--ro rx-error?     yang:counter32   
+      
+      +--ro neighbors-state       /*  */
+         +--ro neighbor* [address]
+            +--ro address                      inet:ip-address
+            +--ro epoch?                       uint32      
+            +--ro expiry-time?                 uint32  /* what does this mean? */A
+[TS]: state expiry (multiples of RI)
+To add description for this
+What happens when Hellos are.
+
+            +--ro flags?                       uint32  /* what does every bit means ? */
+[TS]: rfc5063, section 4.2 ?? restart_cap flags
+
+
+
+            +--ro graceful-restart
+            |  +--ro enabled?               boolean    /* neighbor can send helper and restater enable flag. Here means neighbor's gr capability?  which is enabled? helper or retarte? RFC 3471 */
+[TS]: to recover from fault, GR needs to be enabled locally but helper mode enabled on neighbors
+
+            |  +--ro local-restart-time?    uint32
+            |  +--ro local-recovery-time?   uint32
+            |  +--ro nbr-restart-time?      uint32
+            |  +--ro nbr-recovery-time?     uint32
+            |  +--ro helper-mode           /* ?? */
+            |     +--ro helper-mode?            boolean    /* mean's neighbor is helper? or local is helper? */
+            |     +--ro helper-restart-time?    uint32     /* if this value is neighbor's value and should be samed as nbr-restart-time */
+            |     +--ro helper-recovery-time?   uint32     /* if this value is neighbor's value and should be samed as nbr-recovery-time */
+            |     +--ro nbr-restart-ttd?        uint32     /* what does it mean? the timer is locally used? local node as helper?  */
+"Number of seconds remaining for neighbor to send Hello message."
+[TS]get back on best way to represent this.
+
+            |     +--ro nbr-recovery-ttd?       uint32     /* what does it mean? the timer is locally used? local node as helper?  */;
+             --ro hello-status?                enumeration {hellos}?  
+            +--ro interface?                   if:interface-ref
+            +--ro neighbor-state?              enumeration
+            +--ro ref-count?                   uint32    /* this field is number of path/resv state currently referencing the neighbor. It's suggested to use two fields to represent path and resv */
+[TS]: split into path/resv.. 
+
+            +--ro refresh-reduction-capable?   boolean {refresh-reduction}?
+            +--ro restart-count?               uint32    /* this field is for Number of the neighbor restart, shouldn't be under specified neighbo. */
+            +--ro restart-time?                yang:date-and-time           
+            
+ietf-rsvp-te-psc.yang.tree  
+   +--ro interface-softpreemption-state
+      +--ro soft-preempted-bandwidth?    uint32
+      +--ro over-subscribed-bandwidth?   uint32    /* this is not used for softpreemption. it should be under interface. */          
+[TS]: this is amount RESERVERD BW + SOFT-PREEMPTED BW
+-->> can be common...     
+      
+ietf-te.yang.tree      
+      +--ro interfaces-state
+      |  +--ro interface* [interface]
+      |     +--ro interface                         if:interface-ref
+      |     +--ro interface-admission-state      /* this function can be provied by lsps-state with filter condition is specified interface. so it's not suggested to be defined.  */
+[TS]: I see your point. will replace with bandwidth allocation (BW booked at each of the 8 priorities)
+
+      |     |  +--ro lsp* [source destination tunnel-id lsp-id]
+      |     |     +--ro type?                 identityref
+      |     |     +--ro source                leafref
+      |     |     +--ro destination           leafref
+      |     |     +--ro tunnel-id             leafref
+      |     |     +--ro lsp-id                leafref
+      |     |     +--ro extended-tunnel-id?   leafref  
+      |     |     +--ro lsp_rerouted?         empty      /* this should be under lsps-state/lsp */
+      |     +--ro interface-advertisements-state         /* this is IGP flood state. it's not suggested to be provided here. */
+      |        +--ro flood-interval?           uint32
+      |        +--ro last-flooded-time?        uint32
+      |        +--ro next-flooded-time?        uint32
+      |        +--ro last-flooded-trigger?     enumeration
+      |        +--ro advertized-level-areas* [level-area]
+      |           +--ro level-area    uint32
+      
+      
+      +--ro tunnels-state
+      |  +--ro tunnel* [name type]
+      |     +--ro name           string
+      |     +--ro type           identityref   
+      |     +--ro identifier?    uint16
+      |     +--ro oper-status?   identityref
+      |     +--ro lsp* [source destination tunnel-id lsp-id extended-tunnel-id lsp-type]  /* (1)P2MP tunnel has source p2mpid tunnel-id. 
+                                           P2MP LSP has LSP ID. P2MP subLSP which is to leaf destination has subGroupId. 
+                                            So this should be in hierarchy?   for P2P and P2MP do we need define two containers? */
+                    p2mp-id
+                    sub-lsp * [p2mp-id, sub-group-id, sub-group-orig, destination]
+
+>> p2mp-id: unique for the tunnel (rfc4875)
+
+            <<get back on best way>>
+[TS]: can have 1 list and new LSP type (p2p/p2mp)
+                                                                 (2)where can get to know which is primary lsp and which is secondary lsp? */
+[TS]: agreed. Add new leaf to indicate LSP role (working,protect, reoptimized, delayed clean
+working-primay
+protecting-primary
+reoptimized
+delayed clean
+
+P-bit, O-bit
+
+      |        +--ro source                leafref
+      |        +--ro destination           leafref
+      |        +--ro tunnel-id             leafref  
+      |        +--ro lsp-id                leafref
+      |        +--ro extended-tunnel-id?   leafref
+      
+            
+      +--ro lsps-state   /* for P2P and P2MP do we need define two containers?  
+                             P2MP subLSP which is to leaf destination has subGroupId. we should add this field?
+                             */ 
+
+                              
