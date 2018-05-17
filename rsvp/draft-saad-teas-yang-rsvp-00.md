@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for RSVP-TE
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-02
-date: 2017-10-29
+docname: draft-ietf-teas-yang-rsvp-te-03
+date: 2018-02-19
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -60,7 +60,6 @@ normative:
   I-D.ietf-teas-yang-rsvp:
 
 informative:
-  I-D.draft-dsdt-nmda-guidelines-01:
 
 --- abstract
 
@@ -180,14 +179,6 @@ and RSVP-TE MPLS configuration, state, notification and RPCs.
 The relationship between the different modules is depicted
 in {{figctrl}}.
 
-## State Data Organization
-
-The Network Management Datastore Architecture (NMDA) {{I-D.dsdt-nmda-guidelines}} addresses the "OpState" that was discussed in the IETF.
-As per NMDA guidelines for new models and models that are not concerned with the operational
-state of configuration information, this revision of the draft adopts the NMDA proposal for 
-configuration and state data of this model.
-
-
 ~~~
   TE basic       +---------+        ^: import
   module         | ietf-te |        o: augment
@@ -237,7 +228,7 @@ Below is a YANG tree representation for data items defined in the RSVP-TE generi
 ### YANG Module {#rsvp-te-yang-mod}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2017-10-29.yang"
+<CODE BEGINS> file "ietf-rsvp-te@2018-02-19.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -268,7 +259,7 @@ Below is a YANG tree representation for data items defined in the RSVP-TE MPLS m
 ### YANG Module {#rsvp-te-mpls-yang-mod}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2017-10-29.yang"
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2018-02-19.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
