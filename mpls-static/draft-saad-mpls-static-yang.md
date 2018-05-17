@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
-docname: draft-ietf-mpls-static-yang-04
-date: 2017-07-02
+docname: draft-ietf-mpls-static-yang-05
+date: 2018-02-15
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -48,40 +48,9 @@ author:
     organization: Juniper Networks
     email: vbeeram@juniper.net
 
- -
-    ins: H. Shah
-    name: Himanshu Shah
-    organization: Ciena
-    email: hshah@ciena.com
-
- -
-    ins: I. Bryskin
-    name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
-
- -
-    ins: X. Chen
-    name: Xia Chen
-    organization: Huawei Technologies
-    email: jescia.chenxia@huawei.com
-
- -
-    ins: R. Jones
-    name: Raqib Jones
-    organization: Brocade
-    email: raqib@Brocade.com
- -
-   ins: B. Wen
-   name: Bin Wen
-   organization: Comcast
-   email: Bin_Wen@cable.comcast.com
-
-
 normative:
 
 informative:
-  I-D.draft-openconfig-netmod-opstate-01:
 
 --- abstract
 
@@ -110,12 +79,7 @@ On an egress LER, it is used to create a binding that decapsulates the incoming 
 based on the inner MPLS label (if present) or IP forwarding in the packet.
 
 The MPLS Static LSP YANG model is defined in module "ietf-mpls-static" and augments the MPLS Base YANG model defined
-in module "ietf-mpls" in {{!I-D.saad-mpls-static-yang}}. The approach described in
-{{I-D.openconfig-netmod-opstate}} is adopted to represent
-data pertaining to configuration intended, applied state and derived state data elements. Each 
-container in the model holds a "config" and "state" sub-container.  The "config" sub-container is used to
-represent the intended configurable parameters, and the state sub-container is used to represent
-both the applied configurable parameters and any derived state, such as counters or statistical information.
+in module "ietf-mpls" in {{!I-D.saad-mpls-static-yang}}.
 
 ## Terminology
 
