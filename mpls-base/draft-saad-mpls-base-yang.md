@@ -2,7 +2,7 @@
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
 docname: draft-ietf-mpls-base-yang-06
-date: 2017-07-03
+date: 2018-02-15
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -49,40 +49,10 @@ author:
     organization: Juniper Networks
     email: vbeeram@juniper.net
 
- -
-    ins: H. Shah
-    name: Himanshu Shah
-    organization: Ciena
-    email: tsaad@cisco.com
-
- -
-    ins: I. Bryskin
-    name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
-
- -
-    ins: X. Chen
-    name: Xia Chen
-    organization: Huawei Technologies
-    email: jescia.chenxia@huawei.com
-
- -
-    ins: R. Jones
-    name: Raqib Jones
-    organization: Brocade
-    email: raqib@Brocade.com
- -
-   ins: B. Wen
-   name: Bin Wen
-   organization: Comcast
-   email: Bin_Wen@cable.comcast.com
-
 
 normative:
 
 informative:
-  I-D.draft-openconfig-netmod-opstate-01:
 
 --- abstract
 
@@ -104,11 +74,6 @@ from the MPLS base model.
 
 The MPLS base YANG module augments the "routing" read-write (rw) and "routing-state" read-only
 (ro) branches of the ietf-routing module defined in {{RFC8022}}.
-The approach described in {{I-D.openconfig-netmod-opstate}} is adopted to represent
-data pertaining to configuration intended, applied state and derived state data elements. Each 
-container in the model holds a "config" and "state" sub-container.  The "config" sub-container 
-contains the intended configuration data, and the state sub-container contains
-both the applied configuration and any derived state, such as counters or statistical information.
 
 This document defines the specification for the "ietf-mpls" YANG module that 
 provides base components of the MPLS data model. It is expected that other MPLS 
@@ -203,4 +168,24 @@ default).  These data nodes may be considered sensitive or vulnerable
 in some network environments.  Write operations (e.g., \<edit-config\>)
 to these data nodes without proper protection can have a negative
 effect on network operations.
+
+# Acknowledgement
+
+The authors would like to thank the  members of the multi-vendor YANG design team 
+who are involved in the definition of this model.
+
+# Contributors
+
+~~~~
+
+   Igor Bryskin
+   Huawei Technologies
+   email: Igor.Bryskin@huawei.com
+
+
+   Himanshu Shah
+   Ciena
+   email: hshah@ciena.com
+
+~~~~
 
