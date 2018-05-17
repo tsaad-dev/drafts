@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-10
-date: 2017-12-19
+docname: draft-ietf-teas-yang-te-14
+date: 2018-3-5
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -541,14 +541,14 @@ ietf-te-device.yang, ietf-te-mpls.yang, and ietf-te-sr.yang.
 # TE Generic and Helper YANG Modules
 
 ~~~~
-<CODE BEGINS> file "ietf-te-types@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te-types@2018-03-05.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-types.yang}
 <CODE ENDS>
 ~~~~
 {: #fig-basic-types title="TE basic types YANG module"}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te@2018-03-03.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -556,21 +556,21 @@ ietf-te-device.yang, ietf-te-mpls.yang, and ietf-te-sr.yang.
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te-device@2018-02-15.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-basic-mpls-types title="TE MPLS specific types YANG module"}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te-mpls@2018-02-15.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-mpls-te title="TE MPLS YANG module"}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls-types@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te-mpls-types@2018-02-15.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-mpls-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -578,7 +578,7 @@ ietf-te-device.yang, ietf-te-mpls.yang, and ietf-te-sr.yang.
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-sr-mpls@2017-10-29.yang"
+<CODE BEGINS> file "ietf-te-sr-mpls@2018-02-15.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-sr-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -681,8 +681,8 @@ ignore packets it should receive and process.
 The authors would like to thank the  members of the multi-vendor YANG design team 
 who are involved in the definition of this model.
 
-The authors would also like to thank Loa Andersson, Lou Berger, Sergio Belotti,
-Italo Busi, Aihua Guo, Dhruv Dhody, Anurag Sharma, and Xian Zhang for their 
+The authors would also like to thank Loa Andersson, Lou Berger, Sergio Belotti, Italo Busi,
+Carlo Perocchio, Francesco Lazzeri, Aihua Guo, Dhruv Dhody, Anurag Sharma, and Xian Zhang for their 
 comments and providing valuable feedback on this document.
 
 # Contributors
