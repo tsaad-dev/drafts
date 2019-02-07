@@ -1,8 +1,8 @@
 ---
 title: RSVP-TE Summary Fast Reroute Extensions for LSP Tunnels
 abbrev: RSVP-TE Summary FRR
-docname: draft-ietf-mpls-summary-frr-rsvpte-01
-date: 2018-4-30
+docname: draft-ietf-mpls-summary-frr-rsvpte-02
+date: 2018-11-03
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group

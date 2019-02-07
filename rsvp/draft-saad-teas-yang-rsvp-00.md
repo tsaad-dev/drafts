@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for RSVP-TE
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-03
-date: 2018-02-19
+docname: draft-ietf-teas-yang-rsvp-te-04
+date: 2018-10-20
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -21,7 +21,6 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    role: editor
     organization: Cisco Systems, Inc.
     email: tsaad@cisco.com
 
@@ -32,10 +31,10 @@ author:
     email: rgandhi@cisco.com
 
  -
-    ins: X. Liu
-    name: Xufeng Liu
-    organization: Jabil
-    email: Xufeng_Liu@jabil.com
+   ins: X. Liu
+   name: Xufeng Liu
+   organization: Volta Networks
+   email: xufeng.liu.ietf@gmail.com
 
  -
     ins: I. Bryskin
@@ -63,13 +62,10 @@ informative:
 
 --- abstract
 
-This document defines a YANG data model for the configuration and management of RSVP (Resource
-Reservation Protocol) to establish Traffic-Engineered (TE) Label-Switched Paths (LSPs) for
-MPLS (Multi-Protocol Label Switching) and other technologies.
+This document defines a YANG data model for the configuration and management of RSVP (Resource Reservation Protocol) to establish Traffic-Engineered (TE) Label-Switched Paths (LSPs) for MPLS (Multi-Protocol Label Switching) and other technologies.
 
 The model defines a generic RSVP-TE module for signaling LSPs that is technology agnostic.
-The generic RSVP-TE module is to be augmented by technology specific RSVP-TE modules that define
-technology specific data. This document defines the augmentation for RSVP-TE MPLS LSPs model.
+The generic RSVP-TE module is to be augmented by technology specific RSVP-TE modules that define technology specific data. This document also defines the augmentation for RSVP-TE MPLS LSPs model.
 
 This model covers data for the configuration, operational state, remote procedural calls, 
 and event notifications.
@@ -78,11 +74,9 @@ and event notifications.
 
 # Introduction
 
-YANG {{!RFC6020}} is a data definition language that was introduced to define the contents of a
-conceptual data store that allows networked devices to be managed using NETCONF {{RFC6241}}. YANG
-is proving relevant beyond its initial confines, as bindings to other interfaces (e.g. ReST) and
-encoding other than XML (e.g. JSON) are being defined. Furthermore, YANG data models can be used
-as the basis of implementation for other interfaces, such as CLI and programmatic APIs.
+YANG {{!RFC7950}} is a data modeling language that was introduced to define the contents of a conceptual data store that allows networked devices to be managed
+using NETCONF {{!RFC6241}}. YANG has proved relevant beyond its initial confines, as
+bindings to other interfaces (e.g. RESTCONF {{!RFC8040}}) and encoding other than XML (e.g. JSON) are being defined. Furthermore, YANG data models can be used as the basis of implementation for other interfaces, such as CLI and programmatic APIs.
 
 This document defines a generic YANG data model for configuring and managing RSVP-TE LSP(s) {{RFC3209}}.
 The RSVP-TE generic model augments the RSVP base and extended models defined in {{I-D.ietf-teas-yang-rsvp}}, 
@@ -97,50 +91,11 @@ additional parameters to enable signaling for RSVP-TE.
 
 ## Terminology
 
-In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-"SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
-{{RFC2119}}.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-## Tree Diagram
-
-A simplified graphical representation of the data model is presented in each section of the model.
-The following notations are used for the YANG model data tree representation.
-
-~~~~~~~~~~
-   <status> <flags> <name> <opts> <type>
-
-    <status> is one of:
-      +  for current
-      x  for deprecated
-      o  for obsolete
-
-    <flags> is one of:
-      rw  for read-write configuration data
-      ro  for read-only non-configuration data
-      -x  for execution rpcs
-      -n  for notifications
-
-    <name> is the name of the node
-
-   If the node is augmented into the tree from another module, its name
-   is printed as <prefix>:<name>
-
-    <opts> is one of:
-      ? for an optional leaf or node
-      ! for a presence container
-      * for a leaf-list or list
-      Brackets [<keys>] for a list's keys
-      Curly braces {<condition>} for optional feature that make node
-   conditional
-      Colon : for marking case nodes
-      Ellipses ("...") subtree contents not shown
-
-      Parentheses enclose choice and case nodes, and case nodes are also
-      marked with a colon (":").
-
-    <type> is the name of the type for leafs and leaf-lists.
-~~~~~~~~~~
+The terminology for describing YANG data models is found in {{!RFC7950}}.
 
 ## Prefixes in Data Node Names
 
@@ -149,54 +104,74 @@ are prefixed using the standard prefix associated with the
 corresponding YANG imported modules, as shown in Table 1.
 
 ~~~~~~~~~~
-        +---------------+--------------------+---------------+
-        | Prefix        | YANG module        | Reference     |
-        +---------------+--------------------+---------------+
-        | yang          | ietf-yang-types    | [RFC6991]     |
-        | inet          | ietf-inet-types    | [RFC6991]     |
-        | te            | ietf-te            | this document |
-        | te-types      | ietf-te-types      | this document |
-        | te-mpls-types | ietf-te-mpls-types | this document |
-        | te-dev        | ietf-te-device     | this document |
-        | te-mpls       | ietf-te-mpls       | this document |
-        | te-sr-mpls    | ietf-te-sr-mpls    | this document |
-        +---------------+--------------------+---------------+
+ +---------------+--------------------+-------------------------------+
+ | Prefix        | YANG module        | Reference                     |
+ +---------------+--------------------+-------------------------------+
+ | yang          | ietf-yang-types    | [RFC6991]                     |
+ | inet          | ietf-inet-types    | [RFC6991]                     |
+ | te            | ietf-te            | [I-D.ietf-teas-yang-te]       |
+ | rsvp          | ietf-rsvp          | [I-D.ietf-teas-yang-rsvp]     |
+ | te-dev        | ietf-te-device     | [I-D.ietf-teas-yang-te]       |
+ | te-types      | ietf-te-types      | [I-D.ietf-teas-yang-te-types] |
+ | te-mpls-types | ietf-te-mpls-types | [I-D.ietf-teas-yang-te-types] |
+ | rsvp-te       | ietf-rsvp-te       | this document                 |
+ | rsvp-te-mpls  | ietf-rsvp-te-mpls  | this document                 |
+ +---------------+--------------------+-------------------------------+
 
             Table 1: Prefixes and corresponding YANG modules
 ~~~~~~~~~~
 
-# Design Considerations
+# Model Overview
 
-## Module Hierarchy
+The RSVP-TE generic model augments the RSVP base and extended YANG models defined in {{I-D.ietf-teas-yang-rsvp}}. It also augments the TE tunnels and interfaces module defined in {{I-D.ietf-teas-yang-te}} to cover parameters specific to the configuration and management of RSVP-TE interfaces, tunnels and LSP(s).
 
-The data pertaining to RSVP-TE in this document is divided into two modules: a technology agnostic
-RSVP-TE module that holds generic parameters for RSVP-TE applicable to all technologies, and a
-technology specific RSVP-TE module (e.g. for MPLS RSVP-TE) that holds parameters specific to the
-technology.
+The RSVP-TE MPLS YANG model augments the RSVP-TE generic model with parameters to configure and manage signaling of MPLS RSVP-TE LSPs.  RSVP-TE model augmentation for other dataplane technologies (e.g. OTN or WDM) are outside the scope of this document.
 
-This document defines YANG data models for RSVP-TE,
-and RSVP-TE MPLS configuration, state, notification and RPCs.
-The relationship between the different modules is depicted
-in {{figctrl}}.
+There are three types of configuration and state data nodes in module(s) defined in this document:
+
+* those augmenting or extending the base RSVP module that is defined in {{!I-D.ietf-teas-yang-rsvp}}
+* those augmenting or extending the base TE module defined in {{I-D.ietf-teas-yang-te}}
+* those that are specific to the RSVP-TE and RSVP-TE MPLS modules defined in this document.
+
+## Module Relationship
+
+The data pertaining to RSVP-TE in this document is divided into two modules: a technology agnostic RSVP-TE module that holds generic parameters for RSVP-TE applicable to all technologies, and a MPLS technology specific RSVP-TE module that holds parameters specific to 
+MPLS technology.
+
+The RSVP-TE generic YANG module "ietf-rsvp-te" imports the following modules:
+
+- ietf-rsvp defined in {{I-D.ietf-teas-yang-rsvp}}
+- ietf-routing-types defined in {{!RFC8294}}
+- ietf-te-types defined in {{!I-D.ietf-teas-yang-te-types}}
+- ietf-te and ietf-te-dev defined in {{!I-D.ietf-teas-yang-te}}
+
+The RSVP-TE MPLS YANG module "ietf-te-device" imports the following module(s):
+
+- ietf-rsvp defined in {{I-D.ietf-teas-yang-rsvp}}
+- ietf-routing-types defined in {{!RFC8294}}
+- ietf-te-mpls-types defined in {{!I-D.ietf-teas-yang-te-types}}
+- ietf-te and ietf-te-dev defined in {{!I-D.ietf-teas-yang-te}}
+
+The relationship between the different modules is shown in {{figctrl}}.
 
 ~~~
-  TE basic       +---------+        ^: import
+  TE basic       +---------+
   module         | ietf-te |        o: augment
                  +---------+
-                    |   o
-                    |   |
-                    v   |
+                      o
+                      |
+                      |
                  +--------------+
   RSVP-TE module | ietf-rsvp-te |o . . .
                  +--------------+         \
-                    ^   |                  \
-                    |   o               +-------------------+
-                 +-----------+          | ietf-rsvp-otn-te  |
-  RSVP module    | ietf-rsvp |          +-------------------+
-                 +-----------+             RSVP-TE with OTN
-                      o                    extensions
-                      |                   (shown for illustration
-  RSVP extended       |                    not in this document)
+                      |                    \
+                      o                 +--------------------+
+                 +-----------+          | ietf-rsvp-te-mpls  |
+  RSVP module    | ietf-rsvp |          +--------------------+
+                 +-----------+             RSVP-TE with MPLS
+                      o
+                      |
+  RSVP extended       |
     module       +--------------------+
                  | ietf-rsvp-extended |
                  +--------------------+
@@ -204,70 +179,49 @@ in {{figctrl}}.
 {: #figctrl title="Relationship of RSVP and RSVP-TE modules with other
  protocol modules"}
 
-## RSVP-TE Generic Model {#rsvp-te-yang}
+## Model Tree Diagrams
 
-The RSVP-TE generic module augments the RSVP base and extended YANG modules defined in {{I-D.ietf-teas-yang-rsvp}}  as well as the TE tunnels
-and interfaces module {{I-D.ietf-teas-yang-te}} to cover parameters specific to the configuration and
-management of RSVP-TE interfaces, tunnels and LSP(s).
+A full tree diagram of the module(s) defined in this document as per the syntax defined in {{!RFC8340}} are given in subsequent sections.
 
-### Tree Diagram
+### RSVP-TE Model Tree Diagram
 
-There are three types of configuration and state data nodes in this module:
-
-* those augmenting or extending the base RSVP module
-* those augmenting or extending the base TE module
-* those that are specific to the RSVP-TE module
-
-Below is a YANG tree representation for data items defined in the RSVP-TE generic module:
+{{fig-rsvp-te}} shows the YANG tree diagram of the RSVP-TE generic YANG model defined in module ietf-rsvp-te.yang.
 
 ~~~~~~~~~~
 {::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang.tree}
 ~~~~~~~~~~
 {: #fig-rsvp-te title="RSVP-TE model Tree diagram"}
 
-### YANG Module {#rsvp-te-yang-mod}
+### RSVP-TE MPLS Model Tree Diagram
 
-~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2018-02-19.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang}
-<CODE ENDS>
-~~~~~~~~~~
-{: #fig-rsvp-te-module title="RSVP TE generic YANG module"}
-
-## RSVP-TE MPLS Model
-
-The MPLS RSVP-TE YANG module augments the RSVP-TE
-generic module with parameters to configure and manage signaling of MPLS RSVP-TE LSPs.
-RSVP-TE YANG modules for other dataplane technologies (e.g. OTN or WDM) are outside the
-scope of this document and are defined in other documents.
-
-### Tree Diagram
-
-The following are possible types of configuration and state data nodes in this module:
-
-* those augmenting or extending the generic RSVP-TE module
-* those augmenting or extending the TE module
-* those that are specific to the RSVP-TE MPLS module
-
-Below is a YANG tree representation for data items defined in the RSVP-TE MPLS module:
+{{fig-rsvp-te-mpls-module}} shows the YANG tree diagram of the RSVP-TE MPLS YANG model defined in module ietf-rsvp-te-mpls.yang and that augments RSVP-TE module as well as RSVP
+and TE YANG modules.
 
 ~~~~~~~~~~
 {::include /Users/tsaad/yang/sept/te/ietf-rsvp-te-mpls.yang.tree}
 ~~~~~~~~~~
 {: #fig-rsvp-te-mpls title="RSVP-TE MPLS Tree diagram"}
 
-### YANG Module {#rsvp-te-mpls-yang-mod}
+## YANG Modules {#te-yang-mod}
+
+### RSVP-TE YANG Module {#rsvp-te-yang-mod}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2018-02-19.yang"
+<CODE BEGINS> file "ietf-rsvp-te@2018-10-20.yang"
+{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang}
+<CODE ENDS>
+~~~~~~~~~~
+{: #fig-rsvp-te-module title="RSVP TE generic YANG module"}
+
+### RSVP-TE MPLS YANG Module {#rsvp-te-mpls-yang-mod}
+
+
+~~~~~~~~~~
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2018-10-20.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-rsvp-te-mpls-module title="RSVP TE MPLS YANG module"}
-
-{{fig-rsvp-te-mpls-module}} shows the YANG tree representation of
-the RSVP TE MPLS module that augments RSVP-TE module as well as RSVP
-and TE YANG modules.
 
 # IANA Considerations
 
@@ -300,18 +254,33 @@ The YANG module defined in this memo is designed to be accessed via
 the NETCONF protocol {{!RFC6241}}.  The lowest NETCONF layer is the
 secure transport layer and the mandatory-to-implement secure
 transport is SSH {{!RFC6242}}.  The NETCONF access control model
-{{!RFC6536}} provides means to restrict access for particular NETCONF
-
+{{!RFC8341}} provides means to restrict access for particular NETCONF
 users to a pre-configured subset of all available NETCONF protocol
 operations and content.
 
-There are a number of data nodes defined in the YANG module which are
+There are a number of data nodes defined in the YANG module(s) defined
+in this document which are
 writable/creatable/deletable (i.e., config true, which is the
 default).  These data nodes may be considered sensitive or vulnerable
 in some network environments.  Write operations (e.g., \<edit-config\>)
 to these data nodes without proper protection can have a negative
 effect on network operations.
 
+/rt:routing/rt:control-plane-protocols/rt:control-plane-protocol/rsvp:rsvp/globals:
+The data nodes defined defined in this document and under this branch are applicable device-wide and can affect
+all RSVP established sessions. Unauthorized access to this container can potentially
+cause disruptive event(s) on all established sessions.
+
+/rt:routing/rt:control-plane-protocols/rt:control-plane-protocol/
+rsvp:rsvp/rsvp:globals/rsvp:sessions:
+The data nodes defined in this document and under this branch are applicable to one or all RSVP-TE session(s).
+Unauthorized access to this container can potentially affect the impacted RSVP session(s).
+
+/rt:routing/rt:control-plane-protocols/rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces:
+The data nodes defined defined in this document and under this branch are applicable to one or all RSVP interfaces.
+Unauthorized access to this container can potentially affect established session(s)
+over impacted interface(s).
+      
 # Acknowledgement
 
 The authors would like to thank Lou Berger for reviewing and providing valuable feedback
