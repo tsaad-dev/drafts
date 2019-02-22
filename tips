@@ -1,0 +1,75 @@
+I-Ds:
+====
+
+pyang --ietf --verbose --lint -f tree --tree-line-length=80
+
+grunt-init rfc
+
+:set hlsearch | /\%>69v.\+
+set shiftwidth=2 | set tabstop=2 | set softtabstop=2
+set spell spelllang=en_us
+set tabstop=2 shiftwidth=2 expandtab
+git difftool --tool=vimdiff --no-prompt HEAD
+sshfs tsaad@mybooklive.local:/ ~/mybooklive
+sshfs pi@192.168.0.27:/home/pi ~/raspberry
+sshfs pi@raspberrypi.local:/home/pi ~/raspberry
+mosh --server="setenv LD_LIBRARY_PATH /users/tsaad/lib && ~/bin/mosh-server" tsaad-ads
+mosh --server="setenv LD_LIBRARY_PATH /users/tsaad/lib && ~/bin/mosh-server" tsaad-ads -- tmux a
+mosh --server="setenv LD_LIBRARY_PATH /users/tsaad/lib && ~/bin/mosh-server" tsaad-ads2 -- tmux a
+
+Passwordless:
+ssh pi@192.168.0.27 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh pi@192.168.0.27 'cat >> .ssh/authorized_keys'
+
+Raspberry:
+sudo vi /etc/xdg/lxsession/LXDE/autostart
+
+pi@raspberrypi ~ $ sudo more /etc/xdg/lxsession/LXDE/autostart
+@lxpanel --profile LXDE
+@pcmanfm --desktop --profile LXDE
+@libreoffice --norestore --impress -show /home/pi/media/slideshow/slideshow.odp
+@mp3-decoder --list /home/pi/playlist.m3u --random --loop 0
+
+pyang -f uml --uml-no=circles,stereotypes,annotation ietf-mpls-static.yang -o ietf-mpls-static.uml
+plantuml  ietf-mpls-static.uml
+pyang -f uml --uml-no=circles,stereotypes,annotation ietf-rsvp-extended.yang ietf-rsvp.yang ietf-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-te.yang ietf-te-device.yang ietf-te-sr-mpls.yang -o te_model.uml
+ADD: skinparam dpi 300
+pyang --ietf --lint -f tree ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang ietf-te-mpls-types.yang > rsvp_te_model.tree
+wgstatus --org-mode mpls
+umount -f pi@192.168.0.18:/home/pi
+sshfs tsaad@tsaad-ads1:/nobackup/tsaad/ ~/ads -o auto_cache,reconnect,defer_permissions,noappledouble
+pyang -f tree --strict --lint network-instance/* --path=`pwd` > all.tree
+
+pyang -f uml --uml-no=module,circles,stereotypes,typedef,import --uml-classes-only --uml-split-pages=1x2 ietf-te.yang -o ietf-te.uml
+
+fold -w 80 rsvp_te_model.tree > rsvp_te_model.tree.folded
+
+confdc -c ietf-rsvp-extended.yang && confdc -c ietf-rsvp.yang && confdc -c ietf-te.yang && confdc -c ietf-rsvp-te.yang && confdc -c ietf-rsvp-te-mpls.yang && confdc -c ietf-te-sr-mpls.yang && confdc -c ietf-te-device.yang && confdc -c ietf-mpls-static-extended.yang && confdc -c ietf-mpls-static.yang && confdc -c ietf-mpls.yang && confdc -c ietf-te-mpls.yang && confdc -c ietf-te-sr-mpls.yang
+
+git config --global core.editor $(which vim)
+
+
+/\%>72v.\+
+nnoremap <C-J> ciW<CR><Esc>:if match( @", "^\\s*$") < 0<Bar>exec "norm P-$diw+"<Bar>endif<CR>
+% normal @1
+set colorcolumn=72 | set formatoptions+=w | set tw=72
+gggqG
+
+pyang --ietf --lint -f tree ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang > ietf-te-all.tree
+pyang --ietf --lint -f tree ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang ietf-te-mpls-types.yang > rsvp_te_model.tree
+
+java -jar plantuml.jar ietf-netconf-monitoring.uml 
+
+
+
+tsaad@TSAAD-M-V046:~/temp/YangMapper$ pwd
+/Users/tsaad/temp/YangMapper
+tsaad@TSAAD-M-V046:~/temp/YangMapper$ ./start.sh
+
+Activating virtualenv ..
+Starting YangMapper server ..
+
+java -jar ../plantuml.jar oc-srte-policy.uml
+pyang -f uml --uml-no=circles,stereotypes oc-srte-policy.yang -o oc-srte-policy.uml
+
+yanglint -f yang ietf-te.yang -V
