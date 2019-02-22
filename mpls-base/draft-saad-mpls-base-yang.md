@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
-docname: draft-ietf-mpls-base-yang-06
-date: 2018-02-15
+docname: draft-ietf-mpls-base-yang-09
+date: 2018-11-04
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -12,8 +12,6 @@ stand_alone: yes
 pi: [toc, sortrefs, symrefs]
 
 normative:
-  RFC2119:
-  RFC8022:
 
 informative:
 
@@ -38,10 +36,10 @@ author:
     email: rgandhi@cisco.com
 
  -
-    ins: X. Liu
-    name: Xufeng Liu
-    organization: Jabil
-    email: Xufeng_Liu@jabil.com
+   ins: X. Liu
+   name: Xufeng Liu
+   organization: Volta Networks
+   email: xufeng.liu.ietf@gmail.com
 
  -
     ins: V. P. Beeram
@@ -56,80 +54,154 @@ informative:
 
 --- abstract
 
-This document contains a specification of the the MPLS base YANG model. The MPLS base YANG module
-serves as a base framework for configuring and managing an MPLS switching subsystem.
-It is expected that other MPLS technology YANG models (e.g. MPLS LSP Static, LDP or RSVP-TE models)
-will augment the MPLS base YANG model.
+This document contains a specification of the the MPLS base YANG model. The MPLS base YANG model serves as a base framework for configuring and managing an MPLS switching subsystem on an MPLS-enabled router.
+It is expected that other MPLS YANG models (e.g. MPLS LSP Static, LDP or RSVP-TE YANG models) will augment the MPLS base YANG model.
 
 --- middle
 
 # Introduction
 
-A core routing data model is defined in
-{{!RFC8022}}, and it provides a basis for the
+A core routing data model is defined in {{!RFC8349}}, and it provides a basis for the
 development of data models for routing protocols.  The MPLS base model
-augments this model with additional data specific to MPLS switching {{!RFC3031}}.
-The interface data model is defined in {{!RFC7223}} and is used for referencing interface
-from the MPLS base model. 
+augments core routing data model with additional data specific to MPLS technology as described in the MPLS architecture document {{!RFC3031}}. 
 
-The MPLS base YANG module augments the "routing" read-write (rw) and "routing-state" read-only
-(ro) branches of the ietf-routing module defined in {{RFC8022}}.
+The MPLS base model serves as a basis for future development of MPLS data models covering
+more-sophisticated MPLS feauture(s) and sub-system(s). The main purpose is to provide essential building blocks for the more-complicated data models involving different 
+control-plane protocols, and advanced MPLS functions.
 
-This document defines the specification for the "ietf-mpls" YANG module that 
-provides base components of the MPLS data model. It is expected that other MPLS 
-YANG modules will augment the "ietf-mpls" base model
-to define data models for other MPLS technologies (e.g. MPLS LDP or MPLS RSVP-TE).
+To this end, it is expected that the MPLS base data
+model will be augmented by a number of other modules developed at IETF (e.g. by TEAS and MPLS working groups).
 
-This document also defines a way to model MPLS labelled routes as an augmentation of the the
-routing RIB model defined in {{RFC8022}} for IP prefix routes that are MPLS labelled.
-Other MPLS non-IP prefix routes are also modelled by introducing a new "mpls" address-family RIB.
+The YANG module in this document conforms to the Network Management Datastore Architecture (NMDA) {{!RFC8342}}.
 
 
 ## Terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14, RFC 2119 RFC2119}}.
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-### Keywords
+The terminology for describing YANG data models is found in {{!RFC7950}}.
 
-   The following terms are defined in {{!RFC6020}}:
+## Acronyms and Abbreviations
 
-   o  augment,
+> MPLS: Multiprotocol Label Switching
 
-   o  configuration data,
+> RIB: Routing Information Base
 
-   o  data model,
+> LSP: Label Switched Path
 
-   o  data node,
+> LSR: Label Switching Router
 
-   o  feature,
+> LER: Label Edge Router
 
-   o  mandatory node,
+> FEC: Forwarding Equivalence Class
 
-   o  module,
+> NHLFE: Next Hop Label Forwarding Entry
 
-   o  schema tree,
+> ILM: Incoming Label Map
 
-   o  state data,
+# MPLS Base Model
 
-   o  RPC operation.
+This document describes the ietf-mpls YANG module that 
+provides base components of the MPLS data model. It is expected that other MPLS 
+YANG modules will augment the ietf-mpls base module for other MPLS extension to provision LSP(s) (e.g. MPLS Static, MPLS LDP or MPLS RSVP-TE LSP(s)).
 
+## Model Overview
 
-## MPLS Base Tree Diagram
+This document defines a mechanism to model MPLS labeled routes as an augmentation of the the routing RIB data model defined in {{!RFC8349}} for IP prefix routes that are MPLS labelled.
 
-The MPLS base tree diagram is shown in {{fig-mpls-base-tree}}.
+The other MPLS route(s) that are non-IP prefix routes are modelled by introducing a new "mpls" address-family RIB as per recommendation .
+
+## Model Organization
 
 ~~~~~~~~~~~
-{::include /Users/tsaad/yang/jun/te/ietf-mpls.yang.tree}
+
+  Routing module   +---------------+    v: import
+                   | ietf-routing  |    o: augment
+                   +---------------+
+                       o
+                       |
+                       v
+  MPLS base        +-----------+    v: import
+  module           | ietf-mpls |    o: augment
+                   +-----------+
+                      o      o------+
+                      |              \
+                      v               v
+              +-------------------+ +---------------------+
+  MPLS Static | ietf-mpls-static@ | | ietf-mpls-ldp.yang@ | . .
+  LSP module  +-------------------+ +---------------------+
+
+        @: not in this document, shown for illustration only
+~~~~~~~~~~~
+{: #fig-mpls-relation title="Relationship between MPLS modules"}
+
+
+The ietf-mpls module imports the followinig modules:
+
+- ietf-routing defined in {{!RFC8349}}
+- ietf-routing-types defined in {{!RFC8294}}
+- ietf-interfaces defined in {{!RFC8343}}
+
+
+ietf-mpls module contains the following high-level types and groupings:
+
+label-block-alloc-mode:
+
+> A base YANG identity for supported label block allocation mode(s).
+
+mpls-operations-type:
+
+> An enumeration type that represents support possible MPLS operation types (impose-and-forward, pop-and-forward, pop-impose-and-forward, and pop-and-lookup)
+
+
+nhlfe-role:
+
+> An enumeration type that represents the role of the NHLFE entry.
+
+nhlfe-single-contents:
+
+> A YANG grouping that describes single NHLFE and its associated parameters as described in the MPLS architecture document {{!RFC3031}}.
+
+nhlfe-multiple-contents:
+
+> A YANG grouping that describes a set of NHLFE(s) and their associated parameters as described in the MPLS architecture document {{!RFC3031}}.
+
+
+interface-mpls-properties:
+
+> A YANG grouping that describes the properties of an MPLS interface on a device.
+
+interfaces-mpls:
+
+> A YANG grouping that describes the list of MPLS enabled interfaces on a device.
+
+label-block-properties:
+
+> A YANG grouping that describes the properties of an MPLS label block.
+
+label-blocks:
+
+> A YANG grouping that describes the list of MPLS enabled interfaces on a device.
+
+## Model Tree Diagram
+
+The MPLS base tree diagram that follows the notation defined in {{!RFC8340}} is shown in {{fig-mpls-base-tree}}.
+
+~~~~~~~~~~~
+{::include /Users/tsaad/yang/sept/te/ietf-mpls.yang.tree}
 ~~~~~~~~~~~
 {: #fig-mpls-base-tree title="MPLS Base tree diagram"}
 
-## MPLS Base Module
+## Model YANG Module
+
+This section describes the "ietf-mpls" YANG module that 
+provides base components of the MPLS data model. Other YANG module(s) may import and augment the base MPLS module to add feature specific data.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls@2017-07-02.yang"
-{::include /Users/tsaad/yang/jun/te/ietf-mpls.yang}
+<CODE BEGINS> file "ietf-mpls@2018-11-04.yang"
+{::include /Users/tsaad/yang/sept/te/ietf-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-module-mpls-base title="MPLS base YANG module"}
@@ -141,33 +213,50 @@ This document registers the following URIs in the IETF XML registry
 Following the format in {{RFC3688}}, the following registration is
 requested to be made.
 
+~~~
    URI: urn:ietf:params:xml:ns:yang:ietf-mpls
+   Registrant Contact: The MPLS WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
+~~~
 
 This document registers a YANG module in the YANG Module Names
-registry {{RFC6020}}.
+registry {{!RFC6020}}.
 
+~~~
    name:       ietf-mpls
    namespace:  urn:ietf:params:xml:ns:yang:ietf-mpls
    prefix:     ietf-mpls
-   reference:  RFC3031
+   // RFC Ed.: replace XXXX with RFC number and remove this note
+   reference:  RFCXXXX
+~~~
 
 # Security Considerations
 
-The YANG module defined in this document is designed to be accessed via
-the NETCONF protocol {{!RFC6241}}.  The lowest NETCONF layer is the
-secure transport layer and the mandatory-to-implement secure
-transport is SSH {{!RFC6242}}.  The NETCONF access control model
-{{!RFC6536}} provides means to restrict access for particular NETCONF
-users to a pre-configured subset of all available NETCONF protocol
+
+The YANG modules specified in this document define a schema for data
+that is designed to be accessed via network management protocols such
+as NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}.  The lowest NETCONF layer
+is the secure transport layer, and the mandatory-to-implement secure
+transport is Secure Shell (SSH) {{!RFC6242}}.  The lowest RESTCONF layer
+is HTTPS, and the mandatory-to-implement secure transport is TLS
+{{!RFC8446}}.
+
+The NETCONF access control model {{!RFC8341}} provides the means to
+restrict access for particular NETCONF or RESTCONF users to a
+preconfigured subset of all available NETCONF or RESTCONF protocol
 operations and content.
 
-There are a number of data nodes defined in the YANG module which are
-writable/creatable/deletable (i.e., config true, which is the
-default).  These data nodes may be considered sensitive or vulnerable
-in some network environments.  Write operations (e.g., \<edit-config\>)
-to these data nodes without proper protection can have a negative
-effect on network operations.
+Some of the readable data nodes in these YANG modules may be
+considered sensitive or vulnerable in some network environments.  It
+is thus important to control read access (e.g., via get, get-config,
+or notification) to these data nodes.  These are the subtrees and
+data nodes and their sensitivity/vulnerability:
+
+/rt:routing/rt:ribs/rt:rib/rt:active-route/rt:output/rt:route: this path is augmented
+by additional MPLS leaf(s) defined in this model. Access to this information may disclose the per prefix and/or other information.
+
+/rt:routing/rt:ribs/rt:rib/rt:active-route/rt:output/rt:route/rt:next-hop/rt:next-hop-options/rt:simple-next-hop: this path is augmented by additional MPLS leaf(s) defined in this model. Access to this information may disclose the next-hop or path per prefix and/or other information.
+
 
 # Acknowledgement
 
