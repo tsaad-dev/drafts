@@ -73,3 +73,5 @@ java -jar ../plantuml.jar oc-srte-policy.uml
 pyang -f uml --uml-no=circles,stereotypes oc-srte-policy.yang -o oc-srte-policy.uml
 
 yanglint -f yang ietf-te.yang -V
+pyang --ietf --verbose --lint -f tree --tree-line-length=72
+

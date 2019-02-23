@@ -1,8 +1,8 @@
 ---
-title: A YANG Data Model for MPLS Traffic Engineering Tunnels and Interfaces
-abbrev: MPLS TE YANG Data Model
+title: A YANG Data Model for MPLS Traffic Engineering Tunnels
+abbrev: MPLS TE Tunnels YANG Data Model
 docname: draft-ietf-teas-yang-te-mpls-00
-date: 2019-02-18
+date: 2019-02-23
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -56,8 +56,8 @@ informative:
 --- abstract
 
 This document defines a YANG data model for the configuration and management of
-Multiprotocol Label Switching (MPLS) Traffic Engineering (TE) interfaces,
-tunnels and Label Switched Paths (LSPs). The model augments the TE generic YANG
+Multiprotocol Label Switching (MPLS) Traffic Engineering (TE) tunnels,
+Label Switched Paths (LSPs) and interfaces. The model augments the TE generic YANG
 model for MPLS packet dataplane technology.
 
 This model covers data for configuration, operational state, remote procedural
@@ -76,9 +76,9 @@ models can be used as the basis of implementation for other interfaces, such as
 CLI and programmatic APIs.
 
 This document describes the YANG data model for configuration and management of
-MPLS TE tunnels, LSPs, and interfaces.  Other YANG module(s) that model TE
-signaling protocols, such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}) may augment
-this model with MPLS signaling specific data.
+MPLS TE tunnels, LSPs, and interfaces.  Other YANG module(s) that model the establishment of
+MPLS LSP(s) via signaling protocols such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}) are described
+in separate document(s).
 
 ## Terminology
 
@@ -133,8 +133,8 @@ scope of this document and is covered in other documents, e.g. in
 
 The MPLS TE YANG module "ietf-te-mpls" imports the following modules:
 
-- ietf-te defined in {{!I-D.ietf-teas-yang-te}}
-- ietf-te-types and ietf-te-mpls-types defined in
+- ietf-te and ietf-te-device defined in {{!I-D.ietf-teas-yang-te}}
+- ietf-te-types and ietf-te-packet-types defined in
   {{!I-D.ietf-teas-yang-te-types}}
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-mpls-static defined in {{!I-D.ietf-mpls-static-yang}}
@@ -173,7 +173,7 @@ defined in ietf-te-mpls.yang.
 ## MPLS TE YANG Module
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls@2018-11-02.yang"
+<CODE BEGINS> file "ietf-te-mpls@2019-02-23.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -219,9 +219,13 @@ to these data nodes without proper protection can have a negative
 effect on MPLS network operations.  Following are the subtrees and data
 nodes and their sensitivity/vulnerability:
 
-"/te/tunnels":  This list specifies the configured TE
-tunnels on a device.  Unauthorized access to this list could cause
+"/te/tunnels":  The augmentation to this list specifies configuration to
+TE tunnels on a device.  Unauthorized access to this list could cause
 the device to ignore packets it should receive and process.
+
+"/te/globals":  The augmentation to this target specifies configuration
+applicable to the to all or one TE device.  Unauthorized access to this list
+could cause the device to ignore packets it should receive and process.
 
 # Contributors
 ~~~~

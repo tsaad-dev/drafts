@@ -1,5 +1,6 @@
 {
   "name": "draft-saad-teas-yang-te",
+  "private": true,
   "author": {
     "name": "Tarek Saad",
     "email": "tsaad@cisco.com"
@@ -15,5 +16,8 @@
     "grunt-kramdown-rfc2629": "0.0.1",
     "grunt-parallel": "^0.5.1",
     "jit-grunt": "^0.3.2"
+  },
+  "dependencies": {
+    "npm": "^6.8.0"
   }
 }
