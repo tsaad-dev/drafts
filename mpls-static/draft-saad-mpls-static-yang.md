@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
-docname: draft-ietf-mpls-static-yang-07
-date: 2018-11-04
+docname: draft-ietf-mpls-static-yang-08
+date: 2019-02-24
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -55,41 +55,53 @@ informative:
 
 --- abstract
 
-This document contains the specification for the MPLS Static Label Switched Paths (LSPs) YANG model. The model allows for
-the provisioning of static LSP(s) on Label Edge Router(s) LER(s) and Label Switched Router(s) LSR(s) devices along a LSP path without the dependency on any signaling protocol.
-The MPLS Static LSP model augments the MPLS base YANG model with specific data to configure and manage MPLS Static LSP(s).
+This document contains the specification for the MPLS Static Label Switched
+Paths (LSPs) YANG model. The model allows for the provisioning of static LSP(s)
+on Label Edge Router(s) LER(s) and Label Switched Router(s) LSR(s) devices
+along a LSP path without the dependency on any signaling protocol.  The MPLS
+Static LSP model augments the MPLS base YANG model with specific data to
+configure and manage MPLS Static LSP(s).
 
 --- middle
 
 # Introduction
 
-This document describes a YANG {{!RFC7950}} data model for configuring and managing the Multiprotocol Label Switching (MPLS) {{!RFC3031}} Static LSPs.
-The model allows the configuration of LER and LSR devices with the necessary MPLS cross-connects or bindings to realize an
-end-to-end LSP service.
+This document describes a YANG {{!RFC7950}} data model for configuring and
+managing the Multiprotocol Label Switching (MPLS) {{!RFC3031}} Static LSPs.
+The model allows the configuration of LER and LSR devices with the necessary
+MPLS cross-connects or bindings to realize an end-to-end LSP service.
 
-A static LSP is established by manually specifying incoming and outgoing MPLS label(s) and necessary forwarding
-information on each of the traversed LER and LSR devices 
-(ingress, transit, or egress nodes) of the forwarding path.
+A static LSP is established by manually specifying incoming and outgoing MPLS
+label(s) and necessary forwarding information on each of the traversed LER and
+LSR devices (ingress, transit, or egress nodes) of the forwarding path.
 
-For example, on an ingress LER device, the model is used to associate a specific Forwarding Equivalence Class
-(FEC) of packets-- e.g. matching a specific IP prefix in a Virtual Routing or Forwarding (VRF) instance--
-to an MPLS outgoing label imposition, next-hop(s) and respective outgoing interface(s) to forward the packet.
-On an LSR device, the model is used to create a binding that
-swaps the incoming label with an outgoing label and forwards the packet on one or multiple egress path(s).
-On an egress LER, it is used to create a binding that decapsulates the incoming MPLS label and performs forwarding 
-based on the inner MPLS label (if present) or IP forwarding in the packet.
+For example, on an ingress LER device, the model is used to associate a
+specific Forwarding Equivalence Class (FEC) of packets-- e.g. matching a
+specific IP prefix in a Virtual Routing or Forwarding (VRF) instance-- to an
+MPLS outgoing label imposition, next-hop(s) and respective outgoing
+interface(s) to forward the packet.  On an LSR device, the model is used to
+create a binding that swaps the incoming label with an outgoing label and
+forwards the packet on one or multiple egress path(s).  On an egress LER, it is
+used to create a binding that decapsulates the incoming MPLS label and performs
+forwarding based on the inner MPLS label (if present) or IP forwarding in the
+packet.
 
-The MPLS Static LSP YANG model is broken into two modules "ietf-mpls-static" and "ietf-mpls-static-extended".
-The "ietf-mpls-static" module covers basic features for the configuration and management of unidirectional Static LSP(s), while
-"ietf-mpls-static-extended" covers extended features like the configuration and management of bidirectional Static LSP(s) and LSP admission control.
+The MPLS Static LSP YANG model is broken into two modules "ietf-mpls-static"
+and "ietf-mpls-static-extended".  The "ietf-mpls-static" module covers basic
+features for the configuration and management of unidirectional Static LSP(s),
+while "ietf-mpls-static-extended" covers extended features like the
+configuration and management of bidirectional Static LSP(s) and LSP admission
+control.
 
-The module "ietf-mpls-static" augments the MPLS Base YANG model defined in module "ietf-mpls" in {{!I-D.ietf-mpls-base-yang}}.
+The module "ietf-mpls-static" augments the MPLS Base YANG model defined in
+module "ietf-mpls" in {{!I-D.ietf-mpls-base-yang}}.
 
 ## Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
+when, and only when, they appear in all capitals, as shown here.
 
 The terminology for describing YANG data models is found in {{!RFC7950}}.
 
@@ -113,11 +125,12 @@ The terminology for describing YANG data models is found in {{!RFC7950}}.
 
 ## Model Organization
 
-The base MPLS Static LSP model covers the core features with the minimal set of configuration parameters needed to
-manage and operate MPLS Static LSPs.
+The base MPLS Static LSP model covers the core features with the minimal set of
+configuration parameters needed to manage and operate MPLS Static LSPs.
 
-Additional MPLS Static LSP parameters as well as optional feature(s) are grouped in a separate MPLS Static LSP
-extended model. The relationship between the MPLS base and other MPLS modules are shown in {{fig-mpls-relation}}.
+Additional MPLS Static LSP parameters as well as optional feature(s) are
+grouped in a separate MPLS Static LSP extended model. The relationship between
+the MPLS base and other MPLS modules are shown in {{fig-mpls-relation}}.
  
 ~~~~~~~~~~~
 
@@ -149,7 +162,8 @@ extended model. The relationship between the MPLS base and other MPLS modules ar
 
 ## Model Tree Diagram
 
-The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in {{fig-mpls-static-tree}}.
+The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in
+{{fig-mpls-static-tree}}.
 
 ~~~~~~~~~~
 {::include /Users/tsaad/yang/sept/te/ietf-mpls-static.tree}
@@ -161,20 +175,12 @@ The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in {{
 This document defines two YANG modules for MPLS Static LSP(s) configuration and
 management: ietf-mpls-static.yang and ietf-mpls-static-extended.yang.
 
-The ietf-mpls-static module imports the followinig modules:
-
-- ietf-inet-types defined in {{!RFC6991}}
-- ietf-routing defined in {{!RFC8349}}
-- ietf-routing-types defined in {{!RFC8294}}
-- ietf-interfaces defined in {{!RFC8343}}
-- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
-- ietf-te defined in {{!I-D.ietf-teas-yang-te}}
-
 The ietf-mpls-static module contains the following high-level types and groupings:
 
 static-lsp-ref:
 
-> A YANG reference type for a static LSP that can be used by data models to reference a configured static LSP.
+> A YANG reference type for a static LSP that can be used by data models to reference
+a configured static LSP.
 
 in-segment:
 
@@ -195,19 +201,14 @@ The model allows for the following cases:
             o   multiple forwarding path(s) or NHLFE(s), each of which can
                 serve a primary, backup or both role(s).
 
-The ietf-mpls-static-extended module imports the followinig modules:
-
-- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
-- ietf-mpls-static defined in this document
-- ietf-routing defined in {{!RFC8349}}
-
 The ietf-mpls-static-extended module contains the following high-level types and groupings:
 
 bidir-static-lsp:
 
 > A YANG grouping that describes list of static bidirectional LSPs
 
-The ietf-mpls-static-extended augments the ietf-mpls-static model with additional parameters to configure and manage:
+The ietf-mpls-static-extended augments the ietf-mpls-static model with
+additional parameters to configure and manage:
 
  * Bidirectional Static LSP(s)
  * Defining Static LSP bandwidth allocation
@@ -219,25 +220,42 @@ Configuring LSPs through an LSR/LER involves the following steps:
 
 -  Enabling MPLS on MPLS capable interfaces.
 -  Configuring in-segments and out-segments on LER(s) and LSR(s) traversed by the LSP.
--  Setting up the cross-connect per LSP to associate segments and/or to indicate connection origination and termination.
+-  Setting up the cross-connect per LSP to associate segments and/or to
+   indicate connection origination and termination.
 -  Optionally specifying label stack actions.
 -  Optionally specifying segment traffic parameters.
 
-The objects covered by this model are derived from the Incoming Label Map (ILM) and Next Hop Label Forwarding Entry (NHLFE) as specified in the MPLS architecture document {{!RFC3031}}.
+The objects covered by this model are derived from the Incoming Label Map (ILM)
+and Next Hop Label Forwarding Entry (NHLFE) as specified in the MPLS
+architecture document {{!RFC3031}}.
 
-The MPLS Static LSP module is shown below:
+The ietf-mpls-static module imports the followinig modules:
+
+- ietf-inet-types defined in {{!RFC6991}}
+- ietf-routing defined in {{!RFC8349}}
+- ietf-routing-types defined in {{!RFC8294}}
+- ietf-interfaces defined in {{!RFC8343}}
+- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
+- ietf-te defined in {{!I-D.ietf-teas-yang-te}}
+
+The ietf-mpls-static module is shown below:
 
 ~~~
-<CODE BEGINS> file "ietf-mpls-static@2018-11-04.yang"
+<CODE BEGINS> file "ietf-mpls-static@2019-02-24.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-mpls-static.yang}
 <CODE ENDS>
 ~~~
 
+The ietf-mpls-static-extended module imports the followinig modules:
 
-The extended MPLS Static LSP module is shown below:
+- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
+- ietf-mpls-static defined in this document
+- ietf-routing defined in {{!RFC8349}}
+
+The ietf-mpls-static-extended module is shown below:
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls-static-extended@2018-11-04.yang"
+<CODE BEGINS> file "ietf-mpls-static-extended@2019-02-24.yang"
 {::include /Users/tsaad/yang/sept/te/ietf-mpls-static-extended.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -296,7 +314,16 @@ operations and content.
 All nodes defined in this YANG module that are
 writable/creatable/deletable (i.e., config true, which is the
 default) may be considered sensitive or vulnerable
-in some network environments
+in some network environments. Write operations (e.g., edit-config) to these
+data nodes without proper protection can have a negative effect on network
+operations. These are the subtrees and data nodes and their
+sensitivity/vulnerability:
+
+o /ietf-routing:routing/ietf-mpls:mpls:/ietf-mpls:static-lsps: This entire
+subtree is related to security.
+
+An administrator needs to restrict write access to all configurable
+objects within this data model.
 
 # Contributors
 

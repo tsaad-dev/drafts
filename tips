@@ -1,3 +1,7 @@
+References:
+===========
+https://tools.ietf.org/id/draft-ietf-netmod-rfc6087bis-20.html
+
 I-Ds:
 ====
 
@@ -73,5 +77,6 @@ java -jar ../plantuml.jar oc-srte-policy.uml
 pyang -f uml --uml-no=circles,stereotypes oc-srte-policy.yang -o oc-srte-policy.uml
 
 yanglint -f yang ietf-te.yang -V
+yanglint --verbose ietf-te.yang
 pyang --ietf --verbose --lint -f tree --tree-line-length=72
 
