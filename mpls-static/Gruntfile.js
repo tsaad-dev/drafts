@@ -6,13 +6,6 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     express: {
       all: {
-        options: {
-          port: 9000,
-          hostname: "localhost",
-          bases: ['output'],
-          livereload: true,
-          open: 'http://localhost:<%= express.all.options.port%>/draft-saad-mpls-static-yang.html'
-        }
       }
     },
     watch: {

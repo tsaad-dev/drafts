@@ -2,7 +2,6 @@
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
 docname: draft-ietf-mpls-static-yang-08
-date: 2019-02-24
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -21,8 +20,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems, Inc.
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad.net@gmail.com
 
  -
     ins: R. Gandhi
@@ -166,7 +165,7 @@ The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in
 {{fig-mpls-static-tree}}.
 
 ~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-mpls-static.tree}
+{::include ../../te/ietf-mpls-static.tree}
 ~~~~~~~~~~
 {: #fig-mpls-static-tree title="MPLS Static LSP tree diagram"}
 
@@ -242,7 +241,7 @@ The ietf-mpls-static module is shown below:
 
 ~~~
 <CODE BEGINS> file "ietf-mpls-static@2019-02-24.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-mpls-static.yang}
+{::include ../../te/ietf-mpls-static.yang}
 <CODE ENDS>
 ~~~
 
@@ -256,7 +255,7 @@ The ietf-mpls-static-extended module is shown below:
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-mpls-static-extended@2019-02-24.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-mpls-static-extended.yang}
+{::include ../../te/ietf-mpls-static-extended.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
