@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
-docname: draft-ietf-mpls-static-yang-08
+docname: draft-ietf-mpls-static-yang-09
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -240,7 +240,7 @@ The ietf-mpls-static module imports the followinig modules:
 The ietf-mpls-static module is shown below:
 
 ~~~
-<CODE BEGINS> file "ietf-mpls-static@2019-02-24.yang"
+<CODE BEGINS> file "ietf-mpls-static@2019-03-08.yang"
 {::include ../../te/ietf-mpls-static.yang}
 <CODE ENDS>
 ~~~
@@ -254,7 +254,7 @@ The ietf-mpls-static-extended module imports the followinig modules:
 The ietf-mpls-static-extended module is shown below:
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls-static-extended@2019-02-24.yang"
+<CODE BEGINS> file "ietf-mpls-static-extended@2019-03-08.yang"
 {::include ../../te/ietf-mpls-static-extended.yang}
 <CODE ENDS>
 ~~~~~~~~~~
