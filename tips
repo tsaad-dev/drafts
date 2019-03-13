@@ -60,7 +60,7 @@ set colorcolumn=72 | set formatoptions+=w | set tw=72
 gggqG
 
 pyang --ietf --lint -f tree ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang > ietf-te-all.tree
-pyang --ietf --lint -f tree ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang ietf-te-mpls-types.yang > rsvp_te_model.tree
+pyang --ietf --lint -f tree --tree-line-length=72 ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang ietf-te-packet-types.yang > rsvp_te_model.tree
 
 java -jar plantuml.jar ietf-netconf-monitoring.uml 
 
