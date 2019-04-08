@@ -1,8 +1,7 @@
 ---
 title: Traffic Engineering Common YANG Types
 abbrev: TE Common YANG Types
-docname: draft-ietf-teas-yang-te-types-06
-date: 2019-02-06
+docname: draft-ietf-teas-yang-te-types-07
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -16,8 +15,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems Inc
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad@juniper.net
  -
    ins: R. Gandhi
    name: Rakesh Gandhi
@@ -75,7 +74,7 @@ informative:
   RFC4124:
   RFC4202:
   RFC7471:
-  RFC7810:
+  RFC8570:
   RFC7823:
   RFC6370:
   RFC5003:
@@ -88,6 +87,7 @@ informative:
   RFC6378:
   RFC4427:
   RFC4090:
+  RFC4561:
   RFC4736:
   RFC5712:
   RFC4920:
@@ -225,7 +225,7 @@ te-label:
 
 performance-metrics-attributes:
 
-> A YANG grouping that defines one-way and two-way measured performance metrics and anomalous indication on link(s) or the path as defined in {{RFC7471}}, {{RFC7810}}, and {{RFC7823}}.
+> A YANG grouping that defines one-way and two-way measured performance metrics and anomalous indication on link(s) or the path as defined in {{RFC7471}}, {{RFC8570}}, and {{RFC7823}}.
 
 performance-metrics-throttle-container:
 
@@ -407,15 +407,15 @@ In addition to the references cross-referenced in [ ](#te-types-contents), this 
 {{RFC7308}},
 {{RFC7551}},
 {{RFC7571}},
-{{RFC7579}}, and
+{{RFC7579}}, {{RFC4090}}, {{RFC4561}} and
 {{RFC7951}}.
 
 
-~~~~
-<CODE BEGINS> file "ietf-te-types@2019-02-06.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-te-types.yang}
+~~~~~~~~~~
+<CODE BEGINS> file "ietf-te-types@2019-04-08.yang"
+{::include ../../te/ietf-te-types.yang}
 <CODE ENDS>
-~~~~
+~~~~~~~~~~
 {: #fig-basic-types title="TE basic types YANG module"}
 
 # Packet TE Types YANG Module
@@ -426,8 +426,8 @@ The ietf-te-packet-types module imports from the following modules:
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-packet-types@2019-02-06.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-te-packet-types.yang}
+<CODE BEGINS> file "ietf-te-packet-types@2019-04-08.yang"
+{::include ../../te/ietf-te-packet-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-mpls-te-types title="TE packet types YANG module"}
