@@ -1,8 +1,8 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-19
-date: 2019-02-18
+docname: draft-ietf-teas-yang-te-20
+date: 2019-03-24
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -16,8 +16,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems Inc
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad@juniper.net
  -
    ins: R. Gandhi
    name: Rakesh Gandhi
@@ -250,7 +250,7 @@ organization:
 modules: ietf-te.yang, and ietf-te-device.yang.
 
 ~~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-te-all.tree}
+{::include ../../te/ietf-te-all.tree}
 ~~~~~~~~~~~
 {: #fig-globals-tree title="TE generic model configuration and state tree"}
 
@@ -446,8 +446,8 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2019-02-15.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-te.yang}
+<CODE BEGINS> file "ietf-te@2019-03-24.yang"
+{::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-basic-te title="TE generic YANG module"}
@@ -462,7 +462,7 @@ The TE device YANG module "ietf-te-device" imports the following module(s):
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-te-device@2019-02-15.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-te-device.yang}
+{::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-te-device-types title="TE device specific YANG module"}
