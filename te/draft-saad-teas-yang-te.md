@@ -1,8 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-20
-date: 2019-03-24
+docname: draft-ietf-teas-yang-te-21
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -446,7 +445,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2019-03-24.yang"
+<CODE BEGINS> file "ietf-te@2019-04-09.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -461,7 +460,7 @@ The TE device YANG module "ietf-te-device" imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2019-02-15.yang"
+<CODE BEGINS> file "ietf-te-device@2019-04-09.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
