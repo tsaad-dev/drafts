@@ -1,8 +1,7 @@
 ---
 title: A YANG Data Model for RSVP-TE Protocol
 abbrev: RSVP-TE Protocol YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-05
-date: 2019-02-18
+docname: draft-ietf-teas-yang-rsvp-te-06
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -21,8 +20,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems, Inc.
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad@juniper.net
 
  -
     ins: R. Gandhi
@@ -201,7 +200,7 @@ defined in {{!RFC8340}} are given in subsequent sections.
 defined in module ietf-rsvp-te.yang.
 
 ~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang.tree}
+{::include ../../te/ietf-rsvp-te.yang.tree}
 ~~~~~~~~~~
 {: #fig-rsvp-te title="RSVP-TE model Tree diagram"}
 
@@ -212,7 +211,7 @@ YANG model defined in module ietf-rsvp-te-mpls.yang and that augments RSVP-TE
 module as well as RSVP and TE YANG modules.
 
 ~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te-mpls.yang.tree}
+{::include ../../te/ietf-rsvp-te-mpls.yang.tree}
 ~~~~~~~~~~
 {: #fig-rsvp-te-mpls title="RSVP-TE MPLS Tree diagram"}
 
@@ -233,8 +232,8 @@ This module references the following documents:
 {{?RFC5420}}, {{?RFC7570}}, {{?RFC4859}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2019-02-18.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te.yang}
+<CODE BEGINS> file "ietf-rsvp-te@2019-04-09.yang"
+{::include ../../te/ietf-rsvp-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-rsvp-te-module title="RSVP TE generic YANG module"}
@@ -253,8 +252,8 @@ This module references the following documents:
 {{!I-D.ietf-teas-yang-te}}, {{?RFC3209}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2019-02-18.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-rsvp-te-mpls.yang}
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2019-04-09.yang"
+{::include ../../te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-rsvp-te-mpls-module title="RSVP TE MPLS YANG module"}
