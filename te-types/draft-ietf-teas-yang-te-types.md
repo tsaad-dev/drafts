@@ -1,7 +1,7 @@
 ---
 title: Traffic Engineering Common YANG Types
 abbrev: TE Common YANG Types
-docname: draft-ietf-teas-yang-te-types-08
+docname: draft-ietf-teas-yang-te-types-09
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -216,8 +216,8 @@ scope of this document.
 
 ## TE Types Module Contents {#te-types-contents}
 
-The ietf-te-types module contains common TE types that are independent and agnostic of any
-specific technology or control plane instance.
+The ietf-te-types module contains common TE types that are independent and
+agnostic of any specific technology or control plane instance.
 
 The ietf-te-types module contains the following YANG reusable types and groupings:
 
@@ -472,10 +472,27 @@ registry {{RFC6020}}.
 
 # Security Considerations
 
-This document defines common TE type definitions (i.e., typedef,
-identity and grouping statements) using the YANG data modeling language.
-The definitions themselves have no security or privacy impact on the Internet, but
-the usage of these definitions in concrete YANG modules might have.
+The YANG module specified in this document defines a schema for data that is
+designed to be accessed via network management protocols such as NETCONF
+{{RFC6241}} or RESTCONF {{!RFC8040}}. The lowest NETCONF layer is the secure
+transport layer, and the mandatory-to-implement secure transport is Secure
+Shell (SSH) {{!RFC6242}}.  The lowest RESTCONF layer is HTTPS, and the
+mandatory-to-implement secure transport is TLS {{!RFC8446}}.
+
+The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the
+means to restrict access for particular NETCONF or RESTCONF users to a
+preconfigured subset of all available NETCONF or RESTCONF protocol operations
+and content.
+
+The YANG module in this document defines common TE type definitions
+(i.e., typedef, identity and grouping statements) in YANG data modeling
+language to be imported and used by other TE modules. When imported
+and used, the resultant schema will have data nodes that can be writable, or
+readable. The access to such data nodes may be considered sensitive or
+vulnerable in some network environments.  Write operations (e.g., edit-config)
+to these data nodes without proper protection can have a negative effect on
+network operations. 
+
 The security considerations spelled out in the YANG 1.1 specification
 {{RFC7950}} apply for this document as well.
 
