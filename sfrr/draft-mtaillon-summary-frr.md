@@ -1,7 +1,7 @@
 ---
 title: RSVP-TE Summary Fast Reroute Extensions for LSP Tunnels
 abbrev: RSVP-TE Summary FRR
-docname: draft-ietf-mpls-summary-frr-rsvpte-03
+docname: draft-ietf-mpls-summary-frr-rsvpte-04
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -385,9 +385,9 @@ defined in {{RFC4872}} for the ASSOCIATION Object.  More specifically:
       The rules to populate the Extended ASSOCIATION ID in this case are
       described below.
 
-### B-SFRR-Active Extended ASSOCIATION ID {#b-sfrr-active}
+### IPv4 B-SFRR-Active Extended ASSOCIATION ID {#V4_SFRR_ACTIVE}
 
-The Extended ASSOCIATION ID for the B-SFRR-Active association type has the following
+The IPv4 Extended ASSOCIATION ID for the B-SFRR-Active association type has the following
 format:
 
 ~~~~~
@@ -408,37 +408,111 @@ format:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                           TIME_VALUES                         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                       IPv4 tunnel sender address              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 ~~~~~
-{: #fig_SUMMARY_FRR_BYPASS_OBJ title="The Extended ASSOCIATION ID for B-SFRR-Active"}
+{: #fig_IPV4_SFRR_ACTIVE title="The IPv4 Extended ASSOCIATION ID for B-SFRR-Active"}
 
-   Num-BGIDs: 16 bits
+Num-BGIDs: 16 bits
 
-       Number of Bypass_Group_Identifier fields.
+> Number of Bypass_Group_Identifier fields.
 
-   Reserved: 16 bits
+Reserved: 16 bits
 
-       Reserved for future use.
+> Reserved for future use.
 
 
-   Bypass_Group_Identifier: 32 bits
+Bypass_Group_Identifier: 32 bits
 
-       The Bypass_Group_Identifier that is previously signaled by the
-       PLR using the Extended Association object.  One or
-       more Bypass_Group_Identifiers may be included.
+> The Bypass_Group_Identifier that is previously signaled by the
+PLR using the Extended Association object.  One or
+more Bypass_Group_Identifiers may be included.
 
-   RSVP_HOP_Object: Class 3, as defined by {{!RFC2205}}
+RSVP_HOP_Object: Class 3, as defined by {{!RFC2205}}
 
-       Replacement RSVP HOP object to be applied to all LSPs associated
-       with each of the following Bypass_Group_Identifiers. This corresponds
-       to C-Type = 1 for IPv4 RSVP HOP, or C-Type = 2 for IPv6 RSVP HOP
-       depending on the IP address family carried within the object.
+> Replacement RSVP HOP object to be applied to all LSPs associated
+with each of the following Bypass_Group_Identifiers. This corresponds
+to C-Type = 1 for IPv4 RSVP HOP, or C-Type = 2 for IPv6 RSVP HOP
+depending on the IP address family carried within the object.
 
-   TIME_VALUES object: Class 5, as defined by {{RFC2205}}
+TIME_VALUES object: Class 5, as defined by {{RFC2205}}
 
-       Replacement TIME_VALUES object to be applied to all LSPs associated
-       with each of the following Bypass_Group_Identifiers after receiving
-       the B-SFRR-Active Extended ASSOCIATION Object.
+> Replacement TIME_VALUES object to be applied to all LSPs associated
+with each of the following Bypass_Group_Identifiers after receiving
+the B-SFRR-Active Extended ASSOCIATION Object.
 
+IPv4 tunnel sender address:
+
+> The IPv4 address that the PLR sets to identify backup path(s) as
+described in Section 6.1.1 of {{RFC4090}}.
+
+
+### IPv6 B-SFRR-Active Extended ASSOCIATION ID {#V6_SFRR_ACTIVE}
+
+The IPv6 Extended ASSOCIATION ID for the B-SFRR-Active association type has the following
+format:
+
+~~~~~
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |            Num-BGIDs          |          Reserved             |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                       Bypass_Group_Identifier                 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                               :                               |
+   //                              :                              //
+   |                               :                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                       Bypass_Group_Identifier                 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           RSVP_HOP_Object                     |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           TIME_VALUES                         |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |                       IPv6 tunnel sender address              |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+~~~~~
+{: #fig_IPV6_SFRR_ACTIVE title="The IPv6 Extended ASSOCIATION ID for B-SFRR-Active"}
+
+Num-BGIDs: 16 bits
+
+> Number of Bypass_Group_Identifier fields.
+
+Reserved: 16 bits
+
+> Reserved for future use.
+
+
+Bypass_Group_Identifier: 32 bits
+
+> The Bypass_Group_Identifier that is previously signaled by the
+PLR using the Extended Association object.  One or
+more Bypass_Group_Identifiers may be included.
+
+RSVP_HOP_Object: Class 3, as defined by {{RFC2205}}
+
+> Replacement RSVP HOP object to be applied to all LSPs associated
+with each of the following Bypass_Group_Identifiers. This corresponds
+to C-Type = 1 for IPv4 RSVP HOP, or C-Type = 2 for IPv6 RSVP HOP
+depending on the IP address family carried within the object.
+
+TIME_VALUES object: Class 5, as defined by {{RFC2205}}
+
+> Replacement TIME_VALUES object to be applied to all LSPs associated
+with each of the following Bypass_Group_Identifiers after receiving
+the B-SFRR-Active Extended ASSOCIATION Object.
+
+IPv6 tunnel sender address:
+
+> The IPv6 address that the PLR sets to identify backup path(s) as
+described in Section 6.1.1 of {{RFC4090}}.
 
 ## Signaling Procedures Prior to Failure {#sig-prior-failure}
 
@@ -446,6 +520,12 @@ Before Summary FRR procedures can be used, a handshake MUST be completed
 between the PLR and MP. This handshake is performed using Extended ASSOCIATION
 object that carries the B-SFRR-Ready Extended Association ID in both the RSVP
 Path and Resv messages of the protected LSP.
+
+When using procedures defined in this document, the PLR MUST ensure bypass
+tunnel assignment can satisfy the protected LSP MTU requirements post FRR. This
+avoids any packets from being dropped due to exceeding the MTU size of
+the bypass tunnel after traffic is  rerouted on the bypass tunnel post
+failure.
 
 ### PLR Signaling Procedure 
 
@@ -553,12 +633,10 @@ state as follows:
    and that would have exchanged in a Path message sent to the MP after the failure
    when no SFRR procedures are in effect.
 
-3. The SENDER_TEMPLATE object SrcAddress field is copied from the bypass tunnel SENDER_TEMPLATE
-object. For the case where PLR is also the head-end, and SENDER_TEMPLATE SrcAddress of the 
-protected LSP and bypass tunnel are the same, the MP MUST use the modified HOP
-Address field instead.
+3. The tunnel sender address field in the SENDER_TEMPLATE object is copied from the tunnel sender address of
+   the B-SFRR-Active Extended ASSOCIATION ID.
 
-4. The ERO object is modified as per Section 6.4.4. of {{RFC4090}}.
+4. The ERO object is modified as per Section 6.4.4 of {{RFC4090}}.
    Once the above modifications are completed, the MP then performs the
    merge processing as per {{RFC4090}}. 
 
