@@ -1,0 +1,5 @@
+*/output
+*/.refcache
+*/package-lock.json
+node_modules
+*.swp
