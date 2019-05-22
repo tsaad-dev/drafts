@@ -387,7 +387,8 @@ defined in {{RFC4872}} for the ASSOCIATION Object.  More specifically:
 
 ### IPv4 B-SFRR-Active Extended ASSOCIATION ID {#V4_SFRR_ACTIVE}
 
-The IPv4 Extended ASSOCIATION ID for the B-SFRR-Active association type has the following
+The IPv4 Extended ASSOCIATION ID for the B-SFRR-Active association type is
+carried inside the IPv4 Extended ASSOCIATION object and has the following
 format:
 
 ~~~~~
@@ -404,9 +405,9 @@ format:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                       Bypass_Group_Identifier                 |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           RSVP_HOP_Object                     |
+   //                      RSVP_HOP_Object                        //
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           TIME_VALUES                         |
+   //                      TIME_VALUES                            //
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                       IPv4 tunnel sender address              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -422,7 +423,6 @@ Reserved: 16 bits
 
 > Reserved for future use.
 
-
 Bypass_Group_Identifier: 32 bits
 
 > The Bypass_Group_Identifier that is previously signaled by the
@@ -433,8 +433,7 @@ RSVP_HOP_Object: Class 3, as defined by {{!RFC2205}}
 
 > Replacement RSVP HOP object to be applied to all LSPs associated
 with each of the following Bypass_Group_Identifiers. This corresponds
-to C-Type = 1 for IPv4 RSVP HOP, or C-Type = 2 for IPv6 RSVP HOP
-depending on the IP address family carried within the object.
+to C-Type = 1 for IPv4 RSVP HOP.
 
 TIME_VALUES object: Class 5, as defined by {{RFC2205}}
 
@@ -450,7 +449,8 @@ described in Section 6.1.1 of {{RFC4090}}.
 
 ### IPv6 B-SFRR-Active Extended ASSOCIATION ID {#V6_SFRR_ACTIVE}
 
-The IPv6 Extended ASSOCIATION ID for the B-SFRR-Active association type has the following
+The IPv6 Extended ASSOCIATION ID for the B-SFRR-Active association type is
+carried inside the IPv6 Extended ASSOCIATION object and has the following
 format:
 
 ~~~~~
@@ -467,13 +467,15 @@ format:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                       Bypass_Group_Identifier                 |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           RSVP_HOP_Object                     |
+   //                      RSVP_HOP_Object                        //
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           TIME_VALUES                         |
+   //                      TIME_VALUES                            //
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +                                                               +
-   |                       IPv6 tunnel sender address              |
+   |                                                               |
+   +                       IPv6 tunnel sender address              +
+   |                                                               |
    +                                                               +
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -489,7 +491,6 @@ Reserved: 16 bits
 
 > Reserved for future use.
 
-
 Bypass_Group_Identifier: 32 bits
 
 > The Bypass_Group_Identifier that is previously signaled by the
@@ -500,8 +501,7 @@ RSVP_HOP_Object: Class 3, as defined by {{RFC2205}}
 
 > Replacement RSVP HOP object to be applied to all LSPs associated
 with each of the following Bypass_Group_Identifiers. This corresponds
-to C-Type = 1 for IPv4 RSVP HOP, or C-Type = 2 for IPv6 RSVP HOP
-depending on the IP address family carried within the object.
+to C-Type = 2 for IPv6 RSVP HOP.
 
 TIME_VALUES object: Class 5, as defined by {{RFC2205}}
 
