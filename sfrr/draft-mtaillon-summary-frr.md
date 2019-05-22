@@ -695,9 +695,9 @@ http://www.iana.org/assignments/rsvp-parameters).
 
 # Acknowledgments
 
-The authors would like to thank Loa Andersson, Lou Berger, Eric Osborne, 
-Gregory Mirsky, and Mach Chen for reviewing and providing valuable comments
-to this document.
+The authors would like to thank Alexander Okonnikov, Loa Andersson, Lou Berger,
+Eric Osborne, Gregory Mirsky, Mach Chen for reviewing and providing valuable
+comments to this document.
 
 # Contributors
 
