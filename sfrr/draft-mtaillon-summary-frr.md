@@ -158,13 +158,19 @@ ASSOCIATION object, and new Extended Association IDs are proposed in this draft
 to describe the Bypass Summary FRR Ready (B-SFRR-Ready) and the Bypass Summary
 FRR Active (B-SFRR-Active) associations.
 
-The PLR creates and manages the Summary FRR LSP groups
-(Bypass_Group_Identifiers) and shares them with the MP via signaling.
-Protected LSPs sharing the same egress link and bypass assignment are grouped
-together and are assigned the same group.  The MP maintains the PLR group
-assignments learned via signaling, and acknowledges the group assignments via
-signaling.  Once the PLR receives the acknowledgment, FRR signaling can proceed
-as group based.
+The PLR creates and manages the Summary FRR LSP groups (identified by
+Bypass_Group_Identifiers) and shares the group identifier(s) with the MP via
+signaling.
+
+The PLR SHOULD assign the same Bypass_Group_Identifier to all protected LSPs
+that share the same egress link, and bypass tunnel as long as the protected
+LSP(s) can share the same group attributes, including the modified tunnel
+sender address used for backup path identification as described in
+{{!RFC4090}}.
+
+The MP maintains the PLR group assignments learned via signaling, and
+acknowledges the group assignments via signaling.  Once the PLR receives the
+acknowledgment, FRR signaling can proceed as group based.
 
 The PLR node that supports Summary FRR procedures adds the Extended ASSOCIATION
 object with Type B-SFRR-Ready and respective Extended Association ID in the
@@ -444,7 +450,9 @@ the B-SFRR-Active Extended ASSOCIATION Object.
 IPv4 tunnel sender address:
 
 > The IPv4 address that the PLR sets to identify backup path(s) as
-described in Section 6.1.1 of {{RFC4090}}.
+described in Section 6.1.1 of {{RFC4090}}. This address is applicable to all
+groups identified by Bypass_Group_Identifier(s) carried in the B-SFRR-Active
+Extended ASSOCIATION ID.
 
 
 ### IPv6 B-SFRR-Active Extended ASSOCIATION ID {#V6_SFRR_ACTIVE}
@@ -512,7 +520,9 @@ the B-SFRR-Active Extended ASSOCIATION Object.
 IPv6 tunnel sender address:
 
 > The IPv6 address that the PLR sets to identify backup path(s) as
-described in Section 6.1.1 of {{RFC4090}}.
+described in Section 6.1.1 of {{RFC4090}}. This address is applicable to all
+groups identified by Bypass_Group_Identifier(s) carried in the B-SFRR-Active
+Extended ASSOCIATION ID.
 
 ## Signaling Procedures Prior to Failure {#sig-prior-failure}
 
@@ -613,8 +623,11 @@ The previously received MESSAGE_ID from the MP is activated. As a result,
 the MP may refresh the protected rerouted RESV state using
 Summary Refresh procedures.
 
-For each affected Summary FRR group, its Bypass_Group_Identifier is added to
-B-SFRR-Active Extended ASSOCIATION ID.
+The PLR adds the Bypass_Group_Identifier(s) of group(s) that share the same
+group attributes, including the tunnel sender address to the same B-SFRR-Active
+Extended ASSOCIATION ID. Note that multiple ASSOCIATION objects, each carrying a
+B-SFRR-Active Extended ASSOCIATION ID, can be carried within a single RSVP Path
+message of the bypass LSP and sent towards the MP as described in {{!RFC6780}}.
 
 ### MP Signaling Procedure
 
