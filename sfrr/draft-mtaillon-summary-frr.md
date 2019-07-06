@@ -1,7 +1,7 @@
 ---
 title: RSVP-TE Summary Fast Reroute Extensions for LSP Tunnels
 abbrev: RSVP-TE Summary FRR
-docname: draft-ietf-mpls-summary-frr-rsvpte-04
+docname: draft-ietf-mpls-summary-frr-rsvpte-05
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -57,11 +57,11 @@ This document defines Resource Reservation Protocol (RSVP) Traffic-
 Engineering (TE) signaling extensions that reduce the amount of RSVP
 signaling required for Fast Reroute (FRR) procedures and subsequently
 improve the scalability of the RSVP-TE signaling when undergoing FRR
-convergence after a link or node failure.  Such extensions allow the
+convergence after a link or node failure. Such extensions allow the
 RSVP message exchange between the Point of Local Repair (PLR) and the
 Merge Point (MP) to be independent of the number of protected Label
 Switched Paths (LSPs) traversing between them when facility bypass
-FRR protection is used.  The signaling extensions are fully backwards
+FRR protection is used. The signaling extensions are fully backwards
 compatible with nodes that do not support them.
 
 --- middle
@@ -72,7 +72,7 @@ The Fast Reroute (FRR) procedures defined in {{!RFC4090}} describe the
 mechanisms for the Point of Local Repair (PLR) to reroute traffic and signaling
 of a protected RSVP-TE LSP onto the bypass tunnel in the event of a TE link or
 node failure. Such signaling procedures are performed individually for each
-affected protected LSP.  This may eventually lead to control plane scalability
+affected protected LSP. This may eventually lead to control plane scalability
 and latency issues on the PLR and/or the MP due to limited memory and CPU
 processing resources. This condition is exacerbated when the failure affects
 large number of protected LSPs that traverse the same PLR and Merge Point (MP)
@@ -81,15 +81,15 @@ nodes.
 
 For example, in a large scale RSVP-TE LSPs deployment, a single LSR acting as a
 PLR node may host tens of thousands of protected RSVP-TE LSPs egressing the
-same link, and also act as a MP node for similar number of LSPs ingressing the
-same link.  In the event of the failure of the link or neighbor node, the
+same link, and also act as a MP node for similar number of LSPs that ingress on the
+same link. In the event of the failure of the link or neighbor node, the
 RSVP-TE control plane of the node when acting as PLR becomes busy rerouting
 protected LSPs signaling over the bypass tunnel(s) in one direction, and when
 acting as an MP node becomes busy merging RSVP states from signaling received
 over bypass tunnels for LSP(s) in the reverse direction. Subsequently, the
 head-end LER(s) that are notified of the local repair at downstream LSR will
 attempt to (re)converge affected RSVP- TE LSPs onto newly computed paths -
-possibly traversing the same previously affected LSR(s).  As a result, the
+possibly traversing the same previously affected LSR(s). As a result, the
 RSVP-TE control plane at the PLR and MP becomes overwhelmed by the amount of
 FRR RSVP-TE processing overhead following the link or node failure, and the
 competing other control plane protocol(s) (e.g. the IGP) that undergo their
@@ -100,7 +100,7 @@ PLR node's bypass tunnel assignment group and allow FRR procedures between PLR
 node and MP node to be signaled and processed on groups of LSPs.
 
 As defined in [RFC2961], Summary Refresh procedures use MESSAGE_ID to refresh
-the RSVP Path and Resv states to help with the scale.  The MESSAGE_ID
+the RSVP Path and Resv states to help with the scale. The MESSAGE_ID
 information for the rerouted PATH and RESV states are exchanged between PLR and
 MP nodes between PLR and MP nodes a priori to the fault such that Summary
 Refresh procedures defined in {{!RFC2961}} can continue to be used to refresh
@@ -145,7 +145,7 @@ that are being protected by the specified bypass tunnel are being rerouted.
 # Extensions for Summary FRR Signaling
 
 The RSVP ASSOCIATION object is defined in {{!RFC4872}} as a means to associate
-LSPs with each other.  For example, in the context of GMPLS-controlled LSP(s),
+LSPs with each other. For example, in the context of GMPLS-controlled LSP(s),
 the object is used to associate recovery LSPs with the LSP they are protecting.
 The Extended ASSOCIATION object is introduced in {{!RFC6780}} to expand on the
 possible usage of the ASSOCIATION object and generalize the definition of the
@@ -163,13 +163,13 @@ Bypass_Group_Identifiers) and shares the group identifier(s) with the MP via
 signaling.
 
 The PLR SHOULD assign the same Bypass_Group_Identifier to all protected LSPs
-that share the same egress link, and bypass tunnel as long as the protected
-LSP(s) can share the same group attributes, including the modified tunnel
+that share the egress link, and bypass tunnel as long as the protected
+LSP(s) have the common group attributes, including the modified tunnel
 sender address used for backup path identification as described in
 {{!RFC4090}}.
 
 The MP maintains the PLR group assignments learned via signaling, and
-acknowledges the group assignments via signaling.  Once the PLR receives the
+acknowledges the group assignments via signaling. Once the PLR receives the
 acknowledgment, FRR signaling can proceed as group based.
 
 The PLR node that supports Summary FRR procedures adds the Extended ASSOCIATION
@@ -186,7 +186,7 @@ protected LSP RESV state after FRR occurs.
 
 This document also defines a new Association Type for the Extended ASSOCIATION
 object and new Extended Association ID to describe the B-SFRR-Active
-association.  The B-SFRR-Active Extended ASSOCIATION object and Extended
+association. The B-SFRR-Active Extended ASSOCIATION object and Extended
 Association ID are sent by PLR after activating FRR procedures on the PLR. The
 B-SFRR-Active Extended ASSOCIATION object and Extended Association ID are sent
 within the RSVP Path message of the bypass LSP to inform the MP node that one
@@ -200,7 +200,7 @@ associate a protected LSP with the bypass LSP that is protecting it when
 Summary FRR procedures are enabled.
 
 The Association Type, Association ID, and Association Source MUST be set as
-defined in {{RFC4872}} for the ASSOCIATION Object.  More specifically:
+defined in {{RFC4872}} for the ASSOCIATION Object. More specifically:
 
    Association Source:
 
@@ -331,12 +331,12 @@ has the following format:
 The PLR assigns a bypass tunnel and Bypass_Group_Identifier for each protected
 LSP. The same Bypass_Group_Identifier is used for the set of protected LSPs
 that share the same bypass tunnel and traverse the same egress link and are not
-already rerouted.  The PLR also generates a MESSAGE_ID object (flags SHOULD be
+already rerouted. The PLR also generates a MESSAGE_ID object (flags SHOULD be
 clear, Epoch and Message_Identifier MUST be set according to {{!RFC2961}}).
 
 The PLR MUST generate a new Message_Identifier each time the contents of the
 B-SFRR-Ready Extended ASSOCIATION ID changes;  for example, when PLR node
-changes the bypass tunnel assignment.  
+changes the bypass tunnel assignment.
 
 The PLR node notifies the MP node of the bypass tunnel assignment via adding a
 B-SFRR-Ready Extended ASSOCIATION object and Association ID in the RSVP Path
@@ -344,11 +344,11 @@ message for the protected LSP using procedures described in [ ](#post-failure).
 
 The MP node acknowledges the PLR node assignment by signaling the B-SFRR-Ready
 Extended ASSOCIATION object and Association ID within the RSVP Resv message of
-the protected LSP.  With exception of the MESSAGE_ID objects, all other fields
+the protected LSP. With exception of the MESSAGE_ID objects, all other fields
 of the received in the B-SFRR-Ready Extended ASSOCIATION ID in the RSVP Path
 message are copied into the B-SFRR-Ready Extended ASSOCIATION ID to be added in
 the Resv message. The MESSAGE_ID object is set according to {{!RFC2961}} with
-the Flags being clear.  A new Message_Identifier MUST be used to acknowledge an
+the Flags being clear. A new Message_Identifier MUST be used to acknowledge an
 updated PLR assignment.
 
 The PLR considers the protected LSP as Summary FRR capable only if all the
@@ -370,7 +370,7 @@ message of a bypass LSP and signaled downstream towards the MP (bypass LSP
 destination). 
 
 The Association Type, Association ID, and Association Source MUST be set as
-defined in {{RFC4872}} for the ASSOCIATION Object.  More specifically:
+defined in {{RFC4872}} for the ASSOCIATION Object. More specifically:
 
    Association Source:
 
@@ -432,7 +432,7 @@ Reserved: 16 bits
 Bypass_Group_Identifier: 32 bits
 
 > The Bypass_Group_Identifier that is previously signaled by the
-PLR using the Extended Association object.  One or
+PLR using the Extended Association object. One or
 more Bypass_Group_Identifiers may be included.
 
 RSVP_HOP_Object: Class 3, as defined by {{!RFC2205}}
@@ -502,7 +502,7 @@ Reserved: 16 bits
 Bypass_Group_Identifier: 32 bits
 
 > The Bypass_Group_Identifier that is previously signaled by the
-PLR using the Extended Association object.  One or
+PLR using the Extended Association object. One or
 more Bypass_Group_Identifiers may be included.
 
 RSVP_HOP_Object: Class 3, as defined by {{RFC2205}}
@@ -545,7 +545,7 @@ object is updated every time the PLR updates the bypass tunnel assignment and
 that triggers an RSVP Path change message.
 
 Upon receiving an RSVP Resv message with B-SFRR-Ready Extended ASSOCIATION
-object, the PLR node checks if the expected subobjects from the B-SFRR-Ready
+object, the PLR node checks if the expected sub-objects from the B-SFRR-Ready
 ASSOCIATION ID are present. If present, the PLR determines if the MP has
 acknowledged the current PLR assignment.
 
@@ -567,21 +567,21 @@ B-SFRR-Ready Extended ASSOCIATION objects that have the MP node address as
 Bypass Destination address in the Association ID.
 
 The MP node first ensures the existence of the bypass tunnel and that the
-Bypass_Group_Identifier is not already FRR active.  That is, an LSP cannot join
+Bypass_Group_Identifier is not already FRR active. That is, an LSP cannot join
 a group that is already FRR rerouted.
 
 The MP node builds a mirrored Summary FRR Group database per PLR, which is
-determined using the Bypass_Source_Address field.  The MESSAGE_ID is extracted
-and recorded for the protected LSP PATH state.  The MP node signals a
+determined using the Bypass_Source_Address field. The MESSAGE_ID is extracted
+and recorded for the protected LSP PATH state. The MP node signals a
 B-SFRR-Ready Extended Association object and Association ID in the RSVP Resv
-message of the protected LSP.  With exception of the MESSAGE_ID objects, all
+message of the protected LSP. With exception of the MESSAGE_ID objects, all
 other fields of the received B-SFRR-Ready Extended ASSOCIATION object in the
 RSVP Path message are copied into the B-SFRR-Ready Extended ASSOCIATION object
 to be added in the Resv message. The MESSAGE_ID object is set according to
 {{!RFC2961}} with the Flags being clear.
 
 Note, an MP may receive more than one RSVP Path message with the B-SFRR-Ready
-Extended ASSOCIATION object from different upstream PLR node(s).  In this case,
+Extended ASSOCIATION object from different upstream PLR node(s). In this case,
 the MP node is expected to save all the received MESSAGE_IDs from the different
 upstream PLR node(s). After a failure, the MP node determines and activates the
 associated Summary Refresh ID to use once it receives and processes the RSVP
@@ -600,7 +600,7 @@ performs the object modification procedures described by Section 6.4.3 of
 the same bypass tunnel a common RSVP_HOP and SENDER_TEMPLATE MUST be used. 
 
 The PLR MUST signal non-Summary FRR enabled LSPs over the bypass tunnel before
-signaling the Summary FRR enabled LSPs.  This is needed to allow for the case
+signaling the Summary FRR enabled LSPs. This is needed to allow for the case
 when the PLR node has recently changed a bypass assignment and the MP has not
 processed the change yet. 
 
@@ -613,7 +613,7 @@ After a failure event, when using the Summary FRR path signaling procedures,
 an individual RSVP Path message for each Summary FRR LSP is not signaled.
 Instead, to reroute Summary FRR LSPs via the bypass tunnel, the PLR adds the
 B-SFRR-Active Extended Association object in the RSVP Path message of the
-RSVP session of the bypass tunnel.  
+RSVP session of the bypass tunnel.
 
 The RSVP_HOP_Object field in the B-SFRR-Active Extended ASSOCIATION ID is
 set to the common RSVP_HOP that was used by the PLR in [ ](#post-failure)
@@ -623,8 +623,8 @@ The previously received MESSAGE_ID from the MP is activated. As a result,
 the MP may refresh the protected rerouted RESV state using
 Summary Refresh procedures.
 
-The PLR adds the Bypass_Group_Identifier(s) of group(s) that share the same
-group attributes, including the tunnel sender address to the same B-SFRR-Active
+The PLR adds the Bypass_Group_Identifier(s) of group(s) that have common
+group attributes, including the tunnel sender address, to the same B-SFRR-Active
 Extended ASSOCIATION ID. Note that multiple ASSOCIATION objects, each carrying a
 B-SFRR-Active Extended ASSOCIATION ID, can be carried within a single RSVP Path
 message of the bypass LSP and sent towards the MP as described in {{!RFC6780}}.
@@ -688,8 +688,8 @@ in {{!RFC4090}} and {{?RFC5920}} also apply.
 
 IANA maintains the "Generalized Multi-Protocol Label Switching
 (GMPLS) Signaling Parameters" registry (see
-<http://www.iana.org/assignments/gmpls-sig-parameters>).  The
-"Association Type" subregistry is included in this registry.
+<http://www.iana.org/assignments/gmpls-sig-parameters>). The
+"Association Type" sub-registry is included in this registry.
 
 This registry has been updated by new Association Type for
 Extended ASSOCIATION Object defined in this document
