@@ -1,7 +1,7 @@
 ---
 title: Traffic Engineering Common YANG Types
 abbrev: TE Common YANG Types
-docname: draft-ietf-teas-yang-te-types-09
+docname: draft-ietf-teas-yang-te-types-10
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -424,7 +424,7 @@ In addition to the references cross-referenced in [ ](#te-types-contents), this 
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-types@2019-04-09.yang"
+<CODE BEGINS> file "ietf-te-types@2019-07-05.yang"
 {::include ../../te/ietf-te-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -438,7 +438,7 @@ The ietf-te-packet-types module imports from the following modules:
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-packet-types@2019-04-09.yang"
+<CODE BEGINS> file "ietf-te-packet-types@2019-07-05.yang"
 {::include ../../te/ietf-te-packet-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
