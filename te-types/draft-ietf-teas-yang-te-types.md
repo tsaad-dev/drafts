@@ -1,7 +1,7 @@
 ---
 title: Traffic Engineering Common YANG Types
 abbrev: TE Common YANG Types
-docname: draft-ietf-teas-yang-te-types-10
+docname: draft-ietf-teas-yang-te-types-14
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -38,8 +38,8 @@ author:
  -
     ins: I. Bryskin
     name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
+    organization: Individual
+    email: i_bryskin@yahoo.com
 
 normative:
   RFC2119:
@@ -105,6 +105,10 @@ informative:
   RFC6780:
   RFC4872:
   RFC4873:
+  G709:
+    target: https://www.itu.int/rec/T-REC-G.709
+    title: "G.709: Interfaces for the optical transport network"
+    date: 2016-06-22
 
 
 [comment]: #   G.873.1:
@@ -211,7 +215,7 @@ corresponding YANG imported modules, as shown in Table 1.
 
 This document defines two YANG modules for common TE types:
 ietf-te-types for TE generic types and ietf-te-packet-types for
-packet specific types. Other technology specific TE types are outside the
+packet-specific types. Other technology-specific TE types are outside the
 scope of this document.
 
 ## TE Types Module Contents {#te-types-contents}
@@ -267,8 +271,7 @@ te-global-id:
 te-node-id:
 
 > A type representing the identifier for a node in a TE topology.
-  The identifier is represented as 32-bit unsigned integer in
-  the dotted-quad notation.
+  The identifier is represented as 4 octets in dotted-quad notation.
   This attribute MAY be mapped to the Router Address described
   in Section 2.4.1 of {{RFC3630}}, the TE Router ID described in
   Section 3 of {{RFC6827}}, the Traffic Engineering Router ID
@@ -305,7 +308,7 @@ srlg:
 
 te-metric:
 
-> A type representing the TE link metric as defined in {{RFC3785}}.
+> A type representing the TE metric as defined in {{RFC3785}}.
 
 te-recovery-status:
 
@@ -371,7 +374,7 @@ te-link-access-type:
 
 ## Packet TE Types Module Contents
 
-The ietf-te-packet-types module covers the common types and groupings specific packet technology.
+The ietf-te-packet-types module covers the common types and groupings that are specific to packet technology.
 
 The ietf-te-packet-types module contains the following YANG reusable types and groupings:
 
@@ -397,7 +400,7 @@ te-bandwidth-requested-type:
 
 performance-metrics-attributes-packet:
 
-> A YANG grouping for the augmentation of packet specific metrics to the generic performance metrics grouping parameters.
+> A YANG grouping that contains the generic performance metrics and additional packet specific metrics.
 
 # TE Types YANG Module
 
@@ -420,11 +423,11 @@ In addition to the references cross-referenced in [ ](#te-types-contents), this 
 {{RFC7551}},
 {{RFC7571}},
 {{RFC7579}}, {{RFC4090}}, {{RFC4561}} and
-{{RFC7951}}.
+{{RFC7951}}, {{G709}}.
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-types@2019-07-05.yang"
+<CODE BEGINS> file "ietf-te-types@2019-11-18.yang"
 {::include ../../te/ietf-te-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -438,7 +441,7 @@ The ietf-te-packet-types module imports from the following modules:
 
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-packet-types@2019-07-05.yang"
+<CODE BEGINS> file "ietf-te-packet-types@2019-11-18.yang"
 {::include ../../te/ietf-te-packet-types.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -451,24 +454,28 @@ This document registers the following URIs in the IETF XML registry
 Following the format in {{RFC3688}}, the following registration is
 requested to be made.
 
+~~~
    URI: urn:ietf:params:xml:ns:yang:ietf-te-types
    XML: N/A, the requested URI is an XML namespace.
 
    URI: urn:ietf:params:xml:ns:yang:ietf-te-packet-types
    XML: N/A, the requested URI is an XML namespace.
+~~~
 
 This document registers two YANG modules in the YANG Module Names
 registry {{RFC6020}}.
 
+~~~
    name:       ietf-te-types
    namespace:  urn:ietf:params:xml:ns:yang:ietf-te-types
-   prefix:     ietf-te-types
+   prefix:     te-types
    reference:  RFCXXXX
 
    name:       ietf-te-packet-types
    namespace:  urn:ietf:params:xml:ns:yang:ietf-te-packet-types
-   prefix:     ietf-te-packet-types
+   prefix:     te-packet-types
    reference:  RFCXXXX
+~~~
 
 # Security Considerations
 
