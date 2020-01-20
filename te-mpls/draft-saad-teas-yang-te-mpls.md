@@ -1,8 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Traffic Engineering Tunnels
 abbrev: MPLS TE Tunnels YANG Data Model
-docname: draft-ietf-teas-yang-te-mpls-01
-date: 2019-02-23
+docname: draft-ietf-teas-yang-te-mpls-02
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -16,8 +15,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems Inc
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad@juniper.net
  -
    ins: R. Gandhi
    name: Rakesh Gandhi
@@ -39,8 +38,8 @@ author:
  -
     ins: I. Bryskin
     name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
+    organization: Individual
+    email: i_bryskin@yahoo.com
 
 normative:
   RFC3209:
@@ -165,7 +164,7 @@ module as shown in {{figctrl}}.
 defined in ietf-te-mpls.yang.
 
 ~~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-mpls-te.tree}
+{::include ../../te/ietf-mpls-te.tree}
 ~~~~~~~~~~~
 {: #fig-globals-tree title="MPLS TE model configuration and state tree"}
 
@@ -173,8 +172,8 @@ defined in ietf-te-mpls.yang.
 ## MPLS TE YANG Module
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls@2019-02-23.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-te-mpls.yang}
+<CODE BEGINS> file "ietf-te-mpls@2019-11-02.yang"
+{::include ../../te/ietf-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-basic-te title="TE generic YANG module"}
