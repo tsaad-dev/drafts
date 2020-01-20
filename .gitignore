@@ -1,5 +1,8 @@
 */output
 */.refcache
 */package-lock.json
+.*
+!.gitignore
+*/.*
 node_modules
 *.swp
