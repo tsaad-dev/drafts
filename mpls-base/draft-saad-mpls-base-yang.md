@@ -1,8 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
-docname: draft-ietf-mpls-base-yang-10
-date: 2019-02-24
+docname: draft-ietf-mpls-base-yang-11
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -20,8 +19,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Cisco Systems Inc
-    email: tsaad@cisco.com
+    organization: Juniper Networks
+    email: tsaad@juniper.net
 
  -
     ins: K. Raza
@@ -54,7 +53,7 @@ informative:
 
 --- abstract
 
-This document contains a specification of the the MPLS base YANG model. The
+This document contains a specification of the MPLS base YANG model. The
 MPLS base YANG model serves as a base framework for configuring and managing an
 MPLS switching subsystem on an MPLS-enabled router.  It is expected that other
 MPLS YANG models (e.g. MPLS LSP Static, LDP or RSVP-TE YANG models) will
@@ -70,7 +69,7 @@ augments core routing data model with additional data specific to MPLS
 technology as described in the MPLS architecture document {{?RFC3031}}. 
 
 The MPLS base model serves as a basis for future development of MPLS data
-models covering more-sophisticated MPLS feauture(s) and sub-system(s). The main
+models covering more-sophisticated MPLS feature(s) and sub-system(s). The main
 purpose is to provide essential building blocks for the more-complicated data
 models involving different control-plane protocols, and advanced MPLS
 functions.
@@ -119,8 +118,8 @@ augment the ietf-mpls base module for other MPLS extension to provision LSP(s)
 ## Model Overview
 
 This document defines a mechanism to model MPLS labeled routes as an
-augmentation of the the routing RIB data model defined in {{!RFC8349}} for IP
-prefix routes that are MPLS labelled.
+augmentation of the routing RIB data model defined in {{!RFC8349}} for IP
+prefix routes that are MPLS labeled.
 
 The other MPLS route(s) that are non-IP prefix routes are modelled by
 introducing a new "mpls" address-family RIB as per recommendation .
@@ -195,7 +194,7 @@ label-blocks:
 The MPLS base tree diagram that follows the notation defined in {{!RFC8340}} is shown in {{fig-mpls-base-tree}}.
 
 ~~~~~~~~~~~
-{::include /Users/tsaad/yang/sept/te/ietf-mpls.yang.tree}
+{::include ../../te/ietf-mpls.yang.tree}
 ~~~~~~~~~~~
 {: #fig-mpls-base-tree title="MPLS Base tree diagram"}
 
@@ -205,15 +204,15 @@ This section describes the "ietf-mpls" YANG module that provides base
 components of the MPLS data model. Other YANG module(s) may import and augment
 the base MPLS module to add feature specific data.
 
-The ietf-mpls module imports the followinig modules:
+The ietf-mpls module imports the following modules:
 
 - ietf-routing defined in {{!RFC8349}}
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-interfaces defined in {{!RFC8343}}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls@2019-02-24.yang"
-{::include /Users/tsaad/yang/sept/te/ietf-mpls.yang}
+<CODE BEGINS> file "ietf-mpls@2019-09-11.yang"
+{::include ../../te/ietf-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 {: #fig-module-mpls-base title="MPLS base YANG module"}
