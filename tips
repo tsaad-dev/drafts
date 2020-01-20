@@ -80,3 +80,10 @@ yanglint -f yang ietf-te.yang -V
 yanglint --verbose ietf-te.yang
 pyang --ietf --verbose --lint -f tree --tree-line-length=72
 pyang --ietf --lint -f tree --tree-line-length=72 ietf-te.yang ietf-te-device.yang ietf-te-types.yang > ietf-te-all.tree
+pyang --ietf --lint -f tree --tree-line-length=72 ietf-rsvp-extended.yang > ietf-rsvp-extended.yang.tree
+pyang --ietf --lint -f tree --tree-line-length=72 ietf-rsvp.yang > ietf-rsvp.yang.tree
+pyang -f yang --keep-comments --yang-line-length 69 ietf-mpls.yang
+pyang --ietf --max-line-length 69 FILE
+
+open -a "Microsoft Word" draft-ip-rsvp-te.txt
+
