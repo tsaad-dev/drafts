@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for RSVP-TE Protocol
 abbrev: RSVP-TE Protocol YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-06
+docname: draft-ietf-teas-yang-rsvp-te-07
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -65,7 +65,7 @@ RSVP (Resource Reservation Protocol) to establish Traffic-Engineered (TE)
 Label-Switched Paths (LSPs) for MPLS (Multi-Protocol Label Switching) and other
 technologies.
 
-The model defines a generic RSVP-TE module for signaling LSPs that is
+The model defines a generic RSVP-TE module for signaling LSPs that are
 technology agnostic.  The generic RSVP-TE module is to be augmented by
 technology specific RSVP-TE modules that define technology specific data. This
 document also defines the augmentation for RSVP-TE MPLS LSPs model.
@@ -232,7 +232,7 @@ This module references the following documents:
 {{?RFC5420}}, {{?RFC7570}}, {{?RFC4859}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2019-04-09.yang"
+<CODE BEGINS> file "ietf-rsvp-te@2019-07-06.yang"
 {::include ../../te/ietf-rsvp-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -252,7 +252,7 @@ This module references the following documents:
 {{!I-D.ietf-teas-yang-te}}, {{?RFC3209}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2019-04-09.yang"
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2019-07-06.yang"
 {::include ../../te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
