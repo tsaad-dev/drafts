@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-21
+docname: draft-ietf-teas-yang-te-22
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -38,8 +38,8 @@ author:
  -
     ins: I. Bryskin
     name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
+    organization: Individual
+    email: i_bryskin@yahoo.com
 
 normative:
   RFC3209:
@@ -445,7 +445,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2019-04-09.yang"
+<CODE BEGINS> file "ietf-te@2019-11-02.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -460,7 +460,7 @@ The TE device YANG module "ietf-te-device" imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2019-04-09.yang"
+<CODE BEGINS> file "ietf-te-device@2019-11-02.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
