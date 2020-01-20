@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-11
+docname: draft-ietf-teas-yang-rsvp-12
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -51,9 +51,9 @@ normative:
   RFC6991:
   RFC7950:
   RFC2205:
-  I-D.ietf-teas-yang-rsvp-te:
 
 informative:
+  I-D.ietf-teas-yang-rsvp-te:
 
 --- abstract
 
@@ -187,8 +187,7 @@ implementations.
 
 Notifications data modeling is key in any defined data model.
 
-{{!I-D.ietf-netconf-subscribed-notifications}} and
-{{!I-D.ietf-netconf-yang-push}} define a subscription and push mechanism
+{{!RFC8639}} and {{!RFC8641}} define a subscription and push mechanism
 for YANG datastores. This mechanism currently allows the user to:
 
 - Subscribe notifications on a per client basis
@@ -276,7 +275,7 @@ The ietf-rsvp module imports from the following modules:
 - ietf-key-chain defined in {{!RFC8177}}
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp@2019-07-04.yang"
+<CODE BEGINS> file "ietf-rsvp@2020-01-13.yang"
 {::include ../../te/ietf-rsvp.yang}
 <CODE ENDS>
 ~~~~~~~~~~
