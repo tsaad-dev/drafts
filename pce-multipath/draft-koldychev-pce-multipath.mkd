@@ -1,8 +1,8 @@
 ---
 title: PCEP Extensions for Signaling Multipath Information
 abbrev: PCEP Extensions for Multipath
-docname: draft-koldychev-pce-multipath-01
-category: info
+docname: draft-koldychev-pce-multipath-00
+category: std
 ipr: trust200902
 
 stand_alone: yes
@@ -50,11 +50,7 @@ informative:
 
 --- abstract
 
-   This document introduces a mechanism to communicate multipath
-   information in PCEP as a set of Explicit Route Objects (EROs). A
-   special object is defined to carry per ERO attributes.  This
-   mechanism is applicable to SR-TE and RSVP-TE.
-
+   Current PCEP standards allow only one intended and/or actual path to be present in a PCEP report or update. Applications that require multipath support such as SR Policy require an extension to allow signaling multiple intended and/or actual paths within a single PCEP message. This document introduces such an extension. Encoding of multiple intended and/or actual paths is done by encoding multiple Explicit Route Objects (EROs) and/or multiple Record Route Objects (RROs). A special separator object is defined in this document, to facilitate this. This mechanism is applicable to SR-TE and RSVP-TE and is dataplane agnostic.
 
 --- middle
 
@@ -104,17 +100,9 @@ and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
 
    The following terms are used in this document:
 
-Endpoint:
-
-> The IPv4 or IPv6 endpoint address of the SR policy in question, as described in {{!I-D.ietf-spring-segment-routing-policy}}.
-
 PCEP Tunnel:
 
-> The object identified by the PLSP-ID, as per {{!I-D.koldychev-pce-operational}}.
-
-Tunnel Instance:
-
-> The object identified by the LSP-Identifiers TLV, as per {{!I-D.koldychev-pce-operational}}.
+> The object identified by the PLSP-ID, see {{!I-D.koldychev-pce-operational}} for more details.
 
 
 # Motivation
@@ -123,11 +111,11 @@ This extension is motivated by the use-cases described below.
 
 ## Signaling Multiple Segment-Lists of an SR Candidate-Path
 
-   The Candidate-Path of an SR Policy corresponds to a PCEP Tunnel, see
+   The Candidate-Path of an SR Policy is the unit of report/update in PCEP, see
    {{!I-D.barth-pce-segment-routing-policy-cp}}.  Each Candidate-Path can
    contain multiple Segment-Lists and each Segment-List is encoded by
-   one SR-ERO object.  However, each Tunnel Instance can contain only a
-   single ERO object, which prevents us from encoding multiple Segment-
+   one SR-ERO object.  However, each PCEP LSP can contain only a
+   single SR-ERO object, which prevents us from encoding multiple Segment-
    Lists within the same SR Candidate-Path.
 
    With the help of the protocol extensions defined in this document,
@@ -139,18 +127,17 @@ This extension is motivated by the use-cases described below.
    network have only 50 Gbit capacity.  The PCE can return two paths, that can
    each carry 50 Gbit. The PCC can then equally or unequally split the incoming
    100 Gbit of traffic among the two 50 Gbit paths. {{WEIGHT-TLV}} introduces a
-   new TLV that carries the ERO path weight that allows distributing of incoming
-   traffic on to the multiple ERO path(s).
+   new TLV that carries the path weight that allows for distribution of incoming
+   traffic on to the multiple paths.
 
-## Providing Backup ERO for Protection
+## Providing Backup path for Protection
 
-It is desirable for the PCE to compute and signal to the PCC a backup ERO path
-that is used to protect a primary ERO path. In this case, an indication specify
-a primary or backup.
+It is desirable for the PCE to compute and signal to the PCC a backup path
+that is used to protect a primary path. 
 
-When multipath is used, a backup ERO path may protect one or more primary ERO
-path.  For this reason, a primary and backup path identifiers are needed to
-indicate which backup ERO path(s) protect which primary ERO path(s).
+When multipath is used, a backup path may protect one or more primary
+paths.  For this reason, a primary and backup path identifiers are needed to
+indicate which backup path(s) protect which primary path(s).
 {{BACKUP-TLV}} introduces a new TLV that carries the required information.
 
 
@@ -195,13 +182,13 @@ indicate which backup ERO path(s) protect which primary ERO path(s).
    Reserved: zero on transmit, ignore on receipt.
 
 
-##  ERO Attributes Object
+##  Path Attributes Object
 
-   We define the ERO-ATTRIB object that is used to carry per-ERO
-   information and to act as a separator between several ERO objects.
-   The ERO-ATTRIB object always precedes the ERO that it applies to.  If
-   multiple ERO objects are present, then each ERO object MUST be
-   preceded by an ERO-ATTRIB object that describes it.
+   We define the PATH-ATTRIB object that is used to carry per-path
+   information and to act as a separator between several ERO/RRO objects in the intended-path/actual-path RBNF element.
+   The PATH-ATTRIB object always precedes the ERO/RRO that it applies to.  If
+   multiple ERO/RRO objects are present, then each ERO/RRO object MUST be
+   preceded by an PATH-ATTRIB object that describes it.
 
 ~~~
    0                   1                   2                   3
@@ -212,55 +199,57 @@ indicate which backup ERO path(s) protect which primary ERO path(s).
   ~                          Optional TLVs                        ~
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~
-{: #fig-ero-attrib title="ERO-ATTRIB object format"}
+{: #fig-path-attrib title="PATH-ATTRIB object format"}
 
    Flags: to be extended in the future.
 
-   Oper: operational state of the ERO, same values as the identically
+   Oper: operational state of the path, same values as the identically
    named field in the LSP object.
 
 ##  Multipath Weight TLV {#WEIGHT-TLV}
 
    We define the MULTIPATH-WEIGHT TLV that MAY be present in the
-   ERO_ATTRIBUTES object.
+   PATH-ATTRIB object.
 
 ~~~
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   Type        |    Length     |            Flags              |
+  |             Type              |             Length            |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                             Weight                            |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~
-{: #fig-multipath-ero-attrib title="MULTIPATH-WEIGHT TLV format"}
+{: #fig-multipath-path-attrib title="MULTIPATH-WEIGHT TLV format"}
 
    Type: TBD2 for "MULTIPATH-WEIGHT" TLV.
 
    Length: 4.
 
    Weight: weight of this path within the multipath, if W-ECMP is
-   desired. The fraction of flows a specific ERO carries is derived
-   from the ratio of its weight to the sum of all other multipath ERO weights.
+   desired. The fraction of flows a specific ERO/RRO carries is derived
+   from the ratio of its weight to the sum of all other multipath ERO/RRO weights.
 
 ##  Multipath Backup TLV {#BACKUP-TLV}
 
    This document introduces a new MULTIPATH-BACKUP TLV that is optional and can
-   be present in the ERO_ATTRIBUTES object.
+   be present in the PATH-ATTRIB object.
 
-   This TLV is used to indicate the presence of a backup ERO path that is
-   used for protection in case of failure of the primary ERO path. The format of
+   This TLV is used to indicate the presence of a backup path that is
+   used for protection in case of failure of the primary path. The format of
    the MULTIPATH-BACKUP TLV is:
 
 ~~~
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   Type        |    Length     |            Flags              |
+  |             Type              |             Length            |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                         ERO Path ID.                          |
+  |                            Flags                              |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                         Backup ERO Path ID                    |
+  |                         Path ID.                              |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                         Backup Path ID                        |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 ~~~
@@ -268,25 +257,25 @@ indicate which backup ERO path(s) protect which primary ERO path(s).
 
    Type: TBD3 for "MULTIPATH-BACKUP" TLV
 
-   Length: 8
+   Length: 12
 
    Flags:
 
 ~~~
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |P|B|F|      Reserved           |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |P|B|F|      Reserved                                           |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~
-> P: If set, indicates the ERO is for a primary path
+> P: If set, indicates a primary path
 
-> B: If set, indicates the ERO is for a backup path
+> B: If set, indicates a backup path
 
-> F: If set, indicates this primary ERO is also protected. The backup ERO
-Path ID indicates the ERO of the backup path.
+> F: If set, indicates this primary path is also protected. The backup
+Path ID indicates the backup path.
 
-ERO Path ID: an identifier that identifies a primary path in the set of ERO(s)
+Path ID: an identifier that identifies a primary path in the set of paths.
 
-Backup ERO Path ID: an identifier that identifies the backup path ERO in the set of ERO(s)
+Backup Path ID: an identifier that identifies the backup path in the set of paths.
  
 
 #  Operation
@@ -310,10 +299,35 @@ Backup ERO Path ID: an identifier that identifies the backup path ERO in the set
 
    If the PCE supports this standard, then it MUST include the
    MULTIPATH-CAP TLV in the OPEN object.  This tells the PCC that it can
-   report multiple ERO objects to this PCE.  If the PCE does not include
+   report multiple ERO/RRO objects to this PCE.  If the PCE does not include
    the MULTIPATH-CAP TLV in the OPEN object, then the PCC MUST assume
    that the PCE does not support this standard and fall back to
-   reporting only a single ERO.
+   reporting only a single ERO/RRO.
+
+
+#  PCEP Message Extensions
+
+The RBNF of PCReq, PCRep, PCRpt, PCUpd and PCInit messages currently use intended-path and/or actual-path:
+
+~~~
+   <intended-path> ::= (<ERO>|<SERO>)
+              [<intended-path>]
+
+   <actual-path> ::= (<RRO>|<SRRO>)
+              [<actual-path>]
+~~~
+
+In this standard, we extend these two elements:
+
+~~~
+   <intended-path> ::= [<PATH-ATTRIB>](<ERO>|<SERO>)
+              [<intended-path>]
+
+   <actual-path> ::= [<PATH-ATTRIB>](<RRO>|<SRRO>)
+              [<actual-path>]
+~~~
+
+
 
 #  IANA Considerations
 
@@ -333,6 +347,9 @@ Backup ERO Path ID: an identifier that identifies the backup path ERO in the set
  +------------+-----------------------------------+------------------+
 ~~~
 
+#  Security Considerations
+
+   None at this time.
 
 #  Acknowledgement
 
