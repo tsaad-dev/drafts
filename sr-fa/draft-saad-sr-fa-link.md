@@ -1,7 +1,7 @@
 ---
 title: Segment-Routing over Forwarding Adjacency Links
 abbrev: SR over FA Links
-docname: draft-saad-sr-fa-link-00
+docname: draft-saad-sr-fa-link-01
 category: info
 ipr: trust200902
 workgroup: SPRING Working Group
@@ -27,6 +27,11 @@ author:
    name: Colby Barth
    organization: Juniper Networks, Inc.
    email: cbarth@juniper.net
+ -
+   ins: S. Sivabalan
+   name: Siva Sivabalan
+   organization: Cisco Systems, Inc.
+   email: msiva@cisco.com
 
 normative:
   RFC2119:
@@ -41,8 +46,8 @@ in those networks. An FA link can be assigned Traffic Engineering (TE)
 parameters that allow other LSR(s) to include it in their constrained path
 computation.  FA link(s) can be also assigned Segment-Routing (SR) segments
 that enable the steering of traffic on to the associated FA link(s).  The TE and SR
-attributes of an FA link can be advertised using known link state protocols.
-This document elaborates on the usage of FA link(s) and their attributes
+attributes of an FA link can be advertised using known protocols that carry link state
+information. This document elaborates on the usage of FA link(s) and their attributes
 in SR enabled networks.
 
 --- middle
@@ -64,7 +69,7 @@ administrative domains, allowing each FA link within a domain to use a
 different technology to setup the underlying LSP(s).
 
 Second, it allows shortening of a large SR Segment-List by compressing one or
-more slice(s) of the list into a corresponding FA link that each can be
+more slice(s) of the list into a corresponding FA TE link that each can be
 represented by a single segment- see {{SR_FA_LINK}}. Effectively, it reduces
 the number of segments that an ingress router has to impose to realize an
 end-to-end path.
@@ -75,10 +80,11 @@ associated with the FA link. For example, Traffic-Engineering (TE) link
 parameters and Segment-Routing (SR) segments parameters can be associated
 with the FA link and advertised throughout the network.
 
-Once advertised in the network using a suitable link state protocol (such as
-OSPF, ISIS or BGP-LS), other LSR(s) in the network can use the FA TE link(s) as
-well as possibly other normal TE link(s) when performing path computation
-and/or when specifying the desired explicit path.
+Once advertised in the network using a suitable protocols that support carrying
+link state information, such as OSPF, ISIS or BGP Link State (LS)), other LSR(s) in the
+network can use the FA TE link(s) as well as possibly other normal TE link(s)
+when performing path computation and/or when specifying the desired explicit
+path.
 
 Though the concepts discussed in this document are specific to MPLS technology,
 these are also extensible to other dataplane technologies - e.g. SRv6.
@@ -94,10 +100,10 @@ when, and only when, they appear in all capitals, as shown here.
 # Forwarding Adjacency Links
 
 FA Link(s) can be created and supported by underlying FA LSPs. The FA link is
-of type point-to-point. FAs may be represented as either unnumbered or numbered
-links.  The nodes connected by an FA link do not usually establish a routing
-adjacency over the FA link. When FAs are numbered with IPv4 addresses, the
-local and remote IPv4 addresses come out of a /31 that is allocated by the LSR
+of type point-to-point. FA links may be represented as either unnumbered or numbered.
+The nodes connected by an FA link do not usually establish a routing
+adjacency over the FA link. When FA links are numbered with IPv4 addresses, the
+local and remote IPv4 addresses can come out of a /31 that is allocated by the LSR
 that originates the FA-LSP. For unnumbered FA link(s), other provisions may
 exist to exchange link identifier(s) between the endpoints of the FA.
 
@@ -124,15 +130,29 @@ link(s).
 
 ## Link Flooding
 
-Multiple protocols exist that can exchange link state in the network. For
-example, when advertising TE link(s) and attribute(s) using OSPF and ISIS, the
-respective extensions are defined in {{!RFC3630}} and {{!RFC5305}}. Also,
-when exchanging such information in BGP, extensions for BGP link-state are
-defined in {{!RFC7752}} and {{!RFC8571}}.
+Multiple protocols exist that can exchange link state information in the
+network. For example, when advertising TE link(s) and their attribute(s) using
+OSPF and ISIS protocols, the respective extensions are defined in {{!RFC3630}}
+and {{!RFC5305}}. Also, when exchanging such information in BGP protocol,
+extensions for BGP link state are defined in {{!RFC7752}} and {{!RFC8571}}. The
+same protocol encodings can be used to advertise FA(s) as TE link(s). As a
+result, the FA TE link(s) and other normal TE link(s) will appear in the TE
+link state database of any LSR in the network, and can be used for computing
+end-to-end TE path(s).
 
-The same protocol encodings can be used to advertise an FA link. As a result,
-the FA TE link(s) and other normal TE link(s) will appear in the TE link state
-database of any LSR in the network.
+When IGP protocols are used to advertise link state information about FA links,
+the FA link(s) can appear in both the TE topology as well as the IGP topology.
+It is desirable, sometimes, to restrict the use of the FA link(s) within the TE
+topology to compute traffic engineered paths, and not use them during normal
+IGP Shortest Path First (SPF) computations.  This is possible using different
+mechanisms and depending on the IGP protocol used to exchange the FA link state
+information.
+
+For example, when using ISIS to carry FA link state information, {{!RFC5305}}
+section 3 describes a way to restrict the link to the TE topology by setting
+the IGP link metric to maximum (2^24 - 1). Alternatively, when using OSPF, the
+FA link(s) can be advertised using TE Opaque LSA(s) only, and hence, strictly
+show up in the TE topology as described in {{!RFC3630}} .
 
 ## Underlay LSP(s)
 
@@ -233,12 +253,10 @@ Adj-SID.
 
 ## SR IGP Segments for FA
 
-Extensions have been defined to  ISIS
-{{!I-D.ietf-isis-segment-routing-extensions}} and OSPF
-{{!I-D.ietf-ospf-segment-routing-extensions}} in order to advertise the the
-Adjacency-SID associated with a specific IGP adjacency.  The same extensions
-apply to adjacencies over FA link.  A node can bind an Adj-SID to an FA
-data-link. The Adj-SID dictates the forwarding of
+Extensions have been defined to ISIS {{!RFC8667}} and OSPF {{!RFC8665}} in
+order to advertise the the Adjacency-SID associated with a specific IGP
+adjacency.  The same extensions apply to adjacencies over FA link.  A node can
+bind an Adj-SID to an FA data-link. The Adj-SID dictates the forwarding of
 packets through the specific FA link or FA link(s) identified by the Adj-SID,
 regardless of its IGP/SPF cost.
 
@@ -326,4 +344,6 @@ TBD.
 
 # Acknowledgement
 
-TBD.
+The authors would like to thank Peter Psenak for reviewing and providing valuable feedback
+on this document.
+
