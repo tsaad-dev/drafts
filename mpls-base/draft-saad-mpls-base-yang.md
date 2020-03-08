@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
-docname: draft-ietf-mpls-base-yang-11
+docname: draft-ietf-mpls-base-yang-14
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -13,6 +13,8 @@ pi: [toc, sortrefs, symrefs]
 normative:
 
 informative:
+  RFC3032:
+  RFC3031:
 
 author:
 
@@ -53,11 +55,11 @@ informative:
 
 --- abstract
 
-This document contains a specification of the MPLS base YANG model. The
-MPLS base YANG model serves as a base framework for configuring and managing an
-MPLS switching subsystem on an MPLS-enabled router.  It is expected that other
-MPLS YANG models (e.g. MPLS LSP Static, LDP or RSVP-TE YANG models) will
-augment the MPLS base YANG model.
+This document contains a specification of the MPLS base YANG model. The MPLS
+base YANG model serves as a base framework for configuring and managing an MPLS
+switching subsystem on an MPLS-enabled router.  It is expected that other MPLS
+YANG models (e.g. MPLS Label Switched Path (LSP) Static, LDP or RSVP-TE YANG
+models) will augment the MPLS base YANG model.
 
 --- middle
 
@@ -112,7 +114,7 @@ The terminology for describing YANG data models is found in {{!RFC7950}}.
 
 This document describes the ietf-mpls YANG module that provides base components
 of the MPLS data model. It is expected that other MPLS YANG modules will
-augment the ietf-mpls base module for other MPLS extension to provision LSP(s)
+augment the ietf-mpls base module for other MPLS extension to provision Label Switched Paths (LSPs)
 (e.g. MPLS Static, MPLS LDP or MPLS RSVP-TE LSP(s)).
 
 ## Model Overview
@@ -187,7 +189,7 @@ label-block-properties:
 
 label-blocks:
 
-> A YANG grouping that describes the list of MPLS enabled interfaces on a device.
+> A YANG grouping that describes the list of assigned MPLS label blocks and their properties.
 
 ## Model Tree Diagram
 
@@ -210,8 +212,11 @@ The ietf-mpls module imports the following modules:
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-interfaces defined in {{!RFC8343}}
 
+This model also references the following RFCs in defining the types and YANG grouping of the YANG module:
+{{?RFC3032}}, {{?RFC3031}}, and {{?RFC7424}}.
+
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls@2019-09-11.yang"
+<CODE BEGINS> file "ietf-mpls@2020-03-03.yang"
 {::include ../../te/ietf-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
