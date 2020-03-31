@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for RSVP-TE Protocol
 abbrev: RSVP-TE Protocol YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-07
+docname: draft-ietf-teas-yang-rsvp-te-08
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -232,7 +232,7 @@ This module references the following documents:
 {{?RFC5420}}, {{?RFC7570}}, {{?RFC4859}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2019-07-06.yang"
+<CODE BEGINS> file "ietf-rsvp-te@2020-03-09.yang"
 {::include ../../te/ietf-rsvp-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -252,7 +252,7 @@ This module references the following documents:
 {{!I-D.ietf-teas-yang-te}}, {{?RFC3209}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2019-07-06.yang"
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2020-03-09.yang"
 {::include ../../te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
