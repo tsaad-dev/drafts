@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-22
+docname: draft-ietf-teas-yang-te-23
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -139,7 +139,7 @@ This is expected to be covered by augmentations defined in other document(s).
 ## State Data Organization
 
 The Network Management Datastore Architecture (NMDA) {{!RFC8342}} addresses
-modeling state data for ephemeral objects.  This draft adopts the NMDA proposal
+modeling state data for ephemeral objects.  This document adopts the NMDA proposal
 for configuration and state data representation as per IETF guidelines for new
 IETF YANG models.
 
@@ -148,7 +148,7 @@ IETF YANG models.
 The data model(s) defined in this document cover core TE features that are
 commonly supported across different vendor implementations. The support of
 extended or vendor specific TE feature(s) is expected to be in augmentations to
-the base model defined in this document.
+the model defined in this document.
 
 ## Module(s) Relationship
 
@@ -203,44 +203,28 @@ RSVP-TE YANG model augmentation of the TE model is covered in
 ~~~
 {: #figctrl title="Relationship of TE module(s) with other signaling protocol modules"}
 
-~~~
-    +---------+
-    | ietf-te |       ^: import
-    +---------+
-      ^  ^  ^
-      |  |  +--------------------------------------+
-      |  +----------------------+                  |
-      |                         |                  |
-    +----------------+   +---------------------+ +--------------------+ 
-    | ietf-te-types* |   | ietf-te-mpls-types* | | ietf-te-otn-types* | 
-    +----------------+   +---------------------+ +--------------------+
-
-    *: not in this document, shown for illustration only
-~~~
-{: #figtypes title="Relationship between generic and technology specific TE
-types modules"}
-
 
 ## Design Considerations
 
 The following design considerations are taken into account with respect data
 organization:
 
-* reusable TE data types that are data plane independent are grouped in the TE
+* Reusable TE data types that are data plane independent are grouped in the TE
   generic types module "ietf-te-types.yang" defined in
-  {{!I-D.ietf-teas-yang-te-types}}
-* reusable TE data types that are data plane specific are defined in a data
+  {{!I-D.ietf-teas-yang-te-types}}.
+* Reusable TE data types that are data plane specific are defined in a data
   plane type module, e.g. "ietf-te-packet-types.yang" as defined in
   {{!I-D.ietf-teas-yang-te-types}}.  Other data plane types are
-  expected to be defined in separate module(s) as shown in {{figtypes}}
+  expected to be defined in separate module(s).
 * The TE generic YANG data model "ietf-te" contains device independent data and
   can be used to model data off a device (e.g. on a controller).  The
   device-specific TE data is defined in module "ietf-te-device" as
-  shown in {{figctrl}}.
+  shown in {{figctrl}},
 * In general, minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
-* This model declares a number of TE functions as features that can be
+* Suitable defaults are specified for all configurable elements.
+* The model declares a number of TE functions as features that can be
   optionally supported.
 
 ## Model Tree Diagram
@@ -255,9 +239,8 @@ modules: ietf-te.yang, and ietf-te-device.yang.
 
 # Model Organization
 
-The TE generic YANG data module "ietf-te" covers configuration, state, RPC and
-notifications data pertaining to TE global, tunnels and LSPs parameters that are
-device independent.
+The TE generic YANG data module "ietf-te" covers configuration, state, and RPC
+data pertaining to TE tunnels, and global objects that are device independent.
 
 The container "te" is the top level container in the data model. The presence of
 this container enables TE function system wide.
@@ -278,11 +261,8 @@ module: ietf-te
       +-- lsps-state
 
 rpcs:
-   +---x globals-rpc
-   +---x tunnels-rpc
-notifications:
-   +---n globals-notif
-   +---n tunnels-notif
+   +---x tunnels-path-compute
+   +---x tunnels-action
 ~~~~~~~~~~~
 {: #fig-highlevel title="TE generic highlevel model view"}
 
@@ -357,10 +337,7 @@ shown in {{fig-tunnel-te-state}}.
 module: ietf-te
    +--rw te!
       +--rw tunnels
-            <<intended configuration>>
-         .
-         +-- ro state
-            <<derived state associated with the tunnel>>
+            <<intended and applied configurations>>
 ~~~~~~~~~~~
 {: #fig-tunnel-te-state title="TE interface state tree"}
 
@@ -400,38 +377,6 @@ case, the model introduces the TE tunnel hierarchical link endpoint parameters
 to identify the specific link in the client layer that the underlying TE tunnel is
 associated with.
 
-## TE LSPs State Data
-
-TE LSPs are derived state data that are present whenever the LSP(s) are
-instantiated -- for example, when associated signaling completes.  TE LSPs
-exists on routers as ingress (starting point of LSP), transit (mid-point of LSP
-), or egress (termination point of the LSP).  In the model, the nodes holding
-TE LSP data exist in the read-only lsps-state list as show in
-{{fig-globals-tree}}.
-
-## Global RPC Data
-
-This branch of the model covers system-wide RPC execution data to trigger
-actions and optionally expect responses. Examples of such TE commands are to:
-
-* Clear global TE statistics of various features
-
-## Interface RPC Data
-
-This collection of data in the model defines TE interface RPC execution
-commands. Examples of these are to:
-
-* Clear TE statistics for all or for individual TE interfaces
-* Trigger immediate flooding for one or all TE interfaces
-
-## Tunnel RPC Data
-
-This branch of the model covers TE tunnel RPC execution data to trigger actions
-and expect responses.  The TE generic YANG data model defines target containers
-that an external module in {{!I-D.ietf-teas-yang-path-computation}} augments
-with RPCs that allow the invocation of certain TE functions (e.g. path
-computations).
-
 # TE Generic and Helper YANG Modules
 
 The TE generic YANG module "ietf-te" imports the following modules:
@@ -445,7 +390,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2019-11-02.yang"
+<CODE BEGINS> file "ietf-te@2020-03-09.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -460,7 +405,7 @@ The TE device YANG module "ietf-te-device" imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2019-11-02.yang"
+<CODE BEGINS> file "ietf-te-device@2020-03-09.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
