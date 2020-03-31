@@ -87,3 +87,14 @@ pyang --ietf --max-line-length 69 FILE
 
 open -a "Microsoft Word" draft-ip-rsvp-te.txt
 
+
+
+{:req: counter="bar" style="format %c."}
+
+{: req}
+* Foo
+* Bar
+* Bax
+{: req}
+
+
