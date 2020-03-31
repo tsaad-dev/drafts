@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Traffic Engineering Tunnels
 abbrev: MPLS TE Tunnels YANG Data Model
-docname: draft-ietf-teas-yang-te-mpls-02
+docname: draft-ietf-teas-yang-te-mpls-03
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -172,7 +172,7 @@ defined in ietf-te-mpls.yang.
 ## MPLS TE YANG Module
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls@2019-11-02.yang"
+<CODE BEGINS> file "ietf-te-mpls@2020-03-09.yang"
 {::include ../../te/ietf-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
