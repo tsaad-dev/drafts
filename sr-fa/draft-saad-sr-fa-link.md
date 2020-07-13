@@ -1,7 +1,7 @@
 ---
 title: Segment-Routing over Forwarding Adjacency Links
 abbrev: SR over FA Links
-docname: draft-saad-sr-fa-link-01
+docname: draft-saad-sr-fa-link-02
 category: info
 ipr: trust200902
 workgroup: SPRING Working Group
@@ -30,8 +30,9 @@ author:
  -
    ins: S. Sivabalan
    name: Siva Sivabalan
-   organization: Cisco Systems, Inc.
-   email: msiva@cisco.com
+   organization: Ciena Corporation.
+   email: ssivabal@ciena.com
+
 
 normative:
   RFC2119:
