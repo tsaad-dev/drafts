@@ -1,5 +1,5 @@
 ---
-title: A YANG Data Model for Traffic Engineering Tunnels and Interfaces
+title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
 docname: draft-ietf-teas-yang-te-24
 category: std
@@ -56,7 +56,7 @@ informative:
 --- abstract
 
 This document defines a YANG data model for the configuration and management of
-Traffic Engineering (TE) interfaces, tunnels and Label Switched Paths (LSPs).
+Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs). and interfaces.
 The model is divided into YANG modules that classify data into generic,
 device-specific, technology agnostic, and technology-specific elements.
 
@@ -75,10 +75,10 @@ RESTCONF {{RFC8040}}) and encoding other than XML (e.g. JSON) are being defined.
 Furthermore, YANG data models can be used as the basis of implementation for
 other interfaces, such as CLI and programmatic APIs.
 
-This document describes YANG data model for TE Tunnels, Label Switched Paths
-(LSPs) and TE interfaces and covers data applicable to generic or
-device-independent, device-specific, and Multiprotocol Label Switching (MPLS)
-technology specific.
+This document describes YANG data model for Traffic Engineering (TE) tunnels,
+Label Switched Paths (LSPs), and interfaces. The model covers data applicable
+to generic or device-independent, device-specific, and Multiprotocol Label
+Switching (MPLS) technology specific.
 
 The document describes a high-level relationship between the modules defined in
 this document, as well as other external protocol YANG modules.  The TE generic
@@ -163,7 +163,7 @@ IETF YANG models.
 The data models defined in this document cover the core TE features that are
 commonly supported by different vendor implementations. The support of extended
 or vendor specific TE feature(s) is expected to be in either augmentations, or
-deviatioins to the model defined in this document.
+deviations to the model defined in this document.
 
 
 ## Module Relationship
@@ -225,7 +225,7 @@ The generic TE YANG module ('ietf-te') is meant to manage and operate a TE netwo
 This includes creating, modifying and retrieving TE tunnels, LSPs, and interfaces
 and their associated attributes (e.g. Administrative-Groups, SRLGs, etc.).
 
-The detailed tree structure is provided in Figure {{fig-highlevel}}..
+The detailed tree structure is provided in {{fig-highlevel}}..
 
 ## Module Structure
 
@@ -240,7 +240,7 @@ applicable to TE tunnel(s) and interface(s).
 
 The 'tunnels' container includes the list of TE tunnels that are instantiated.
 
-The 'lsps' container includes the list pf TE LSP(s) that are instantiated.
+The 'lsps' container includes the list of TE LSP(s) that are instantiated.
 
 ~~~~~~~~~~~
 module: ietf-te
@@ -264,7 +264,7 @@ rpcs:
 ### TE Globals
 
 The 'globals' container covers properties that control TE features behavior
-system-wide, and its respective state (see Figure {{fig-globals}}).
+system-wide, and its respective state (see {{fig-globals}}).
 The TE globals configuration include:
 
 * Table of named (extended) administrative groups mappings
@@ -295,9 +295,9 @@ The TE globals configuration include:
 
 ### TE Tunnels
 
-The set of TE tunnels are provisioned under the 'tunnels' container (see Figure {{fig-te-tunnel}}).
+The set of TE tunnels are provisioned under the 'tunnels' container (see {{fig-te-tunnel}}).
 A TE tunnel in the list is uniquely identified by a name. When the model is used to
-manage a specific device, the 'tunnels' list constains the TE tunnels
+manage a specific device, the 'tunnels' list contains the TE tunnels
 originating from the specific device. When the model is used to manage a TE
 controller, the 'tunnels' list contains all TE tunnels originating from device(s)
 that the TE controller manages.
@@ -332,7 +332,7 @@ association-objects:
 
 protection:
 
-> A container that includes the TE tunnel prrotection properties.
+> A container that includes the TE tunnel protection properties.
 
 restoration:
 
@@ -340,8 +340,8 @@ restoration:
 
 primary-paths:
 
-> A container that includes the set of primary paths (see Figure{{fig-primary}}).
-A primary path is indentified by 'name'. A primary path is selected from the list
+> A container that includes the set of primary paths (see {{fig-primary}}).
+A primary path is identified by 'name'. A primary path is selected from the list
 to instantiate an LSP for the tunnel.  The list of primary paths is visited by
 order of preference. A primary path has the following attributes:
 
@@ -355,7 +355,7 @@ order of preference. A primary path has the following attributes:
   candidate secondary paths which may be used for the primary path. The
   candidate secondary path(s) reference path(s)m  from the secondary paths list.
   The preference of the secondary paths is specified within the list and
-  dicates the order of visiting the secondary path from the list.
+  dictates the order of visiting the secondary path from the list.
 
 >
 - compute-only: A primary path of TE tunnel is, by default, provisioned so that it can is instantiated
@@ -396,7 +396,7 @@ secondary-paths:
 
 hierarchy:
 
-> A container that includes hierarchy related properties of the tunnel (see Figure {{fig-hierarchy}}. A TE LSP
+> A container that includes hierarchy related properties of the tunnel (see {{fig-hierarchy}}. A TE LSP
   can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
   a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
   case, the model introduces the TE tunnel hierarchical link endpoint parameters
@@ -445,10 +445,10 @@ hierarchy:
 
 ### TE LSPs
 
-The 'lsps' container includes the set pf TE LSP(s) that are instantiated.
+The 'lsps' container includes the set of TE LSP(s) that are instantiated.
 A TE LSP is identified by a 3-tuple ('tunnel-name', 'node', 'lsp-id').
 When the model is used to manage a specific device, the 'lsps' list contains all TE
-LSP(s) that traverse the device (including ingressing, transitting and egressing the device).
+LSP(s) that traverse the device (including ingressing, transiting and egressing the device).
 
 ## Tree Diagram
 
