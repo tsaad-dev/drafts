@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-24
+docname: draft-ietf-teas-yang-te-25
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -105,21 +105,25 @@ In this document, names of data nodes and other data model objects are prefixed
 using the standard prefix associated with the corresponding YANG imported
 modules, as shown in Table 1.
 
-~~~~~~~~~~
- +-----------------+--------------------+--------------------+
- | Prefix          | YANG module        | Reference          |
- +-----------------+--------------------+--------------------+
- | yang            | ietf-yang-types    | [RFC6991]          |
- | inet            | ietf-inet-types    | [RFC6991]          |
- | rt-types        | ietf-routing-types | [RFC8294]          |
- | te              | ietf-te            | this document      |
- | te-dev          | ietf-te-device     | this document      |
- | te-types        | ietf-te-types      | [RFC8776]          |
- | te-packet-types | ietf-te-mpls-types | [RFC8776]          |
- +---------------+--------------------+----------------------+
+ | Prefix          | YANG module          | Reference          |
+ |-----------------|----------------------|--------------------|
+ | yang            | ietf-yang-types      | {{!RFC6991}}       |
+ | inet            | ietf-inet-types      | {{!RFC6991}}       |
+ | rt-types        | ietf-routing-types   | {{!RFC8294}}       |
+ | te-types        | ietf-te-types        | {{!RFC8776}}       |
+ | te-packet-types | ietf-te-packet-types | {{!RFC8776}}       |
+ | te              | ietf-te              | this document      |
+ | te-dev          | ietf-te-device       | this document      |
+ |-----------------|----------------------|--------------------|
 
+~~~~~~~~~~
          Table 1: Prefixes and corresponding YANG modules
 ~~~~~~~~~~
+
+## Model Tree Diagrams
+
+The tree diagrams extracted from the module(s) defined in this document are given in
+subsequent sections as per the syntax defined in {{!RFC8340}}.
 
 # Design Considerations
 
@@ -608,21 +612,24 @@ registry {{RFC6020}}.
 
 # Security Considerations
 
-The YANG module defined in this memo is designed to be accessed via the NETCONF
-protocol {{!RFC6241}}.  The lowest NETCONF layer is the secure transport layer
-and the mandatory-to-implement secure transport is SSH {{!RFC6242}}.  The
-NETCONF access control model {{!RFC8341}} provides means to restrict access for
-particular NETCONF
+The YANG module specified in this document defines a schema for data that is
+designed to be accessed via network management protocols such as NETCONF
+{{!RFC6241}} or RESTCONF {{!RFC8040}}. The lowest NETCONF layer is the secure
+transport layer, and the mandatory-to-implement secure transport is Secure
+Shell (SSH) {{!RFC6242}}. The lowest RESTCONF layer is HTTPS, and the
+mandatory-to-implement secure transport is TLS {{!RFC8446}}.
 
-users to a pre-configured subset of all available NETCONF protocol operations
+The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the
+means to restrict access for particular NETCONF or RESTCONF users to a
+preconfigured subset of all available NETCONF or RESTCONF protocol operations
 and content.
 
-There are a number of data nodes defined in the YANG module which are
-writable/creatable/deletable (i.e., config true, which is the default).  These
+There are a number of data nodes defined in this YANG module that are
+writable/creatable/deletable (i.e., config true, which is the default). These
 data nodes may be considered sensitive or vulnerable in some network
-environments.  Write operations (e.g., \<edit-config\>) to these data nodes
-without proper protection can have a negative effect on network operations.
-Following are the subtrees and data nodes and their sensitivity/vulnerability:
+environments. Write operations (e.g., edit-config) to these data nodes without
+proper protection can have a negative effect on network operations. These are
+the subtrees and data nodes and their sensitivity/vulnerability:
 
 "/te/globals":  This module specifies the global TE configurations on a device.
 Unauthorized access to this container could cause the device to ignore packets
@@ -632,13 +639,34 @@ it should receive and process.
 Unauthorized access to this list could cause the device to ignore packets it
 should receive and process.
 
-"/te/lsps-state":  This list specifies the state derived LSPs.  Unauthorized
-access to this list could cause the device to ignore packets it should receive
-and process.
-
 "/te/interfaces":  This list specifies the configured TE interfaces on a device.
 Unauthorized access to this list could cause the device to ignore packets it
 should receive and process.
+
+Some of the readable data nodes in this YANG module may be considered sensitive
+or vulnerable in some network environments. It is thus important to control
+read access (e.g., via get, get-config, or notification) to these data nodes.
+These are the subtrees and data nodes and their sensitivity/vulnerability:
+
+"/te/lsps": this list contains information state about established LSPs in the network.
+An attacker can use this information to derive information about the network topology,
+and subsequently orchestrate further attacks.
+
+Some of the RPC operations in this YANG module may be considered sensitive or
+vulnerable in some network environments. It is thus important to control access
+to these operations. These are the operations and their
+sensitivity/vulnerability:
+
+"unnels-actions": using this RPC, an attacker can modify existing paths that
+may be carrying live traffic, and hence result to interruption to services
+carried over the network.
+
+"/te/tunnels-path-compute": using this RPC, an attacker can retrieve secured
+information about the network provider which can be used to orchestrate further
+attacks.
+
+The security considerations spelled out in the YANG 1.1 specification
+{{!RFC7950}} apply for this document as well.
 
 # Acknowledgement
 
