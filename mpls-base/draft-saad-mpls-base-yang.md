@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
-docname: draft-ietf-mpls-base-yang-14
+docname: draft-ietf-mpls-base-yang-15
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -66,15 +66,30 @@ models) will augment the MPLS base YANG model.
 # Introduction
 
 A core routing data model is defined in {{!RFC8349}}, and it provides a basis
-for the development of data models for routing protocols.  The MPLS base model
-augments core routing data model with additional data specific to MPLS
-technology as described in the MPLS architecture document {{?RFC3031}}. 
+for the development of routing data models for specific Address Families (AFs).
+Specifically, {{!RFC8349}} defines a model for a generic Routing Information
+Base (RIB) that is Address-Family (AF) agnostic. {{!RFC8349}} also defines two
+instances of RIBs based on the generic RIB model for IPv4 and IPv6 AFs.
+
+The MPLS base model that is defined in this document augments the generic RIB model
+defined in {{!RFC8349}} with additional data that enables MPLS
+forwarding for the specific destination prefix(es) present in the AF RIB(s) as described in
+the MPLS architecture document {{?RFC3031}}. 
+
+The MPLS base model also defines a new instance of the generic RIB model as
+defined in {!RFC8349}} to store native MPLS routes. The native MPLS RIB
+instance stores route(s) that are not associated with other AF instance RIBs
+(such as IPv4, or IPv6 instance RIB(s)), but are enabled for MPLS forwarding.
+Examples of such native MPLS routes are routes programmed by RSVP on
+transit MPLS router(s) along the path of a Label Switched Path (LSP). Other example(s) are
+MPLS routes that cross-connect to specific Layer-2 adjacencies, such as Layer-2
+Attachment Circuit(s) (ACs)), or Layer-3 adjacencies, such as Segment-Routing
+(SR) Adjacency Segments (Adj-SIDs) described in {{!RFC8402}}.
 
 The MPLS base model serves as a basis for future development of MPLS data
 models covering more-sophisticated MPLS feature(s) and sub-system(s). The main
-purpose is to provide essential building blocks for the more-complicated data
-models involving different control-plane protocols, and advanced MPLS
-functions.
+purpose is to provide essential building blocks for other models involving
+different control-plane protocols, and MPLS functions.
 
 To this end, it is expected that the MPLS base data model will be augmented by
 a number of other modules developed at IETF (e.g. by TEAS and MPLS working
@@ -112,19 +127,22 @@ The terminology for describing YANG data models is found in {{!RFC7950}}.
 
 # MPLS Base Model
 
-This document describes the ietf-mpls YANG module that provides base components
+This document describes the 'ietf-mpls' YANG module that provides base components
 of the MPLS data model. It is expected that other MPLS YANG modules will
-augment the ietf-mpls base module for other MPLS extension to provision Label Switched Paths (LSPs)
+augment 'ietf-mpls' module for other MPLS extension to provision Label Switched Paths (LSPs)
 (e.g. MPLS Static, MPLS LDP or MPLS RSVP-TE LSP(s)).
 
 ## Model Overview
 
-This document defines a mechanism to model MPLS labeled routes as an
-augmentation of the routing RIB data model defined in {{!RFC8349}} for IP
-prefix routes that are MPLS labeled.
+This document models MPLS labeled routes as an
+augmentation of the generic routing RIB data model as defined in {{!RFC8349}}.
+For example, IP prefix routes (e.g. routes stored in IPv4 or IPv6 RIBs) are
+augmented to carry additional data to enable it for MPLS forwarding.
 
-The other MPLS route(s) that are non-IP prefix routes are modelled by
-introducing a new "mpls" address-family RIB as per recommendation .
+This document also defines a new instance of the generic RIB defined in
+{{!RFC8349}} to store native MPLS route(s) (described further in
+{{model-design}}) by extending the identity 'address-family' defined in
+{{!RFC8349}} with a new "mpls" identity as suggested in Section 3 of {{!RFC8349}}.
 
 ## Model Organization
 
@@ -150,12 +168,17 @@ introducing a new "mpls" address-family RIB as per recommendation .
 ~~~~~~~~~~~
 {: #fig-mpls-relation title="Relationship between MPLS modules"}
 
+The 'ietf-mpls' module defines the following identities:
 
-ietf-mpls module contains the following high-level types and groupings:
+mpls:
+
+> This identity extends the 'address-family' identity for RIB instance(s) identity as defined in {{!RFC8349}} to represent the native MPLS RIB instance.
 
 label-block-alloc-mode:
 
 > A base YANG identity for supported label block allocation mode(s).
+
+The ietf-mpls module contains the following high-level types and groupings:
 
 mpls-operations-type:
 
@@ -175,21 +198,66 @@ nhlfe-multiple-contents:
 > A YANG grouping that describes a set of NHLFE(s) and their associated parameters as described in the MPLS architecture document {{?RFC3031}}.
 
 
-interface-mpls-properties:
-
-> A YANG grouping that describes the properties of an MPLS interface on a device.
-
 interfaces-mpls:
 
 > A YANG grouping that describes the list of MPLS enabled interfaces on a device.
 
-label-block-properties:
-
-> A YANG grouping that describes the properties of an MPLS label block.
-
 label-blocks:
 
 > A YANG grouping that describes the list of assigned MPLS label blocks and their properties.
+
+rib-mpls-properties:
+
+> A YANG grouping for the augmentation of MPLS label forwarding data to the generic RIB as defined in {{?RFC3031}}.
+
+rib-active-route-mpls-input:
+
+> A YANG grouping for the augmentation to the 'active-route' RPC that is specific to the MPLS RIB instance.
+
+## Model Design {#model-design}
+
+The MPLS routing model is based on the core routing data model defined in {{!RFC8349}}.
+{{fig-mpls-rib-relation}} shows the extensions introduced by the MPLS base model on defined RIB(s).
+
+~~~~~~~~~~~
+                             +-----------------+
+                             | MPLS base model |
+                             +-----------------+
+                           ____/  |  |_____  |________
+                          /       |        \          \
+                         /        |         \          \
+                        o         o          o          +
+                 +---------+  +---------+  +--------+ +-----------+ 
+                 | RIB(v4) |  | RIB(v6) |  | RIB(x) | | RIB(mpls) |
+                 +---------+  +---------+  +--------+ +-----------+
+
+
+        +: created by the MPLS base model
+        o: augmented by the MPLS base model
+~~~~~~~~~~~
+{: #fig-mpls-rib-relation title="Relationship between MPLS model and RIB instances"}
+
+As shown in {{fig-mpls-rib-relation}}, the MPLS base YANG model augments
+defined instance(s) of AF RIB(s) with additional data that enables MPLS
+forwarding for destination prefix(es) store in such RIB(s). For example, an IPv4 prefix
+stored in RIB(v4) is augmented to carry a MPLS local label and per next-hop
+remote label(s) to enable MPLS forwarding for such prefix.
+
+The MPLS base model also creates a separate instance of the generic RIB model
+defined in {{!RFC8349}} to store MPLS native route(s) that are enabled for MPLS forwarding,
+but not stored in other AF RIB(s).
+
+Some examples of such native MPLS routes are:
+
+ - routes programmed by RSVP on Label Switched Router(s) (LSRs) along the path
+   of a Label Switched Path (LSP),
+ - routes that cross-connect an MPLS local label to a Layer-2, or Layer-3 VRF,
+ - routes that cross-connect an MPLS local label to a specific Layer-2
+   adjacency or interface, such as  Layer-2 Attachment Circuit(s) (ACs), or
+ - routes that cross-connect an MPLS local label to a Layer-3 adjacency or interface -
+   such as MPLS Segment-Routing (SR) Adjecency Segments (Adj-SIDs), SR MPLS Binding SIDs,
+   etc. as defined in {{!RFC8402}}.
+
 
 ## Model Tree Diagram
 
@@ -216,7 +284,7 @@ This model also references the following RFCs in defining the types and YANG gro
 {{?RFC3032}}, {{?RFC3031}}, and {{?RFC7424}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls@2020-03-03.yang"
+<CODE BEGINS> file "ietf-mpls@2020-08-17.yang"
 {::include ../../te/ietf-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -241,7 +309,7 @@ registry {{!RFC6020}}.
 ~~~
    name:       ietf-mpls
    namespace:  urn:ietf:params:xml:ns:yang:ietf-mpls
-   prefix:     ietf-mpls
+   prefix:     mpls
    // RFC Ed.: replace XXXX with RFC number and remove this note
    reference:  RFCXXXX
 ~~~
