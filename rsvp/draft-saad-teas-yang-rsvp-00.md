@@ -266,9 +266,11 @@ requested to be made.
 
 ~~~
    URI: urn:ietf:params:xml:ns:yang:ietf-rsvp-te
+   Registrant Contact:  The IESG.
    XML: N/A, the requested URI is an XML namespace.
 
    URI: urn:ietf:params:xml:ns:yang:ietf-rsvp-te-mpls
+   Registrant Contact:  The IESG.
    XML: N/A, the requested URI is an XML namespace.
 ~~~
 
@@ -276,14 +278,14 @@ This document registers two YANG modules in the YANG Module Names
 registry {{RFC6020}}.
 
 ~~~
-   name:       ietf-rsvp
+   name:       ietf-rsvp-te
    namespace:  urn:ietf:params:xml:ns:yang:ietf-rsvp-te
-   prefix:     ietf-rsvp
+   prefix:     rsvp-te
    reference:  RFCXXXX
 
-   name:       ietf-rsvp-te
+   name:       ietf-rsvp-te-mpls
    namespace:  urn:ietf:params:xml:ns:yang:ietf-rsvp-te-mpls
-   prefix:     ietf-rsvp-te
+   prefix:     rsvp-te-mpls
    reference:  RFCXXXX
 ~~~
 
