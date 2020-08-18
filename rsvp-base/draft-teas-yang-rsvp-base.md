@@ -231,12 +231,12 @@ module: ietf-rsvp
          .
       +--rw neighbors
             .
-            +-- ro <<derived state associated with the tunnel>>
+            +-- ro <<derived state associated with the LSP Tunnel>>
          .
          .
       +--rw sessions
             .
-            +-- ro <<derived state associated with the tunnel>>
+            +-- ro <<derived state associated with the LSP Tunnel>>
          .
    rpcs:
       +--x clear-session
