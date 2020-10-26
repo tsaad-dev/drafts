@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Base 
 abbrev: MPLS Base YANG Data Model
-docname: draft-ietf-mpls-base-yang-16
+docname: draft-ietf-mpls-base-yang-17
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -202,7 +202,7 @@ The NHLFE is used when forwarding labeled packet.  It contains the following inf
       c) replace the label at the top of the label stack with a
          specified new label, and then push one or more specified new
          labels onto the label stack.
-      d) push one or more label(s) on an unlabeled packe
+      d) push one or more label(s) on an unlabeled packet
 
    It may also contain:
 
@@ -306,7 +306,7 @@ This YANG module also references the following RFCs in defining the types and YA
 {{!RFC3032}}, {{RFC3031}}, and {{?RFC7424}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls@2020-10-15.yang"
+<CODE BEGINS> file "ietf-mpls@2020-10-26.yang"
 {::include ../../te/ietf-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -374,38 +374,37 @@ The security considerations spelled out in {{RFC3031}} and {{RFC3032}} apply for
 
 # Acknowledgement
 
-The authors would like to thank the members of the multi-vendor YANG design
-team that includes the authors, contributors and Xia Chen who were involved in
-the definition of this YANG data model.
-
+The authors would like to thank Xia Chen for her contributions to the early
+revisions of this document.
 
 # Appendix A. Data Tree Instance Example
 
-A simple network setup is shown in {{fig-example}}.  R1 run ISIS routinig
-protcol, and learns reachability about IPv4 prefixes: P1:10.10.0.1/32 and P2:
-10.10.0.1/32, and IPv6 prefixes P3: 10:10::1/64 and P4: 10:10::1/64. We also
-assume that R1 learns about local and remote MPLS label bindings for each
-prefix using ISIS (e.g. using Segment-Routing (SR) extensions).
+A simple network setup is shown in Figure 5.  R1 runs the ISIS routing
+protocol, and learns reachability about two IPv4 prefixes:
+P1: 198.51.100.1/32 and P2: 198.51.100.1/32, and two IPv6 prefixes P3:
+2001:db8:0:10::1/64 and P4: 2001:db8:0:10::1/64.  We also assume that
+R1 learns about local and remote MPLS label bindings for each prefix
+using ISIS (e.g. using Segment-Routing (SR) extensions).
 
 
 ~~~~
 State on R1:
 ============
-    IPv4 Prefix    MPLS Label
-P1: 10.10.0.1/32   16001
-P2: 10.10.0.2/32   16002
+    IPv4 Prefix         MPLS Label
+P1: 198.51.100.1/32     16001
+P2: 198.51.100.2/32     16002
 
-    IPv6 Prefix    MPLS Label
-P3: 10:10::1/64    16003
-P4: 10:10::1/64    16004
+    IPv6 Prefix         MPLS Label
+P3: 2001:db8:0:10::1/64 16003
+P4: 2001:db8:0:10::2/64 16004
 
 RSVP MPLS LSPv4-Tunnel:
- Source: 1.1.1.1
- Destination: 2.2.2.2
- Tunnel-ID:10
- LSP-ID:1
-                               50.0.0.1/31
-                               50::1/64
+ Source:        198.51.100.3
+ Destination:   198.51.100.4
+ Tunnel-ID:     10
+ LSP-ID:        1
+                               192.0.2.5/30
+                               2001:db8:0:1::1/64
                               eth0
                               +---
                              /
@@ -415,8 +414,8 @@ RSVP MPLS LSPv4-Tunnel:
                              \
                               +---
                               eth1
-                              50.0.0.2/31
-                              50::2/64
+                               192.0.2.13/30
+                               2001:db8:0:2::1/64
 
 ~~~~
 {:#fig-example title="Example of network configuration."}
@@ -425,214 +424,7 @@ RSVP MPLS LSPv4-Tunnel:
 The instance data tree could then be as follows:
 
 ~~~~
-{
-    "routing": {
-        "ribs": {
-            "rib": {
-                "RIB-V4": {
-                    "name": "RIB-V4",
-                    "address-family": "v4ur:ipv4-unicast",
-                    "routes": {
-                        "route": {
-                            "a64dcc40-0e68-11eb-af2e-acde48001122": {
-                                "next-hop": {
-                                    "outgoing-interface": "eth0",
-                                    "mpls-label-stack": {
-                                        "entry": {
-                                            "1": {
-                                                "id": 1,
-                                                "label": 16001,
-                                                "ttl": 255
-                                            }
-                                        }
-                                    },
-                                    "next-hop-address": "50.0.0.1"
-                                },
-                                "source-protocol": "isis:isis",
-                                "mpls-enabled": true,
-                                "mpls-local-label": 16001,
-                                "destination-prefix": "10.10.0.1/32",
-                                "route-context": "SID-IDX:1"
-                            },
-                            "a6506522-0e68-11eb-af2e-acde48001122": {
-                                "next-hop": {
-                                    "next-hop-list": {
-                                        "next-hop": {
-                                            "a65116de-0e68-11eb-af2e-acde48001122": {
-                                                "outgoing-interface": "eth0",
-                                                "index": "1",
-                                                "backup-index": "2",
-                                                "role": "primary-and-backup",
-                                                "mpls-label-stack": {
-                                                    "entry": {
-                                                        "1": {
-                                                            "id": 1,
-                                                            "label": 16002,
-                                                            "ttl": 255
-                                                        }
-                                                    }
-                                                },
-                                                "address": "50.0.0.1"
-                                            },
-                                            "a653df72-0e68-11eb-af2e-acde48001122": {
-                                                "outgoing-interface": "eth1",
-                                                "index": "2",
-                                                "backup-index": "1",
-                                                "role": "primary-and-backup",
-                                                "mpls-label-stack": {
-                                                    "entry": {
-                                                        "1": {
-                                                            "id": 1,
-                                                            "label": 16002,
-                                                            "ttl": 255
-                                                        }
-                                                    }
-                                                },
-                                                "address": "50.0.0.2"
-                                            }
-                                        }
-                                    }
-                                },
-                                "source-protocol": "isis:isis",
-                                "mpls-enabled": true,
-                                "mpls-local-label": 16002,
-                                "destination-prefix": "10.10.0.2/32",
-                                "route-context": "SID-IDX:2"
-                            }
-                        }
-                    }
-                },
-                "RIB-V6": {
-                    "name": "RIB-V6",
-                    "address-family": "v6ur:ipv6-unicast",
-                    "routes": {
-                        "route": {
-                            "a64dcc40-0e68-11eb-af2e-acde48001124": {
-                                "next-hop": {
-                                    "outgoing-interface": "eth0",
-                                    "mpls-label-stack": {
-                                        "entry": {
-                                            "1": {
-                                                "id": 1,
-                                                "label": 16003,
-                                                "ttl": 255
-                                            }
-                                        }
-                                    },
-                                    "next-hop-address": "50::1"
-                                },
-                                "source-protocol": "isis:isis",
-                                "mpls-enabled": true,
-                                "mpls-local-label": 16003,
-                                "destination-prefix": "10:10::1/64",
-                                "route-context": "SID-IDX:1"
-                            },
-                            "a6506522-0e68-11eb-af2e-acde48001124": {
-                                "next-hop": {
-                                    "next-hop-list": {
-                                        "next-hop": {
-                                            "a65116de-0e68-11eb-af2e-acde48001123": {
-                                                "outgoing-interface": "eth0",
-                                                "index": "1",
-                                                "backup-index": "2",
-                                                "role": "primary-and-backup",
-                                                "mpls-label-stack": {
-                                                    "entry": {
-                                                        "1": {
-                                                            "id": 1,
-                                                            "label": 16004,
-                                                            "ttl": 255
-                                                        }
-                                                    }
-                                                },
-                                                "address": "50::1"
-                                            },
-                                            "a653df72-0e68-11eb-af2e-acde48001123": {
-                                                "outgoing-interface": "eth1",
-                                                "index": "2",
-                                                "backup-index": "1",
-                                                "role": "primary-and-backup",
-                                                "mpls-label-stack": {
-                                                    "entry": {
-                                                        "1": {
-                                                            "id": 1,
-                                                            "label": 16004,
-                                                            "ttl": 255
-                                                        }
-                                                    }
-                                                },
-                                                "address": "50::2"
-                                            }
-                                        }
-                                    }
-                                },
-                                "source-protocol": "isis:isis",
-                                "mpls-enabled": true,
-                                "mpls-local-label": 16004,
-                                "destination-prefix": "10:10::2/64",
-                                "route-context": "SID-IDX:2"
-                            }
-                        }
-                    }
-                },
-                "RIB-MPLS": {
-                    "name": "RIB-MPLS",
-                    "address-family": "mpls:mpls-unicast",
-                    "routes": {
-                        "route": {
-                            "8dd8bc00-0e5a-11eb-946a-acde48001122": {
-                                "next-hop": {
-                                    "outgoing-interface": "eth0",
-                                    "mpls-label-stack": {
-                                        "entry": {
-                                            "1": {
-                                                "id": 1,
-                                                "label": 24002,
-                                                "ttl": 255
-                                            }
-                                        }
-                                    }
-                                },
-                                "source-protocol": "rsvp:rsvp",
-                                "mpls-enabled": true,
-                                "mpls-local-label": 24001,
-                                "destination-prefix": "24001",
-                                "route-context": "RSVP Src:1.1.1.1,Dst:2.2.2.2,T:10,L:1"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "mpls": {
-            "mpls-label-blocks": {
-                "mpls-label-block": {
-                    "mpls-srgb-label-block": {
-                        "index": "mpls-srgb-label-block",
-                        "start-label": 16000,
-                        "end-label": 16500,
-                        "block-allocation-mode": "mpls:label-block-alloc-mode-manager"
-                    }
-                }
-            },
-            "interfaces": {
-                "interface": {
-                    "eth0": {
-                        "name": "eth0",
-                        "mpls-enabled": true,
-                        "maximum-labeled-packet": 1488
-                    },
-                    "eth1": {
-                        "name": "eth1",
-                        "mpls-enabled": true,
-                        "maximum-labeled-packet": 1488
-                    }
-                }
-            }
-        }
-    }
-}
-
+{::include output.json}
 ~~~~
 {: #fib-ribs title="Foo bar."}
 
