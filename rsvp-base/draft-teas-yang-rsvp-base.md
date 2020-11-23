@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-14
+docname: draft-ietf-teas-yang-rsvp-15
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -156,13 +156,13 @@ routing YANG model is shown in {{figctrl}}.
                 +--------------+
        Routing  | ietf-routing |
                 +--------------+
-                      o
+                      ^
                       |
                  +-----------+ 
   RSVP module    | ietf-rsvp |
                  +-----------+
-                      o
-                      |                    o: augment relationship
+                      ^
+                      |                    ^: augment relationship
   RSVP extended       |
     module       +--------------------+
                  | ietf-rsvp-extended |
@@ -200,7 +200,7 @@ Notifications data modeling is key in any defined data model.
 for YANG datastores. This mechanism currently allows the user to:
 
 - Subscribe notifications on a per client basis
-- Specify subtree filters or xpath filters so that only interested
+- Specify subtree filters {{!RFC6241}} or XPath filters {{!RFC8639}} so that only interested
   contents will be sent.
 - Specify either periodic or on-demand notifications.
 
@@ -362,7 +362,7 @@ registry {{!RFC6020}}.
 
    name:       ietf-rsvp-extended
    namespace:  urn:ietf:params:xml:ns:yang:ietf-rsvp-extended
-   prefix:     rsvp-extendeed
+   prefix:     rsvp-extended
    reference:  RFCXXXX
 ~~~
 
