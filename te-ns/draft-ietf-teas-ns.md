@@ -48,9 +48,7 @@ on top of a single physical network by relying on compliant nodes to apply
 specific forwarding treatment (scheduling and drop policy)  on to packets 
 that carry the respective Diffserv
 code point. This document proposes a solution based on the Diffserv model to
-realize network slicing in IP/MPLS networks.  The proposed solution is agnostic
-to the path control technology used in the network slice policy domain and 
-allows service differentiation of traffic within a given network slice.
+realize network slicing in IP/MPLS networks.
 
 
 
@@ -63,47 +61,62 @@ independent and isolated logical networks on top of a common or shared physical
 network infrastructure. Such network slices can be offered to customers or used
 internally by the Service Provider to facilitate or enhance their service
 offerings. A Service Provider can also use network slicing to structure and
-organize the elements of its infrastructure. This document introduces the
-notion of a slice policy and discusses how a Service Provider can realize network
-slicing in IP/MPLS networks by applying the policy to one or more network slices. 
+organize the elements of its infrastructure. This document provides a path control
+technology agnostic solution
+that a Service Provider can deploy to realize network slicing in IP/MPLS networks.
 
-When logical networks representing network slices are realized on top of a
-shared physical network, it is important to steer traffic on the specific
-network resources allocated for the network slice. In packet networks,
-the packets that traverse a specific network slice MAY be identified by one or
-more specific fields
-carried within the packet. A slice policy ingress boundary node
-populates the respective field(s) in packets that enter a network slice to allow
-interior slice policy nodes to identity those packets and apply the specific Per Hop
-Behavior (PHB) that is associated with the slice policy. The PHB defines the
-scheduling treatment and, in some cases, the packet drop probability.
+The definition of network slice for use within the IETF and the characteristics
+of IETF network slice are specified in
+{{?I-D.nsdt-teas-ietf-network-slice-definition}}. A framework for reusing IETF
+VPN and traffic-engineering technologies to realize IETF network slices is
+discussed  in {{?I-D.nsdt-teas-ns-framework}}. These documents also discuss
+the function of an IETF Network Slice Controller and the requirements
+on its northbound and southbound interfaces.
+
+This document introduces the notion of a slice aggregate which comprises of
+one of more IETF network slice traffic streams. It discusses how a slice policy
+can be used to realize a slice aggregate by instantiating specific control plane 
+and data plane behaviors on select topological elements in packet networks. The
+onus is on the IETF Network Slice Controller to maintain the mapping between
+a slice aggregate and one or more IETF network slices. The mechanisms used by
+the controller to determine the mapping are outside the scope of this document. The
+focus of this document is on mechanisms that come into play at the device and the
+network resource level for catering to network slicing requirements in packet
+networks.
 
 In a Differentiated Service (Diffserv) domain {{?RFC2475}}, packets requiring
 the same forwarding treatment (scheduling and drop policy) are classified and marked with a Class Selector
 (CS) at domain ingress nodes. At transit nodes, the CS field inside the packet
 is inspected to determine the specific forwarding treatment to be applied
-before the packet is forwarded further. Similar principles can be adopted to realize
+before the packet is forwarded further. Similar principles are adopted by this document to realize
 network slicing.
 
-Multiple network slices can be realized on top of a shared physical
-infrastructure network. The realization of a single network slice may also involve carrying multiple
-forwarding treatments or Diffserv classes over the same logical network.
-The solution for realizing network slicing in IP/MPLS networks that is 
-proposed in this document makes use of slice policies to properly place
-paths and provide the respective treatment of traffic.
-The traffic associated with the slice policy may be marked at
-slice policy ingress boundary nodes with a Slice policy Selector (SS) to allow routers to apply a
-specific forwarding treatment that guarantees the respective Service Level
-Agreements (SLAs). The traffic may further carry a Diffserv CS to
-allow differentiation of forwarding treatments for packets associated with the
-same slice policy.
+When logical networks representing slice aggregates are realized on top of a
+shared physical network infrastructure, it is important to steer traffic on the specific
+network resources allocated for the slice aggregate. In packet networks,
+the packets that traverse a specific slice aggregate MAY be identified by one or
+more specific fields
+carried within the packet. A slice policy ingress boundary node
+populates the respective field(s) in packets that enter a slice aggregate to allow
+interior slice policy nodes to identity those packets and apply the specific Per Hop
+Behavior (PHB) that is associated with the slice aggregate. The PHB defines the
+scheduling treatment and, in some cases, the packet drop probability.
 
+The slice aggregate traffic may be marked at
+slice policy ingress boundary nodes with a Slice aggregate Selector (SS) to allow routers to apply a
+specific forwarding treatment that guarantees the respective Service Level
+Agreements (SLAs). The slice aggregate traffic may further carry a Diffserv CS to
+allow differentiation of forwarding treatments for packets within a slice aggregate.
 For example, when using MPLS as a dataplane, it is possible to identify packets
-belonging to the same slice policy by carrying a global MPLS SS Label
-(SSL) in the MPLS label stack that identifies the slice policy in each packet.
+belonging to the same slice aggregate by carrying a global MPLS SS Label
+(SSL) in the MPLS label stack that identifies the slice aggregate in each packet.
 Additional Diffserv classification may be indicated in the MPLS Traffic
 Class (TC) bits of the SSL to allow further differentiation of forwarding
-treatments for traffic traversing the same slice policy network resources.
+treatments for traffic traversing the same slice aggregate network resources.
+
+This document covers different modes of slice policy and discusses how
+each slice policy mode can ensure proper placement of slice aggregate paths
+and respective treatment of slice aggregate traffic.
 
 ## Terminology
 
@@ -116,23 +129,29 @@ The following terminology is used in the document:
 {: vspace="0"}
 IETF network slice:
 : a well-defined composite of a set of
-  endpoints, the connectivity requirements between subsets of these
-  endpoints, and associated service requirements; the term 'network slice'
-  in this document refers to 'IETF network slice' {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
+endpoints, the connectivity requirements between subsets of these
+endpoints, and associated service requirements; the term 'network slice'
+in this document refers to 'IETF network slice' {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
 
 Slice:
 : a set of characteristics and behaviors that
-  separate one type of user-traffic from another {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
+separate one type of user-traffic from another {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
 
 IETF Network Slice Controller (NSC):
 : controller that is used to realize an IETF network slice {{?I-D.nsdt-teas-ietf-network-slice-definition}}.  
 
 Slice policy:
-: a policy construct that enables instantiation of slice specific 
-control plane and data plane behaviors on select topological elements; 
-a slice policy is an aggregate construct as it can be applied to one or more IETF network slices; 
-the mapping of IETF network slices to a slice policy is maintained by 
-the IETF Network Slice Controller.
+: a policy construct that enables instantiation of mechanisms in support 
+of IETF network slice specific control plane and data plane behaviors 
+on select topological elements; the enforcement of a slice policy 
+results in the creation of a slice aggregate.
+
+Slice aggregate:
+: a collection of packets that match a slice policy selection 
+criteria and are given the same forwarding treatment; a slice 
+aggregate comprises of one or more IETF network slice traffic 
+streams; the mapping of one or more IETF network slices to a slice 
+aggregate is maintained by the IETF Network Slice Controller.
 
 Slice policy capable node:
 : a node that supports one of the slice policy modes described in this document.
@@ -140,17 +159,20 @@ Slice policy capable node:
 Slice policy incapable node:
 : a node that does not support any of the slice policy modes described in this document.
 
-Slice policy traffic:
-: traffic that is forwarded over network resources associated with a specific slice policy.
+Slice aggregate traffic:
+: traffic that is forwarded over network resources associated with a specific slice aggregate.
 
-Slice policy path:
-: a path that is setup over network resources associated with a specific slice policy.
+Slice aggregate path:
+: a path that is setup over network resources associated with a specific slice aggregate.
 
-Slice policy packet:
-: a packet that traverses network resources associated with a specific slice policy.
+Slice aggregate packet:
+: a packet that traverses network resources associated with a specific slice aggregate.
 
-Slice policy aware TE:
-: a mechanism for TE path selection that takes into account the available network resources associated with a specific slice policy.
+Slice aggregate toplogy:
+: a set of topological elements traversed by slice aggregate packets.
+
+Slice aggregate aware TE:
+: a mechanism for TE path selection that takes into account the available network resources associated with a specific slice aggregate.
 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
@@ -162,15 +184,13 @@ when, and only when, they appear in all capitals, as shown here.
 
 > CS: Class Selector
 
-> SS: Slice policy Selector
+> SS: Slice aggregate Selector
 
-> SD: Slice policy Definition as described in {{SliceDefinition}}
+> S-PHB: Slice aggregate Per Hop Behavior as described in {{SlicePHB}}
 
-> S-PHB: Slice policy Per Hop Behavior as described in {{SlicePHB}}
+> SSL: Slice aggregate Selector Label as described in section {{SliceSelector}}
 
-> SSL: Slice policy Selector Label as described in section {{SliceSelector}}
-
-> SSLI: Slice policy Selector Label Indicator
+> SSLI: Slice aggregate Selector Label Indicator
 
 > SLA: Service Level Agreement
 
@@ -195,45 +215,31 @@ when, and only when, they appear in all capitals, as shown here.
 > SR: Segment Routing
 
 
-## Scope
-
-The definition of network slice for use within the IETF and the characteristics
-of IETF network slice are specified in
-{{?I-D.nsdt-teas-ietf-network-slice-definition}}. A framework for reusing IETF
-VPN and traffic-engineering technologies to realize IETF network slices is
-discussed  in {{?I-D.nsdt-teas-ns-framework}}. The
-function of an IETF Network Slice Controller and the requirements
-on its northbound and southbound interfaces are also discussed in these documents.
-
-The scope of this document is to discuss how network slicing requirements can be
-catered to in packet networks at the device and network resource level using
-DiffServ principles. 
-
 # Network Resource Slicing Membership
 
-A network slice can span multiple parts of an IP/MPLS network (e.g., all or
+A slice aggregate can span multiple parts of an IP/MPLS network (e.g., all or
 specific network resources in the access, aggregation, or core network), and
-can stretch  across multiple operator domains.  A network slice may include all
-or a sub-set of the physical nodes and links of an IP/MPLS network, and it may
+can stretch  across multiple operator domains.  A slice aggregate topology may include all
+or a sub-set of the physical nodes and links of an IP/MPLS network; it may
 be comprised of dedicated and/or shared network resources (e.g., in terms of
 processing power, storage, and bandwidth) and may have varying degrees of
-isolation from the other network slices.
+isolation from other network slices.
 
 ## Dedicated Network Resources
 
-Physical network resources may be fully dedicated to a specific network slice.
-For example, this allows traffic belonging to a slice to traverse the dedicated
-resources without network resource contention from traffic of another network
-slice.  Dedicated network resource slicing allows for simple partitioning of the
-physical network resources into multiple isolated network slices without the
+Physical network resources may be fully dedicated to a specific slice aggregate.
+For example, this allows traffic belonging to a slice aggregate to traverse the dedicated
+resources without network resource contention from traffic of another slice aggregate.
+Dedicated network resource slicing allows for simple partitioning of the
+physical network resources into multiple isolated slice aggregates without the
 need to distinguish packets traversing the dedicated network resources since only one
-slice traffic can use them.
+slice aggregate traffic stream can use them.
 
 ## Shared Network Resources
 
 To optimize network utilization, sharing of the physical network resources may
 be desirable. In such case, the same physical network resource capacity is partitioned
-among logical network slices. Shared network resources can be partitioned in the data plane
+among multiple slice aggregates. Shared network resources can be partitioned in the data plane
 (for example by applying hardware policers and shapers) and/or partitioned in the
 control plane by providing a logical representation of the physical link that
 has a subset of the network resources available to it.
@@ -265,16 +271,16 @@ resource manager, or distributed on devices (as usually done with RSVP). TE
 extensions exist today to allow IGPs (e.g., {{!RFC3630}} and {{!RFC5305}}), and
 BGP-LS {{!RFC7752}} to advertise such link state reservations.
 
-When network resource reservations are also slice policy aware, the link state can
-carry per slice policy state (e.g., reservable
+When network resource reservations are also slice aggregate aware, the link state can
+carry per slice aggregate state (e.g., reservable
 bandwidth).  This allows path computation to take into account the specific
-network resources available for a slice policy when determining the path for a
+network resources available for a slice aggregate when determining the path for a
 specific flow.  In this case, we refer to the process of path placement and
-path provisioning as slice policy aware TE.
+path provisioning as slice aggregate aware TE.
 
 # Slice Policy Modes {#SliceModes}
 
-A slice policy can be used to dictate if the partitioning of the shared network resources amongst multiple slices can be
+A slice policy can be used to dictate if the partitioning of the shared network resources amongst multiple slice aggregates can be
 achieved in:
 
 {:req: counter="bar" style="format %c)"}
@@ -293,18 +299,18 @@ packet and is used by transit nodes to apply the PHB that
 determines the scheduling treatment and drop probability for packets.
 
 When data plane only slice policy mode is applied, packets need to be forwarded on the
-specific slice policy network resources and be applied a specific forwarding treatment that
-is dictated by the Slice policy Definition (SD) (refer to
+specific slice aggregate network resources and be applied a specific forwarding treatment that
+is dictated by the slice policy (refer to
 {{SliceDefinition}} below) consumed by each device.  An SS MAY
-be carried in each packet to identify the slice policy that it adheres to. 
+be carried in each packet to identify the slice aggregate that it belongs to. 
 
 The ingress node of a slice policy domain, in addition to marking packets with a
-Diffserv CS, MAY also add an SS to each slice policy packet. The transit nodes within
-a slice policy domain MAY use the SS to associate packets with a slice policy and to
-determine the Slice policy Per Hop Behavior (S-PHB) that is applied to the packet (refer to
+Diffserv CS, MAY also add an SS to each slice aggregate packet. The transit nodes within
+a slice policy domain MAY use the SS to associate packets with a slice aggregate and to
+determine the Slice aggregate Per Hop Behavior (S-PHB) that is applied to the packet (refer to
 {{SlicePHB}} for further details). The CS MAY be used to apply a Diffserv PHB
-on to the packet to allow differentiation of traffic treatment on the
-network resources associated with the given slice policy.
+on to the packet to allow differentiation of traffic treatment within the same
+slice aggregate.
 
 When data plane only slice policy mode is used, routers may rely on a
 network state independent view of the topology to determine the best paths to
@@ -314,9 +320,9 @@ packet determines the specific S-PHB treatment along the
 selected path.
 
 For example, Segment-Routing flexible algorithm may be deployed in a network to
-steer packets on the lowest cumulative delay. An SD may be used to enable
+steer packets on the lowest cumulative delay. A slice policy may be used to enable
 the links along the least latency path in data plane only slice policy mode.  Slice
-policy packets forwarded along the lowest delay path can carry the SS when forwarded
+aggregate packets forwarded along the lowest delay path can carry the SS when forwarded
 along the least latency path. Transit nodes along the lowest delay path can
 inspect the SS and Diffserv CS to determine the S-PHB and the Diffserv
 class PHB to apply to packets before they are forwarded downstream.
@@ -329,91 +335,91 @@ virtual topology can contain all or a subset of the physical network
 resources. The logical network resources that appear in the virtual topology can
 reflect a part, whole, or in-excess of the physical network resource capacity (when
 oversubscription is desirable). For example, a physical link bandwidth can be
-divided into fractions, each belonging to a slice. Each fraction of the
+divided into fractions, each belonging to a slice aggregate. Each fraction of the
 physical link bandwidth can be represented as a logical link in a virtual
-topology that is used when determining paths associated with a specific slice policy. The per slice policy
+topology that is used when determining paths associated with a specific slice aggregate. The per slice aggregate
 virtual topology can be used by routing protocols, or by the ingress/PCE when
-computing slice policy aware TE paths.
+computing slice aggregate aware TE paths.
 
-To perform network state dependent path computation in this mode (slice policy aware TE), the resource
-reservation on each link needs to be slice policy aware. Multiple
+To perform network state dependent path computation in this mode (slice aggregate aware TE), the resource
+reservation on each link needs to be slice aggregate aware. Multiple
 slice policies may be applied on the same physical link.
-The per slice policy network resource
+The per slice aggregate network resource
 availability on links are updated (and may eventually be advertised in the
-network) when new paths are placed in the network. The per slice policy resource
+network) when new paths are placed in the network. The per slice aggregate resource
 reservation, in this case, can be maintained on each device or be
 centralized on a resource reservation manager that holds reservation
 states on links in the network.
 
-Multiple slice policies can form a group and share the available network resources allocated to
-each slice policy. In this case, a node can update the
-reservable bandwidth for each slice policy to take into consideration the available
-bandwidth from other slice policies in the same group.
+Multiple slice aggregates can form a group and share the available network resources allocated to
+each slice aggregate. In this case, a node can update the
+reservable bandwidth for each slice aggregate to take into consideration the available
+bandwidth from other slice aggregates in the same group.
 
 For illustration purposes, the diagram below represents bandwidth isolation or
-sharing amongst a group of slice policies. In Figure 1a, the slice policies:
-SlPol1, SlPol2, SlPol3 and SlPol4 are not sharing any bandwidths between each
-other. In Figure 1b, the slice policies: SlPol1 and SlPol2 can share the
+sharing amongst a group of slice aggregates. In Figure 1a, the slice aggregates:
+SliAg1, SliAg2, SliAg3 and SliAg4 are not sharing any bandwidths between each
+other. In Figure 1b, the slice aggregates: SliAg1 and SliAg2 can share the
 available bandwidth portion allocated to each amongst them.
-Similarly, SlPol3 and SlPol4 can share amongst themselves any available bandwidth
+Similarly, SliAg3 and SliAg4 can share amongst themselves any available bandwidth
 allocated to them, but they cannot share available bandwidth allocated to
-SlPol1 or SlPol2.  In both cases, the Max Reservable Bandwidth may exceed the
+SliAg1 or SliAg2.  In both cases, the Max Reservable Bandwidth may exceed the
 actual physical link resource capacity to allow for over subscription.
 
 ~~~~~~
    I-----------------------------I       I-----------------------------I 
-   <--SlPol1->                   I       I-----------------I           I
-   I---------I                   I       I <-SlPol1->      I           I
+   <--SliAg1->                   I       I-----------------I           I
+   I---------I                   I       I <-SliAg1->      I           I
    I         I                   I       I I-------I       I           I
    I---------I                   I       I I       I       I           I
    I                             I       I I-------I       I           I
-   <-----SlPol2------>           I       I                 I           I
-   I-----------------I           I       I <-SlPol2->      I           I
+   <-----SliAg2------>           I       I                 I           I
+   I-----------------I           I       I <-SliAg2->      I           I
    I                 I           I       I I---------I     I           I
    I-----------------I           I       I I         I     I           I
    I                             I       I I---------I     I           I
-   <---SlPol3---->               I       I                 I           I
-   I-------------I               I       I SlPol1 + SlPol2 I           I
+   <---SliAg3---->               I       I                 I           I
+   I-------------I               I       I SliAg1 + SliAg2 I           I
    I             I               I       I-----------------I           I
    I-------------I               I       I                             I
    I                             I       I                             I
-   <---SlPol4---->               I       I-----------------I           I
-   I-------------I               I       I <-SlPol3->      I           I
+   <---SliAg4---->               I       I-----------------I           I
+   I-------------I               I       I <-SliAg3->      I           I
    I             I               I       I I-------I       I           I
    I-------------I               I       I I       I       I           I
    I                             I       I I-------I       I           I
-   I SlPol1+SlPol2+SlPol3+SlPol4 I       I                 I           I
-   I                             I       I <-SlPol4->      I           I
+   I SliAg1+SliAg2+SliAg3+SliAg4 I       I                 I           I
+   I                             I       I <-SliAg4->      I           I
    I-----------------------------I       I I---------I     I           I
    <--Max Reservable Bandwidth-->        I I         I     I           I
                                          I I---------I     I           I
                                          I                 I           I
-                                         I SlPol3 + SlPol4 I           I
+                                         I SliAg3 + SliAg4 I           I
                                          I-----------------I           I
-                                         I SlPol1+SlPol2+SlPol3+SlPol4 I
+                                         I SliAg1+SliAg2+SliAg3+SliAg4 I
                                          I                             I
                                          I-----------------------------I
                                          <--Max Reservable Bandwidth-->
 
    (a) No bandwidth sharing              (b) Sharing bandwidth between
-       between slice policies.               slice policies of the same
-                                             group
+       between slice aggregates.             slice aggregates of the
+                                             same group
 ~~~~~~
 {: #resource-sharing title="Bandwidth Isolation/Sharing."}
 
 
 ## Data and Control Plane Slice Policy Mode
 
-In order to support strict guarantees and hard isolation between network
-slices, the network resources can be partitioned in both the control plane
+In order to support strict guarantees and hard isolation between slice
+aggregates, the network resources can be partitioned in both the control plane
 and data plane.
 
 The control plane partitioning allows the creation of customized
-topologies per slice policy that routers or a Path Computation Engine (PCE) can use
-to determine optimal path placement for specific demand flows (Slice policy aware TE).
+topologies per slice aggregate that routers or a Path Computation Engine (PCE) can use
+to determine optimal path placement for specific demand flows (Slice aggregate aware TE).
 
-The data plane partitioning protects slice policy traffic from network resource contention 
-that occurs due to bursts in traffic from other slice policies applied to the
+The data plane partitioning protects slice aggregate traffic from network resource contention 
+that occurs due to bursts in traffic from other slice aggregates traversing the
 same shared network resource.
 
 # Slice Policy Instantiation
@@ -434,7 +440,7 @@ These capabilities are always provided based on a Service Level Agreement (SLA)
 between the network slice consumer and the provider.
 
 The onus is on the network slice controller to consume the service layer
-slice intent and realize it by mapping it onto an appropriate slice policy. 
+slice intent and realize it by using an appropriate slice policy. 
 Multiple network slices can be mapped onto the same slice policy. The
 network wide consistent slice policy definition is distributed to the devices in the network as
 shown in {{ns-instantiation}}. The specification of the network slice intent on
@@ -450,8 +456,8 @@ map the network slice to a slice policy are outside the scope of this document.
                      | Controller    |
                      +---------------+
                              |
-                             | Slice policy Definition
-                             | (SD)
+                             | Slice Policy
+                             | 
                              |  
                          XXXX|XXXXXX
                        XX   /|      XX
