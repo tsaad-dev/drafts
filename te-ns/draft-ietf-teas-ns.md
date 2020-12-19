@@ -198,7 +198,7 @@ Slice aggregate path:
 Slice aggregate packet:
 : a packet that traverses network resources associated with a specific slice aggregate.
 
-Slice aggregate toplogy:
+Slice aggregate topology:
 : a set of topological elements traversed by slice aggregate packets.
 
 Slice aggregate aware TE:
@@ -214,13 +214,13 @@ when, and only when, they appear in all capitals, as shown here.
 
 > CS: Class Selector
 
-> SS: Slice aggregate Selector
+> SS: Slice Selector
 
 > S-PHB: Slice aggregate Per Hop Behavior as described in {{SlicePHB}}
 
-> SSL: Slice aggregate Selector Label as described in section {{SliceSelector}}
+> SSL: Slice Selector Label as described in section {{SliceSelector}}
 
-> SSLI: Slice aggregate Selector Label Indicator
+> SSLI: Slice Selector Label Indicator
 
 > SLA: Service Level Agreement
 
@@ -328,7 +328,7 @@ determines the scheduling treatment and drop probability for packets.
 When data plane slice policy mode is applied, packets need to be forwarded on the
 specific slice aggregate network resources and need to be applied a specific
 forwarding treatment that is dictated in the slice policy (refer to
-{{SliceDefinition}} below).  A SS MUST be carried in each packet to identify the
+{{SliceDefinition}} below).  An SS MUST be carried in each packet to identify the
 slice aggregate that it belongs to. 
 
 The ingress node of a slice policy domain, in addition to marking packets with a
@@ -385,45 +385,45 @@ the available bandwidth from other slice aggregates in the same group.
 
 For illustration purposes, the diagram below represents bandwidth isolation or
 sharing amongst a group of slice aggregates. In Figure 1a, the slice aggregates:
-S-AGG1, S-AGG2, S-AGG3 and S-AGG4 are not sharing any bandwidths between each
-other. In Figure 1b, the slice aggregates: S-AGG1 and S-AGG2 can share the
+S_AGG1, S_AGG2, S_AGG3 and S_AGG4 are not sharing any bandwidths between each
+other. In Figure 1b, the slice aggregates: S_AGG1 and S_AGG2 can share the
 available bandwidth portion allocated to each amongst them.
-Similarly, S-AGG3 and S-AGG4 can share amongst themselves any available bandwidth
+Similarly, S_AGG3 and S_AGG4 can share amongst themselves any available bandwidth
 allocated to them, but they cannot share available bandwidth allocated to
-S-AGG1 or S-AGG2.  In both cases, the Max Reservable Bandwidth may exceed the
+S_AGG1 or S_AGG2.  In both cases, the Max Reservable Bandwidth may exceed the
 actual physical link resource capacity to allow for over subscription.
 
 ~~~~~~
    I-----------------------------I       I-----------------------------I 
-   <--S-AGG1->                   I       I-----------------I           I
-   I---------I                   I       I <-S-AGG1->      I           I
+   <--S_AGG1->                   I       I-----------------I           I
+   I---------I                   I       I <-S_AGG1->      I           I
    I         I                   I       I I-------I       I           I
    I---------I                   I       I I       I       I           I
    I                             I       I I-------I       I           I
-   <-----S-AGG2------>           I       I                 I           I
-   I-----------------I           I       I <-S-AGG2->      I           I
+   <-----S_AGG2------>           I       I                 I           I
+   I-----------------I           I       I <-S_AGG2->      I           I
    I                 I           I       I I---------I     I           I
    I-----------------I           I       I I         I     I           I
    I                             I       I I---------I     I           I
-   <---S-AGG3---->               I       I                 I           I
-   I-------------I               I       I S-AGG1 + S-AGG2 I           I
+   <---S_AGG3---->               I       I                 I           I
+   I-------------I               I       I S_AGG1 + S_AGG2 I           I
    I             I               I       I-----------------I           I
    I-------------I               I       I                             I
    I                             I       I                             I
-   <---S-AGG4---->               I       I-----------------I           I
-   I-------------I               I       I <-S-AGG3->      I           I
+   <---S_AGG4---->               I       I-----------------I           I
+   I-------------I               I       I <-S_AGG3->      I           I
    I             I               I       I I-------I       I           I
    I-------------I               I       I I       I       I           I
    I                             I       I I-------I       I           I
-   I S-AGG1+S-AGG2+S-AGG3+S-AGG4 I       I                 I           I
-   I                             I       I <-S-AGG4->      I           I
+   I S_AGG1+S_AGG2+S_AGG3+S_AGG4 I       I                 I           I
+   I                             I       I <-S_AGG4->      I           I
    I-----------------------------I       I I---------I     I           I
    <--Max Reservable Bandwidth-->        I I         I     I           I
                                          I I---------I     I           I
                                          I                 I           I
-                                         I S-AGG3 + S-AGG4 I           I
+                                         I S_AGG3 + S_AGG4 I           I
                                          I-----------------I           I
-                                         I S-AGG1+S-AGG2+S-AGG3+S-AGG4 I
+                                         I S_AGG1+S_AGG2+S_AGG3+S_AGG4 I
                                          I                             I
                                          I-----------------------------I
                                          <--Max Reservable Bandwidth-->
@@ -537,7 +537,7 @@ participate in (such as IGP(s) or BGP).
 
 A router MUST be able to identify a packet belonging to a slice aggregate
 before it can apply the proper forwarding treatment or S-PHB associated with the slice policy.
-One or more fields within the packet MAY be used as a SS to do this.
+One or more fields within the packet MAY be used as an SS to do this.
 
 Forwarding Address Slice Selector:
 
@@ -679,7 +679,7 @@ packet:
 > In some cases, the position of the SSL may not be at a fixed place
 in the MPLS label header. In this case, transit routers cannot expect the SSL
 at a fixed place in the MPLS label stack. This can be addressed by introducing
-a new Special Purpose Label from the label reserved space called a Slice Policy
+a new Special Purpose Label from the label reserved space called a Slice
 Selector Label Indicator (SSLI). The slice policy ingress boundary node, in
 this case, will need to impose at least two additional MPLS labels (SSLI + SSL)
 to identify the slice aggregate that the packets belong to as shown in
@@ -901,8 +901,8 @@ It is possible to employ a combination of the slice policy modes that were
 discussed in {{SliceModes}} to realize a network slice. For example, data and
 control plane slice policy mode can be employed in parts of a network, while
 control plane slice policy mode can be employed in the other parts of the
-network. The slice policy aware path selection, in such case, can take into
-account the slice aggregate available network resources.  The SS carried within
+network. The path selection, in such case, can take into
+account the slice aggregate specific available network resources.  The SS carried within
 packets allow transit nodes to enforce the corresponding S-PHB on the parts of the
 network that apply the data plane slice policy mode. The SS can be
 maintained while traffic traverses nodes that do not enforce data plane slice
@@ -955,14 +955,15 @@ scope of this document.
 # Applicability to Path Control Technologies
 
 The slice policy modes described in this document are agnostic to the
-technology used to setup paths that carry slice policy traffic. One or more
-paths connecting endpoints of an IETF network slices may be selected to steer
-their traffic streams over resources allocated to a slice aggregate.
+technology used to setup paths that carry slice aggregate traffic.
+One or more paths connecting the endpoints of the mapped IETF network
+slices may be selected to steer the corresponding traffic streams
+over the resources allocated for the slice aggregate.
 
 For example, once the feasible paths within a slice policy topology are
 selected, it is possible to use RSVP-TE protocol {{!RFC3209}} to setup or
-signal the LSPs that would be used to carry slice policy traffic.  Specific
-extensions to RSVP-TE protocol to enable signaling of slice policy aware RSVP
+signal the LSPs that would be used to carry slice aggregate traffic.  Specific
+extensions to RSVP-TE protocol to enable signaling of slice aggregate aware RSVP
 LSPs are outside the scope of this document.
 
 Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
@@ -1000,7 +1001,7 @@ domain.
 
 # Acknowledgement
 
-The authors would like to thank Krzysztof Szarkowicz, Swamy SRK, and Prabhu Raj
+The authors would like to thank Krzysztof Szarkowicz, Swamy SRK, Navaneetha Krishnan and Prabhu Raj
 Villadathu Karunakaran for their review of this document, and for providing
 valuable feedback on it.
 
