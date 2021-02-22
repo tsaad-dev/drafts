@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-15
+docname: draft-ietf-teas-yang-rsvp-16
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -51,17 +51,14 @@ normative:
   RFC7950:
 
 informative:
-  I-D.ietf-teas-yang-rsvp-te:
 
 --- abstract
 
 This document defines a YANG data model for the configuration and management of
-RSVP Protocol. The model covers the building blocks of the RSVP protocol that
-can be augmented and used by other RSVP extension models such as RSVP
-extensions to Traffic-Engineering (RSVP-TE).  The model is divided into
-base and extended modules that cover data for
-configuration, operational state, remote procedure calls, and event
-notifications.
+the RSVP protocol. The YANG data model covers the building blocks that may be
+augmented by other RSVP extension data models such as RSVP Traffic-Engineering
+(RSVP-TE). It is divided into two modules that cover the basic and extended
+RSVP features.
 
 --- middle
 
@@ -75,15 +72,14 @@ RESTCONF {{!RFC8040}}) and encoding other than XML (e.g. JSON) are being defined
 Furthermore, YANG data models can be used as the basis of implementation for
 other interfaces, such as CLI and programmatic APIs.
 
-
-This document defines a YANG data model that can be used to configure and
-manage the RSVP protocol {{?RFC2205}}. The model is separated into two modules:
-a base and RSVP extended YANG modules. The RSVP base YANG module models the
+This document defines a YANG data model for the configuration and management of
+the RSVP protocol {{?RFC2205}}. The data model is divided into two modules:
+a base and extended RSVP YANG modules. The RSVP base YANG 'ietf-rsvp' module covers the
 data that is core to the function of the RSVP protocol and MUST be supported by
-vendors that support RSVP protocol {{?RFC2205}}.  The RSVP extended module
-models data that is either optional or provides ability to tune
-basic RSVP protocol functionality. The support for RSVP extended  
-features by all vendors is considered optional.
+vendors that support RSVP protocol {{?RFC2205}}.  The RSVP extended 'ietf-rsvp-extended'
+module covers the data that is optional, or provides ability to tune
+RSVP protocol base functionality. The support for RSVP extended module
+features by vendors is considered optional.
 
 The RSVP YANG model provides the building blocks needed to allow augmentation
 by other models that extend the RSVP protocol-- such as using RSVP extensions to
@@ -109,9 +105,11 @@ modules, as shown in Table 1.
 
    | Prefix    | YANG module        | Reference |
    |-----------|--------------------|-----------|
-   | yang      | ietf-yang-types    | {{!RFC6991}} |
-   | inet      | ietf-inet-types    | {{!RFC6991}} |
+   | if        | ietf-interfaces    | {{!RFC8343}} |
+   | rt        | ietf-routing       | {{!RFC8349}} |
    | rt-types  | ietf-routing-types | {{!RFC8294}} |
+   | inet      | ietf-inet-types    | {{!RFC6991}} |
+   | yang      | ietf-yang-types    | {{!RFC6991}} |
    | key-chain | ietf-key-chain     | {{!RFC8177}} |
    |-----------|--------------------|-----------|
 
@@ -126,28 +124,32 @@ subsequent sections  as per the syntax defined in {{!RFC8340}}.
 
 # Model Overview
 
-The RSVP base YANG module augments the "control-plane-protocol" list in
-ietf-routing {{!RFC8349}} module with specific RSVP parameters in an "rsvp"
-container. It also defines an extension identity "rsvp" of base
-"rt:routing-protocol" to identify the RSVP protocol.
+The RSVP YANG module augments the "control-plane-protocol" entry from the
+'ietf-routing' module defined in {{!RFC8349}}. It also defines the identity
+"rsvp" of base type "rt:routing-protocol" to identify the RSVP routing protocol.
 
-The augmentation of the RSVP model by other models (e.g. YANG models that
-support RSVP Traffic Engineering (TE) extensions for signaling Label Switched
-Paths (LSPs)) are outside the scope of this document and are discussed in
-separate document(s), e.g. {{I-D.ietf-teas-yang-rsvp-te}}.
+The 'ietf-rsvp' model defines a single instance of the RSVP protocol.  The top
+'rsvp' container encompases data for one such RSVP protocol instance.  Multiple
+instances can be defined as multiple control-plane protocols instances as
+described in {{!RFC8349}}.
+
+The YANG data model defined has the common building blocks for the operation of
+the base RSVP protocol for the session type defined in {{?RFC2205}}. The
+augmentation of this model by other models (e.g. to support RSVP Traffic
+Engineering (TE) extensions for signaling Label Switched Paths (LSPs)) are
+outside the scope of this document and are discussed in separate document(s).
 
 ## Module(s) Relationship
 
-This document divides the RSVP model into two modules: base and RSVP extended
-modules. Some RSVP data are categorized as core to the function of the
-protocol and MUST be supported by vendors claiming the support for RSVP
-protocol {{?RFC2205}}.  Such configuration and state data are grouped in the RSVP base
-module.
+This RSVP YANG data model defined in this document is divided into two modules: a base and extended
+modules. The RSVP data covered in 'ietf-rsvp' module are categorized as core to
+the function of the protocol and MUST be supported by vendors claiming the support for RSVP
+protocol {{?RFC2205}}.
 
-Other RSVP extended features are categorized as either optional or providing
-ability to better tune the basic functionality of the RSVP protocol. The support for
-RSVP extended features by all vendors is considered optional. Such features are
-grouped in a separate RSVP extended module.
+The RSVP extended features that are covered in 'ietf-rsvp-extended' module are
+categorized as either optional or providing ability to better tune the basic
+functionality of the RSVP protocol. The support for RSVP extended features by
+all vendors is considered optional.
 
 The relationship between the base and RSVP extended YANG modules and the IETF
 routing YANG model is shown in {{figctrl}}.
@@ -171,49 +173,55 @@ routing YANG model is shown in {{figctrl}}.
 {: #figctrl title="Relationship of RSVP and RSVP extended modules with other
 protocol modules"}
 
-## Design Considerations
+## Core Features {#CoreFeatures}
 
-The RSVP base model does not aim to be feature complete. The primary intent is
-to cover a set of standard core features that are commonly in use. For example:
+The RSVP data covered in the 'ietf-rsvp' YANG module provides the common building
+blocks that are required to configure, operate and manage the RSVP protocol
+and MUST be supported by vendors that claim the support for base RSVP protocol
+defined in {{?RFC2205}}.
 
-* Authentication ({{?RFC2747}})
-* Refresh Reduction ({{?RFC2961}})
-* Hellos ({{?RFC3209}})
-* Graceful Restart ({{?RFC3473}}, {{?RFC5063}})
+In addition, the following standard RSVP core features are modeled under the
+'ietf-rsvp' module:
 
-The RSVP extended YANG module covers the configuration for optional
-features that are not must for basic RSVP protocol operation.
+* Basic operational statistics, including protocol messages, packets and errors.
+* Basic RSVP authentication feature as defined in {{?RFC2747}}) using string
+  based authentication key.
+* Basic RSVP Refresh Reduction feature as defined in ({{?RFC2961}}).
+* Basic RSVP Hellos feature as defined in ({{?RFC3209}})
+* Basic RSVP Graceful Restart feature as defined in {{?RFC3473}}, {{?RFC5063}}, and
+  {{?RFC5495}}.
 
-The defined data model supports configuration inheritance for neighbors, and
-interfaces.  Data nodes defined under the main container (e.g. the container
-that encompasses the list of interfaces, or neighbors) are assumed to apply
-equally to all elements of the list, unless overridden explicitly for a certain
-element (e.g. interface). Vendors are expected to augment the above
-container(s) to provide the list of inheritance command for their
-implementations.
 
-## Model Notifications
+## Optional Features {#OptionalFeatures}
 
-Notifications data modeling is key in any defined data model.
+Optional features are beyond the basic configuration, and operation of the
+RSVP protocol. The decision whether to support these RSVP features on a
+particular device is left to the vendor that supports the RSVP core features.
 
-{{!RFC8639}} and {{!RFC8641}} define a subscription and push mechanism
-for YANG datastores. This mechanism currently allows the user to:
+The following optional features that are covered in the 'ietf-rsvp-extended'
+YANG module:
 
-- Subscribe notifications on a per client basis
-- Specify subtree filters {{!RFC6241}} or XPath filters {{!RFC8639}} so that only interested
-  contents will be sent.
-- Specify either periodic or on-demand notifications.
+* Advanced operational statistics, including protocol messages, packets and errors.
+* Advanced RSVP authentication features as defined in {{?RFC2747}}) using various
+  authentication key types including those defined in {{!RFC8177}}.
+* Advanced RSVP Refresh Reduction features defined in ({{?RFC2961}}).
+* Advanced RSVP Hellos features as defined in {{?RFC3209}}, and {{?rfc4558}}.
+* Advanced RSVP Graceful Restart features as defined in {{?RFC3473}}, {{?RFC5063}}, and
+  {{?RFC5495}}.
 
-# RSVP Base YANG Model
+## Data Model Structure
 
-The RSVP base module defines the main building blocks for modeling the RSVP
-protocol and augments the IETF routing module.
+The RSVP YANG data model defines the 'rsvp' top-level container that contains
+the configuration and operational state for the RSVP protocol.
+The presence of this container enables the RSVP protocol functionality.
 
-## Module Structure
+The 'rsvp' top-level container also includes data that has router level scope
+(i.e. applicable to all objects modeled under rsvp). It also contains
+configuration and state data about the following types of RSVP objects:
 
-The RSVP base YANG data model defines the container "rsvp"  as the top level
-container in this data model.  The presence of this container enables the RSVP
-protocol functionality.
+ * interfaces
+ * neighbors
+ * sessions
 
 The derived state data is contained in "read-only" nodes directly under the
 intended object as shown in {{fig-highlevel}}.
@@ -221,7 +229,7 @@ intended object as shown in {{fig-highlevel}}.
 ~~~~~~~~~~~
 module: ietf-rsvp
    +--rw rsvp!
-      +--rw globals
+      +--rw <<router-level scope data>>
          .
          .
       +--rw interfaces
@@ -246,30 +254,65 @@ module: ietf-rsvp
 ~~~~~~~~~~~
 {: #fig-highlevel title="RSVP high-level tree model view"}
 
-Configuration and state data are grouped to those applicable on per node
-(global), per interface, per neighbor, or per session.
+The following 
 
-'globals':
+    
+'router-level':
 
-> The globals container includes configuration and state data that is applicable globally and affects the RSVP protocol behavior.
+> The router-level scope configuration and state data are applicable to all
+> modeled objects under the top-level 'rsvp' container, and MAY affect the RSVP
+> protocol behavior.
 
 'interfaces':
 
-> The 'interfaces' container includes a list of RSVP enabled interfaces. It also includes configuration and state data that are applicable to all interfaces.  An entry in the interfaces list MAY carry its own configuration or state data. Any data or state under the "interfaces" container level is equally applicable to all interfaces unless it is explicitly overridden by configuration or state under a specific interface.
+> The 'interfaces' container includes a list of RSVP enabled interfaces. It
+> also includes RSVP configuration and state data that is applicable to all
+> interfaces.  An entry in the interfaces list MAY carry its own configuration
+> or state data. Any data or state under the "interfaces" container level is
+> equally applicable to all interfaces unless it is explicitly overridden by
+> configuration or state under a specific interface.
 
 'neighbors' :
 
-> The 'neighbors' container includes a list of RSVP neighbors. An entry in the RSVP neighbor list MAY carry its own
-configuration and state relevant to the specific RSVP neighbor. RSVP neighbors can be dynamically discovered using RSVP signaling or explicitly configured.
+> The 'neighbors' container includes a list of RSVP neighbors. An entry in the
+> RSVP neighbor list MAY carry its own configuration and state relevant to the
+> specific RSVP neighbor. The RSVP neighbors can be dynamically discovered using
+> RSVP signaling, or can be explicitly configured.
 
 'sessions':
 
-> The 'sessions' container includes a list RSVP sessions. An entry in the RSVP session list MAY carry its own configuration and state relevant to a specific RSVP session. RSVP sessions are usually derived state that are created as result of signaling. This model defines attributes related to IP RSVP sessions as defined in {{?RFC2205}}.
+> The 'sessions' container includes a list RSVP sessions. An entry in the RSVP
+> session list MAY carry its own configuration and state relevant to a specific
+> RSVP session. RSVP sessions are usually derived state that are created as
+> result of signaling. This model defines attributes related to IP RSVP
+> sessions as defined in {{?RFC2205}}.
+
+The defined YANG data model supports configuration inheritance for neighbors, and
+interfaces.  Data nodes defined under the main container (e.g. the container
+that encompasses the list of interfaces, or neighbors) are assumed to apply
+equally to all elements of the list, unless overridden explicitly for a certain
+element (e.g. interface).
+
+## Model Notifications
+
+Modeling notifications data is key in any defined YANG data model. {{!RFC8639}} and
+{{!RFC8641}} define a subscription and push mechanism for YANG datastores. This
+mechanism currently allows the user to:
+
+- Subscribe notifications on a per client basis
+- Specify subtree filters {{!RFC6241}} or XPath filters {{!RFC8639}} so that only interested
+  contents will be sent.
+- Specify either periodic or on-demand notifications.
+
+# RSVP Base YANG Model
+
+The RSVP base module includes the core features and building blocks for modeling the RSVP
+protocol as described in {{CoreFeatures}}.
 
 ## Tree Diagram
 
-{{fig-rsvp-tree}} shows the YANG tree representation for configuration and state
-data that is augmenting the RSVP base module:
+{{fig-rsvp-tree}} shows the YANG tree representation for configuration, state
+data and RPCs that are covered in 'ietf-rsvp' YANG module:
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-rsvp.yang.tree}
@@ -284,29 +327,26 @@ The ietf-rsvp module imports from the following modules:
 - ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
 - ietf-routing defined in {{!RFC8349}}
 - ietf-key-chain defined in {{!RFC8177}}
+- ietf-netconf-acm defined in {{!RFC8341}}
 
-This module references the following documents:
-{{?RFC2205}}, {{?RFC2747}}, and {{?RFC2961}}.
+This module also references the following documents:
+{{?RFC2205}}, {{?RFC5495}}, {{?RFC3473}}, {{RFC5063}}, {{?RFC2747}}, {{?RFC3209}}, and {{?RFC2961}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp@2020-07-24.yang"
+<CODE BEGINS> file "ietf-rsvp@2021-02-07.yang"
 {::include ../../te/ietf-rsvp.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
 # RSVP Extended YANG Model
 
-The RSVP extended module augments the RSVP base module with additional and optional feature data.
-
-## Module Structure
-
-The RSVP extended YANG module covers non-core RSVP feature(s). It also covers
-feature(s) that MAY be supported vendors claiming support for RSVP protocol.
+The RSVP extended module augments the RSVP base module with optional feature data
+as described in {{OptionalFeatures}}.
 
 ## Tree Diagram
 
 {{fig-rsvp-extended}} shows the YANG tree representation for configuration and
-state data that is augmenting the RSVP extended module:
+state data that are covered in 'ietf-rsvp-extended' YANG module:
 
 ~~~~~~~~~~
 {::include ../../te/ietf-rsvp-extended.yang.tree}
@@ -316,7 +356,7 @@ state data that is augmenting the RSVP extended module:
  
 ## YANG Module
 
-The ietf-rsvp-extended module imports from the following modules:
+The 'ietf-rsvp-extended' module imports from the following modules:
 
 - ietf-rsvp defined in this document
 - ietf-routing defined in {{!RFC8349}}
@@ -325,11 +365,11 @@ The ietf-rsvp-extended module imports from the following modules:
 
 {{fig-rsvp-extended-mod}} shows the RSVP extended YANG module:
 
-This module references the following documents:
-{{?RFC2747}}, {{?RFC3209}}, and {{?RFC5495}}.
+This module also references the following documents:
+{{?RFC3473}}, {{?RFC2747}}, {{?RFC3209}}, {{?RFC2205}}, {{?RFC2961}}, and {{?RFC5495}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-extended@2020-07-24.yang"
+<CODE BEGINS> file "ietf-rsvp-extended@2021-02-07.yang"
 {::include ../../te/ietf-rsvp-extended.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -431,6 +471,47 @@ The security considerations spelled out in the YANG 1.1 specification
 The authors would like to thank Tom Petch for reviewing and providing useful
 feedback about the document. The authors would also like to thank Lou Berger
 for reviewing and providing valuable feedback on this document.
+
+# Appendix A
+
+A simple network setup is shown in {fig-example title}.  R1 runs the RSVP routing
+protocol on both interfaces 'ge0/0/0/1', and 'ge0/0/0/2'.
+
+~~~~
+State on R1:
+
+Sessions:
+=========
+Destination         Protocol-ID Dest-port 
+198.51.100.1        10          10 
+
+Neighbors:
+==========
+Neighbor Address    Interface
+192.0.2.6           ge0/0/0/1
+
+                               192.0.2.5/30
+                              ge0/0/0/1
+                              +---
+                             /
+                        +-----+
+                        | R1  |
+                        +-----+
+                             \
+                              +---
+                              ge0/0/0/2
+                               192.0.2.13/30
+
+~~~~
+{:#fig-example title="Example of network configuration."}
+
+
+The instance data tree could then be as follows:
+
+~~~~
+{::include ../../te/rsvp_instance.tree}
+~~~~
+{: #fig-instance-tree title="Example RSVP JSON encoded data instance tree."}
 
 # Contributors
 
