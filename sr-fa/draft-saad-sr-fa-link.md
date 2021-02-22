@@ -1,7 +1,7 @@
 ---
 title: Segment-Routing over Forwarding Adjacency Links
 abbrev: SR over FA Links
-docname: draft-saad-sr-fa-link-02
+docname: draft-saad-sr-fa-link-03
 category: info
 ipr: trust200902
 workgroup: SPRING Working Group
@@ -142,12 +142,11 @@ link state database of any LSR in the network, and can be used for computing
 end-to-end TE path(s).
 
 When IGP protocols are used to advertise link state information about FA links,
-the FA link(s) can appear in both the TE topology as well as the IGP topology.
-It is desirable, sometimes, to restrict the use of the FA link(s) within the TE
-topology to compute traffic engineered paths, and not use them during normal
-IGP Shortest Path First (SPF) computations.  This is possible using different
-mechanisms and depending on the IGP protocol used to exchange the FA link state
-information.
+the FA link(s) can appear in both the TE topology, as well as the IGP topology.
+The use of FA link in the IGP topology may result in undesirable routing loops.
+A router SHOULD leverage exisitng mechanisms to exclude the FA link from the
+IGP Shortest Path First (SPF) computations, and to restrict its use
+within the TE topology for traffic engineered paths computation.
 
 For example, when using ISIS to carry FA link state information, {{!RFC5305}}
 section 3 describes a way to restrict the link to the TE topology by setting
@@ -337,7 +336,7 @@ others, and with what TE attributes.
 
 # IANA Considerations
 
-TBD.
+This document has no IANA actions.
 
 # Security Considerations
 
