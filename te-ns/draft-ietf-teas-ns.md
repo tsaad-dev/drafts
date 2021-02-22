@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-01
+docname: draft-bestbar-teas-ns-packet-02
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -60,25 +60,48 @@ author:
    organization: Volta Networks
    email: xufeng.liu.ietf@gmail.com
 
+ -
+   ins: L. Contreras
+   name: Luis M. Contreras
+   organization: Telefonica
+   email: luismiguel.contrerasmurillo@telefonica.com
+
 normative:
+  I-D.bestbar-teas-yang-ns-phd:
   RFC2119:
   RFC8174:
+  I-D.bestbar-lsr-spring-sa:
+    author:
+     -
+      ins: T. Saad
+     -
+      ins: V. Beeram
+     -
+      ins: R. Chen
+     -
+      ins: S. Peng
+     -
+      ins: B. Wen
+     -
+      ins: D. Ceccarelli
+
+    title: IGP Extensions for SR Slice Aggregate SIDs
+    date: 2021-02
 
 informative:
 
 --- abstract
 
 Network slicing provides the ability to partition a physical network into
-multiple isolated logical networks of varying sizes, structures, and functions
-so that each slice can be dedicated to specific services or customers.  Network
-slices need to operate in parallel while
-providing slice elasticity in terms of network resource allocation. The
-Differentiated Service (Diffserv) model allows for carrying multiple services
-on top of a single physical network by relying on compliant nodes to apply
-specific forwarding treatment (scheduling and drop policy)  on to packets 
-that carry the respective Diffserv
-code point. This document proposes a solution based on the Diffserv model to
-realize network slicing in IP/MPLS networks.
+multiple logical networks of varying sizes, structures, and functions so that
+each slice can be dedicated to specific services or customers.  Network slices
+need to operate in parallel while providing slice elasticity in terms of
+network resource allocation. The Differentiated Service (Diffserv) model allows
+for carrying multiple services on top of a single physical network by relying
+on compliant nodes to apply specific forwarding treatment (scheduling and drop
+policy)  on to packets that carry the respective Diffserv code point. This
+document proposes a solution based on the Diffserv model to realize network
+slicing in IP/MPLS networks.
 
 
 
@@ -87,7 +110,7 @@ realize network slicing in IP/MPLS networks.
 # Introduction
 
 Network slicing allows a Service Provider to create
-independent and isolated logical networks on top of a common or shared physical
+independent and logical networks on top of a common or shared physical
 network infrastructure. Such network slices can be offered to customers or used
 internally by the Service Provider to facilitate or enhance their service
 offerings. A Service Provider can also use network slicing to structure and
@@ -97,7 +120,7 @@ that a Service Provider can deploy to realize network slicing in IP/MPLS network
 
 The definition of network slice for use within the IETF and the characteristics
 of IETF network slice are specified in
-{{?I-D.nsdt-teas-ietf-network-slice-definition}}. A framework for reusing IETF
+{{?I-D.ietf-teas-ietf-network-slice-definition}}. A framework for reusing IETF
 VPN and traffic-engineering technologies to realize IETF network slices is
 discussed  in {{?I-D.nsdt-teas-ns-framework}}. These documents also discuss
 the function of an IETF Network Slice Controller and the requirements
@@ -148,7 +171,7 @@ and respective treatment of slice aggregate traffic.
 ## Terminology
 
 The reader is expected to be familiar with the terminology specified in
-{{?I-D.nsdt-teas-ietf-network-slice-definition}} and
+{{?I-D.ietf-teas-ietf-network-slice-definition}} and
 {{?I-D.nsdt-teas-ns-framework}}.
 
 The following terminology is used in the document:
@@ -157,15 +180,11 @@ The following terminology is used in the document:
 IETF network slice:
 : a well-defined composite of a set of
 endpoints, the connectivity requirements between subsets of these
-endpoints, and associated service requirements; the term 'network slice'
-in this document refers to 'IETF network slice' {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
-
-Slice:
-: a set of characteristics and behaviors that
-separate one type of user-traffic from another {{?I-D.nsdt-teas-ietf-network-slice-definition}}.
+endpoints, and associated requirements; the term 'network slice'
+in this document refers to 'IETF network slice' {{?I-D.ietf-teas-ietf-network-slice-definition}}.
 
 IETF Network Slice Controller (NSC):
-: controller that is used to realize an IETF network slice {{?I-D.nsdt-teas-ietf-network-slice-definition}}.  
+: controller that is used to realize an IETF network slice {{?I-D.ietf-teas-ietf-network-slice-definition}}.
 
 Slice policy:
 : a policy construct that enables instantiation of mechanisms in support 
@@ -188,6 +207,7 @@ Slice policy incapable node:
 
 Slice aggregate traffic:
 : traffic that is forwarded over network resources associated with a specific slice aggregate.
+
 
 Slice aggregate path:
 : a path that is setup over network resources associated with a specific slice aggregate.
@@ -243,7 +263,8 @@ when, and only when, they appear in all capitals, as shown here.
 
 A slice aggregate can span multiple parts of an IP/MPLS network (e.g., all or
 specific network resources in the access, aggregation, or core network), and
-can stretch  across multiple operator domains.  A slice policy topology may include all
+can stretch  across multiple domains administered by a provider.
+A slice policy topology may include all
 or a sub-set of the physical nodes and links of an IP/MPLS network; it may
 be comprised of dedicated and/or shared network resources (e.g., in terms of
 processing power, storage, and bandwidth).
@@ -252,7 +273,7 @@ processing power, storage, and bandwidth).
 
 Physical network resources may be fully dedicated to a specific slice
 aggregate.  For example, traffic belonging to a slice aggregate can traverse
-dedicated network resources without subjected to contention from traffic of
+dedicated network resources without being subjected to contention from traffic of
 other slice aggregates.  Dedicated network resource slicing allows for simple
 partitioning of the physical network resources amongst slice aggregates without
 the need to distinguish packets traversing the dedicated network resources
@@ -272,7 +293,7 @@ available to it.
 # Path Selection
 
 Path selection in a network can be network state dependent, or network state
-independent as described in Section 5.1 of {{?I-D.draft-ietf-teas-rfc3272bis-09}}.
+independent as described in Section 5.1 of {{?I-D.ietf-teas-rfc3272bis}}.
 The latter is the choice commonly used by IGPs when selecting a best path to
 a destination prefix, while the former is used by ingress TE routers, or Path
 Computation Engines (PCEs) when optimizing the placement of a flow based on the
@@ -453,7 +474,7 @@ aggregates traversing the same shared network resource.
 
 A network slice can span multiple technologies and multiple administrative
 domains.  Depending on the network slice consumer's requirements, a network
-slice can be isolated from other network slices in terms of data, control
+slice can be differentiated from other network slices in terms of data, control
 or management planes.
 
 The consumer of a network slice expresses their intent
@@ -462,7 +483,7 @@ The requirements for a network slice can vary and can be expressed in terms of
 connectivity needs between end-points (point-to-point, point-to-multipoint or
 multipoint-to-multipoint) with customizable network capabilities that may
 include data speed, quality, latency, reliability, security, and services
-(refer to {{?I-D.nsdt-teas-ietf-network-slice-definition}} for more details).
+(refer to {{?I-D.ietf-teas-ietf-network-slice-definition}} for more details).
 These capabilities are always provided based on a Service Level Agreement (SLA)
 between the network slice consumer and the provider.
 
@@ -476,28 +497,30 @@ mechanism used to map the network slice to a slice policy are outside the scope
 of this document.
 
 ~~~~~
-
-                             |
-                             | Slice Intent
-                     +---------------+
-                     | Network Slice |
-                     | Controller    |
-                     +---------------+
-                             |
-                             | Slice Policy
-                             | 
-                             |  
-                         XXXX|XXXXXX
-                       XX   /|      XX
-                     XX    / |        XX
-                   XX     /  |          XX
-               XXXX      v   v            XXXX
-              XXX Ingress    All            XXX
-              XXX node(s)    nodes           XXX
-               XXX                          XXX
-                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-             <----------- Path Control --------->
-               RSVP-TE/SR-Policy/SR-FlexAlgo ..
+                               |
+                               | IETF Network Slice
+                               | (service)
+                    +--------------------+
+                    |    IETF Network    |
+                    |  Slice Controller  |
+                    +--------------------+
+                               |
+                               | Slice Policy
+                              /|\
+                             / | \
+                      slice policy capable        
+                        nodes/controllers     
+                        / /    |    \ \     
+                       v v     v     v v      
+                      xxxxxxxxxxxxxxxxxxxx
+                    xxxx                xxxx
+                  xxxx       Slice        xxxx
+                  xxxx     Aggregate      xxxx
+                    xxxx                xxxx
+                      xxxxxxxxxxxxxxxxxxxx
+                 
+                  <------ Path Control ------>
+                  RSVP-TE/SR-Policy/SR-FlexAlgo
 ~~~~~
 {: #ns-instantiation title="Slice Policy Instantiation."}
 
@@ -716,7 +739,7 @@ to identify the slice aggregate that the packets belong to as shown in
 
 > When the slice is realized over an IP dataplane, the SSL can be encoded in
 the IP header. For example, the SSL can be encoded in portion of the IPv6
-Flow Label field as described in {{!I-D.draft-filsfils-spring-srv6-stateless-slice-id-01}}.
+Flow Label field as described in {{!I-D.filsfils-spring-srv6-stateless-slice-id}}.
 
 ### Slice Policy Resource Reservation
 
@@ -800,10 +823,11 @@ Traffic that is steered over the corresponding slice policy may traverse
 slice policy capable interior nodes, as well as, slice policy incapable
 interior nodes.
 
-The network slice may encompass one or more administrative domains; for
-example, an organization's intranet or an ISP.  The administration of the
-network is responsible for ensuring that adequate network resources are provisioned
-and/or reserved to support the SLAs offered by the network end-to-end.
+The network slice may encompass one or more domains administered by a provider.
+For example, an organization's intranet or an ISP.  The network provider
+is responsible for ensuring that adequate network resources are
+provisioned and/or reserved to support the SLAs offered by the network
+end-to-end.
 
 ### Slice Policy Edge Nodes
 
@@ -949,8 +973,8 @@ For example, a YANG data model for the slice policy may be supported on network
 devices and controllers. A suitable transport (e.g.  NETCONF {{?RFC6241}},
 RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
 retrieval of state information for slice policies on network devices. The slice
-policy YANG data model may be defined in a separate document and is outside the
-scope of this document.
+policy YANG data model is outside the scope of this document, and
+is defined [I-D.bestbar-teas-yang-slice-policy].
 
 # Applicability to Path Control Technologies
 
@@ -969,8 +993,8 @@ LSPs are outside the scope of this document.
 Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
 paths can be realized by steering over specific segments or segment-lists
 using an SR policy. Further details on how the slice policy modes presented in this
-document can be realized over an SR network will be discussed in a separate
-document.
+document can be realized over an SR network is discussed in
+{{!I-D.bestbar-spring-scalable-ns}}, and [I-D.bestbar-lsr-spring-sa].
 
 # IANA Considerations
 
