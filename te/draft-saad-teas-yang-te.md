@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-25
+docname: draft-ietf-teas-yang-te-26
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -40,6 +40,12 @@ author:
     name: Igor Bryskin
     organization: Individual
     email: i_bryskin@yahoo.com
+
+ -
+    ins: O. Gonzalez de Dios
+    name: Oscar Gonzalez de Dios
+    organization: Telefonica
+    email: oscar.gonzalezdedios@telefonica.com
 
 normative:
   RFC3209:
@@ -229,7 +235,7 @@ The generic TE YANG module ('ietf-te') is meant to manage and operate a TE netwo
 This includes creating, modifying and retrieving TE tunnels, LSPs, and interfaces
 and their associated attributes (e.g. Administrative-Groups, SRLGs, etc.).
 
-The detailed tree structure is provided in {{fig-highlevel}}..
+The detailed tree structure is provided in {{fig-highlevel}}.
 
 ## Module Structure
 
@@ -263,7 +269,7 @@ rpcs:
    +---x tunnels-path-compute
    +---x tunnels-action
 ~~~~~~~~~~~
-{: #fig-highlevel title="TE generic highlevel model view"}
+{: #fig-highlevel title="TE generic high level model view"}
 
 ### TE Globals
 
@@ -299,12 +305,12 @@ The TE globals configuration include:
 
 ### TE Tunnels
 
-The set of TE tunnels are provisioned under the 'tunnels' container (see {{fig-te-tunnel}}).
-A TE tunnel in the list is uniquely identified by a name. When the model is used to
-manage a specific device, the 'tunnels' list contains the TE tunnels
-originating from the specific device. When the model is used to manage a TE
-controller, the 'tunnels' list contains all TE tunnels originating from device(s)
-that the TE controller manages.
+The set of TE tunnels are provisioned under the 'tunnels' container (see
+{{fig-te-tunnel}}).  A TE tunnel in the list is uniquely identified by a name.
+When the model is used to manage a specific device, the 'tunnels' list contains
+the TE tunnels originating from the specific device. When the model is used to
+manage a TE controller, the 'tunnels' list contains all TE tunnels and TE
+tunnel segments originating from device(s) that the TE controller manages.
 
 The TE tunnel has a number of attributes that are set directly under the tunnel. The 'encoding' and 'switching-type'
 nodes define the specific technology that the tunnel operates in.
@@ -366,13 +372,13 @@ order of preference. A primary path has the following attributes:
   in forwarding to carry traffic as soon as a valid path is compute. In some cases,
   a TE tunnel may be provisioned for the only purpose of computing a path
   and reporting it without the need to instantiate the LSP or commit any
-  resources. In such a case, the primary-path is configured in 'compute-only' mode to
-  distinguish it from default behavior. A 'compute-only' primary path is configured
+  resources. In such a case, the path is configured in 'compute-only' mode to
+  distinguish it from the default behavior. A 'compute-only' path is configured
   as a usual TE tunnel with associated per path constraint(s) and properties on a
   device or controller. The device or controller computes the feasible path(s) subject
   to configured constraints.  A client may query the
   'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
-  notified of computed path(s) and whenever the path properties change.
+  to be notified of computed path(s) and whenever the path properties change.
 
 
 ~~~~~~
@@ -478,7 +484,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2020-07-12.yang"
+<CODE BEGINS> file "ietf-te@2021-02-20.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -554,7 +560,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2020-07-12.yang"
+<CODE BEGINS> file "ietf-te-device@2021-02-20.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -707,3 +713,215 @@ document.
    Email: Bin_Wen@cable.comcast.com
 
 ~~~~
+
+# Appendix A: Examples
+
+This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
+
+For the example we will use a 4 nodes MPLS network were RSVP-TE tunnels can be setup. The
+loopbacks of each router are shown. The router network in 
+figure X will be used across the section
+
+~~~
+
+ 10.0.0.1         10.0.0.2      10.0.0.4
+ +-----+         +------+      +------+
+ |     |         |      |      |      |
+ |  A  +---------+  B   +------+  D   |
+ +--+--+         +------+      +--+---+
+    |                             |
+    |            +-------+        |
+    |            |       |        |
+    +------------+   C   +--------+
+                 |       |
+                 +-------+
+                 10.0.0.3
+~~~
+{: #AppFig-Topo title="Example TE topology."}
+
+
+## Basic Tunnel Setup {#TeTunnel}
+
+This example uses the TE tunnel YANG data model defined in this document to create an
+RSVP-TE signaled Tunnel. First, the TE tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
+The TE tunnel ingresses on router A and egresses on router D. 
+
+In this case, the TE tunnel is created without specifying additional information about the primary paths.
+
+~~~
+POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
+    Host: example.com
+    Accept: application/yang-data+json
+    Content-Type: application/yang-data+json
+ 
+{
+  "ietf-te:tunnel": [
+    {
+      "name": "Example_LSP_Tunnel_A_2",
+      "encoding": "te-types:lsp-encoding-packet",
+      "admin-state": "te-types:tunnel-state-up",
+      "source": "10.0.0.1",
+      "destination": "10.0.0.4",
+      "bidirectional": "false",
+      "signaling-type": "te-types:path-setup-rsvp"
+    }
+  ]
+}
+~~~
+
+## Global Named Path Constraints
+
+This example uses the YANG data model to create a 'named path constraitnt' that can be reference by TE tunnels.
+The path constraint, in this case, limits the TE tunnel hops for the computed path.
+
+~~~
+POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
+    Host: example.com
+    Accept: application/yang-data+json
+    Content-Type: application/yang-data+json
+
+{
+  "ietf-te:named-path-constraint": {
+          "name": "max-hop-3",
+          "path-metric-bounds": {
+            "path-metric-bound": {
+              "metric-type": "te-types:path-metric-hop",
+              "upper-bound": "3"
+    }
+   }
+  }
+}
+~~~
+
+## Tunnel with Global Path Constraint
+
+In this example, the previously created 'named path constraint' is applied to the TE tunnel created in {{TeTunnel}}.
+
+~~~
+POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
+    Host: example.com
+    Accept: application/yang-data+json
+    Content-Type: application/yang-data+json
+
+{
+  "ietf-te:ietf-tunnel": [
+    {
+      "name": "Example_LSP_Tunnel_A_4_1",
+      "encoding": "te-types:lsp-encoding-packet",
+      "description": "Simple_LSP_with_named_path",
+      "admin-state": "te-types:tunnel-state-up",
+      "source": "10.0.0.1",
+      "destination": "10.0.0.4",
+      "signaling-type": "path-setup-rsvp",
+      "bidirectional": "false",
+      "p2p-primary-paths": [
+        {
+          "p2p-primary-path": {
+            "name": "Simple_LSP_1",
+            "use-path-computation": "True",
+            "named-path-constraint": "path-metric-delay-minimum"
+          }
+        }
+      ]
+    }
+  ]
+}
+~~~
+
+## Tunnel with Per-tunnel Path Constraint
+
+In this example, the a per tunnel path constraint is explicitly indicated under the TE tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
+
+~~~
+POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
+    Host: example.com
+    Accept: application/yang-data+json
+    Content-Type: application/yang-data+json
+
+{
+  "ietf-te:tunnel": [
+    {
+      "name": "Example_LSP_Tunnel_A_4_2",
+      "encoding": "te-types:lsp-encoding-packet",
+      "admin-state": "te-types:tunnel-state-up",
+      "source": "10.0.0.1",
+      "destination": "10.0.0.4",
+      "bidirectional": "false",
+      "signaling-type": "te-types:path-setup-rsvp",
+      "p2p-primary-paths": {
+        "p2p-primary-path": [
+          {
+            "name": "path1",
+            "path-metric-bounds": {
+              "path-metric-bound": {
+                "metric-type": "te-types:path-metric-delay-average",
+                "upper-bound": "3"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+~~~
+
+## Tunnel State
+
+In this example, the 'GET' query is sent to return the state stored about the tunnel.
+
+~~~
+GET  /restconf/data/ietf-te:te/tunnels/tunnel="Example_LSP_Tunnel_A_4_1"
+     /p2p-primary-paths/ HTTP/1.1
+    Host: example.com
+    Accept: application/yang-data+json
+~~~~
+
+The request, with status code 200 would include, for example, the following json:
+
+~~~
+{
+  "ietf-te:p2p-primary-paths": {
+    "p2p-primary-path": [
+      {
+        "name": "path1",
+        "path-computation-method": "te-types:path-locally-computed",
+        "computed-paths-properties": {
+          "computed-path-properties": [
+            {
+              "k-index": "1",
+              "path-properties": {
+                "path-route-objects": {
+                  "path-route-object": [
+                    {
+                      "index": "1",
+                      "numbered-node-hop": {
+                        "node-id": "10.0.0.2"
+                      }
+                    },
+                    {
+                      "index": "2",
+                      "numbered-node-hop": {
+                        "node-id": "10.0.0.4"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "lsps": {
+          "lsp": [
+            {
+              "tunnel-name": "Example_LSP_Tunnel_A_4_1",
+              "node": "10.0.0.1 ",
+              "lsp-id": "25356"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+~~~
