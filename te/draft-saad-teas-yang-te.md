@@ -814,12 +814,12 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "destination": "10.0.0.4",
       "signaling-type": "path-setup-rsvp",
       "bidirectional": "false",
-      "p2p-primary-paths": [
+      "primary-paths": [
         {
-          "p2p-primary-path": {
+          "primary-path": {
             "name": "Simple_LSP_1",
-            "use-path-computation": "True",
-            "named-path-constraint": "path-metric-delay-minimum"
+            "use-path-computation": "true",
+            "named-path-constraint": "max-hop-3"
           }
         }
       ]
@@ -848,15 +848,17 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "destination": "10.0.0.4",
       "bidirectional": "false",
       "signaling-type": "te-types:path-setup-rsvp",
-      "p2p-primary-paths": {
-        "p2p-primary-path": [
+      "primary-paths": {
+        "primary-path": [
           {
             "name": "path1",
             "path-metric-bounds": {
-              "path-metric-bound": {
-                "metric-type": "te-types:path-metric-delay-average",
-                "upper-bound": "3"
-              }
+              "path-metric-bound": [ 
+                {
+                  "metric-type": "te-types:path-metric-hop",
+                  "upper-bound": "3"
+                }
+              ]
             }
           }
         ]
@@ -881,8 +883,8 @@ The request, with status code 200 would include, for example, the following json
 
 ~~~
 {
-  "ietf-te:p2p-primary-paths": {
-    "p2p-primary-path": [
+  "ietf-te:primary-paths": {
+    "primary-path": [
       {
         "name": "path1",
         "path-computation-method": "te-types:path-locally-computed",
