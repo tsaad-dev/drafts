@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-26
+docname: draft-ietf-teas-yang-te-27
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -368,13 +368,13 @@ order of preference. A primary path has the following attributes:
   dictates the order of visiting the secondary path from the list.
 
 >
-- compute-only: A primary path of TE tunnel is, by default, provisioned so that it can is instantiated
-  in forwarding to carry traffic as soon as a valid path is compute. In some cases,
-  a TE tunnel may be provisioned for the only purpose of computing a path
+- compute-only: A path of TE tunnel is, by default, provisioned so that it can is instantiated
+  in forwarding to carry traffic as soon as a valid path is computed. In some cases,
+  a TE path may be provisioned for the only purpose of computing a path
   and reporting it without the need to instantiate the LSP or commit any
   resources. In such a case, the path is configured in 'compute-only' mode to
   distinguish it from the default behavior. A 'compute-only' path is configured
-  as a usual TE tunnel with associated per path constraint(s) and properties on a
+  as a usual with the associated per path constraint(s) and properties on a
   device or controller. The device or controller computes the feasible path(s) subject
   to configured constraints.  A client may query the
   'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
@@ -484,7 +484,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2021-02-20.yang"
+<CODE BEGINS> file "ietf-te@2021-05-16.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -560,7 +560,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2021-02-20.yang"
+<CODE BEGINS> file "ietf-te-device@2021-05-16.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
