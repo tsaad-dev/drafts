@@ -103,7 +103,18 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
 when, and only when, they appear in all capitals, as shown here.
 
-The terminology for describing YANG data models is found in {{!RFC7950}}.
+The following terms are defined in {{!RFC6241}} and are used in this specification:
+
+* client
+* configuration data
+* state data
+
+This document also makes use of the following terminology introduced in the
+YANG Data Modeling Language {{!RFC7950}}:
+
+* augment
+* data model
+* data node
 
 ## Prefixes in Data Node Names
 
@@ -161,7 +172,7 @@ organization:
 * The model declares a number of TE functions as features that can be
   optionally supported.
 
-### State Data Organization
+## State Data Organization
 
 The Network Management Datastore Architecture (NMDA) {{!RFC8342}} addresses
 modeling state data for ephemeral objects.  This document adopts the NMDA model
@@ -240,17 +251,37 @@ The detailed tree structure is provided in {{fig-highlevel}}.
 ## Module Structure
 
 The 'ietf-te' uses three main containers grouped under the main 'te' container
-(see {{fig-highlevel}}).
+(see {{fig-highlevel}}). The 'te' container is the top level container in the
+data model. The presence of the 'te' container enables TE function system wide.
+Below provides further descriptions of containers that exist under the 'te' top
+level container.
 
-The 'te' container is the top level container in the data model. The presence
-of this container enables TE function system wide.
+globals:
 
-The 'globals' container maintains the set of global TE attributes that can be
+> The 'globals' container maintains the set of global TE attributes that can be
 applicable to TE tunnel(s) and interface(s).
 
-The 'tunnels' container includes the list of TE tunnels that are instantiated.
+tunnels:
 
-The 'lsps' container includes the list of TE LSP(s) that are instantiated.
+> The 'tunnels' container includes the list of TE tunnels that are instantiated. Refer to
+{{TE_TUNNELS}} for further details on the properties of a TE tunnel.
+
+lsps:
+
+> The 'lsps' container includes the list of TE LSP(s) that are instantiated for
+> TE tunnels. Refer to {{TE_LSPS}} for further details on the properties of a TE LSP.
+
+tunnels-path-compute:
+
+> A Remote Procedure Call (RPC) to request path computation for a specific TE tunnel.
+The RPC allows requesting path computation using atomic and stateless operation.
+A tunnel may also be configured in 'compute-only' mode to provide stateful path updates
+- see {{TE_TUNNELS}} for further details.
+
+tunnels-action:
+
+> An RPC to request a specific action (e.g. reoptimize, or tear-and-setup) to be taken
+on a specific tunnel or all tunnels.
 
 ~~~~~~~~~~~
 module: ietf-te
@@ -277,17 +308,25 @@ The 'globals' container covers properties that control TE features behavior
 system-wide, and its respective state (see {{fig-globals}}).
 The TE globals configuration include:
 
-* Table of named (extended) administrative groups mappings
-* Table of named SRLG mappings
-* Table of named path-constraints sets
-* System-wide capabilities for LSP reoptimization
-    * Reoptimization timers (periodic interval, LSP installation and cleanup)
-    * Link state flooding thresholds 
-    * Periodic flooding interval
-*  Global capabilities that affect originating, transiting and terminating
-   LSPs.  For example:
-    * Path selection parameters (e.g. metric to optimize, etc.)
-    * Path or segment protection parameters
+named-admin-groups:
+
+> A container for the list of named (extended) administrative groups that may be applied
+to TE links.
+
+named-srlgs:
+
+> A container for the list named Shared Risk Link Groups (SRLGs) that may be
+applied to TE links.
+
+named-path-constraints:
+
+> A container for a list of named path constraints. Each named constraint is
+composed of a set of constraints that can be applied during path computation.
+A named path constraint can be applied to TE tunnels. Path constraints may also
+be specified directly under the TE tunnel. The path constraint specified under
+the TE tunnel take precedence over the path constraints 
+derived from the referenced named path constraint.
+
 
 ~~~~~~~
      +--rw globals
@@ -303,17 +342,41 @@ The TE globals configuration include:
 ~~~~~~~
 {: #fig-globals title="TE globals tree structure"}
 
-### TE Tunnels
+### TE Tunnels {#TE_TUNNELS}
 
-The set of TE tunnels are provisioned under the 'tunnels' container (see
-{{fig-te-tunnel}}).  A TE tunnel in the list is uniquely identified by a name.
+The 'tunnels' container holds the list of TE tunnels that are provisioned on
+devices in the network (see {{fig-te-tunnel}}).
+
+A TE tunnel in the list is uniquely identified by a name.
 When the model is used to manage a specific device, the 'tunnels' list contains
 the TE tunnels originating from the specific device. When the model is used to
 manage a TE controller, the 'tunnels' list contains all TE tunnels and TE
 tunnel segments originating from device(s) that the TE controller manages.
 
-The TE tunnel has a number of attributes that are set directly under the tunnel. The 'encoding' and 'switching-type'
-nodes define the specific technology that the tunnel operates in.
+The TE tunnel model allows the configuration and management of the following TE
+tunnel related objected:
+
+TE tunnel:
+
+> A container of one or more LSPs established between the source and destination
+TE tunnel termination points. A TE tunnel LSP is a connection-oriented service
+provided by the network layer for the delivery of client data between a source and
+the destination of the TE tunnel termination points.
+
+TE Tunnel Segment:
+
+> Serves as a part or sub-path of a multi-domain TE tunnel that spans a given
+network domain.
+
+TE Tunnel Hand-off:
+
+> An access link or inter-domain link by which a multi-domain TE tunnel enters or
+exits a given network domain.
+
+
+The TE tunnel has a number of attributes that are set directly under the
+tunnel.  The 'encoding' and 'switching-type' nodes define the specific
+technology in which the tunnel operates.
 
 ~~~~~~~~~~~
      +--rw tunnels
@@ -330,11 +393,18 @@ nodes define the specific technology that the tunnel operates in.
      |     +--rw destination?                    te-types:te-node-id
      |     +--rw src-tunnel-tp-id?               binary
      |     +--rw dst-tunnel-tp-id?               binary
+     |     +--rw controller
+     |     |  +--rw protocol-origin?             identityref
+     |     |  +--rw controller-entity-id?        string
      |     +--rw bidirectional?                  boolean
 ~~~~~~~~~~~
 {: #fig-te-tunnel title="TE tunnel list structure"}
 
-The TE tunnel has the following main attributes:
+The main attributes of a TE tunnel are described further below:
+
+controller:
+
+> XX
 
 association-objects:
 
@@ -350,7 +420,7 @@ restoration:
 
 primary-paths:
 
-> A container that includes the set of primary paths (see {{fig-primary}}).
+> A container that includes the list of primary paths (see {{fig-primary}}).
 A primary path is identified by 'name'. A primary path is selected from the list
 to instantiate an LSP for the tunnel.  The list of primary paths is visited by
 order of preference. A primary path has the following attributes:
@@ -363,9 +433,12 @@ order of preference. A primary path has the following attributes:
 >
 - candidate-secondary-paths: A container that includes a list of
   candidate secondary paths which may be used for the primary path. The
-  candidate secondary path(s) reference path(s)m  from the secondary paths list.
+  candidate secondary path(s) reference path(s)  from the tunnel secondary paths list.
   The preference of the secondary paths is specified within the list and
-  dictates the order of visiting the secondary path from the list.
+  dictates the order of visiting the secondary path from the list. The attributes
+  of a secondary path can be defined separately from the primary path. The attributes
+  of a secondary path will be inherited from the associated 'active' primary when not
+  explicitly defined for the secondary path.
 
 >
 - compute-only: A path of TE tunnel is, by default, provisioned so that it can is instantiated
@@ -453,12 +526,17 @@ hierarchy:
 {: #fig-hierarchy title="TE tunnel primary paths."}
 
 
-### TE LSPs
+### TE LSPs {#TE_LSPS}
 
 The 'lsps' container includes the set of TE LSP(s) that are instantiated.
 A TE LSP is identified by a 3-tuple ('tunnel-name', 'node', 'lsp-id').
+
 When the model is used to manage a specific device, the 'lsps' list contains all TE
 LSP(s) that traverse the device (including ingressing, transiting and egressing the device).
+
+When the model is used to manage a TE controller, the 'lsps' list contains all
+TE LSP(s) that traverse all network devices (including ingressing, transiting and
+egressing the device) that the TE controller manages.
 
 ## Tree Diagram
 
