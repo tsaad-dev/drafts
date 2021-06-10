@@ -310,17 +310,17 @@ The TE globals configuration include:
 
 named-admin-groups:
 
-> A container for the list of named (extended) administrative groups that may be applied
+> A YANG container for the list of named (extended) administrative groups that may be applied
 to TE links.
 
 named-srlgs:
 
-> A container for the list named Shared Risk Link Groups (SRLGs) that may be
+> A YANG container for the list named Shared Risk Link Groups (SRLGs) that may be
 applied to TE links.
 
 named-path-constraints:
 
-> A container for a list of named path constraints. Each named constraint is
+> A YANG container for a list of named path constraints. Each named constraint is
 composed of a set of constraints that can be applied during path computation.
 A named path constraint can be applied to TE tunnels. Path constraints may also
 be specified directly under the TE tunnel. The path constraint specified under
@@ -358,7 +358,7 @@ tunnel related objected:
 
 TE tunnel:
 
-> A container of one or more LSPs established between the source and destination
+> A YANG container of one or more LSPs established between the source and destination
 TE tunnel termination points. A TE tunnel LSP is a connection-oriented service
 provided by the network layer for the delivery of client data between a source and
 the destination of the TE tunnel termination points.
@@ -372,11 +372,6 @@ TE Tunnel Hand-off:
 
 > An access link or inter-domain link by which a multi-domain TE tunnel enters or
 exits a given network domain.
-
-
-The TE tunnel has a number of attributes that are set directly under the
-tunnel.  The 'encoding' and 'switching-type' nodes define the specific
-technology in which the tunnel operates.
 
 ~~~~~~~~~~~
      +--rw tunnels
@@ -397,114 +392,83 @@ technology in which the tunnel operates.
      |     |  +--rw protocol-origin?             identityref
      |     |  +--rw controller-entity-id?        string
      |     +--rw bidirectional?                  boolean
+     |     +--rw association-objects
+     |     |  +--rw association-object* [association-key]
+     // ..
+     |     |
+     |     +--rw protection
+     // ..
+     |     +--rw restoration
+     // ..
+     |     +--rw te-topology-identifier
+     // ..
+     |     +--rw hierarchy
+     // ..
+
 ~~~~~~~~~~~
 {: #fig-te-tunnel title="TE tunnel list structure"}
 
-The main attributes of a TE tunnel are described further below:
+The TE tunnel has a number of attributes that are set directly under the
+tunnel (see {{fig-te-tunnel}}). The main attributes of a TE tunnel are described below:
+
+operational-state:
+
+> A YANG leaf that holds the operational state of the tunnel.
+
+name:
+
+> A YANG leaf that holds the name of a tunnel. The name of the tunnel uniquely identifies
+a tunnel from the list. The name of the tunnel can be composed in a canonical form to ensure
+uniqueness of tunnels present on multiple devices.
+
+identifier:
+
+> A YANG leaf that holds an identifier of the tunnel. This identifier is unique amongst tunnels
+originated from an ingress device.
+
+encoding/switching:
+
+> The 'encoding' and 'switching-type' are YANG leafs that define the specific
+technology in which the tunnel operates.
+
+reoptimize-timer:
+
+> A YANG leaf to set the inteval period for tunnel reoptimization.
+
+source/destination:
+
+> YANG leafs that define the tunnel source and destination endpoints.
+
+src-tunnel-tp-id/dst-tunnel-tp-id:
+
+> YANG leafs that define the tunnel termination point identifiers.
 
 controller:
 
-> XX
+> A YANG container that holds tunnel data relevant to an optional external controller(s) that
+may initiate or control a tunnel. This target node may be augmented by external module(s), for example, to add data for PCEP initiated and/or
+delegated tunnels.
+
+bidirectional:
+
+> A YANG leaf that when present indicates the tunnel is bidirectional and co-routed.
 
 association-objects:
 
-> A container that includes the set of associations of the TE tunnel with other TE tunnels.
+> A YANG container that holds the set of associations of the TE tunnel to other TE tunnels.
 
 protection:
 
-> A container that includes the TE tunnel protection properties.
+> A YANG container that holds the TE tunnel protection properties.
 
 restoration:
 
-> A container that includes the TE tunnel restoration properties.
+> A YANG container that holds the TE tunnel restoration properties.
 
-primary-paths:
+te-topology-identifier:
 
-> A container that includes the list of primary paths (see {{fig-primary}}).
-A primary path is identified by 'name'. A primary path is selected from the list
-to instantiate an LSP for the tunnel.  The list of primary paths is visited by
-order of preference. A primary path has the following attributes:
-
->
-- primary-reverse-path: A container that includes properties of the
-  primary reverse path. The reverse path is applicable to
-  bidirectional TE tunnels.
-
->
-- candidate-secondary-paths: A container that includes a list of
-  candidate secondary paths which may be used for the primary path. The
-  candidate secondary path(s) reference path(s)  from the tunnel secondary paths list.
-  The preference of the secondary paths is specified within the list and
-  dictates the order of visiting the secondary path from the list. The attributes
-  of a secondary path can be defined separately from the primary path. The attributes
-  of a secondary path will be inherited from the associated 'active' primary when not
-  explicitly defined for the secondary path.
-
->
-- compute-only: A path of TE tunnel is, by default, provisioned so that it can is instantiated
-  in forwarding to carry traffic as soon as a valid path is computed. In some cases,
-  a TE path may be provisioned for the only purpose of computing a path
-  and reporting it without the need to instantiate the LSP or commit any
-  resources. In such a case, the path is configured in 'compute-only' mode to
-  distinguish it from the default behavior. A 'compute-only' path is configured
-  as a usual with the associated per path constraint(s) and properties on a
-  device or controller. The device or controller computes the feasible path(s) subject
-  to configured constraints.  A client may query the
-  'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
-  to be notified of computed path(s) and whenever the path properties change.
-
-
-~~~~~~
-    +--rw primary-paths
-    |  +--rw primary-path* [name]
-    |     +--rw name                             string
-    |     +--rw path-computation-method?         identityref
-    |     +--rw path-computation-server
-    |     |  +--rw id?     te-generic-node-id
-    |     |  +--rw type?   enumeration
-    |     +--rw compute-only?                    empty
-    |     +--rw use-path-computation?            boolean
-    |     +--rw lockdown?                        empty
-    |     +--ro path-scope?                      identityref
-    |     +--rw preference?                      uint8
-    |     +--rw k-requested-paths?               uint8
-~~~~~~
-{: #fig-primary title="TE tunnel primary paths."}
-
-secondary-paths:
-
-> A container that includes the set of secondary paths. The secondary paths are
- identified by 'name'. A secondary path can be reference by a TE tunnel's
-'candidate-secondary-path'. A secondary path contains attributes similar to a primary path.
-
-hierarchy:
-
-> A container that includes hierarchy related properties of the tunnel (see {{fig-hierarchy}}. A TE LSP
-  can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
-  a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
-  case, the model introduces the TE tunnel hierarchical link endpoint parameters
-  to identify the specific link in the client layer that the underlying TE tunnel is
-  associated with. The hierarchy container includes the following:
-
->
-- dependency-tunnels: a hierarchical TE tunnel provisioned or to be
-  provisioned in an immediately adjacent server layer a given
-  client layer TE tunnel depends on for multi-layer path
-  computation. A dependency TE tunnel is provisioned if and only if
-  it is used (selected by path computation) at least by one client
-  layer TE tunnel. The TE link in the client layer network topology
-  supported by a dependent TE tunnel is dynamically created only
-  when the dependency TE tunnel is actually provisioned.
-
->
-- hierarchical-link: A container that includes the identity of a
-  hierarchical link (in client layer) that this tunnel is
-  associated with.
-
->
-- te-topology-identifier: A container that includes the topology identifier
-  associated with the tunnel.
-
+> A YANG container that holds the topology identifier associated with the tunnel where
+path(s) for the TE tunnel are computed.
 
 ~~~~~~~
     +--rw hierarchy
@@ -525,6 +489,160 @@ hierarchy:
 ~~~~~~~
 {: #fig-hierarchy title="TE tunnel primary paths."}
 
+
+hierarchy:
+
+> A YANG container that holds hierarchy related properties of the TE tunnel (see {{fig-hierarchy}}. A TE LSP
+  can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
+  a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
+  case, the model introduces the TE tunnel hierarchical link endpoint parameters
+  to identify the specific link in the client layer that the underlying TE tunnel is
+  associated with. The hierarchy container includes the following:
+
+>>
+- dependency-tunnels: a hierarchical TE tunnel provisioned or to be
+  provisioned in an immediately adjacent server layer a given
+  client layer TE tunnel depends on for multi-layer path
+  computation. A dependency TE tunnel is provisioned if and only if
+  it is used (selected by path computation) at least by one client
+  layer TE tunnel. The TE link in the client layer network topology
+  supported by a dependent TE tunnel is dynamically created only
+  when the dependency TE tunnel is actually provisioned.
+
+>>
+- hierarchical-link: A YANG container that holds the identity of a
+  hierarchical link (in client layer) that this tunnel is
+  associated with. A hierarchical-link is by a node hosting the
+  link and its source and destination link termination point identifiers.
+
+
+#### TE Tunnel Paths
+
+The TE tunnel can be configured with a set of paths that define the tunnel
+forward and reverse paths as described in {{fig-tunnel-paths}}. Moreover, a primary
+path can be specified a set of candidate secondary paths that can be visited to
+support path protection. The following describe further the list of paths associated with a
+TE tunnel.
+
+~~~~~~
+
+     |     +--rw primary-paths
+     |     |  +--rw primary-path* [name]
+     |     |     +--rw name                             string
+     // ..
+     |     |     +
+     |     |     +--rw primary-reverse-path
+     |     |     |  +--rw name?                                string
+     // ..
+     |     |     |  |
+     |     |     |  +--rw candidate-secondary-reverse-paths
+     |     |     |     +--rw candidate-secondary-reverse-path*
+     |     |     |             [secondary-path]
+     |     |     |        +--rw secondary-path    leafref
+     |     |     +--rw candidate-secondary-paths
+     |     |        +--rw candidate-secondary-path* [secondary-path]
+     |     |           +--rw secondary-path    leafref
+     |     |           +--ro active?           boolean
+
+     |     +--rw secondary-paths
+     |     |  +--rw secondary-path* [name]
+     |     |     +--rw name                             string
+     // ..
+     |     |
+     |     +--rw secondary-reverse-paths
+     |     |  +--rw secondary-reverse-path* [name]
+     |     |     +--rw name                             string
+
+~~~~~~
+{: #fig-tunnel-paths title="TE tunnel paths YANG tree structure."}
+
+primary-paths:
+
+> A YANG container that holds the list of primary paths.
+A primary path is identified by 'name'. A primary path is selected from the list
+to instantiate a primary forwarding LSP for the tunnel.  The list of primary
+paths is visited by order of preference. A primary path has the following
+attributes:
+
+>
+- primary-reverse-path: A YANG container that holds properties of the
+  primary reverse path. The reverse path is applicable to
+  bidirectional TE tunnels.
+
+>
+- candidate-secondary-paths: A YANG container that holds a list of candidate
+  secondary paths which may be used for the primary path to support path
+  protection. The candidate secondary path(s) reference path(s)  from the
+  tunnel secondary paths list.  The preference of the secondary paths is
+  specified within the list and dictates the order of visiting the secondary
+  path from the list. The attributes of a secondary path can be defined
+  separately from the primary path. The attributes of a secondary path will be
+  inherited from the associated 'active' primary when not explicitly defined
+  for the secondary path.
+
+>
+
+secondary-paths:
+
+> A YANG container that holds the set of secondary paths. A secondary path is
+ identified by 'name'. A secondary path can be referenced from the TE tunnel's
+'candidate-secondary-path' list. A secondary path contains attributes similar to a primary path.
+
+secondary-reverse-paths:
+
+> A YANG container that holds teh set of secondary reverse paths. A secondary reverse
+path is identified by 'name'. A secondary reverse path can be referenced from the
+TE tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
+attributes similar to a primary path.
+
+The following set common path attributes are shared for primary forward and reverse primary and secondary paths:
+
+compute-only:
+
+> A path of TE tunnel is, by default, provisioned so that it can is instantiated
+  in forwarding to carry traffic as soon as a valid path is computed. In some cases,
+  a TE path may be provisioned for the only purpose of computing a path
+  and reporting it without the need to instantiate the LSP or commit any
+  resources. In such a case, the path is configured in 'compute-only' mode to
+  distinguish it from the default behavior. A 'compute-only' path is configured
+  as a usual with the associated per path constraint(s) and properties on a
+  device or controller. The device or controller computes the feasible path(s) subject
+  to configured constraints.  A client may query the
+  'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
+  to be notified of computed path(s) and whenever the path properties change.
+
+
+use-path-computation:
+
+> A YANG leaf that indicates whether or not path computation is to
+  be used for a specified path.
+
+lockdown:
+
+> A YANG leaf that when set indicates the existing path should not be reoptimized
+  after a failure on any of its traversed links.
+
+
+te-topology-identifier:
+
+> A YANG container that holds the topology identifier
+  associated with the tunnel.
+
+optimizations:
+
+> a YANG container that holds the optimization objectives
+  that path computation will use to select a path.
+
+computed-paths-properties:
+> A YANG container that holds properties for the list of computed paths.
+
+computed-path-error-infos:
+
+> A YANG container that holds a list of errors related to the path.
+
+lsps:
+
+> a YANG container that holds a list of LSPs that are instantiated for this specific path.
 
 ### TE LSPs {#TE_LSPS}
 
