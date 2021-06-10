@@ -466,7 +466,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
       +---x tunnels-path-compute
       +---x tunnels-action
 
-                Figure 2: TE generic high level model view
+           Figure 2: TE tunnel model high-level YANG tree view.
 
 5.1.1.  TE Globals
 
@@ -517,7 +517,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
         |  |  +--rw named-path-constraint* [name]
         ..
 
-                    Figure 3: TE globals tree structure
+          Figure 3: TE globals YANG subtree high-level structure.
 
 5.1.2.  TE Tunnels
 
@@ -594,7 +594,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
         // ..
 
 
-                    Figure 4: TE tunnel list structure
+             Figure 4: TE tunnel list YANG subtree structure.
 
    The TE tunnel has a number of attributes that are set directly under
    the tunnel (see Figure 4).  The main attributes of a TE tunnel are
@@ -695,7 +695,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
        |        +--rw client-id?     te-global-id
        |        +--rw topology-id?   te-topology-id
 
-                    Figure 5: TE tunnel primary paths.
+                Figure 5: TE tunnel hierarchy YANG subtree.
 
    hierarchy:
 
@@ -5307,7 +5307,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 }
 <CODE ENDS>
 
-                     Figure 8: generic TE YANG module
+                Figure 8: TE tunnel data model YANG module
 
 6.  TE Device YANG Model
 
@@ -5388,7 +5388,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
                 +-- ro state
                    <<derived state associated with the TE interface>>
 
-                       Figure 9: TE interface state
+                Figure 9: TE interface state YANG subtree.
 
 6.2.  Tree Diagram
 
@@ -5506,7 +5506,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
               +--:(match-one-interface)
                  +---w interface?   if:interface-ref
 
-              Figure 10: TE generic YANG model tree diagram.
+            Figure 10: TE tunnel model full YANG tree diagram.
 
 6.3.  YANG Module
 
@@ -6315,7 +6315,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
  }
  <CODE ENDS>
 
-                 Figure 11: TE device specific YANG module
+               Figure 11: TE device data model YANG module.
 
 7.  Notifications
 

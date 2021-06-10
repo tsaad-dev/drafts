@@ -300,7 +300,7 @@ rpcs:
    +---x tunnels-path-compute
    +---x tunnels-action
 ~~~~~~~~~~~
-{: #fig-highlevel title="TE generic high level model view"}
+{: #fig-highlevel title="TE tunnel model high-level YANG tree view."}
 
 ### TE Globals
 
@@ -340,7 +340,7 @@ derived from the referenced named path constraint.
      |  |  +--rw named-path-constraint* [name]
      ..
 ~~~~~~~
-{: #fig-globals title="TE globals tree structure"}
+{: #fig-globals title="TE globals YANG subtree high-level structure."}
 
 ### TE Tunnels {#TE_TUNNELS}
 
@@ -406,7 +406,7 @@ exits a given network domain.
      // ..
 
 ~~~~~~~~~~~
-{: #fig-te-tunnel title="TE tunnel list structure"}
+{: #fig-te-tunnel title="TE tunnel list YANG subtree structure."}
 
 The TE tunnel has a number of attributes that are set directly under the
 tunnel (see {{fig-te-tunnel}}). The main attributes of a TE tunnel are described below:
@@ -487,7 +487,7 @@ path(s) for the TE tunnel are computed.
     |        +--rw client-id?     te-global-id
     |        +--rw topology-id?   te-topology-id
 ~~~~~~~
-{: #fig-hierarchy title="TE tunnel primary paths."}
+{: #fig-hierarchy title="TE tunnel hierarchy YANG subtree."}
 
 
 hierarchy:
@@ -684,7 +684,7 @@ This module references the following documents:
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-basic-te title="generic TE YANG module"}
+{: #fig-basic-te title="TE tunnel data model YANG module"}
 
 # TE Device YANG Model
 
@@ -732,7 +732,7 @@ module: ietf-te-device
              +-- ro state
                 <<derived state associated with the TE interface>>
 ~~~~~~~~~~~
-{: #fig-if-te-state title="TE interface state"}
+{: #fig-if-te-state title="TE interface state YANG subtree."}
 
 ## Tree Diagram
 
@@ -742,7 +742,7 @@ modules 'ietf-te.yang'.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
 ~~~~~~~~~~~
-{: #fig-te-dev-tree title="TE generic YANG model tree diagram."}
+{: #fig-te-dev-tree title="TE tunnel model full YANG tree diagram."}
 
 
 ## YANG Module
@@ -760,7 +760,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-te-device-types title="TE device specific YANG module"}
+{: #fig-te-device-types title="TE device data model YANG module."}
 
 
 # Notifications
