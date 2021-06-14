@@ -467,8 +467,8 @@ restoration:
 
 te-topology-identifier:
 
-> A YANG container that holds the topology identifier associated with the tunnel where
-path(s) for the TE Tunnel are computed.
+> A YANG container that holds the topology identifier associated with the topology where paths for the TE tunnel are computed.
+
 
 ~~~~~~~
     +--rw hierarchy

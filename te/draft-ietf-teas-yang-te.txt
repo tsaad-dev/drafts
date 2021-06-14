@@ -677,7 +677,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
    te-topology-identifier:
 
       A YANG container that holds the topology identifier associated
-      with the tunnel where path(s) for the TE Tunnel are computed.
+      with the topology where paths for the TE tunnel are computed.
 
        +--rw hierarchy
        |  +--rw dependency-tunnels
@@ -4987,7 +4987,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
            is multiples of the basic unit 0.000003% as described
-           in RFC74710 for OSPF, and RFC8570 for ISIS.
+           in RFC7471 for OSPF, and RFC8570 for ISIS.
          - path affinity constraints
          - path SRLG constraints";
 
