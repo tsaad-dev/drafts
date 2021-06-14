@@ -664,7 +664,7 @@ modules 'ietf-te.yang'.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te.tree}
 ~~~~~~~~~~~
-{: #fig-te-tree title="TE generic YANG model tree diagram"}
+{: #fig-te-tree title="TE tunnel generic model YANG tree diagram"}
 
 
 ## YANG Module
@@ -742,7 +742,7 @@ modules 'ietf-te.yang'.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
 ~~~~~~~~~~~
-{: #fig-te-dev-tree title="TE tunnel model full YANG tree diagram"}
+{: #fig-te-dev-tree title="TE tunnel device model YANG tree diagram"}
 
 
 ## YANG Module
