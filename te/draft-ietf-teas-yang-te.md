@@ -61,7 +61,7 @@ informative:
 
 --- abstract
 
-This document defines a YANG data model for the configuration and management of
+This document defines a YANG data model for the provisioning and management of
 Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs). and interfaces.
 The model is divided into YANG modules that classify data into generic,
 device-specific, technology agnostic, and technology-specific elements.
