@@ -238,7 +238,7 @@ RSVP-TE YANG model augmentation of the TE model is covered in
                           (not in this document)
 
 ~~~
-{: #figctrl title="Relationship of TE module(s) with other signaling protocol modules"}
+{: #figctrl title="Relationship of TE module(s) with signaling protocol modules"}
 
 # TE YANG Model
 

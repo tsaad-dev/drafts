@@ -368,7 +368,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
                              (not in this document)
 
 
-   Figure 1: Relationship of TE module(s) with other signaling protocol
+      Figure 1: Relationship of TE module(s) with signaling protocol
                                   modules
 
 5.  TE YANG Model
