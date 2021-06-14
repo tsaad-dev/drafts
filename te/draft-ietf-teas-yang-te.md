@@ -511,21 +511,20 @@ hierarchy:
   associated with. The hierarchy container includes the following:
 
 >>
-- dependency-tunnels: a hierarchical TE Tunnel provisioned or to be
-  provisioned in an immediately adjacent server layer a given
-  client layer TE Tunnel depends on for multi-layer path
-  computation. A dependency TE Tunnel is provisioned if and only if
-  it is used (selected by path computation) at least by one client
-  layer TE Tunnel. The TE link in the client layer network topology
-  supported by a dependent TE Tunnel is dynamically created only
-  when the dependency TE Tunnel is actually provisioned.
+- dependency-tunnels: A set of hierarchical TE Tunnels provisioned or to be
+  provisioned in the immediate lower layer that this TE tunnel depends on for
+  multi-layer path computation. A dependency TE Tunnel is provisioned if and
+  only if it is used (selected by path computation) at least by one client
+  layer TE Tunnel. The TE link in the client layer network topology supported
+  by a dependent TE Tunnel is dynamically created only when the dependency TE
+  Tunnel is actually provisioned.
 
 >>
-- hierarchical-link: A YANG container that holds the identity of a
-  hierarchical link (in client layer) that this tunnel is
-  associated with. A hierarchical-link is by a node hosting the
-  link and its source and destination link termination point identifiers.
-
+- hierarchical-link: A YANG container that holds the identity of the
+  hierarchical link (in the client layer) that is supported by this TE Tunnel.
+  The endpoints of the hierarchical link are defined by TE tunnel source and
+  destination node endpoints. The hierarchical link can be identified by its source
+  and destination link termination point identifiers.
 
 #### TE Tunnel Paths
 

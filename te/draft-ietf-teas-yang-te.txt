@@ -730,9 +730,9 @@ Saad, et al.            Expires December 16, 2021              [Page 13]
 Internet-Draft             TE YANG Data Model                  June 2021
 
 
-         +  dependency-tunnels: a hierarchical TE Tunnel provisioned or
-            to be provisioned in an immediately adjacent server layer a
-            given client layer TE Tunnel depends on for multi-layer path
+         +  dependency-tunnels: A set of hierarchical TE Tunnels
+            provisioned or to be provisioned in the immediate lower
+            layer that this TE tunnel depends on for multi-layer path
             computation.  A dependency TE Tunnel is provisioned if and
             only if it is used (selected by path computation) at least
             by one client layer TE Tunnel.  The TE link in the client
@@ -745,9 +745,11 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
          +  hierarchical-link: A YANG container that holds the identity
-            of a hierarchical link (in client layer) that this tunnel is
-            associated with.  A hierarchical-link is by a node hosting
-            the link and its source and destination link termination
+            of the hierarchical link (in the client layer) that is
+            supported by this TE Tunnel.  The endpoints of the
+            hierarchical link are defined by TE tunnel source and
+            destination node endpoints.  The hierarchical link can be
+            identified by its source and destination link termination
             point identifiers.
 
 5.1.2.1.  TE Tunnel Paths
@@ -757,8 +759,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
    a primary path can be specified a set of candidate secondary paths
    that can be visited to support path protection.  The following
    describe further the list of paths associated with a TE Tunnel.
-
-
 
 
 
