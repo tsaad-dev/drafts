@@ -459,7 +459,7 @@ delegated tunnels.
 
 bidirectional:
 
-> A YANG leaf that when present indicates the tunnel is bidirectional and co-routed.
+> A YANG leaf that when present indicates the LSPs of a TE Tunnel are bidirectional and co-routed.
 
 association-objects:
 
