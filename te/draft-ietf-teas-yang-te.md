@@ -437,11 +437,16 @@ reoptimize-timer:
 
 source/destination:
 
-> YANG leafs that define the tunnel source and destination endpoints.
+> YANG leafs that define the tunnel source and destination node endpoints.
 
 src-tunnel-tp-id/dst-tunnel-tp-id:
 
-> YANG leafs that define the tunnel termination point identifiers.
+>  YANG leafs that hold the identifiers of source and destination TE Tunnel
+>  Termination Points (TTPs) {{!RFC8795}} residing on the source and
+>  destination nodes. The TTP identifiers are optional on nodes that have a
+>  single TTP per node. For example, TTP identifiers are optional for packet
+>  (IP/MPLS) routers.
+
 
 controller:
 
