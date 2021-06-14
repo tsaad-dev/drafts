@@ -88,22 +88,22 @@ Table of Contents
        5.1.1.  TE Globals  . . . . . . . . . . . . . . . . . . . . .   9
        5.1.2.  TE Tunnels  . . . . . . . . . . . . . . . . . . . . .  10
        5.1.3.  TE LSPs . . . . . . . . . . . . . . . . . . . . . . .  17
-     5.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  17
+     5.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  18
      5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  58
    6.  TE Device YANG Model  . . . . . . . . . . . . . . . . . . . .  96
      6.1.  Module Structure  . . . . . . . . . . . . . . . . . . . .  96
        6.1.1.  TE Interfaces . . . . . . . . . . . . . . . . . . . .  96
      6.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  97
-     6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  99
+     6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . 100
    7.  Notifications . . . . . . . . . . . . . . . . . . . . . . . . 114
    8.  TE Generic and Helper YANG Modules  . . . . . . . . . . . . . 114
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . 114
    10. Security Considerations . . . . . . . . . . . . . . . . . . . 115
    11. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . . 116
-   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . . 116
+   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . . 117
    13. Appendix A: Examples  . . . . . . . . . . . . . . . . . . . . 117
      13.1.  Basic Tunnel Setup . . . . . . . . . . . . . . . . . . . 118
-     13.2.  Global Named Path Constraints  . . . . . . . . . . . . . 118
+     13.2.  Global Named Path Constraints  . . . . . . . . . . . . . 119
      13.3.  Tunnel with Global Path Constraint . . . . . . . . . . . 119
      13.4.  Tunnel with Per-tunnel Path Constraint . . . . . . . . . 120
 
@@ -657,15 +657,15 @@ Internet-Draft             TE YANG Data Model                  June 2021
    association-objects:
 
       A YANG container that holds the set of associations of the TE
-      Tunnel to other TE Tunnels.
+      Tunnel to other TE Tunnels.  Associations at the TE Tunnel level
+      apply to all paths of the TE Tunnel.  The TE tunnel associations
+      can be overridden by associations configured directly under the TE
+      Tunnel path.
 
    protection:
 
       A YANG container that holds the TE Tunnel protection properties.
 
-   restoration:
-
-      A YANG container that holds the TE Tunnel restoration properties.
 
 
 
@@ -673,6 +673,10 @@ Saad, et al.            Expires December 16, 2021              [Page 12]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
+
+   restoration:
+
+      A YANG container that holds the TE Tunnel restoration properties.
 
    te-topology-identifier:
 
@@ -718,16 +722,20 @@ Internet-Draft             TE YANG Data Model                  June 2021
             computation.  A dependency TE Tunnel is provisioned if and
             only if it is used (selected by path computation) at least
             by one client layer TE Tunnel.  The TE link in the client
-            layer network topology supported by a dependent TE Tunnel is
-            dynamically created only when the dependency TE Tunnel is
-            actually provisioned.
-
 
 
 
 Saad, et al.            Expires December 16, 2021              [Page 13]
 
 Internet-Draft             TE YANG Data Model                  June 2021
+
+
+            layer network topology supported by a dependent TE Tunnel is
+            dynamically created only when the dependency TE Tunnel is
+            actually provisioned.
+
+
+
 
 
          +  hierarchical-link: A YANG container that holds the identity
@@ -743,6 +751,40 @@ Internet-Draft             TE YANG Data Model                  June 2021
    a primary path can be specified a set of candidate secondary paths
    that can be visited to support path protection.  The following
    describe further the list of paths associated with a TE Tunnel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 14]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
         |     +--rw primary-paths
         |     |  +--rw primary-path* [name]
@@ -778,14 +820,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
       A YANG container that holds the list of primary paths.  A primary
       path is identified by 'name'.  A primary path is selected from the
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 14]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       list to instantiate a primary forwarding LSP for the tunnel.  The
       list of primary paths is visited by order of preference.  A
       primary path has the following attributes:
@@ -800,6 +834,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
       *  candidate-secondary-paths: A YANG container that holds a list
          of candidate secondary paths which may be used for the primary
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 15]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
          path to support path protection.  The candidate secondary
          path(s) reference path(s) from the tunnel secondary paths list.
          The preference of the secondary paths is specified within the
@@ -834,14 +876,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       A path of TE Tunnel is, by default, provisioned so that it can is
       instantiated in forwarding to carry traffic as soon as a valid
       path is computed.  In some cases, a TE path may be provisioned for
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 15]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       the only purpose of computing a path and reporting it without the
       need to instantiate the LSP or commit any resources.  In such a
       case, the path is configured in 'compute-only' mode to distinguish
@@ -855,6 +889,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       change.
 
    use-path-computation:
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 16]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
       A YANG leaf that indicates whether or not path computation is to
       be used for a specified path.
@@ -886,18 +928,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       a YANG container that holds a list of LSPs that are instantiated
       for this specific path.
 
-
-
-
-
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 16]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
 5.1.3.  TE LSPs
 
    The 'lsps' container includes the set of TE LSP(s) that are
@@ -912,6 +942,17 @@ Internet-Draft             TE YANG Data Model                  June 2021
    contains all TE LSP(s) that traverse all network devices (including
    ingressing, transiting and egressing the device) that the TE
    controller manages.
+
+
+
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 17]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
 5.2.  Tree Diagram
 
@@ -946,14 +987,6 @@ ed-admin-groups}?
      |        +--rw signaling-type?                  identityref
      |        +--rw path-metric-bounds
      |        |  +--rw path-metric-bound* [metric-type]
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 17]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |        |     +--rw metric-type    identityref
      |        |     +--rw upper-bound?   uint64
      |        +--rw path-affinities-values
@@ -969,6 +1002,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |        |  +--rw path-srlgs-list* [usage]
      |        |     +--rw usage     identityref
      |        |     +--rw values*   srlg
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 18]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |        +--rw path-srlgs-names
      |        |  +--rw path-srlgs-name* [usage]
      |        |     +--rw usage    identityref
@@ -1002,14 +1043,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |        |  |        +--rw label-hop
      |        |  |           +--rw te-label
      |        |  |              +--rw (technology)?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 18]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |        |  |              |  +--:(generic)
      |        |  |              |     +--rw generic?
      |        |  |              |             rt-types:generalized-label
@@ -1025,6 +1058,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |        |        |     +--rw hop-type?   te-hop-type
      |        |        +--:(numbered-link-hop)
      |        |        |  +--rw numbered-link-hop
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 19]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |        |        |     +--rw link-tp-id    te-tp-id
      |        |        |     +--rw hop-type?     te-hop-type
      |        |        |     +--rw direction?    te-link-direction
@@ -1058,14 +1099,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |        |        +--rw label-start
      |        |        |  +--rw te-label
      |        |        |     +--rw (technology)?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 19]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |        |        |     |  +--:(generic)
      |        |        |     |     +--rw generic?
      |        |        |     |             rt-types:generalized-label
@@ -1081,6 +1114,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |        |        |             te-label-direction
      |        |        +--rw label-step
      |        |        |  +--rw (technology)?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 20]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |        |        |     +--:(generic)
      |        |        |        +--rw generic?   int32
      |        |        +--rw range-bitmap?   yang:hex-string
@@ -1114,14 +1155,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |  +--rw tunnel* [name]
      |     +--ro operational-state?              identityref
      |     +--rw name                            string
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 20]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     +--rw identifier?                     uint32
      |     +--rw description?                    string
      |     +--rw encoding?                       identityref
@@ -1137,6 +1170,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     +--rw dst-tunnel-tp-id?               binary
      |     +--rw bidirectional?                  boolean
      |     +--rw association-objects
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 21]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |  +--rw association-object* [association-key]
      |     |  |  +--rw association-key    string
      |     |  |  +--rw type?              identityref
@@ -1170,14 +1211,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |  +--rw wait-to-revert?                  uint16
      |     +--rw te-topology-identifier
      |     |  +--rw provider-id?   te-global-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 21]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |  +--rw client-id?     te-global-id
      |     |  +--rw topology-id?   te-topology-id
      |     +--rw te-bandwidth
@@ -1193,6 +1226,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |  |  +--rw dependency-tunnel* [name]
      |     |  |     +--rw name
      |     |  |     |       -> /te/tunnels/tunnel/name
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 22]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |  |     +--rw encoding?         identityref
      |     |  |     +--rw switching-type?   identityref
      |     |  +--rw hierarchical-link
@@ -1226,14 +1267,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |     +--rw type?   enumeration
      |     |     |  +--rw association-object-extended*
      |     |     |          [association-key]
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 22]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     +--rw association-key    string
      |     |     |     +--rw type?              identityref
      |     |     |     +--rw id?                uint16
@@ -1249,6 +1282,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  +--rw metric-type
      |     |     |     |  |  |       identityref
      |     |     |     |  |  +--rw weight?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 23]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |  |       uint8
      |     |     |     |  |  +--rw explicit-route-exclude-objects
      |     |     |     |  |  |  +--rw route-object-exclude-object*
@@ -1282,14 +1323,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  |        |             te-link-direction
      |     |     |     |  |  |        +--:(as-number)
      |     |     |     |  |  |        |  +--rw as-number-hop
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 23]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  |  |        |     +--rw as-number
      |     |     |     |  |  |        |     |       inet:as-number
      |     |     |     |  |  |        |     +--rw hop-type?
@@ -1305,6 +1338,14 @@ neralized-label
      |     |     |     |  |  |        |        +--rw direction?
      |     |     |     |  |  |        |                te-label-directio
 n
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 24]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |  |        +--:(srlg)
      |     |     |     |  |  |           +--rw srlg
      |     |     |     |  |  |              +--rw srlg?   uint32
@@ -1338,14 +1379,6 @@ n
      |     |     |     |  |           |     |       te-hop-type
      |     |     |     |  |           |     +--rw direction?
      |     |     |     |  |           |             te-link-direction
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 24]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  |           +--:(as-number)
      |     |     |     |  |           |  +--rw as-number-hop
      |     |     |     |  |           |     +--rw as-number
@@ -1361,6 +1394,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |                    |             rt-types:ge
 neralized-label
      |     |     |     |  |                    +--rw direction?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 25]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |                            te-label-directio
 n
      |     |     |     |  +--rw tiebreakers
@@ -1394,14 +1435,6 @@ n
      |     |     |     +--rw usage            identityref
      |     |     |     +--rw affinity-name* [name]
      |     |     |        +--rw name    string
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 25]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     +--rw path-srlgs-lists
      |     |     |  +--rw path-srlgs-list* [usage]
      |     |     |     +--rw usage     identityref
@@ -1417,6 +1450,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |  +--rw index                        uint32
      |     |     |  |  +--rw (type)?
      |     |     |  |     +--:(numbered-node-hop)
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 26]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |     |  +--rw numbered-node-hop
      |     |     |  |     |     +--rw node-id     te-node-id
      |     |     |  |     |     +--rw hop-type?   te-hop-type
@@ -1450,14 +1491,6 @@ bel
      |     |     |     +--rw index                        uint32
      |     |     |     +--rw (type)?
      |     |     |        +--:(numbered-node-hop)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 26]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |  +--rw numbered-node-hop
      |     |     |        |     +--rw node-id     te-node-id
      |     |     |        |     +--rw hop-type?   te-hop-type
@@ -1473,6 +1506,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |     +--rw hop-type?     te-hop-type
      |     |     |        |     +--rw direction?    te-link-direction
      |     |     |        +--:(as-number)
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 27]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |  +--rw as-number-hop
      |     |     |        |     +--rw as-number    inet:as-number
      |     |     |        |     +--rw hop-type?    te-hop-type
@@ -1506,14 +1547,6 @@ bel
      |     |     |        |  +--rw te-label
      |     |     |        |     +--rw (technology)?
      |     |     |        |     |  +--:(generic)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 27]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |     |     +--rw generic?
      |     |     |        |     |             rt-types:generalized-label
      |     |     |        |     +--rw direction?
@@ -1529,6 +1562,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        +--rw restriction?    enumeration
      |     |     |        +--rw index           uint32
      |     |     |        +--rw label-start
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 28]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |  +--rw te-label
      |     |     |        |     +--rw (technology)?
      |     |     |        |     |  +--:(generic)
@@ -1562,14 +1603,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |     +--ro value?   admin-groups
      |     |     |        +--ro path-affinity-names
      |     |     |        |  +--ro path-affinity-name* [usage]
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 28]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |     +--ro usage            identityref
      |     |     |        |     +--ro affinity-name* [name]
      |     |     |        |        +--ro name    string
@@ -1585,6 +1618,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |  +--ro path-route-object* [index]
      |     |     |        |     +--ro index
      |     |     |        |     |       uint32
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 29]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |     +--ro (type)?
      |     |     |        |        +--:(numbered-node-hop)
      |     |     |        |        |  +--ro numbered-node-hop
@@ -1618,14 +1659,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |              +--ro te-label
      |     |     |        |                 +--ro (technology)?
      |     |     |        |                 |  +--:(generic)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 29]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |                 |     +--ro generic?
      |     |     |        |                 |             rt-types:gener
 alized-label
@@ -1641,6 +1674,14 @@ alized-label
      |     |     |  +--ro computed-path-error-info* []
      |     |     |     +--ro error-description?   string
      |     |     |     +--ro error-timestamp?     yang:date-and-time
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 30]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     +--ro error-reason?        identityref
      |     |     +--ro lsp-provisioning-error-infos
      |     |     |  +--ro lsp-provisioning-error-info* []
@@ -1674,14 +1715,6 @@ alized-label
      |     |     |  |  |  +--rw type?              identityref
      |     |     |  |  |  +--rw id?                uint16
      |     |     |  |  |  +--rw source
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 30]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |  |     +--rw id?     te-gen-node-id
      |     |     |  |  |     +--rw type?   enumeration
      |     |     |  |  +--rw association-object-extended*
@@ -1697,6 +1730,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  +--rw optimizations
      |     |     |  |  +--rw (algorithm)?
      |     |     |  |     +--:(metric) {path-optimization-metric}?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 31]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |     |  +--rw optimization-metric* [metric-type]
      |     |     |  |     |  |  +--rw metric-type
      |     |     |  |     |  |  |       identityref
@@ -1730,14 +1771,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |     |  |  |        |     |       te-node-id
      |     |     |  |     |  |  |        |     +--rw hop-type?
      |     |     |  |     |  |  |        |     |       te-hop-type
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 31]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |     |  |  |        |     +--rw direction?
      |     |     |  |     |  |  |        |             te-link-direction
      |     |     |  |     |  |  |        +--:(as-number)
@@ -1753,6 +1786,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |     |  |  |        |        |  +--:(generic)
      |     |     |  |     |  |  |        |        |     +--rw generic?
      |     |     |  |     |  |  |        |        |             rt-types
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 32]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
 :generalized-label
      |     |     |  |     |  |  |        |        +--rw direction?
      |     |     |  |     |  |  |        |                te-label-direc
@@ -1786,14 +1827,6 @@ tion
      |     |     |  |     |  |           |     |       te-tp-id
      |     |     |  |     |  |           |     +--rw node-id
      |     |     |  |     |  |           |     |       te-node-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 32]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |     |  |           |     +--rw hop-type?
      |     |     |  |     |  |           |     |       te-hop-type
      |     |     |  |     |  |           |     +--rw direction?
@@ -1809,6 +1842,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |     |  |                 +--rw te-label
      |     |     |  |     |  |                    +--rw (technology)?
      |     |     |  |     |  |                    |  +--:(generic)
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 33]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |     |  |                    |     +--rw generic?
      |     |     |  |     |  |                    |             rt-types
 :generalized-label
@@ -1842,14 +1883,6 @@ tion
      |     |     |  |     +--rw metric-type    identityref
      |     |     |  |     +--rw upper-bound?   uint64
      |     |     |  +--rw path-affinities-values
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 33]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |  +--rw path-affinities-value* [usage]
      |     |     |  |     +--rw usage    identityref
      |     |     |  |     +--rw value?   admin-groups
@@ -1865,6 +1898,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  +--rw path-srlgs-names
      |     |     |  |  +--rw path-srlgs-name* [usage]
      |     |     |  |     +--rw usage    identityref
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 34]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |     +--rw names*   string
      |     |     |  +--rw disjointness?
      |     |     |  |       te-path-disjointness
@@ -1898,14 +1939,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |  |           +--rw te-label
      |     |     |  |  |              +--rw (technology)?
      |     |     |  |  |              |  +--:(generic)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 34]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |  |              |     +--rw generic?
      |     |     |  |  |              |             rt-types:generalized
 -label
@@ -1921,6 +1954,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |        |     +--rw node-id     te-node-id
      |     |     |  |        |     +--rw hop-type?   te-hop-type
      |     |     |  |        +--:(numbered-link-hop)
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 35]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |        |  +--rw numbered-link-hop
      |     |     |  |        |     +--rw link-tp-id    te-tp-id
      |     |     |  |        |     +--rw hop-type?     te-hop-type
@@ -1954,14 +1995,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |  +--rw label-restrictions
      |     |     |  |     +--rw label-restriction* [index]
      |     |     |  |        +--rw restriction?    enumeration
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 35]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |        +--rw index           uint32
      |     |     |  |        +--rw label-start
      |     |     |  |        |  +--rw te-label
@@ -1977,6 +2010,14 @@ bel
      |     |     |  |        |     +--rw (technology)?
      |     |     |  |        |     |  +--:(generic)
      |     |     |  |        |     |     +--rw generic?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 36]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |        |     |             rt-types:generalized-la
 bel
      |     |     |  |        |     +--rw direction?
@@ -2010,14 +2051,6 @@ bel
      |     |     |  |        |     +--rw direction?
      |     |     |  |        |             te-label-direction
      |     |     |  |        +--rw label-step
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 36]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |        |  +--rw (technology)?
      |     |     |  |        |     +--:(generic)
      |     |     |  |        |        +--rw generic?   int32
@@ -2033,6 +2066,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |        +--ro path-affinities-values
      |     |     |  |        |  +--ro path-affinities-value* [usage]
      |     |     |  |        |     +--ro usage    identityref
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 37]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |        |     +--ro value?   admin-groups
      |     |     |  |        +--ro path-affinity-names
      |     |     |  |        |  +--ro path-affinity-name* [usage]
@@ -2066,14 +2107,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |        |        |     |       te-hop-type
      |     |     |  |        |        |     +--ro direction?
      |     |     |  |        |        |             te-link-direction
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 37]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |        |        +--:(unnumbered-link-hop)
      |     |     |  |        |        |  +--ro unnumbered-link-hop
      |     |     |  |        |        |     +--ro link-tp-id
@@ -2089,6 +2122,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |        |        |     +--ro as-number
      |     |     |  |        |        |     |       inet:as-number
      |     |     |  |        |        |     +--ro hop-type?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 38]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |        |        |             te-hop-type
      |     |     |  |        |        +--:(label)
      |     |     |  |        |           +--ro label-hop
@@ -2122,14 +2163,6 @@ n
      |     |     |  |     |       te-types:te-node-id
      |     |     |  |     +--ro error-link-id?
      |     |     |  |     |       te-types:te-tp-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 38]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |     +--ro lsp-id?              uint16
      |     |     |  +--ro lsps
      |     |     |  |  +--ro lsp* [node lsp-id]
@@ -2145,6 +2178,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |        +--rw candidate-secondary-path* [secondary-path]
      |     |           +--rw secondary-path    leafref
      |     |           +--ro active?           boolean
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 39]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     +--rw secondary-paths
      |     |  +--rw secondary-path* [name]
      |     |     +--rw name                             string
@@ -2178,14 +2219,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     +--rw optimizations
      |     |     |  +--rw (algorithm)?
      |     |     |     +--:(metric) {path-optimization-metric}?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 39]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  +--rw optimization-metric* [metric-type]
      |     |     |     |  |  +--rw metric-type
      |     |     |     |  |  |       identityref
@@ -2201,6 +2234,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  |        |  +--rw numbered-node-hop
      |     |     |     |  |  |        |     +--rw node-id
      |     |     |     |  |  |        |     |       te-node-id
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 40]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |  |        |     +--rw hop-type?
      |     |     |     |  |  |        |             te-hop-type
      |     |     |     |  |  |        +--:(numbered-link-hop)
@@ -2234,14 +2275,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  |        |        |  +--:(generic)
      |     |     |     |  |  |        |        |     +--rw generic?
      |     |     |     |  |  |        |        |             rt-types:ge
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 40]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
 neralized-label
      |     |     |     |  |  |        |        +--rw direction?
      |     |     |     |  |  |        |                te-label-directio
@@ -2257,6 +2290,14 @@ n
      |     |     |     |  |        +--rw (type)?
      |     |     |     |  |           +--:(numbered-node-hop)
      |     |     |     |  |           |  +--rw numbered-node-hop
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 41]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |           |     +--rw node-id
      |     |     |     |  |           |     |       te-node-id
      |     |     |     |  |           |     +--rw hop-type?
@@ -2290,14 +2331,6 @@ n
      |     |     |     |  |                 +--rw te-label
      |     |     |     |  |                    +--rw (technology)?
      |     |     |     |  |                    |  +--:(generic)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 41]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  |                    |     +--rw generic?
      |     |     |     |  |                    |             rt-types:ge
 neralized-label
@@ -2313,6 +2346,14 @@ n
      |     |     |           +--rw objective-function-type?
      |     |     |                   identityref
      |     |     +--rw named-path-constraint?           leafref
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 42]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |       {te-types:named-path-constraints}?
      |     |     +--rw te-bandwidth
      |     |     |  +--rw (technology)?
@@ -2346,14 +2387,6 @@ n
      |     |     +--rw disjointness?
      |     |     |       te-path-disjointness
      |     |     +--rw explicit-route-objects-always
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 42]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  +--rw route-object-exclude-always* [index]
      |     |     |  |  +--rw index                        uint32
      |     |     |  |  +--rw (type)?
@@ -2369,6 +2402,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |     +--:(unnumbered-link-hop)
      |     |     |  |     |  +--rw unnumbered-link-hop
      |     |     |  |     |     +--rw link-tp-id    te-tp-id
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 43]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |  |     |     +--rw node-id       te-node-id
      |     |     |  |     |     +--rw hop-type?     te-hop-type
      |     |     |  |     |     +--rw direction?    te-link-direction
@@ -2402,14 +2443,6 @@ bel
      |     |     |        +--:(unnumbered-link-hop)
      |     |     |        |  +--rw unnumbered-link-hop
      |     |     |        |     +--rw link-tp-id    te-tp-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 43]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |     +--rw node-id       te-node-id
      |     |     |        |     +--rw hop-type?     te-hop-type
      |     |     |        |     +--rw direction?    te-link-direction
@@ -2425,6 +2458,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |        |     +--rw generic?
      |     |     |        |        |             rt-types:generalized-la
 bel
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 44]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |        +--rw direction?
      |     |     |        |                te-label-direction
      |     |     |        +--:(srlg)
@@ -2458,14 +2499,6 @@ bel
      |     |     |        +--rw range-bitmap?   yang:hex-string
      |     |     +--rw path-out-segment!
      |     |     |  +--rw label-restrictions
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 44]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     +--rw label-restriction* [index]
      |     |     |        +--rw restriction?    enumeration
      |     |     |        +--rw index           uint32
@@ -2481,6 +2514,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |  +--rw te-label
      |     |     |        |     +--rw (technology)?
      |     |     |        |     |  +--:(generic)
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 45]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |     |     +--rw generic?
      |     |     |        |     |             rt-types:generalized-label
      |     |     |        |     +--rw direction?
@@ -2514,14 +2555,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        +--ro path-metric* [metric-type]
      |     |     |        |  +--ro metric-type           identityref
      |     |     |        |  +--ro accumulative-value?   uint64
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 45]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        +--ro path-affinities-values
      |     |     |        |  +--ro path-affinities-value* [usage]
      |     |     |        |     +--ro usage    identityref
@@ -2537,6 +2570,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |     +--ro values*   srlg
      |     |     |        +--ro path-srlgs-names
      |     |     |        |  +--ro path-srlgs-name* [usage]
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 46]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |     +--ro usage    identityref
      |     |     |        |     +--ro names*   string
      |     |     |        +--ro path-route-objects
@@ -2570,14 +2611,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |        |     +--ro as-number
      |     |     |        |        |     |       inet:as-number
      |     |     |        |        |     +--ro hop-type?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 46]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |        |             te-hop-type
      |     |     |        |        +--:(label)
      |     |     |        |           +--ro label-hop
@@ -2593,6 +2626,14 @@ alized-label
      |     |     |        |  +--ro (technology)?
      |     |     |        |     +--:(generic)
      |     |     |        |        +--ro generic?   te-bandwidth
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 47]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        +--ro disjointness-type?
      |     |     |                te-types:te-path-disjointness
      |     |     +--ro computed-path-error-infos
@@ -2626,14 +2667,6 @@ alized-label
      |     |     +--ro path-scope?                      identityref
      |     |     +--rw preference?                      uint8
      |     |     +--rw association-objects
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 47]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  +--rw association-object* [association-key]
      |     |     |  |  +--rw association-key    string
      |     |     |  |  +--rw type?              identityref
@@ -2649,6 +2682,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     +--rw source
      |     |     |     |  +--rw id?     te-gen-node-id
      |     |     |     |  +--rw type?   enumeration
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 48]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     +--rw global-source?     uint32
      |     |     |     +--rw extended-id?       yang:hex-string
      |     |     +--rw optimizations
@@ -2682,14 +2723,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  |        +--:(unnumbered-link-hop)
      |     |     |     |  |  |        |  +--rw unnumbered-link-hop
      |     |     |     |  |  |        |     +--rw link-tp-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 48]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  |  |        |     |       te-tp-id
      |     |     |     |  |  |        |     +--rw node-id
      |     |     |     |  |  |        |     |       te-node-id
@@ -2705,6 +2738,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |  |        |             te-hop-type
      |     |     |     |  |  |        +--:(label)
      |     |     |     |  |  |        |  +--rw label-hop
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 49]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |  |        |     +--rw te-label
      |     |     |     |  |  |        |        +--rw (technology)?
      |     |     |     |  |  |        |        |  +--:(generic)
@@ -2738,14 +2779,6 @@ n
      |     |     |     |  |           |     +--rw direction?
      |     |     |     |  |           |             te-link-direction
      |     |     |     |  |           +--:(unnumbered-link-hop)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 49]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     |  |           |  +--rw unnumbered-link-hop
      |     |     |     |  |           |     +--rw link-tp-id
      |     |     |     |  |           |     |       te-tp-id
@@ -2761,6 +2794,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     |  |           |     |       inet:as-number
      |     |     |     |  |           |     +--rw hop-type?
      |     |     |     |  |           |             te-hop-type
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 50]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     |  |           +--:(label)
      |     |     |     |  |              +--rw label-hop
      |     |     |     |  |                 +--rw te-label
@@ -2794,14 +2835,6 @@ n
      |     |     |  +--rw path-metric-bound* [metric-type]
      |     |     |     +--rw metric-type    identityref
      |     |     |     +--rw upper-bound?   uint64
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 50]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     +--rw path-affinities-values
      |     |     |  +--rw path-affinities-value* [usage]
      |     |     |     +--rw usage    identityref
@@ -2817,6 +2850,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |     +--rw values*   srlg
      |     |     +--rw path-srlgs-names
      |     |     |  +--rw path-srlgs-name* [usage]
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 51]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     +--rw usage    identityref
      |     |     |     +--rw names*   string
      |     |     +--rw disjointness?
@@ -2850,14 +2891,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  |              +--rw (technology)?
      |     |     |  |              |  +--:(generic)
      |     |     |  |              |     +--rw generic?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 51]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  |              |             rt-types:generalized-la
 bel
      |     |     |  |              +--rw direction?
@@ -2873,6 +2906,14 @@ bel
      |     |     |        +--:(numbered-link-hop)
      |     |     |        |  +--rw numbered-link-hop
      |     |     |        |     +--rw link-tp-id    te-tp-id
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 52]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |     +--rw hop-type?     te-hop-type
      |     |     |        |     +--rw direction?    te-link-direction
      |     |     |        +--:(unnumbered-link-hop)
@@ -2906,14 +2947,6 @@ bel
      |     |     |        +--rw label-start
      |     |     |        |  +--rw te-label
      |     |     |        |     +--rw (technology)?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 52]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |     |  +--:(generic)
      |     |     |        |     |     +--rw generic?
      |     |     |        |     |             rt-types:generalized-label
@@ -2929,6 +2962,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |             te-label-direction
      |     |     |        +--rw label-step
      |     |     |        |  +--rw (technology)?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 53]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |     +--:(generic)
      |     |     |        |        +--rw generic?   int32
      |     |     |        +--rw range-bitmap?   yang:hex-string
@@ -2962,14 +3003,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  +--rw enable?                         boolean
      |     |     |  +--rw protection-type?                identityref
      |     |     |  +--rw protection-reversion-disable?   boolean
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 53]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |  +--rw hold-off-time?                  uint32
      |     |     |  +--rw wait-to-revert?                 uint16
      |     |     |  +--rw aps-signal-id?                  uint8
@@ -2985,6 +3018,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |  +--rw wait-to-revert?                  uint16
      |     |     +--ro computed-paths-properties
      |     |     |  +--ro computed-path-properties* [k-index]
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 54]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |     +--ro k-index            uint8
      |     |     |     +--ro path-properties
      |     |     |        +--ro path-metric* [metric-type]
@@ -3018,14 +3059,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |        |     +--ro hop-type?
      |     |     |        |        |             te-hop-type
      |     |     |        |        +--:(numbered-link-hop)
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 54]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |        |        |  +--ro numbered-link-hop
      |     |     |        |        |     +--ro link-tp-id    te-tp-id
      |     |     |        |        |     +--ro hop-type?
@@ -3041,6 +3074,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |     |        |        |     |       te-hop-type
      |     |     |        |        |     +--ro direction?
      |     |     |        |        |             te-link-direction
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 55]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |     |        |        +--:(as-number)
      |     |     |        |        |  +--ro as-number-hop
      |     |     |        |        |     +--ro as-number
@@ -3074,14 +3115,6 @@ alized-label
      |     |     |     +--ro error-timestamp?     yang:date-and-time
      |     |     |     +--ro error-node-id?       te-types:te-node-id
      |     |     |     +--ro error-link-id?       te-types:te-tp-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 55]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |     |     +--ro lsp-id?              uint16
      |     |     +--ro lsps
      |     |        +--ro lsp* [node lsp-id]
@@ -3097,6 +3130,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     +---x protection-external-commands
      |        +---w input
      |           +---w protection-external-command?
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 56]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |           |       identityref
      |           +---w protection-group-ingress-node-id?
      |           |       te-types:te-node-id
@@ -3130,14 +3171,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
            |       te-types:te-node-id
            +--ro protection-group-egress-node-id?
            |       te-types:te-node-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 56]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
            +--ro lsp-record-route-information
               +--ro lsp-record-route-information* [index]
                  +--ro index                        uint32
@@ -3153,6 +3186,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
                     +--:(unnumbered-link-hop)
                     |  +--ro unnumbered-link-hop
                     |     +--ro link-tp-id    te-tp-id
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 57]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
                     |     +--ro node-id?      te-node-id
                     |     +--ro flags*        path-attribute-flags
                     +--:(label)
@@ -3186,14 +3227,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
        +--ro output
           +--ro action-result?   identityref
 
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 57]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             Figure 7: TE Tunnel generic model YANG tree diagram
 
 5.3.  YANG Module
@@ -3209,6 +3242,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
    [RFC6780], [RFC8800], and [RFC7308].
 
 <CODE BEGINS> file "ietf-te@2021-05-16.yang"
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 58]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
 module ietf-te {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-te";
@@ -3242,14 +3283,6 @@ module ietf-te {
     "WG Web:   <http://tools.ietf.org/wg/teas/>
      WG List:  <mailto:teas@ietf.org>
 
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 58]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      Editor:   Tarek Saad
                <mailto:tsaad@juniper.net>
 
@@ -3264,6 +3297,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
      Editor:   Xufeng Liu
                <mailto: xufeng.liu.ietf@gmail.com>
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 59]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
      Editor:   Igor Bryskin
                <mailto:i_bryskin@yahoo.com>";
@@ -3298,14 +3339,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   identity path-computation-error-reason {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 59]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
     description
       "Base identity for path computation error reasons.";
   }
@@ -3321,6 +3354,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     base path-computation-error-reason;
     description
       "Path computation has failed because one or more dependent
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 60]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
        path computation servers are unavailable.
        The dependent path computation server could be
        a Backward-Recursive Path Computation (BRPC) downstream
@@ -3355,13 +3396,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       "RFC8685";
   }
 
-
-
-Saad, et al.            Expires December 16, 2021              [Page 60]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
   identity path-computation-error-no-resource {
     base path-computation-error-reason;
     description
@@ -3376,6 +3410,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "Path computation has failed because child PCE is not
        responsive.";
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 61]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     reference
       "RFC8685";
   }
@@ -3410,14 +3452,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
   identity path-computation-error-no-gco-solution {
     base path-computation-error-reason;
     description
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 61]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       "Path computation has failed because of no GCO solution
        found.";
     reference
@@ -3431,6 +3465,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     reference
       "RFC5440";
   }
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 62]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   identity path-computation-error-pks-expansion {
     base path-computation-error-reason;
@@ -3467,13 +3509,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       "RFC5440";
   }
 
-
-
-Saad, et al.            Expires December 16, 2021              [Page 62]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
   identity path-computation-error-no-server {
     base path-computation-error-reason;
     description
@@ -3487,6 +3522,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "TE tunnel actions type.";
   }
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 63]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   identity tunnel-action-reoptimize {
     base tunnel-actions-type;
@@ -3522,14 +3564,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       "Protocol origin is via Application Programmable Interface
        (API).";
   }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 63]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
   identity protocol-origin-pcep {
     base protocol-origin-type;
     description
@@ -3544,6 +3578,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   typedef tunnel-ref {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 64]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     type leafref {
       path "/te:te/te:tunnels/te:tunnel/te:name";
     }
@@ -3578,14 +3620,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   /**
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 64]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
    * TE tunnel generic groupings
    */
 
@@ -3600,6 +3634,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     }
     leaf type {
       type enumeration {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 65]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         enum ip {
           description
             "IP address representation of the node identifier.";
@@ -3635,13 +3677,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
     uses path-state;
   }
 
-
-
-Saad, et al.            Expires December 16, 2021              [Page 65]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
   grouping secondary-path {
     description
       "The tunnel secondary path properties.";
@@ -3655,6 +3690,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
   grouping secondary-reverse-path {
     description
       "The tunnel secondary reverse path properties.";
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 66]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     uses path-common-properties;
     uses path-preference;
     uses path-compute-info;
@@ -3690,14 +3733,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       uses te-generic-node-id;
       description
         "Address of the external path computation
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 66]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
          server.";
     }
     leaf compute-only {
@@ -3711,6 +3746,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       when "derived-from-or-self(../path-computation-method, "
          + "'te-types:path-locally-computed')";
       type boolean;
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 67]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       default "true";
       description
         "When 'true' indicates the path is dynamically computed and/or
@@ -3746,14 +3789,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       type leafref {
         path "/te:te/te:globals/te:named-path-constraints/"
            + "te:named-path-constraint/te:name";
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 67]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       }
       description
         "Reference to a globally defined named path constraint set.";
@@ -3767,6 +3802,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "The path preference.";
     leaf preference {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 68]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       type uint8 {
         range "1..255";
       }
@@ -3802,14 +3845,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         uses te-types:te-bandwidth;
         leaf disjointness-type {
           type te-types:te-path-disjointness;
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 68]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           config false;
           description
             "The type of resource disjointness.
@@ -3822,6 +3857,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
     }
   }
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 69]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   grouping path-state {
     description
@@ -3858,14 +3901,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           type leafref {
             path "/te:te/te:lsps/te:lsp/te:node";
           }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 69]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           description "The node where the LSP state resides on.";
         }
         leaf lsp-id {
@@ -3879,6 +3914,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   /* This grouping will be re-used in path-computation rpc */
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 70]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   grouping path-computation-response {
     description
@@ -3914,14 +3956,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         leaf error-description {
           type string;
           description
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 70]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             "Textual representation of the error occurred during
              path computation.";
         }
@@ -3936,6 +3970,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
           }
           description
             "Reason for the path computation error.";
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 71]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         }
       }
     }
@@ -3970,14 +4012,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         }
         leaf error-link-id {
           type te-types:te-tp-id;
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 71]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           default "0";
           description
             "Link ID where the error occurred.";
@@ -3992,6 +4026,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     leaf lockout-of-normal {
       type boolean;
       default "false";
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 72]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       description
         "When set to 'True', it represents a lockout of normal
          traffic external command. When set to 'False', it
@@ -4026,14 +4068,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
             "A secondary LSP is an LSP that has been provisioned
              in the control plane only; e.g. resource allocation
              has not been committed at the data plane.";
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 72]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         }
       }
       default "working";
@@ -4048,6 +4082,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
       default "te-types:normal";
       description
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 73]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         "The state of the APS state machine controlling which
          tunnels is using the resources of the protecting LSP.";
     }
@@ -4082,14 +4124,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   grouping protection-restoration-properties {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 73]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
     description
       "Protection and restoration parameters.";
     container protection {
@@ -4104,6 +4138,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
           "RFC4427";
       }
       leaf protection-type {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 74]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         type identityref {
           base te-types:lsp-protection-type;
         }
@@ -4138,14 +4180,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
       leaf aps-signal-id {
         type uint8 {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 74]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           range "1..255";
         }
         default "1";
@@ -4160,6 +4194,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
     }
     container restoration {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 75]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       description
         "Restoration parameters.";
       leaf enable {
@@ -4194,14 +4236,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
       leaf hold-off-time {
         type uint32;
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 75]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         units "milli-seconds";
         description
           "The time between the declaration of an SF or SD condition
@@ -4216,6 +4250,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
         description
           "Time to wait before attempting LSP restoration.";
         reference
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 76]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
           "RFC4427";
       }
       leaf wait-to-revert {
@@ -4250,14 +4292,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         }
         leaf type {
           type identityref {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 76]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             base te-types:association-type;
           }
           description
@@ -4272,6 +4306,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
           reference
             "RFC4872";
         }
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 77]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         container source {
           uses te-generic-node-id;
           description
@@ -4306,14 +4348,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         leaf id {
           type uint16;
           description
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 77]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             "Association identifier.";
           reference
             "RFC4872, RFC6780";
@@ -4328,6 +4362,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
         leaf global-source {
           type uint32;
           description
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 78]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
             "Association global source.";
           reference
             "RFC6780";
@@ -4362,14 +4404,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
             "A tunnel entry that this tunnel can potentially depend
              on.";
           leaf name {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 78]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             type leafref {
               path "/te:te/te:tunnels/te:tunnel/te:name";
               require-instance false;
@@ -4384,6 +4418,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
             }
             default "te-types:lsp-encoding-packet";
             description
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 79]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
               "The LSP encoding type for the dependency tunnel.";
             reference
               "RFC3945";
@@ -4418,14 +4460,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           description
             "The local TE link termination point identifier.";
         }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 79]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         leaf remote-te-node-id {
           type te-types:te-node-id;
           default "0.0.0.0";
@@ -4440,6 +4474,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
     }
   }
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 80]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   grouping tunnel-properties {
     description
@@ -4474,14 +4515,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       default "te-types:tunnel-admin-state-up";
       description
         "TE tunnel administrative state.";
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 80]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
     }
     leaf operational-state {
       type identityref {
@@ -4497,6 +4530,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
       default "te-types:lsp-encoding-packet";
       description
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 81]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         "LSP encoding type.";
       reference
         "RFC3945";
@@ -4530,14 +4571,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
     container controller {
       description
         "Contains tunnel data relevant to external controller(s).
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 81]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
          This target node may be augmented by external module(s),
          for example, to add data for PCEP initiated and/or
          delegated tunnels.";
@@ -4553,6 +4586,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
         description
           "An identifier unique within the scope of visibility that
            associated with the entity that controls the tunnel";
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 82]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         reference "RFC8232";
       }
     }
@@ -4586,14 +4627,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         uses primary-path;
         container primary-reverse-path {
           description
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 82]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
             "The reverse primary path properties.";
           uses primary-reverse-path;
           container candidate-secondary-reverse-paths {
@@ -4609,6 +4642,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
               leaf secondary-path {
                 type leafref {
                   path "../../../../../../te:secondary-reverse-paths/"
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 83]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
                      + "te:secondary-reverse-path/te:name";
                 }
                 description
@@ -4642,14 +4683,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
                    + "te:secondary-path/te:name";
               }
               description
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 83]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
                 "A reference to the secondary path that should be
                  utilised when the containing primary path option is
                  in use.";
@@ -4665,6 +4698,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
         }
       }
     }
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 84]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     container secondary-paths {
       description
         "The set of secondary paths.";
@@ -4698,14 +4739,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           type identityref {
             base tunnel-actions-type;
           }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 84]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           description
             "Tunnel action type.";
         }
@@ -4721,6 +4754,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
       }
     }
   }
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 85]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
   grouping tunnel-protection-actions {
     description
@@ -4754,14 +4794,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           type path-ref;
           description
             "Indicates to which path the external command applies to.";
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 85]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         }
         leaf traffic-type {
           type enumeration {
@@ -4778,6 +4810,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
             enum extra-traffic {
               description
                 "The manual-switch or forced-switch command applies to
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 86]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
                  the extra traffic (the extra-traffic Tunnel sharing
                  protection bandwidth with this Tunnel).";
             }
@@ -4810,14 +4850,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "LSP Recorded route information grouping.";
     container lsp-record-route-information {
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 86]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       description
         "RSVP recorded route object information.";
       list lsp-record-route-information {
@@ -4834,6 +4866,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
   }
 
   grouping lsps-grouping {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 87]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     description
       "LSPs state operational data grouping.";
     container lsps {
@@ -4866,14 +4906,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
         }
         uses lsp-properties-state;
         uses lsp-record-route-information-state;
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 87]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       }
     }
   }
@@ -4890,6 +4922,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        grouping.";
     leaf name {
       type string;
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 88]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       description
         "A string name that uniquely identifies a TE
          interface named admin-group.";
@@ -4923,13 +4963,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
   /* Global named admin-srlgs configuration data */
 
-
-
-Saad, et al.            Expires December 16, 2021              [Page 88]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
   grouping named-srlgs {
     description
       "Global named SRLGs configuration grouping.";
@@ -4945,6 +4978,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
           type string;
           description
             "A string name that uniquely identifies a TE
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 89]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
              interface named SRLG.";
         }
         leaf value {
@@ -4978,14 +5019,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
          - path metric bounds constraint. The unit of path metric
            bound is interpreted in the context of the metric-type.
            For example for metric-type 'path-metric-loss', the bound
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 89]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
            is multiples of the basic unit 0.000003% as described
            in RFC7471 for OSPF, and RFC8570 for ISIS.
          - path affinity constraints
@@ -5001,6 +5034,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
         "If an end-to-end tunnel crosses multiple domains using
          the same technology, some additional constraints have to be
          taken in consideration in each domain.
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 90]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
          This TE tunnel segment is stitched to the upstream TE tunnel
          segment.";
       uses te-types:label-set-info;
@@ -5034,14 +5075,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           description
             "A string name that uniquely identifies a
              path constraint set.";
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 90]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         }
         uses path-constraints-common;
         description
@@ -5057,6 +5090,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
       "Globals TE system-wide configuration data grouping.";
     container globals {
       description
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 91]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
         "Globals TE system-wide configuration data container.";
       uses named-admin-groups;
       uses named-srlgs;
@@ -5090,14 +5131,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       "LSPs state operational data grouping.";
     leaf source {
       type te-types:te-node-id;
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 91]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       description
         "Tunnel sender address extracted from
          SENDER_TEMPLATE  object.";
@@ -5113,6 +5146,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     }
     leaf tunnel-id {
       type uint16;
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 92]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       description
         "The tunnel identifier used in the SESSION that remains constant
          over the life of the tunnel.";
@@ -5146,14 +5187,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           description
             "Origin ingress.";
         }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 92]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
         enum egress {
           description
             "Origin egress.";
@@ -5169,6 +5202,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
          switch in the path.";
     }
     leaf lsp-resource-status {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 93]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       type enumeration {
         enum primary {
           description
@@ -5202,14 +5243,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "TE global container.";
     /* TE Global Data */
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 93]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
     uses globals-grouping;
 
     /* TE Tunnel Data */
@@ -5225,6 +5258,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
     description
       "TE tunnels RPC nodes.";
     input {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 94]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       container path-compute-info {
         /* An external path compute module may augment this target. */
         description
@@ -5258,14 +5299,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
               description
                 "Apply action on all TE tunnels.";
             }
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 94]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
           }
           case one-tunnel {
             leaf tunnel {
@@ -5281,6 +5314,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
           "TE tunnel action information.";
         leaf action {
           type identityref {
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 95]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
             base tunnel-actions-type;
           }
           description
@@ -5311,17 +5352,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
                 Figure 8: TE Tunnel data model YANG module
 
-
-
-
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 95]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
 6.  TE Device YANG Model
 
    The device TE YANG module ('ietf-te-device') models data that is
@@ -5340,6 +5370,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
    o  Flooding parameters
 
       *  Flooding intervals and threshold values
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 96]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
    o  interface attributes
 
@@ -5370,14 +5407,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
       *  Neighbor address
 
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 96]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
       *  Metric value
 
    module: ietf-te-device
@@ -5396,6 +5425,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    Figure 10 shows the tree diagram of the device TE YANG model defined
    in modules 'ietf-te.yang'.
+
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 97]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
  module: ietf-te-device
    augment /te:te:
@@ -5426,14 +5463,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      extended-admin-groups}?
      |     |        +--rw named-admin-group    leafref
      |     +--rw (srlg-type)?
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 97]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |     |  +--:(value-srlgs)
      |     |  |  +--rw values* [value]
      |     |  |     +--rw value    uint32
@@ -5453,6 +5482,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |     |       rt-types:percentage
      |     +--rw switching-capabilities* [switching-capability]
      |     |  +--rw switching-capability    identityref
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 98]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      |     |  +--rw encoding?               identityref
      |     +--ro state
      |        +--ro te-advertisements-state
@@ -5482,14 +5519,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      |  +--ro outgoing-interface?   if:interface-ref
      |  +--ro neighbor
      |  |  +--ro id?     te-gen-node-id
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 98]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      |  |  +--ro type?   enumeration
      |  +--ro label?                rt-types:generalized-label
      +--ro upstream-info
@@ -5509,6 +5538,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
                  +---w interface?   if:interface-ref
 
             Figure 10: TE Tunnel device model YANG tree diagram
+
+
+
+Saad, et al.            Expires December 16, 2021              [Page 99]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
 6.3.  YANG Module
 
@@ -5538,14 +5574,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    /* Import TE module */
 
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 99]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
    import ietf-te {
      prefix te;
      reference
@@ -5566,6 +5594,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        "RFC8343: A YANG Data Model for Interface Management";
    }
    import ietf-routing-types {
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 100]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      prefix rt-types;
      reference
        "RFC8294: Common YANG Data Types for the Routing Area";
@@ -5594,14 +5630,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
                 <mailto: xufeng.liu.ietf@gmail.com>
 
       Editor:   Igor Bryskin
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 100]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
                 <mailto:i_bryskin@yahoo.com>";
    description
      "YANG data module for TE device configurations,
@@ -5622,6 +5650,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    // RFC Ed.: replace XXXX with actual RFC number and remove this
    // note.
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 101]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
    // RFC Ed.: update the date below with the date of RFC publication
    // and remove this note.
 
@@ -5650,14 +5686,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
        leaf life-time {
          type uint32;
          units "seconds";
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 101]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
          description
            "TE LSP lifetime.";
        }
@@ -5678,6 +5706,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        when "../te:origin-type != 'egress'" {
          description
            "Downstream information of the LSP.";
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 102]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
        }
        description
          "downstream information.";
@@ -5706,14 +5742,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
        when "../te:origin-type != 'ingress'" {
          description
            "Upstream information of the LSP.";
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 102]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
        }
        description
          "upstream information.";
@@ -5734,6 +5762,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
        }
      }
    }
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 103]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
 
    /**
     * Device general groupings.
@@ -5762,14 +5797,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      }
    }
 
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 103]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
    /**
     * TE global device groupings
     */
@@ -5791,6 +5818,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
            description
              "TE interface name.";
          }
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 104]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
          /* TE interface parameters */
          uses te-attributes;
        }
@@ -5818,14 +5853,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
                 class/Color.";
              leaf admin-group {
                type te-types:admin-group;
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 104]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
                description
                  "TE interface administrative group.";
              }
@@ -5847,6 +5874,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
          list named-admin-groups {
            if-feature "te-types:extended-admin-groups";
            if-feature "te-types:named-extended-admin-groups";
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 105]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
            key "named-admin-group";
            description
              "A list of named admin-group entries.";
@@ -5874,14 +5909,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
          "Choice of SRLG configuration.";
        case value-srlgs {
          list values {
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 105]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
            key "value";
            description
              "List of SRLG values that
@@ -5903,6 +5930,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
              "A list of named SRLG entries.";
            leaf named-srlg {
              type leafref {
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 106]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
                path "../../../../te:globals/"
                   + "te:named-srlgs/te:named-srlg/te:name";
              }
@@ -5930,14 +5965,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
          enum threshold-crossed {
            description
              "THRESHOLD-CROSSED indicates that
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 106]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
               the local system should trigger an update (and
               hence flood) the reserved bandwidth when the
               reserved bandwidth changes such that it crosses,
@@ -5959,6 +5986,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        when "../threshold-type = 'delta'" {
          description
            "The percentage delta can only be specified when the
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 107]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
             threshold type is specified to be a percentage delta of
             the reserved bandwidth.";
        }
@@ -5986,14 +6021,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
          }
          enum separate-up-down {
            description
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 107]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
              "separate-up-down indicates that a separate
               threshold values should be used for the increasing
               and decreasing bandwidth when determining whether
@@ -6015,6 +6042,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        when "../threshold-type = 'threshold-crossed'"
           + "and ../threshold-specification = 'separate-up-down'" {
          description
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 108]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
            "A list of up-thresholds can only be specified when the
             bandwidth update is triggered based on crossing a
             threshold and separate up and down thresholds are
@@ -6042,14 +6077,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
           triggered when the bandwidth is decreasing.";
      }
      leaf-list up-down-thresholds {
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 108]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
        when "../threshold-type = 'threshold-crossed'"
           + "and ../threshold-specification = 'mirrored-up-down'" {
          description
@@ -6071,6 +6098,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    grouping te-metric-config {
      description
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 109]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
        "TE interface metric grouping.";
      leaf te-metric {
        type te-types:te-metric;
@@ -6098,14 +6133,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
        leaf encoding {
          type identityref {
            base te-types:lsp-encoding-types;
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 109]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
          }
          description
            "Encoding supported by this interface.";
@@ -6127,6 +6154,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        leaf last-flooded-time {
          type uint32;
          units "seconds";
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 110]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
          description
            "Time elapsed since last flooding in seconds.";
        }
@@ -6154,14 +6189,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
              description
                "Bandwidth reservation down threshold.";
            }
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 110]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
            enum bandwidth-change {
              description
                "Bandwidth capacity change.";
@@ -6183,6 +6210,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
          description
            "Trigger for the last flood.";
        }
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 111]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
        list advertised-level-areas {
          key "level-area";
          description
@@ -6210,14 +6245,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      uses te-switching-cap-config;
      container state {
        config false;
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 111]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
        description
          "State parameters for interface TE metric.";
        uses te-advertisements-state;
@@ -6239,6 +6266,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
    augment "/te:te" {
      description
        "TE global container.";
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 112]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
      /* TE Interface Configuration Data */
      uses interfaces-grouping;
      container performance-thresholds {
@@ -6266,14 +6301,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
        }
        description
          "Tunnel path invalidation action.";
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 112]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
      }
      uses lsp-device-timers;
    }
@@ -6295,6 +6322,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
        choice filter-type {
          mandatory true;
          description
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 113]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
            "Filter choice.";
          case match-all {
            leaf all {
@@ -6319,17 +6354,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
                 Figure 11: TE device data model YANG module
 
-
-
-
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 113]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
 7.  Notifications
 
    Notifications are a key component of any topology data model.
@@ -6353,6 +6377,15 @@ Internet-Draft             TE YANG Data Model                  June 2021
    [RFC3688].  Following the format in [RFC3688], the following
    registrations are requested to be made.
 
+
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 114]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
       URI: urn:ietf:params:xml:ns:yang:ietf-te
       Registrant Contact:  The IESG.
       XML: N/A, the requested URI is an XML namespace.
@@ -6373,18 +6406,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       Namespace:  urn:ietf:params:xml:ns:yang:ietf-te-device
       Prefix:     te-device
       Reference:  RFCXXXX
-
-
-
-
-
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 114]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
 
 10.  Security Considerations
 
@@ -6413,6 +6434,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
    a device.  Unauthorized access to this container could cause the
    device to ignore packets it should receive and process.
 
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 115]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
    "/te/tunnels": This list specifies the configured TE Tunnels on a
    device.  Unauthorized access to this list could cause the device to
    ignore packets it should receive and process.
@@ -6434,14 +6463,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    Some of the RPC operations in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 115]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
    important to control access to these operations.  These are the
    operations and their sensitivity/vulnerability:
 
@@ -6467,27 +6488,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
    Perocchio, Francesco Lazzeri, Aihua Guo, Dhruv Dhody, for providing
    useful feedback on this document.
 
-12.  Contributors
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -6497,6 +6497,8 @@ Saad, et al.            Expires December 16, 2021             [Page 116]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
+
+12.  Contributors
 
       Himanshu Shah
       Ciena
@@ -6531,6 +6533,27 @@ Internet-Draft             TE YANG Data Model                  June 2021
    Tunnels can be setup.  The loopbacks of each router are shown.  The
    router network in figure X will be used across the section
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires December 16, 2021             [Page 117]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
     10.0.0.1         10.0.0.2      10.0.0.4
     +-----+         +------+      +------+
     |     |         |      |      |      |
@@ -6545,14 +6568,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
                     10.0.0.3
 
                       Figure 12: Example TE topology
-
-
-
-
-Saad, et al.            Expires December 16, 2021             [Page 117]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
 
 13.1.  Basic Tunnel Setup
 
@@ -6584,21 +6599,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
      ]
    }
 
-13.2.  Global Named Path Constraints
-
-   This example uses the YANG data model to create a 'named path
-   constraitnt' that can be reference by TE Tunnels.  The path
-   constraint, in this case, limits the TE Tunnel hops for the computed
-   path.
-
-
-
-
-
-
-
-
-
 
 
 
@@ -6609,6 +6609,13 @@ Saad, et al.            Expires December 16, 2021             [Page 118]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
+
+13.2.  Global Named Path Constraints
+
+   This example uses the YANG data model to create a 'named path
+   constraitnt' that can be reference by TE Tunnels.  The path
+   constraint, in this case, limits the TE Tunnel hops for the computed
+   path.
 
   POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
       Host: example.com
@@ -6631,13 +6638,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    In this example, the previously created 'named path constraint' is
    applied to the TE Tunnel created in Section 13.1.
-
-
-
-
-
-
-
 
 
 

@@ -455,7 +455,10 @@ bidirectional:
 
 association-objects:
 
-> A YANG container that holds the set of associations of the TE Tunnel to other TE Tunnels.
+> A YANG container that holds the set of associations of the TE Tunnel to other
+> TE Tunnels. Associations at the TE Tunnel level apply to all paths of the TE
+> Tunnel.  The TE tunnel associations can be overridden by associations
+> configured directly under the TE Tunnel path.
 
 protection:
 
