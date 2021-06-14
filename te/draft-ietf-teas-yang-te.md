@@ -320,9 +320,9 @@ applied to TE links.
 
 named-path-constraints:
 
-> A YANG container for a list of named path constraints. Each named constraint is
+> A YANG container for a list of named path constraints. Each named path constraint is
 composed of a set of constraints that can be applied during path computation.
-A named path constraint can be applied to TE Tunnels. Path constraints may also
+A named path constraint can be applied to multiple TE Tunnels. Path constraints may also
 be specified directly under the TE Tunnel. The path constraint specified under
 the TE Tunnel take precedence over the path constraints 
 derived from the referenced named path constraint.
@@ -365,13 +365,14 @@ the destination of the TE Tunnel termination points.
 
 TE Tunnel Segment:
 
-> Serves as a part or sub-path of a multi-domain TE Tunnel that spans a given
-network domain.
+> A part of a multi-domain TE Tunnel that is within a specific network domain.
+
 
 TE Tunnel Hand-off:
 
-> An access link or inter-domain link by which a multi-domain TE Tunnel enters or
-exits a given network domain.
+> An inter-domain link on which the path of a multi-domain TE Tunnel enters or
+> exits a given network domain.
+
 
 ~~~~~~~~~~~
      +--rw tunnels
