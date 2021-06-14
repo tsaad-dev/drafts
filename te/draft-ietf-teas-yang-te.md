@@ -417,9 +417,11 @@ operational-state:
 
 name:
 
-> A YANG leaf that holds the name of a tunnel. The name of the tunnel uniquely identifies
-a tunnel from the list. The name of the tunnel can be composed in a canonical form to ensure
-uniqueness of tunnels present on multiple devices.
+> A YANG leaf that holds the name of a TE Tunnel.  The name of the
+TE Tunnel uniquely identifies the tunnel within the TE tunnel list.  The name
+of the TE Tunnel can be formatted as a Uniform Resource Indicator (URI) by
+including the namespace to ensure uniqueness of the name amongst all the TE
+Tunnels present on devices and controllers.
 
 identifier:
 

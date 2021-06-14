@@ -606,10 +606,10 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    name:
 
-      A YANG leaf that holds the name of a tunnel.  The name of the
-      tunnel uniquely identifies a tunnel from the list.  The name of
-      the tunnel can be composed in a canonical form to ensure
-      uniqueness of tunnels present on multiple devices.
+      A YANG leaf that holds the name of a TE Tunnel.  The name of the
+      TE Tunnel uniquely identifies the tunnel within the TE tunnel
+      list.  The name of the TE Tunnel can be formatted as a Uniform
+      Resource Indicator (URI) by including the namespace to ensure
 
 
 
@@ -617,6 +617,9 @@ Saad, et al.            Expires December 16, 2021              [Page 11]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
+
+      uniqueness of the name amongst all the TE Tunnels present on
+      devices and controllers.
 
    identifier:
 
@@ -663,9 +666,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
       A YANG container that holds the set of associations of the TE
       Tunnel to other TE Tunnels.  Associations at the TE Tunnel level
       apply to all paths of the TE Tunnel.  The TE tunnel associations
-      can be overridden by associations configured directly under the TE
-      Tunnel path.
-
 
 
 
@@ -673,6 +673,9 @@ Saad, et al.            Expires December 16, 2021              [Page 12]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
+
+      can be overridden by associations configured directly under the TE
+      Tunnel path.
 
    protection:
 
@@ -720,9 +723,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-         +  dependency-tunnels: a hierarchical TE Tunnel provisioned or
-            to be provisioned in an immediately adjacent server layer a
-
 
 
 Saad, et al.            Expires December 16, 2021              [Page 13]
@@ -730,6 +730,8 @@ Saad, et al.            Expires December 16, 2021              [Page 13]
 Internet-Draft             TE YANG Data Model                  June 2021
 
 
+         +  dependency-tunnels: a hierarchical TE Tunnel provisioned or
+            to be provisioned in an immediately adjacent server layer a
             given client layer TE Tunnel depends on for multi-layer path
             computation.  A dependency TE Tunnel is provisioned if and
             only if it is used (selected by path computation) at least
@@ -755,8 +757,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
    a primary path can be specified a set of candidate secondary paths
    that can be visited to support path protection.  The following
    describe further the list of paths associated with a TE Tunnel.
-
-
 
 
 
