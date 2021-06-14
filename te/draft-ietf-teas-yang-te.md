@@ -445,7 +445,7 @@ src-tunnel-tp-id/dst-tunnel-tp-id:
 
 controller:
 
-> A YANG container that holds tunnel data relevant to an optional external controller(s) that
+> A YANG container that holds tunnel data relevant to an optional external TE controller that
 may initiate or control a tunnel. This target node may be augmented by external module(s), for example, to add data for PCEP initiated and/or
 delegated tunnels.
 
@@ -606,7 +606,7 @@ compute-only:
   resources. In such a case, the path is configured in 'compute-only' mode to
   distinguish it from the default behavior. A 'compute-only' path is configured
   as a usual with the associated per path constraint(s) and properties on a
-  device or controller. The device or controller computes the feasible path(s) subject
+  device or TE controller. The device or TE controller computes the feasible path(s) subject
   to configured constraints.  A client may query the
   'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
   to be notified of computed path(s) and whenever the path properties change.
