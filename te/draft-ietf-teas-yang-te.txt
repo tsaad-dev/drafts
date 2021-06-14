@@ -229,10 +229,10 @@ Internet-Draft             TE YANG Data Model                  June 2021
    the TE generic data model and possibly augment it with technology
    specific data.
 
-   The elements of the generic TE YANG data model, including TE tunnels,
+   The elements of the generic TE YANG data model, including TE Tunnels,
    LSPs, and interfaces have leaf(s) that identify the technology layer
    where they reside.  For example, the LSP encoding type can identify
-   the technology associated with a TE tunnel or LSP.
+   the technology associated with a TE Tunnel or LSP.
 
    Also, the generic TE YANG data model does not cover signaling
    protocol data.  The signaling protocol used to instantiate TE LSPs
@@ -375,7 +375,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    The generic TE YANG module ('ietf-te') is meant to manage and operate
    a TE network.  This includes creating, modifying and retrieving TE
-   tunnels, LSPs, and interfaces and their associated attributes (e.g.
+   Tunnels, LSPs, and interfaces and their associated attributes (e.g.
    Administrative-Groups, SRLGs, etc.).
 
    The detailed tree structure is provided in Figure 2.
@@ -400,24 +400,24 @@ Internet-Draft             TE YANG Data Model                  June 2021
    globals:
 
       The 'globals' container maintains the set of global TE attributes
-      that can be applicable to TE tunnel(s) and interface(s).
+      that can be applicable to TE Tunnel(s) and interface(s).
 
    tunnels:
 
-      The 'tunnels' container includes the list of TE tunnels that are
+      The 'tunnels' container includes the list of TE Tunnels that are
       instantiated.  Refer to Section 5.1.2 for further details on the
-      properties of a TE tunnel.
+      properties of a TE Tunnel.
 
    lsps:
 
       The 'lsps' container includes the list of TE LSP(s) that are
-      instantiated for TE tunnels.  Refer to Section 5.1.3 for further
+      instantiated for TE Tunnels.  Refer to Section 5.1.3 for further
       details on the properties of a TE LSP.
 
    tunnels-path-compute:
 
       A Remote Procedure Call (RPC) to request path computation for a
-      specific TE tunnel.  The RPC allows requesting path computation
+      specific TE Tunnel.  The RPC allows requesting path computation
       using atomic and stateless operation.  A tunnel may also be
       configured in 'compute-only' mode to provide stateful path updates
       - see Section 5.1.2 for further details.
@@ -466,7 +466,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
       +---x tunnels-path-compute
       +---x tunnels-action
 
-            Figure 2: TE tunnel model high-level YANG tree view
+            Figure 2: TE Tunnel model high-level YANG tree view
 
 5.1.1.  TE Globals
 
@@ -489,9 +489,9 @@ Internet-Draft             TE YANG Data Model                  June 2021
       A YANG container for a list of named path constraints.  Each named
       constraint is composed of a set of constraints that can be applied
       during path computation.  A named path constraint can be applied
-      to TE tunnels.  Path constraints may also be specified directly
-      under the TE tunnel.  The path constraint specified under the TE
-      tunnel take precedence over the path constraints derived from the
+      to TE Tunnels.  Path constraints may also be specified directly
+      under the TE Tunnel.  The path constraint specified under the TE
+      Tunnel take precedence over the path constraints derived from the
       referenced named path constraint.
 
 
@@ -521,36 +521,36 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 5.1.2.  TE Tunnels
 
-   The 'tunnels' container holds the list of TE tunnels that are
+   The 'tunnels' container holds the list of TE Tunnels that are
    provisioned on devices in the network (see Figure 4).
 
-   A TE tunnel in the list is uniquely identified by a name.  When the
+   A TE Tunnel in the list is uniquely identified by a name.  When the
    model is used to manage a specific device, the 'tunnels' list
-   contains the TE tunnels originating from the specific device.  When
+   contains the TE Tunnels originating from the specific device.  When
    the model is used to manage a TE controller, the 'tunnels' list
-   contains all TE tunnels and TE tunnel segments originating from
+   contains all TE Tunnels and TE tunnel segments originating from
    device(s) that the TE controller manages.
 
-   The TE tunnel model allows the configuration and management of the
+   The TE Tunnel model allows the configuration and management of the
    following TE tunnel related objected:
 
-   TE tunnel:
+   TE Tunnel:
 
       A YANG container of one or more LSPs established between the
-      source and destination TE tunnel termination points.  A TE tunnel
+      source and destination TE Tunnel termination points.  A TE Tunnel
       LSP is a connection-oriented service provided by the network layer
       for the delivery of client data between a source and the
-      destination of the TE tunnel termination points.
+      destination of the TE Tunnel termination points.
 
    TE Tunnel Segment:
 
-      Serves as a part or sub-path of a multi-domain TE tunnel that
+      Serves as a part or sub-path of a multi-domain TE Tunnel that
       spans a given network domain.
 
    TE Tunnel Hand-off:
 
       An access link or inter-domain link by which a multi-domain TE
-      tunnel enters or exits a given network domain.
+      Tunnel enters or exits a given network domain.
 
 
 
@@ -594,10 +594,10 @@ Internet-Draft             TE YANG Data Model                  June 2021
         // ..
 
 
-              Figure 4: TE tunnel list YANG subtree structure
+              Figure 4: TE Tunnel list YANG subtree structure
 
-   The TE tunnel has a number of attributes that are set directly under
-   the tunnel (see Figure 4).  The main attributes of a TE tunnel are
+   The TE Tunnel has a number of attributes that are set directly under
+   the tunnel (see Figure 4).  The main attributes of a TE Tunnel are
    described below:
 
    operational-state:
@@ -657,15 +657,15 @@ Internet-Draft             TE YANG Data Model                  June 2021
    association-objects:
 
       A YANG container that holds the set of associations of the TE
-      tunnel to other TE tunnels.
+      Tunnel to other TE Tunnels.
 
    protection:
 
-      A YANG container that holds the TE tunnel protection properties.
+      A YANG container that holds the TE Tunnel protection properties.
 
    restoration:
 
-      A YANG container that holds the TE tunnel restoration properties.
+      A YANG container that holds the TE Tunnel restoration properties.
 
 
 
@@ -677,7 +677,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
    te-topology-identifier:
 
       A YANG container that holds the topology identifier associated
-      with the tunnel where path(s) for the TE tunnel are computed.
+      with the tunnel where path(s) for the TE Tunnel are computed.
 
        +--rw hierarchy
        |  +--rw dependency-tunnels
@@ -695,31 +695,31 @@ Internet-Draft             TE YANG Data Model                  June 2021
        |        +--rw client-id?     te-global-id
        |        +--rw topology-id?   te-topology-id
 
-                Figure 5: TE tunnel hierarchy YANG subtree
+                Figure 5: TE Tunnel hierarchy YANG subtree
 
    hierarchy:
 
       A YANG container that holds hierarchy related properties of the TE
-      tunnel (see Figure 5.  A TE LSP can be set up in MPLS or
+      Tunnel (see Figure 5.  A TE LSP can be set up in MPLS or
       Generalized MPLS (GMPLS) networks to be used as a TE links to
       carry traffic in other (client) networks [RFC6107].  In this case,
-      the model introduces the TE tunnel hierarchical link endpoint
+      the model introduces the TE Tunnel hierarchical link endpoint
       parameters to identify the specific link in the client layer that
-      the underlying TE tunnel is associated with.  The hierarchy
+      the underlying TE Tunnel is associated with.  The hierarchy
       container includes the following:
 
 
 
 
 
-         +  dependency-tunnels: a hierarchical TE tunnel provisioned or
+         +  dependency-tunnels: a hierarchical TE Tunnel provisioned or
             to be provisioned in an immediately adjacent server layer a
-            given client layer TE tunnel depends on for multi-layer path
-            computation.  A dependency TE tunnel is provisioned if and
+            given client layer TE Tunnel depends on for multi-layer path
+            computation.  A dependency TE Tunnel is provisioned if and
             only if it is used (selected by path computation) at least
-            by one client layer TE tunnel.  The TE link in the client
-            layer network topology supported by a dependent TE tunnel is
-            dynamically created only when the dependency TE tunnel is
+            by one client layer TE Tunnel.  The TE link in the client
+            layer network topology supported by a dependent TE Tunnel is
+            dynamically created only when the dependency TE Tunnel is
             actually provisioned.
 
 
@@ -738,11 +738,11 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 5.1.2.1.  TE Tunnel Paths
 
-   The TE tunnel can be configured with a set of paths that define the
+   The TE Tunnel can be configured with a set of paths that define the
    tunnel forward and reverse paths as described in Figure 6.  Moreover,
    a primary path can be specified a set of candidate secondary paths
    that can be visited to support path protection.  The following
-   describe further the list of paths associated with a TE tunnel.
+   describe further the list of paths associated with a TE Tunnel.
 
         |     +--rw primary-paths
         |     |  +--rw primary-path* [name]
@@ -772,7 +772,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
         |     |     +--rw name                             string
 
 
-               Figure 6: TE tunnel paths YANG tree structure
+               Figure 6: TE Tunnel paths YANG tree structure
 
    primary-paths:
 
@@ -794,7 +794,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
       *  primary-reverse-path: A YANG container that holds properties of
          the primary reverse path.  The reverse path is applicable to
-         bidirectional TE tunnels.
+         bidirectional TE Tunnels.
 
 
 
@@ -815,14 +815,14 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
       A YANG container that holds the set of secondary paths.  A
       secondary path is identified by 'name'.  A secondary path can be
-      referenced from the TE tunnel's 'candidate-secondary-path' list.
+      referenced from the TE Tunnel's 'candidate-secondary-path' list.
       A secondary path contains attributes similar to a primary path.
 
    secondary-reverse-paths:
 
       A YANG container that holds teh set of secondary reverse paths.  A
       secondary reverse path is identified by 'name'.  A secondary
-      reverse path can be referenced from the TE tunnel's 'candidate-
+      reverse path can be referenced from the TE Tunnel's 'candidate-
       secondary-reverse-paths' list.  A secondary reverse path contains
       attributes similar to a primary path.
 
@@ -831,7 +831,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    compute-only:
 
-      A path of TE tunnel is, by default, provisioned so that it can is
+      A path of TE Tunnel is, by default, provisioned so that it can is
       instantiated in forwarding to carry traffic as soon as a valid
       path is computed.  In some cases, a TE path may be provisioned for
 
@@ -3180,7 +3180,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
        +--ro output
           +--ro action-result?   identityref
 
-            Figure 7: TE tunnel generic model YANG tree diagram
+            Figure 7: TE Tunnel generic model YANG tree diagram
 
 
 
@@ -3321,7 +3321,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
        The dependent path computation server could be
        a BRPC downstream PCE or a child PCE.";
     reference
-      "RFC5441, RFC 8685";
+      "RFC5441, RFC8685";
   }
 
   identity path-computation-error-pce-unavailable {
@@ -5307,7 +5307,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 }
 <CODE ENDS>
 
-                Figure 8: TE tunnel data model YANG module
+                Figure 8: TE Tunnel data model YANG module
 
 6.  TE Device YANG Model
 
@@ -5506,7 +5506,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
               +--:(match-one-interface)
                  +---w interface?   if:interface-ref
 
-            Figure 10: TE tunnel device model YANG tree diagram
+            Figure 10: TE Tunnel device model YANG tree diagram
 
 6.3.  YANG Module
 
@@ -6406,7 +6406,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
    a device.  Unauthorized access to this container could cause the
    device to ignore packets it should receive and process.
 
-   "/te/tunnels": This list specifies the configured TE tunnels on a
+   "/te/tunnels": This list specifies the configured TE Tunnels on a
    device.  Unauthorized access to this list could cause the device to
    ignore packets it should receive and process.
 
@@ -6504,7 +6504,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
    [RFC8040] and JSON encoding.
 
    For the example we will use a 4 nodes MPLS network were RSVP-TE
-   tunnels can be setup.  The loopbacks of each router are shown.  The
+   Tunnels can be setup.  The loopbacks of each router are shown.  The
    router network in figure X will be used across the section
 
     10.0.0.1         10.0.0.2      10.0.0.4
@@ -6524,13 +6524,13 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 13.1.  Basic Tunnel Setup
 
-   This example uses the TE tunnel YANG data model defined in this
-   document to create an RSVP-TE signaled Tunnel.  First, the TE tunnel
+   This example uses the TE Tunnel YANG data model defined in this
+   document to create an RSVP-TE signaled Tunnel.  First, the TE Tunnel
    is created with no specific restrictions or constraints (e.g.,
-   protection or restoration).  The TE tunnel ingresses on router A and
+   protection or restoration).  The TE Tunnel ingresses on router A and
    egresses on router D.
 
-   In this case, the TE tunnel is created without specifying additional
+   In this case, the TE Tunnel is created without specifying additional
    information about the primary paths.
 
 
@@ -6576,8 +6576,8 @@ Internet-Draft             TE YANG Data Model                  June 2021
 13.2.  Global Named Path Constraints
 
    This example uses the YANG data model to create a 'named path
-   constraitnt' that can be reference by TE tunnels.  The path
-   constraint, in this case, limits the TE tunnel hops for the computed
+   constraitnt' that can be reference by TE Tunnels.  The path
+   constraint, in this case, limits the TE Tunnel hops for the computed
    path.
 
   POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
@@ -6600,7 +6600,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 13.3.  Tunnel with Global Path Constraint
 
    In this example, the previously created 'named path constraint' is
-   applied to the TE tunnel created in Section 13.1.
+   applied to the TE Tunnel created in Section 13.1.
 
 
 
@@ -6642,7 +6642,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 13.4.  Tunnel with Per-tunnel Path Constraint
 
    In this example, the a per tunnel path constraint is explicitly
-   indicated under the TE tunnel created in Section 13.1 to constrain
+   indicated under the TE Tunnel created in Section 13.1 to constrain
    the computed path for the tunnel.
 
 

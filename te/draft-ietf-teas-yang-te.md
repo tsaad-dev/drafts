@@ -149,10 +149,10 @@ any dataplane technology.  One of the design objectives is to allow specific
 data plane technology models to reuse the TE generic data model and possibly
 augment it with technology specific data.
 
-The elements of the generic TE YANG data model, including TE tunnels, LSPs, and
+The elements of the generic TE YANG data model, including TE Tunnels, LSPs, and
 interfaces have leaf(s) that identify the technology layer where they reside.
 For example, the LSP encoding type can identify the technology associated with a
-TE tunnel or LSP.
+TE Tunnel or LSP.
 
 Also, the generic TE YANG data model does not cover signaling protocol data.
 The signaling protocol used to instantiate TE LSPs are outside the scope of this
@@ -243,7 +243,7 @@ RSVP-TE YANG model augmentation of the TE model is covered in
 # TE YANG Model
 
 The generic TE YANG module ('ietf-te') is meant to manage and operate a TE network.
-This includes creating, modifying and retrieving TE tunnels, LSPs, and interfaces
+This includes creating, modifying and retrieving TE Tunnels, LSPs, and interfaces
 and their associated attributes (e.g. Administrative-Groups, SRLGs, etc.).
 
 The detailed tree structure is provided in {{fig-highlevel}}.
@@ -259,21 +259,21 @@ level container.
 globals:
 
 > The 'globals' container maintains the set of global TE attributes that can be
-applicable to TE tunnel(s) and interface(s).
+applicable to TE Tunnel(s) and interface(s).
 
 tunnels:
 
-> The 'tunnels' container includes the list of TE tunnels that are instantiated. Refer to
-{{TE_TUNNELS}} for further details on the properties of a TE tunnel.
+> The 'tunnels' container includes the list of TE Tunnels that are instantiated. Refer to
+{{TE_TUNNELS}} for further details on the properties of a TE Tunnel.
 
 lsps:
 
 > The 'lsps' container includes the list of TE LSP(s) that are instantiated for
-> TE tunnels. Refer to {{TE_LSPS}} for further details on the properties of a TE LSP.
+> TE Tunnels. Refer to {{TE_LSPS}} for further details on the properties of a TE LSP.
 
 tunnels-path-compute:
 
-> A Remote Procedure Call (RPC) to request path computation for a specific TE tunnel.
+> A Remote Procedure Call (RPC) to request path computation for a specific TE Tunnel.
 The RPC allows requesting path computation using atomic and stateless operation.
 A tunnel may also be configured in 'compute-only' mode to provide stateful path updates
 - see {{TE_TUNNELS}} for further details.
@@ -300,7 +300,7 @@ rpcs:
    +---x tunnels-path-compute
    +---x tunnels-action
 ~~~~~~~~~~~
-{: #fig-highlevel title="TE tunnel model high-level YANG tree view"}
+{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
 
 ### TE Globals
 
@@ -322,9 +322,9 @@ named-path-constraints:
 
 > A YANG container for a list of named path constraints. Each named constraint is
 composed of a set of constraints that can be applied during path computation.
-A named path constraint can be applied to TE tunnels. Path constraints may also
-be specified directly under the TE tunnel. The path constraint specified under
-the TE tunnel take precedence over the path constraints 
+A named path constraint can be applied to TE Tunnels. Path constraints may also
+be specified directly under the TE Tunnel. The path constraint specified under
+the TE Tunnel take precedence over the path constraints 
 derived from the referenced named path constraint.
 
 
@@ -344,33 +344,33 @@ derived from the referenced named path constraint.
 
 ### TE Tunnels {#TE_TUNNELS}
 
-The 'tunnels' container holds the list of TE tunnels that are provisioned on
+The 'tunnels' container holds the list of TE Tunnels that are provisioned on
 devices in the network (see {{fig-te-tunnel}}).
 
-A TE tunnel in the list is uniquely identified by a name.
+A TE Tunnel in the list is uniquely identified by a name.
 When the model is used to manage a specific device, the 'tunnels' list contains
-the TE tunnels originating from the specific device. When the model is used to
-manage a TE controller, the 'tunnels' list contains all TE tunnels and TE
+the TE Tunnels originating from the specific device. When the model is used to
+manage a TE controller, the 'tunnels' list contains all TE Tunnels and TE
 tunnel segments originating from device(s) that the TE controller manages.
 
-The TE tunnel model allows the configuration and management of the following TE
+The TE Tunnel model allows the configuration and management of the following TE
 tunnel related objected:
 
-TE tunnel:
+TE Tunnel:
 
 > A YANG container of one or more LSPs established between the source and destination
-TE tunnel termination points. A TE tunnel LSP is a connection-oriented service
+TE Tunnel termination points. A TE Tunnel LSP is a connection-oriented service
 provided by the network layer for the delivery of client data between a source and
-the destination of the TE tunnel termination points.
+the destination of the TE Tunnel termination points.
 
 TE Tunnel Segment:
 
-> Serves as a part or sub-path of a multi-domain TE tunnel that spans a given
+> Serves as a part or sub-path of a multi-domain TE Tunnel that spans a given
 network domain.
 
 TE Tunnel Hand-off:
 
-> An access link or inter-domain link by which a multi-domain TE tunnel enters or
+> An access link or inter-domain link by which a multi-domain TE Tunnel enters or
 exits a given network domain.
 
 ~~~~~~~~~~~
@@ -406,10 +406,10 @@ exits a given network domain.
      // ..
 
 ~~~~~~~~~~~
-{: #fig-te-tunnel title="TE tunnel list YANG subtree structure"}
+{: #fig-te-tunnel title="TE Tunnel list YANG subtree structure"}
 
-The TE tunnel has a number of attributes that are set directly under the
-tunnel (see {{fig-te-tunnel}}). The main attributes of a TE tunnel are described below:
+The TE Tunnel has a number of attributes that are set directly under the
+tunnel (see {{fig-te-tunnel}}). The main attributes of a TE Tunnel are described below:
 
 operational-state:
 
@@ -455,20 +455,20 @@ bidirectional:
 
 association-objects:
 
-> A YANG container that holds the set of associations of the TE tunnel to other TE tunnels.
+> A YANG container that holds the set of associations of the TE Tunnel to other TE Tunnels.
 
 protection:
 
-> A YANG container that holds the TE tunnel protection properties.
+> A YANG container that holds the TE Tunnel protection properties.
 
 restoration:
 
-> A YANG container that holds the TE tunnel restoration properties.
+> A YANG container that holds the TE Tunnel restoration properties.
 
 te-topology-identifier:
 
 > A YANG container that holds the topology identifier associated with the tunnel where
-path(s) for the TE tunnel are computed.
+path(s) for the TE Tunnel are computed.
 
 ~~~~~~~
     +--rw hierarchy
@@ -487,27 +487,27 @@ path(s) for the TE tunnel are computed.
     |        +--rw client-id?     te-global-id
     |        +--rw topology-id?   te-topology-id
 ~~~~~~~
-{: #fig-hierarchy title="TE tunnel hierarchy YANG subtree"}
+{: #fig-hierarchy title="TE Tunnel hierarchy YANG subtree"}
 
 
 hierarchy:
 
-> A YANG container that holds hierarchy related properties of the TE tunnel (see {{fig-hierarchy}}. A TE LSP
+> A YANG container that holds hierarchy related properties of the TE Tunnel (see {{fig-hierarchy}}. A TE LSP
   can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
   a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
-  case, the model introduces the TE tunnel hierarchical link endpoint parameters
-  to identify the specific link in the client layer that the underlying TE tunnel is
+  case, the model introduces the TE Tunnel hierarchical link endpoint parameters
+  to identify the specific link in the client layer that the underlying TE Tunnel is
   associated with. The hierarchy container includes the following:
 
 >>
-- dependency-tunnels: a hierarchical TE tunnel provisioned or to be
+- dependency-tunnels: a hierarchical TE Tunnel provisioned or to be
   provisioned in an immediately adjacent server layer a given
-  client layer TE tunnel depends on for multi-layer path
-  computation. A dependency TE tunnel is provisioned if and only if
+  client layer TE Tunnel depends on for multi-layer path
+  computation. A dependency TE Tunnel is provisioned if and only if
   it is used (selected by path computation) at least by one client
-  layer TE tunnel. The TE link in the client layer network topology
-  supported by a dependent TE tunnel is dynamically created only
-  when the dependency TE tunnel is actually provisioned.
+  layer TE Tunnel. The TE link in the client layer network topology
+  supported by a dependent TE Tunnel is dynamically created only
+  when the dependency TE Tunnel is actually provisioned.
 
 >>
 - hierarchical-link: A YANG container that holds the identity of a
@@ -518,11 +518,11 @@ hierarchy:
 
 #### TE Tunnel Paths
 
-The TE tunnel can be configured with a set of paths that define the tunnel
+The TE Tunnel can be configured with a set of paths that define the tunnel
 forward and reverse paths as described in {{fig-tunnel-paths}}. Moreover, a primary
 path can be specified a set of candidate secondary paths that can be visited to
 support path protection. The following describe further the list of paths associated with a
-TE tunnel.
+TE Tunnel.
 
 ~~~~~~
 
@@ -554,7 +554,7 @@ TE tunnel.
      |     |     +--rw name                             string
 
 ~~~~~~
-{: #fig-tunnel-paths title="TE tunnel paths YANG tree structure"}
+{: #fig-tunnel-paths title="TE Tunnel paths YANG tree structure"}
 
 primary-paths:
 
@@ -567,7 +567,7 @@ attributes:
 >
 - primary-reverse-path: A YANG container that holds properties of the
   primary reverse path. The reverse path is applicable to
-  bidirectional TE tunnels.
+  bidirectional TE Tunnels.
 
 >
 - candidate-secondary-paths: A YANG container that holds a list of candidate
@@ -585,21 +585,21 @@ attributes:
 secondary-paths:
 
 > A YANG container that holds the set of secondary paths. A secondary path is
- identified by 'name'. A secondary path can be referenced from the TE tunnel's
+ identified by 'name'. A secondary path can be referenced from the TE Tunnel's
 'candidate-secondary-path' list. A secondary path contains attributes similar to a primary path.
 
 secondary-reverse-paths:
 
 > A YANG container that holds teh set of secondary reverse paths. A secondary reverse
 path is identified by 'name'. A secondary reverse path can be referenced from the
-TE tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
+TE Tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
 attributes similar to a primary path.
 
 The following set common path attributes are shared for primary forward and reverse primary and secondary paths:
 
 compute-only:
 
-> A path of TE tunnel is, by default, provisioned so that it can is instantiated
+> A path of TE Tunnel is, by default, provisioned so that it can is instantiated
   in forwarding to carry traffic as soon as a valid path is computed. In some cases,
   a TE path may be provisioned for the only purpose of computing a path
   and reporting it without the need to instantiate the LSP or commit any
@@ -664,7 +664,7 @@ modules 'ietf-te.yang'.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te.tree}
 ~~~~~~~~~~~
-{: #fig-te-tree title="TE tunnel generic model YANG tree diagram"}
+{: #fig-te-tree title="TE Tunnel generic model YANG tree diagram"}
 
 
 ## YANG Module
@@ -684,7 +684,7 @@ This module references the following documents:
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-basic-te title="TE tunnel data model YANG module"}
+{: #fig-basic-te title="TE Tunnel data model YANG module"}
 
 # TE Device YANG Model
 
@@ -742,7 +742,7 @@ modules 'ietf-te.yang'.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
 ~~~~~~~~~~~
-{: #fig-te-dev-tree title="TE tunnel device model YANG tree diagram"}
+{: #fig-te-dev-tree title="TE Tunnel device model YANG tree diagram"}
 
 
 ## YANG Module
@@ -837,7 +837,7 @@ the subtrees and data nodes and their sensitivity/vulnerability:
 Unauthorized access to this container could cause the device to ignore packets
 it should receive and process.
 
-"/te/tunnels":  This list specifies the configured TE tunnels on a device.
+"/te/tunnels":  This list specifies the configured TE Tunnels on a device.
 Unauthorized access to this list could cause the device to ignore packets it
 should receive and process.
 
@@ -914,7 +914,7 @@ document.
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
 
-For the example we will use a 4 nodes MPLS network were RSVP-TE tunnels can be setup. The
+For the example we will use a 4 nodes MPLS network were RSVP-TE Tunnels can be setup. The
 loopbacks of each router are shown. The router network in 
 figure X will be used across the section
 
@@ -938,11 +938,11 @@ figure X will be used across the section
 
 ## Basic Tunnel Setup {#TeTunnel}
 
-This example uses the TE tunnel YANG data model defined in this document to create an
-RSVP-TE signaled Tunnel. First, the TE tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
-The TE tunnel ingresses on router A and egresses on router D. 
+This example uses the TE Tunnel YANG data model defined in this document to create an
+RSVP-TE signaled Tunnel. First, the TE Tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
+The TE Tunnel ingresses on router A and egresses on router D. 
 
-In this case, the TE tunnel is created without specifying additional information about the primary paths.
+In this case, the TE Tunnel is created without specifying additional information about the primary paths.
 
 ~~~
 POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
@@ -967,8 +967,8 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Global Named Path Constraints
 
-This example uses the YANG data model to create a 'named path constraitnt' that can be reference by TE tunnels.
-The path constraint, in this case, limits the TE tunnel hops for the computed path.
+This example uses the YANG data model to create a 'named path constraitnt' that can be reference by TE Tunnels.
+The path constraint, in this case, limits the TE Tunnel hops for the computed path.
 
 ~~~
 POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
@@ -991,7 +991,7 @@ POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
 
 ## Tunnel with Global Path Constraint
 
-In this example, the previously created 'named path constraint' is applied to the TE tunnel created in {{TeTunnel}}.
+In this example, the previously created 'named path constraint' is applied to the TE Tunnel created in {{TeTunnel}}.
 
 ~~~
 POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
@@ -1026,7 +1026,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Tunnel with Per-tunnel Path Constraint
 
-In this example, the a per tunnel path constraint is explicitly indicated under the TE tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
+In this example, the a per tunnel path constraint is explicitly indicated under the TE Tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
 
 ~~~
 POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
