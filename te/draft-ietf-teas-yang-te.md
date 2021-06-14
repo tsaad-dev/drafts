@@ -676,7 +676,7 @@ The generic TE YANG module 'ietf-te' imports the following modules:
 
 This module references the following documents:
 {{!RFC6991}}, {{!RFC4875}}, {{!RFC7551}}, {{!RFC4206}}, {{?RFC4427}},
-{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, and
+{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{?RFC8800}}, and
 {{!RFC7308}}.
 
 ~~~~~~~~~~
