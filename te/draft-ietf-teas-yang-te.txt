@@ -145,7 +145,8 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
    Also, it is expected other YANG module(s) that model TE signaling
    protocols, such as RSVP-TE ([RFC3209], [RFC3473]), or Segment-Routing
-   TE (SR-TE) will augment the generic TE YANG module.
+   TE (SR-TE) [I-D.ietf-spring-segment-routing-policy] will augment the
+   generic TE YANG module.
 
 2.  Requirements Language
 
@@ -161,7 +162,6 @@ Internet-Draft             TE YANG Data Model                  June 2021
    o  client
 
    o  configuration data
-
 
 
 
@@ -7004,6 +7004,12 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 14.2.  Informative References
 
+   [I-D.ietf-spring-segment-routing-policy]
+              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
+              P. Mattes, "Segment Routing Policy Architecture", draft-
+              ietf-spring-segment-routing-policy-11 (work in progress),
+              April 2021.
+
    [RFC4427]  Mannie, E., Ed. and D. Papadimitriou, Ed., "Recovery
               (Protection and Restoration) Terminology for Generalized
               Multi-Protocol Label Switching (GMPLS)", RFC 4427,
@@ -7042,12 +7048,6 @@ Authors' Addresses
    Email: vbeeram@juniper.net
 
 
-   Igor Bryskin
-   Individual
-
-   Email: i_bryskin@yahoo.com
-
-
 
 
 
@@ -7058,16 +7058,16 @@ Saad, et al.            Expires December 16, 2021             [Page 126]
 Internet-Draft             TE YANG Data Model                  June 2021
 
 
+   Igor Bryskin
+   Individual
+
+   Email: i_bryskin@yahoo.com
+
+
    Oscar Gonzalez de Dios
    Telefonica
 
    Email: oscar.gonzalezdedios@telefonica.com
-
-
-
-
-
-
 
 
 

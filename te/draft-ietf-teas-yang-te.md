@@ -93,8 +93,8 @@ is expected other data plane technology model(s) will augment the TE generic
 YANG data model. 
 
 Also, it is expected other YANG module(s) that model TE signaling protocols,
-such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) will
-augment the generic TE YANG  module.
+such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
+{{?I-D.ietf-spring-segment-routing-policy}} will augment the generic TE YANG  module.
 
 # Requirements Language
 
