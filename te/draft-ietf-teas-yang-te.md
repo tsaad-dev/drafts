@@ -98,10 +98,7 @@ such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE)
 
 # Requirements Language
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
+{::boilerplate bcp14}
 
 The following terms are defined in {{!RFC6241}} and are used in this specification:
 
@@ -308,6 +305,21 @@ The 'globals' container covers properties that control TE features behavior
 system-wide, and its respective state (see {{fig-globals}}).
 The TE globals configuration include:
 
+~~~~~~~
+     +--rw globals
+     |  +--rw named-admin-groups
+     |  |  +--rw named-admin-group* [name]
+     ..
+     |  +--rw named-srlgs
+     |  |  +--rw named-srlg* [name] {te-types:named-srlg-groups}?
+     ..
+     |  +--rw named-path-constraints
+     |  |  +--rw named-path-constraint* [name]
+     ..
+~~~~~~~
+{: #fig-globals title="TE globals YANG subtree high-level structure"}
+
+
 named-admin-groups:
 
 > A YANG container for the list of named (extended) administrative groups that may be applied
@@ -325,22 +337,75 @@ composed of a set of constraints that can be applied during path computation.
 A named path constraint can be applied to multiple TE Tunnels. Path constraints may also
 be specified directly under the TE Tunnel. The path constraint specified under
 the TE Tunnel take precedence over the path constraints 
-derived from the referenced named path constraint.
+derived from the referenced named path constraint. A named path constraint entry can be
+formed up of the following path constraints:
+
+~~~~~
 
 
-~~~~~~~
-     +--rw globals
-     |  +--rw named-admin-groups
-     |  |  +--rw named-admin-group* [name]
-     ..
-     |  +--rw named-srlgs
-     |  |  +--rw named-srlg* [name] {te-types:named-srlg-groups}?
-     ..
+
      |  +--rw named-path-constraints
-     |  |  +--rw named-path-constraint* [name]
-     ..
-~~~~~~~
-{: #fig-globals title="TE globals YANG subtree high-level structure"}
+     |     +--rw named-path-constraint* [name]
+     |        +--rw name                             string
+     |        +--rw te-bandwidth
+     // ...
+     |        +--rw link-protection?                 identityref
+     |        +--rw setup-priority?                  uint8
+     |        +--rw hold-priority?                   uint8
+     |        +--rw signaling-type?                  identityref
+     |        +--rw path-metric-bounds
+     // ...
+     |        +--rw path-affinities-values
+     // ...
+     |        +--rw path-affinity-names
+     // ...
+     |        +--rw path-srlgs-lists
+     // ...
+     |        +--rw path-srlgs-names
+     // ...
+     |        +--rw disjointness?
+     |        |       te-path-disjointness
+     // ...
+     |        +--rw explicit-route-objects-always
+     // ...
+     |        |  +--rw route-object-exclude-always* [index]
+
+     |        |  +--rw route-object-include-exclude* [index]
+~~~~~
+{: #fig-named-constraints title="Named path constraints YANG subtree"}
+
+
+>>
+- te-bandwidth: A YANG container that holds the technology agnostic TE bandwidth constraint.
+>>
+- link-protection: A YANG leaf that holds the link protection type constraint required for the links to be included in the computed path.
+>>
+- setup/hold priority: A YANG leaf that holds the LSP setup and hold admission priority as defined in {{?RFC3209}}.
+>>
+- signaling-type: A YANG leaf that holds the LSP setup type, such as RSVP-TE or SR.
+>>
+- path-metric-bounds: A YANG container that holds the set of metric bounds applicable on the
+computed TE tunnel path.
+>>
+- path-affinities-values: A YANG container that holds the set of affinity values and
+mask to be used during path computation.
+>>
+- path-affinity-names: A YANG container that holds the set of named affinity constraints and
+corresponding inclusion or exclusions instruction for each to be used during path computation.
+>>
+- path-srlgs-lists: A YANG container that holds the set of SRLG values and
+corresponding inclusion or exclusions instruction to be used during path computation.
+>>
+- path-srlgs-names: A YANG container that holds the set of named SRLG constraints and
+corresponding inclusion or exclusions instruction for each to be used during path computation.
+>>
+- disjointness: The level of resource disjointness constraint that the secondary path
+of a TE tunnel has to adhere to.
+>>
+- explicit-route-objects-always: A YANG container that contains two route objects lists:
+    * 'route-object-exclude-always': a list of route entries to always exclude from path computation
+    * 'route-object-include-exclude': a list of route entries to include or exclude in the path
+
 
 ### TE Tunnels {#TE_TUNNELS}
 
@@ -518,7 +583,6 @@ hierarchy:
   layer TE Tunnel. The TE link in the client layer network topology supported
   by a dependent TE Tunnel is dynamically created only when the dependency TE
   Tunnel is actually provisioned.
-
 >>
 - hierarchical-link: A YANG container that holds the identity of the
   hierarchical link (in the client layer) that is supported by this TE Tunnel.
