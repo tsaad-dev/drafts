@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                               R. Gandhi
-Expires: December 16, 2021                             Cisco Systems Inc
+Expires: December 20, 2021                             Cisco Systems Inc
                                                                   X. Liu
                                                           Volta Networks
                                                                V. Beeram
@@ -14,7 +14,7 @@ Expires: December 16, 2021                             Cisco Systems Inc
                                                               Individual
                                                      O. Gonzalez de Dios
                                                               Telefonica
-                                                           June 14, 2021
+                                                           June 18, 2021
 
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 16, 2021.
+   This Internet-Draft will expire on December 20, 2021.
 
 
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 1]
+Saad, et al.            Expires December 20, 2021               [Page 1]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -86,39 +86,39 @@ Table of Contents
    5.  TE YANG Model . . . . . . . . . . . . . . . . . . . . . . . .   7
      5.1.  Module Structure  . . . . . . . . . . . . . . . . . . . .   7
        5.1.1.  TE Globals  . . . . . . . . . . . . . . . . . . . . .   9
-       5.1.2.  TE Tunnels  . . . . . . . . . . . . . . . . . . . . .  11
-       5.1.3.  TE LSPs . . . . . . . . . . . . . . . . . . . . . . .  19
-     5.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  20
-     5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  60
-   6.  TE Device YANG Model  . . . . . . . . . . . . . . . . . . . .  98
-     6.1.  Module Structure  . . . . . . . . . . . . . . . . . . . .  98
-       6.1.1.  TE Interfaces . . . . . . . . . . . . . . . . . . . .  98
-     6.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  99
-     6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . 102
-   7.  Notifications . . . . . . . . . . . . . . . . . . . . . . . . 116
-   8.  TE Generic and Helper YANG Modules  . . . . . . . . . . . . . 116
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . 116
-   10. Security Considerations . . . . . . . . . . . . . . . . . . . 117
-   11. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . . 118
-   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . . 119
-   13. Appendix A: Examples  . . . . . . . . . . . . . . . . . . . . 119
-     13.1.  Basic Tunnel Setup . . . . . . . . . . . . . . . . . . . 120
-     13.2.  Global Named Path Constraints  . . . . . . . . . . . . . 121
-     13.3.  Tunnel with Global Path Constraint . . . . . . . . . . . 121
-     13.4.  Tunnel with Per-tunnel Path Constraint . . . . . . . . . 122
+       5.1.2.  TE Tunnels  . . . . . . . . . . . . . . . . . . . . .  12
+       5.1.3.  TE LSPs . . . . . . . . . . . . . . . . . . . . . . .  20
+     5.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  21
+     5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  61
+   6.  TE Device YANG Model  . . . . . . . . . . . . . . . . . . . .  99
+     6.1.  Module Structure  . . . . . . . . . . . . . . . . . . . .  99
+       6.1.1.  TE Interfaces . . . . . . . . . . . . . . . . . . . .  99
+     6.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . . 100
+     6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . 103
+   7.  Notifications . . . . . . . . . . . . . . . . . . . . . . . . 117
+   8.  TE Generic and Helper YANG Modules  . . . . . . . . . . . . . 117
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . 117
+   10. Security Considerations . . . . . . . . . . . . . . . . . . . 118
+   11. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . . 119
+   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . . 120
+   13. Appendix A: Examples  . . . . . . . . . . . . . . . . . . . . 120
+     13.1.  Basic Tunnel Setup . . . . . . . . . . . . . . . . . . . 121
+     13.2.  Global Named Path Constraints  . . . . . . . . . . . . . 122
+     13.3.  Tunnel with Global Path Constraint . . . . . . . . . . . 122
+     13.4.  Tunnel with Per-tunnel Path Constraint . . . . . . . . . 123
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 2]
+Saad, et al.            Expires December 20, 2021               [Page 2]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
 
-     13.5.  Tunnel State . . . . . . . . . . . . . . . . . . . . . . 123
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . . 125
-     14.1.  Normative References . . . . . . . . . . . . . . . . . . 125
-     14.2.  Informative References . . . . . . . . . . . . . . . . . 128
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 128
+     13.5.  Tunnel State . . . . . . . . . . . . . . . . . . . . . . 124
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . . 126
+     14.1.  Normative References . . . . . . . . . . . . . . . . . . 126
+     14.2.  Informative References . . . . . . . . . . . . . . . . . 129
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 129
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 3]
+Saad, et al.            Expires December 20, 2021               [Page 3]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -221,7 +221,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 4]
+Saad, et al.            Expires December 20, 2021               [Page 4]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -277,7 +277,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 5]
+Saad, et al.            Expires December 20, 2021               [Page 5]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -333,7 +333,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 6]
+Saad, et al.            Expires December 20, 2021               [Page 6]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -389,7 +389,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 7]
+Saad, et al.            Expires December 20, 2021               [Page 7]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -445,7 +445,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 8]
+Saad, et al.            Expires December 20, 2021               [Page 8]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -501,7 +501,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021               [Page 9]
+Saad, et al.            Expires December 20, 2021               [Page 9]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -557,7 +557,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 10]
+Saad, et al.            Expires December 20, 2021              [Page 10]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -605,23 +605,75 @@ Internet-Draft             TE YANG Data Model                  June 2021
             -  'route-object-include-exclude': a list of route entries
                to include or exclude in the path
 
+
+
+         The 'route-object-include-exclude' is used to configure
+         constraints on which route objects (e.g., nodes, links) are
+         included or excluded in the path computation.
+
+
+
+Saad, et al.            Expires December 20, 2021              [Page 11]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
+         The meaning of an empty explicit-route-object depends on the
+         type of TE Tunnel (end-to-end or Segment) and on the path,
+         according to the following rules:
+
+
+
+
+
+         1.  An empty 'route-object-include-exclude' for the primary
+             path of an end-to-end TE Tunnel indicates that there are no
+             route objects to be included or excluded in the path
+             computation.
+
+         2.  An empty 'route-object-include-exclude' for the primary
+             path of a TE Tunnel Segment indicates that no primary LSP
+             is required for that TE Tunnel.
+
+         3.  An empty 'route-object-include-exclude' for a reverse path
+             means that the path is co-routed.
+
+         4.  An empty 'route-object-include-exclude' for the secondary
+             path of an end-to-end TE Tunnel indicates that the
+             secondary path deviates and merges with the primary path as
+             the source and destination TTPs and that there are no route
+             objects to be included or excluded in the path computation.
+
+         5.  An empty 'route-object-include-exclude' for the secondary
+             path of a TE Tunnel Segment indicates that the secondary
+             path deviates and merges with the primary path as the edge
+             nodes of the primary path and that there are no route
+             objects to be included or excluded in the path computation.
+
+
+
+         A consequence of rule 3) is that for an end-to-end co-routed TE
+         Tunnel, the reverse primary path is setup by supplying the
+         destination and source nodes in the primary path 'route-object-
+         include-exclude' list.
+
 5.1.2.  TE Tunnels
 
    The 'tunnels' container holds the list of TE Tunnels that are
    provisioned on devices in the network (see Figure 5).
 
-
-
-
-Saad, et al.            Expires December 16, 2021              [Page 11]
-
-Internet-Draft             TE YANG Data Model                  June 2021
-
-
    A TE Tunnel in the list is uniquely identified by a name.  When the
    model is used to manage a specific device, the 'tunnels' list
    contains the TE Tunnels originating from the specific device.  When
    the model is used to manage a TE controller, the 'tunnels' list
+
+
+
+Saad, et al.            Expires December 20, 2021              [Page 12]
+
+Internet-Draft             TE YANG Data Model                  June 2021
+
+
    contains all TE Tunnels and TE tunnel segments originating from
    device(s) that the TE controller manages.
 
@@ -669,7 +721,11 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 12]
+
+
+
+
+Saad, et al.            Expires December 20, 2021              [Page 13]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -725,7 +781,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 13]
+Saad, et al.            Expires December 20, 2021              [Page 14]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -781,7 +837,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 14]
+Saad, et al.            Expires December 20, 2021              [Page 15]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -837,7 +893,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 15]
+Saad, et al.            Expires December 20, 2021              [Page 16]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -893,7 +949,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 16]
+Saad, et al.            Expires December 20, 2021              [Page 17]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -949,7 +1005,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 17]
+Saad, et al.            Expires December 20, 2021              [Page 18]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1005,7 +1061,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 18]
+Saad, et al.            Expires December 20, 2021              [Page 19]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1061,7 +1117,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 19]
+Saad, et al.            Expires December 20, 2021              [Page 20]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1117,7 +1173,7 @@ ed-admin-groups}?
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 20]
+Saad, et al.            Expires December 20, 2021              [Page 21]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1173,7 +1229,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 21]
+Saad, et al.            Expires December 20, 2021              [Page 22]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1229,7 +1285,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 22]
+Saad, et al.            Expires December 20, 2021              [Page 23]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1285,7 +1341,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 23]
+Saad, et al.            Expires December 20, 2021              [Page 24]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1341,7 +1397,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 24]
+Saad, et al.            Expires December 20, 2021              [Page 25]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1397,7 +1453,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 25]
+Saad, et al.            Expires December 20, 2021              [Page 26]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1453,7 +1509,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 26]
+Saad, et al.            Expires December 20, 2021              [Page 27]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1509,7 +1565,7 @@ neralized-label
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 27]
+Saad, et al.            Expires December 20, 2021              [Page 28]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1565,7 +1621,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 28]
+Saad, et al.            Expires December 20, 2021              [Page 29]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1621,7 +1677,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 29]
+Saad, et al.            Expires December 20, 2021              [Page 30]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1677,7 +1733,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 30]
+Saad, et al.            Expires December 20, 2021              [Page 31]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1733,7 +1789,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 31]
+Saad, et al.            Expires December 20, 2021              [Page 32]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1789,7 +1845,7 @@ alized-label
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 32]
+Saad, et al.            Expires December 20, 2021              [Page 33]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1845,7 +1901,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 33]
+Saad, et al.            Expires December 20, 2021              [Page 34]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1901,7 +1957,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 34]
+Saad, et al.            Expires December 20, 2021              [Page 35]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -1957,7 +2013,7 @@ tion
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 35]
+Saad, et al.            Expires December 20, 2021              [Page 36]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2013,7 +2069,7 @@ tion
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 36]
+Saad, et al.            Expires December 20, 2021              [Page 37]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2069,7 +2125,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 37]
+Saad, et al.            Expires December 20, 2021              [Page 38]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2125,7 +2181,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 38]
+Saad, et al.            Expires December 20, 2021              [Page 39]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2181,7 +2237,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 39]
+Saad, et al.            Expires December 20, 2021              [Page 40]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2237,7 +2293,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 40]
+Saad, et al.            Expires December 20, 2021              [Page 41]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2293,7 +2349,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 41]
+Saad, et al.            Expires December 20, 2021              [Page 42]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2349,7 +2405,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 42]
+Saad, et al.            Expires December 20, 2021              [Page 43]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2405,7 +2461,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 43]
+Saad, et al.            Expires December 20, 2021              [Page 44]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2461,7 +2517,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 44]
+Saad, et al.            Expires December 20, 2021              [Page 45]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2517,7 +2573,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 45]
+Saad, et al.            Expires December 20, 2021              [Page 46]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2573,7 +2629,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 46]
+Saad, et al.            Expires December 20, 2021              [Page 47]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2629,7 +2685,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 47]
+Saad, et al.            Expires December 20, 2021              [Page 48]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2685,7 +2741,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 48]
+Saad, et al.            Expires December 20, 2021              [Page 49]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2741,7 +2797,7 @@ alized-label
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 49]
+Saad, et al.            Expires December 20, 2021              [Page 50]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2797,7 +2853,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 50]
+Saad, et al.            Expires December 20, 2021              [Page 51]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2853,7 +2909,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 51]
+Saad, et al.            Expires December 20, 2021              [Page 52]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2909,7 +2965,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 52]
+Saad, et al.            Expires December 20, 2021              [Page 53]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -2965,7 +3021,7 @@ n
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 53]
+Saad, et al.            Expires December 20, 2021              [Page 54]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3021,7 +3077,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 54]
+Saad, et al.            Expires December 20, 2021              [Page 55]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3077,7 +3133,7 @@ bel
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 55]
+Saad, et al.            Expires December 20, 2021              [Page 56]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3133,7 +3189,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 56]
+Saad, et al.            Expires December 20, 2021              [Page 57]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3189,7 +3245,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 57]
+Saad, et al.            Expires December 20, 2021              [Page 58]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3245,7 +3301,7 @@ alized-label
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 58]
+Saad, et al.            Expires December 20, 2021              [Page 59]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3301,7 +3357,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 59]
+Saad, et al.            Expires December 20, 2021              [Page 60]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3357,7 +3413,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 60]
+Saad, et al.            Expires December 20, 2021              [Page 61]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3413,7 +3469,7 @@ module ietf-te {
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 61]
+Saad, et al.            Expires December 20, 2021              [Page 62]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3469,7 +3525,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 62]
+Saad, et al.            Expires December 20, 2021              [Page 63]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3525,7 +3581,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 63]
+Saad, et al.            Expires December 20, 2021              [Page 64]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3581,7 +3637,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 64]
+Saad, et al.            Expires December 20, 2021              [Page 65]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3637,7 +3693,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 65]
+Saad, et al.            Expires December 20, 2021              [Page 66]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3693,7 +3749,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 66]
+Saad, et al.            Expires December 20, 2021              [Page 67]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3749,7 +3805,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 67]
+Saad, et al.            Expires December 20, 2021              [Page 68]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3805,7 +3861,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 68]
+Saad, et al.            Expires December 20, 2021              [Page 69]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3861,7 +3917,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 69]
+Saad, et al.            Expires December 20, 2021              [Page 70]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3917,7 +3973,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 70]
+Saad, et al.            Expires December 20, 2021              [Page 71]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -3973,7 +4029,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 71]
+Saad, et al.            Expires December 20, 2021              [Page 72]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4029,7 +4085,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 72]
+Saad, et al.            Expires December 20, 2021              [Page 73]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4085,7 +4141,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 73]
+Saad, et al.            Expires December 20, 2021              [Page 74]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4141,7 +4197,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 74]
+Saad, et al.            Expires December 20, 2021              [Page 75]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4197,7 +4253,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 75]
+Saad, et al.            Expires December 20, 2021              [Page 76]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4253,7 +4309,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 76]
+Saad, et al.            Expires December 20, 2021              [Page 77]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4309,7 +4365,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 77]
+Saad, et al.            Expires December 20, 2021              [Page 78]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4365,7 +4421,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 78]
+Saad, et al.            Expires December 20, 2021              [Page 79]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4421,7 +4477,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 79]
+Saad, et al.            Expires December 20, 2021              [Page 80]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4477,7 +4533,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 80]
+Saad, et al.            Expires December 20, 2021              [Page 81]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4533,7 +4589,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 81]
+Saad, et al.            Expires December 20, 2021              [Page 82]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4589,7 +4645,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 82]
+Saad, et al.            Expires December 20, 2021              [Page 83]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4645,7 +4701,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 83]
+Saad, et al.            Expires December 20, 2021              [Page 84]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4701,7 +4757,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 84]
+Saad, et al.            Expires December 20, 2021              [Page 85]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4757,7 +4813,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 85]
+Saad, et al.            Expires December 20, 2021              [Page 86]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4813,7 +4869,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 86]
+Saad, et al.            Expires December 20, 2021              [Page 87]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4869,7 +4925,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 87]
+Saad, et al.            Expires December 20, 2021              [Page 88]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4925,7 +4981,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 88]
+Saad, et al.            Expires December 20, 2021              [Page 89]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -4981,7 +5037,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 89]
+Saad, et al.            Expires December 20, 2021              [Page 90]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5037,7 +5093,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 90]
+Saad, et al.            Expires December 20, 2021              [Page 91]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5093,7 +5149,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 91]
+Saad, et al.            Expires December 20, 2021              [Page 92]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5149,7 +5205,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 92]
+Saad, et al.            Expires December 20, 2021              [Page 93]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5205,7 +5261,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 93]
+Saad, et al.            Expires December 20, 2021              [Page 94]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5261,7 +5317,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 94]
+Saad, et al.            Expires December 20, 2021              [Page 95]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5317,7 +5373,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 95]
+Saad, et al.            Expires December 20, 2021              [Page 96]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5373,7 +5429,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 96]
+Saad, et al.            Expires December 20, 2021              [Page 97]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5429,7 +5485,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 97]
+Saad, et al.            Expires December 20, 2021              [Page 98]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5485,7 +5541,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 98]
+Saad, et al.            Expires December 20, 2021              [Page 99]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5541,7 +5597,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021              [Page 99]
+Saad, et al.            Expires December 20, 2021             [Page 100]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5597,7 +5653,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 100]
+Saad, et al.            Expires December 20, 2021             [Page 101]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5653,7 +5709,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 101]
+Saad, et al.            Expires December 20, 2021             [Page 102]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5709,7 +5765,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 102]
+Saad, et al.            Expires December 20, 2021             [Page 103]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5765,7 +5821,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 103]
+Saad, et al.            Expires December 20, 2021             [Page 104]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5821,7 +5877,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 104]
+Saad, et al.            Expires December 20, 2021             [Page 105]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5877,7 +5933,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 105]
+Saad, et al.            Expires December 20, 2021             [Page 106]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5933,7 +5989,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 106]
+Saad, et al.            Expires December 20, 2021             [Page 107]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -5989,7 +6045,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 107]
+Saad, et al.            Expires December 20, 2021             [Page 108]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6045,7 +6101,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 108]
+Saad, et al.            Expires December 20, 2021             [Page 109]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6101,7 +6157,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 109]
+Saad, et al.            Expires December 20, 2021             [Page 110]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6157,7 +6213,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 110]
+Saad, et al.            Expires December 20, 2021             [Page 111]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6213,7 +6269,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 111]
+Saad, et al.            Expires December 20, 2021             [Page 112]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6269,7 +6325,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 112]
+Saad, et al.            Expires December 20, 2021             [Page 113]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6325,7 +6381,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 113]
+Saad, et al.            Expires December 20, 2021             [Page 114]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6381,7 +6437,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 114]
+Saad, et al.            Expires December 20, 2021             [Page 115]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6437,7 +6493,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 115]
+Saad, et al.            Expires December 20, 2021             [Page 116]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6493,7 +6549,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 116]
+Saad, et al.            Expires December 20, 2021             [Page 117]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6549,7 +6605,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 117]
+Saad, et al.            Expires December 20, 2021             [Page 118]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6605,7 +6661,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 118]
+Saad, et al.            Expires December 20, 2021             [Page 119]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6661,7 +6717,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 119]
+Saad, et al.            Expires December 20, 2021             [Page 120]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6717,7 +6773,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 120]
+Saad, et al.            Expires December 20, 2021             [Page 121]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6773,7 +6829,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 121]
+Saad, et al.            Expires December 20, 2021             [Page 122]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6829,7 +6885,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 122]
+Saad, et al.            Expires December 20, 2021             [Page 123]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6885,7 +6941,7 @@ GET  /restconf/data/ietf-te:te/tunnels/tunnel="Example_LSP_Tunnel_A_4_1"
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 123]
+Saad, et al.            Expires December 20, 2021             [Page 124]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6941,7 +6997,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 124]
+Saad, et al.            Expires December 20, 2021             [Page 125]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -6997,7 +7053,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 125]
+Saad, et al.            Expires December 20, 2021             [Page 126]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -7053,7 +7109,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 126]
+Saad, et al.            Expires December 20, 2021             [Page 127]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -7109,7 +7165,7 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 127]
+Saad, et al.            Expires December 20, 2021             [Page 128]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -7165,7 +7221,7 @@ Authors' Addresses
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 128]
+Saad, et al.            Expires December 20, 2021             [Page 129]
 
 Internet-Draft             TE YANG Data Model                  June 2021
 
@@ -7221,4 +7277,4 @@ Internet-Draft             TE YANG Data Model                  June 2021
 
 
 
-Saad, et al.            Expires December 16, 2021             [Page 129]
+Saad, et al.            Expires December 20, 2021             [Page 130]

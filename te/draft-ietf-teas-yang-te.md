@@ -407,6 +407,20 @@ of a TE tunnel has to adhere to.
     * 'route-object-include-exclude': a list of route entries to include or exclude in the path
 
 
+>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
+
+>> The meaning of an empty explicit-route-object depends on the type of TE Tunnel (end-to-end or Segment) and on the path, according to the following rules:
+
+>> 1. An empty 'route-object-include-exclude' for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
+1. An empty 'route-object-include-exclude' for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
+2. An empty 'route-object-include-exclude' for a reverse path means that the path is co-routed.
+3. An empty 'route-object-include-exclude' for the secondary path of an end-to-end TE Tunnel indicates that the secondary path deviates and merges with the primary path as the source and destination TTPs and that there are no route objects to be included or excluded in the path computation.
+4. An empty 'route-object-include-exclude' for the secondary path of a TE Tunnel Segment indicates that the secondary path deviates and merges with the primary path as the edge nodes of the primary path and that there are no route objects to be included or excluded in the path computation.
+
+>> A consequence of rule 3) is that for an end-to-end co-routed TE Tunnel, the reverse primary path is setup by supplying the destination and source nodes in the primary path 'route-object-include-exclude' list.
+
+
+
 ### TE Tunnels {#TE_TUNNELS}
 
 The 'tunnels' container holds the list of TE Tunnels that are provisioned on
