@@ -403,23 +403,18 @@ corresponding inclusion or exclusions instruction for each to be used during pat
 of a TE tunnel has to adhere to.
 >>
 - explicit-route-objects-always: A YANG container that contains two route objects lists:
-    * 'route-object-exclude-always': a list of route entries to always exclude from path computation
-    * 'route-object-include-exclude': a list of route entries to include or exclude in the path
+    * 'route-object-exclude-always': a list of route entries to always exclude from the path computation.
+    * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation.
 
 
 >> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
 
->> The meaning of an empty explicit-route-object depends on the type of TE Tunnel (end-to-end or Segment) and on the path, according to the following rules:
+>> The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
 
->> 1. An empty 'route-object-include-exclude' for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
-1. An empty 'route-object-include-exclude' for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
-2. An empty 'route-object-include-exclude' for a reverse path means that the path is co-routed.
-3. An empty 'route-object-include-exclude' for the secondary path of an end-to-end TE Tunnel indicates that the secondary path deviates and merges with the primary path as the source and destination TTPs and that there are no route objects to be included or excluded in the path computation.
-4. An empty 'route-object-include-exclude' for the secondary path of a TE Tunnel Segment indicates that the secondary path deviates and merges with the primary path as the edge nodes of the primary path and that there are no route objects to be included or excluded in the path computation.
-
->> A consequence of rule 3) is that for an end-to-end co-routed TE Tunnel, the reverse primary path is setup by supplying the destination and source nodes in the primary path 'route-object-include-exclude' list.
-
-
+>> 1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
+2. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
+3. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
+4. An empty 'route-object-include-exclude' list for the secondary (forward) path indicates that the secondary path has the same endpoints as the primary path.
 
 ### TE Tunnels {#TE_TUNNELS}
 
@@ -445,12 +440,6 @@ the destination of the TE Tunnel termination points.
 TE Tunnel Segment:
 
 > A part of a multi-domain TE Tunnel that is within a specific network domain.
-
-
-TE Tunnel Hand-off:
-
-> An inter-domain link on which the path of a multi-domain TE Tunnel enters or
-> exits a given network domain.
 
 
 ~~~~~~~~~~~
