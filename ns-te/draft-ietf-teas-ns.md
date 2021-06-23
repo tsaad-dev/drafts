@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-02
+docname: draft-bestbar-teas-ns-packet-03
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -66,27 +66,15 @@ author:
    organization: Telefonica
    email: luismiguel.contrerasmurillo@telefonica.com
 
+ -
+   ins: R. Rokui
+   name: Reza Rokui
+   organization: Nokia
+   email: reza.rokui@nokia.com
+
 normative:
-  I-D.bestbar-teas-yang-ns-phd:
   RFC2119:
   RFC8174:
-  I-D.bestbar-lsr-spring-sa:
-    author:
-     -
-      ins: T. Saad
-     -
-      ins: V. Beeram
-     -
-      ins: R. Chen
-     -
-      ins: S. Peng
-     -
-      ins: B. Wen
-     -
-      ins: D. Ceccarelli
-
-    title: IGP Extensions for SR Slice Aggregate SIDs
-    date: 2021-02
 
 informative:
 
@@ -221,11 +209,7 @@ Slice policy topology:
 Slice aggregate aware TE:
 : a mechanism for TE path selection that takes into account the available network resources associated with a specific slice aggregate.
 
-
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
+{::boilerplate bcp14}
 
 ## Acronyms and Abbreviations
 
@@ -261,9 +245,9 @@ when, and only when, they appear in all capitals, as shown here.
 
 # Network Resource Slicing Membership
 
-A slice aggregate can span multiple parts of an IP/MPLS network (e.g., all or
+A slice aggregate can be instantiated over parts of an IP/MPLS network (e.g., all or
 specific network resources in the access, aggregation, or core network), and
-can stretch  across multiple domains administered by a provider.
+can stretch across multiple domains administered by a provider.
 A slice policy topology may include all
 or a sub-set of the physical nodes and links of an IP/MPLS network; it may
 be comprised of dedicated and/or shared network resources (e.g., in terms of
@@ -380,7 +364,8 @@ determine the S-PHB and enforce slice aggregate traffic streams.
 The physical network resources in the network can be logically partitioned by having
 a representation of network resources appear in a virtual topology.  The
 virtual topology can contain all or a subset of the physical network
-resources. The logical network resources that appear in the virtual topology can
+resources by applying specific topology filters on the native topology.
+The logical network resources that appear in the virtual topology can
 reflect a part, whole, or in-excess of the physical network resource capacity (when
 oversubscription is desirable). For example, a physical link bandwidth can be
 divided into fractions, each dedicated to a slice aggregate. Each fraction of the
@@ -391,7 +376,10 @@ protocols, or by the ingress/PCE when computing slice aggregate aware TE paths.
 
 To perform network state dependent path computation in this mode (slice
 aggregate aware TE), the resource reservation on each link needs to be slice
-aggregate aware. Multiple slice policies may be applied on the same physical
+aggregate aware. Details of required IGP extensions to support SA-TE are
+described in {{!I-D.bestbar-lsr-slice-aware-te}}.
+
+Multiple slice policies may be applied on the same physical
 link.  The slice aggregate network resource availability on links is
 updated (and may eventually be advertised in the network) when new paths are
 placed in the network. The slice aggregate resource reservation, in this
@@ -538,7 +526,7 @@ and may include rules that control the following:
   network resource sharing amongst slice policies, and reservation preference to
   prioritize any reservations of a specific slice policy over others.
 
-- Topology membership policies: This defines policies that dictate
+- Topology membership policies: This defines topology filter policies that dictate
   node/link/function network resource topology association for a specific slice
   policy.
 
@@ -548,82 +536,69 @@ These networks may also be grouped into disparate domains and deploy various pat
 control technologies and tunnel techniques to carry traffic across the network.
 It is expected that a standardized data model for slice policy will
 facilitate the instantiation and management of slice aggregates on slice policy
-capable nodes.
+capable nodes. A YANG data model for the slice policy instantiation on network
+devices is described in {{!I-D.bestbar-teas-yang-slice-policy}}.
 
 It is also possible to distribute the slice policy to network devices using several
 mechanisms, including protocols such as NETCONF or RESTCONF, or
 exchanging it using a suitable routing protocol that network devices
-participate in (such as IGP(s) or BGP).
+participate in (such as IGP(s) or BGP). The extensions to
+enable specific protocols to carry a slice policy definition will be described in
+separate documents.
 
 ### Slice Policy Data Plane Selector {#SliceSelector}
 
 A router MUST be able to identify a packet belonging to a slice aggregate
-before it can apply the proper forwarding treatment or S-PHB associated with the slice policy.
+before it can apply the associated forwarding treatment or S-PHB.
 One or more fields within the packet MAY be used as an SS to do this.
 
-Forwarding Address Slice Selector:
+Forwarding Address Based Slice Selector:
 
->  One approach to distinguish packets targeted to
-a destination but belonging to different slice aggregates is to assign multiple forwarding
-addresses (or multiple MPLS label bindings in the case of MPLS network) for the same node
--- one for each slice aggregate that traffic can be steered on towards the
-destination.  For example, when realizing a network slice over an IP dataplane,
-the same destination can be assigned multiple IP addresses (or multiple SRv6
-locators in the case of SRv6 network) to enable steering of traffic to the same
-destination over multiple slice policies.
+>  It is possible to assign a different forwarding address (or MPLS forwarding
+>  label in case of MPLS network) for each slice aggregate on a specific node
+>  in the network. {{!RFC3031}} states in Section 2.1 that: 'Some routers
+>  analyze a packet's network layer header not merely to choose the packet's
+>  next hop, but also to determine a packet's "precedence" or "class of
+>  service"'. Assigning a unique forwarding address (or MPLS forwarding label)
+>  to each slice aggregate allows slice aggregate packets destined to a node
+>  to be distinguished by the destination address (or
+>  MPLS forwarding label) that is carried in the packet.
 
-> Similarly, for MPLS dataplane, {{!RFC3031}} states in Section 2.1
-that: 'Some routers analyze a packet's network layer header not
-merely to choose the packet's next hop, but also to determine a packet's
-"precedence" or "class of service"'. In such case, the same destination can be
-assigned multiple MPLS label bindings corresponding to an LSP that traverses
-network resources of a specific slice aggregate towards the destination.
-
-
-> The slice aggregate specific forwarding address (or MPLS forwarding label) can be
-> carried in the packet to allow (IP or MPLS) routers
-along the path to identify the packets and apply the respective S-PHB
-and forwarding treatment. This approach requires maintaining per slice aggregate state
+> This approach requires maintaining per slice aggregate state
 for each destination in the network in both the control and data plane and on
-each router in the network.
-
-> For example, consider a network slicing provider
+each router in the network. For example, consider a network slicing provider
 with a network composed of 'N' nodes, each with 'K' adjacencies to its
-neighbors.  Assuming a node is reachable in as many as 'M' slice policies,
+neighbors.  Assuming a node can be reached over 'M' different slice aggregates,
 the node will have to assign and advertise reachability for 'N' unique
 forwarding addresses, or MPLS forwarding labels.
 Similarly, each node will have to assign a unique forwarding address
 (or MPLS forwarding label) for each of its 'K' adjacencies to enable strict
-steering over each.  Consequently, the control plane at any node in the network
-will need to store as many as (N+K)\*M states. In addition, a node will have to
-store and program (N+K)\*M forwarding addresses or labels entries in its
-Forwarding Information Base (FIB) to realize this. Therefore, as 'N', 'K', and
-'M' parameters increase, this approach will have scalability challenges
+steering over each.  The total number of control and data plane states that
+need to be stored and programmed in a router's forwarding is (N+K)\*M states.
+Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
 both in the control and data planes.
 
-Global Identifier Slice Selector:
+Global Identifier Based Slice Selector:
 
-> A slice policy can include a global Slice Selector (SS) field can be carried
-in each packet to identify the packet belonging to a specific slice aggregate,
+> A slice policy can include a global Slice Selector (SS) field that is carried
+in each packet to associate it to a specific slice aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the slice policy domain can use the forwarding
-address (or MPLS forwarding label) to determine the forwarding path, and use
-the SS field in the packet to determine the specific S-PHB that gets applied on
-the packet. This approach allows better scale since it relies on a single
-forwarding address or MPLS label binding to be used independent of the number
-of slice policies required along the path.
-In this case, the additional SS field will need to be carried, and maintained
-in each packet while it traverses the slice policy domain.
+address (or MPLS forwarding label) to determine the forwarding path (next-hop),
+and use the SS field in the packet to infer the specific forwarding treatment that needs to be applied on
+the packet. This approach achieves better scale as the number slice aggregates
+grow.
 
 > The SS can be carried in one of multiple fields within the packet, depending on
-the dataplane type used. For example, in MPLS networks, the SS can be
-represented as a global MPLS label that is carried in the packet's MPLS label stack.
+the dataplane used. For example, in MPLS networks, the SS can be
+encoded within an MPLS label that is carried in the packet's MPLS label stack.
 All packets that belong to the same slice aggregate MAY carry the same SS label in the
-MPLS label stack. It is possible, as well, to have multiple SS labels that map
-to the same slice policy S-PHB.
+MPLS label stack. It is possible, as well, to have multiple SS map
+to the same slice policy.
 
 > The MPLS SS Label (SSL) may appear in
-several positions in the MPLS label stack. For example, the MPLS SSL can be
+several positions in the MPLS label stack.
+For example, the MPLS SSL can be
 maintained at the top of the label stack while the packet is forwarded along the MPLS
 path. In this case, the forwarding at each hop is determined by the forwarding
 label that resides below the SSL.  {{top-stack}} shows an example where the SSL
@@ -662,12 +637,14 @@ packet:
 {: #top-stack title="SSL at top of label stack."}
 
 > The SSL can also reside at the bottom of the label stack. For example,
-the VPN service label may also be used as an SSL which allows steering of
+the VPN service label may be used as an SSL to allows packets within the
+same VPN to be associated with the same slice aggregate.
 traffic towards one or more egress PEs over the same slice aggregate.
-In such cases, one or more service labels MAY be mapped to the same slice aggregate.
-The same VPN label may also be allocated on all Egress PEs so it can serve
-as a single SSL for a specific slice policy. Alternatively, a
-range of VPN labels may be mapped to a single slice aggregate to
+One or more service labels MAY be mapped to the same slice aggregate so
+traffic destined to different Egress PEs of the same VPN gets mapped to the
+slice aggregate. In other cases, a single VPN label if allocated on all Egress PEs for a
+VPN can serve as a SSL in the slice policy. A
+range of VPN labels can also be mapped to a single slice aggregate to
 allow carrying multiple VPNs over the same slice aggregate as
 shown in {{bottom-stack}}.
 
@@ -974,7 +951,7 @@ devices and controllers. A suitable transport (e.g.  NETCONF {{?RFC6241}},
 RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
 retrieval of state information for slice policies on network devices. The slice
 policy YANG data model is outside the scope of this document, and
-is defined [I-D.bestbar-teas-yang-slice-policy].
+is defined in {{!I-D.bestbar-teas-yang-slice-policy}}.
 
 # Applicability to Path Control Technologies
 
@@ -986,7 +963,7 @@ over the resources allocated for the slice aggregate.
 
 For example, once the feasible paths within a slice policy topology are
 selected, it is possible to use RSVP-TE protocol {{!RFC3209}} to setup or
-signal the LSPs that would be used to carry slice aggregate traffic.  Specific
+signal the LSPs that would be used to carry the slice aggregate traffic.  Specific
 extensions to RSVP-TE protocol to enable signaling of slice aggregate aware RSVP
 LSPs are outside the scope of this document.
 
@@ -994,7 +971,7 @@ Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
 paths can be realized by steering over specific segments or segment-lists
 using an SR policy. Further details on how the slice policy modes presented in this
 document can be realized over an SR network is discussed in
-{{!I-D.bestbar-spring-scalable-ns}}, and [I-D.bestbar-lsr-spring-sa].
+{{!I-D.bestbar-spring-scalable-ns}}, and {{!I-D.bestbar-lsr-spring-sa}}.
 
 # IANA Considerations
 
