@@ -578,25 +578,24 @@ need to be stored and programmed in a router's forwarding is (N+K)\*M states.
 Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
 both in the control and data planes.
 
-Global Identifier Based Slice Selector:
+Identifier Based Slice Selector:
 
-> A slice policy can include a global Slice Selector (SS) field that is carried
+> A slice policy can include a Slice Selector Identifier (SSI) field that is carried
 in each packet to associate it to a specific slice aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the slice policy domain can use the forwarding
-address (or MPLS forwarding label) to determine the forwarding path (next-hop),
-and use the SS field in the packet to infer the specific forwarding treatment that needs to be applied on
-the packet. This approach achieves better scale as the number slice aggregates
-grow.
+address (or MPLS forwarding label) to determine the forwarding next-hop(s),
+and use the SSI field in the packet to infer the specific forwarding treatment that needs to be applied on
+the packet. 
 
-> The SS can be carried in one of multiple fields within the packet, depending on
-the dataplane used. For example, in MPLS networks, the SS can be
+> The SSI can be carried in one of multiple fields within the packet, depending on
+the dataplane used. For example, in MPLS networks, the SSI can be
 encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same slice aggregate MAY carry the same SS label in the
-MPLS label stack. It is possible, as well, to have multiple SS map
-to the same slice policy.
+All packets that belong to the same slice aggregate MAY carry the same SSI label in the
+MPLS label stack. It is possible, as well, to have multiple SSI map
+to the same slice aggregate.
 
-> The MPLS SS Label (SSL) may appear in
+> The SSI can be Label (SSL) may appear in
 several positions in the MPLS label stack.
 For example, the MPLS SSL can be
 maintained at the top of the label stack while the packet is forwarded along the MPLS
@@ -636,21 +635,16 @@ packet:
 ~~~~
 {: #top-stack title="SSL at top of label stack."}
 
-> The SSL can also reside at the bottom of the label stack. For example,
-the VPN service label may be used as an SSL to allows packets within the
-same VPN to be associated with the same slice aggregate.
-traffic towards one or more egress PEs over the same slice aggregate.
-One or more service labels MAY be mapped to the same slice aggregate so
-traffic destined to different Egress PEs of the same VPN gets mapped to the
-slice aggregate. In other cases, a single VPN label if allocated on all Egress PEs for a
-VPN can serve as a SSL in the slice policy. A
-range of VPN labels can also be mapped to a single slice aggregate to
-allow carrying multiple VPNs over the same slice aggregate as
-shown in {{bottom-stack}}.
-
+> The VPN service label may also be used as an SSI to allow VPN packets
+to be associated with a slice aggregate. A single VPN service label
+allocated by all Egress PEs for a VPN can be used as an SSI to associate packets of the VPN
+Alternatively, multiple service labels MAY map to the same slice aggregate to
+allow for different VPN service labels allocated by the Egress PEs of a VPN.
+In other cases, a range of VPN labels can be used to map multiple VPN traffic to
+a single slice aggregate. An example of such deployment is shown in {{bottom-stack}}.
 
 ~~~~
-  SR Adj-SID:          SSL (VPN) on PE2: 1001
+  SR Adj-SID:          SSI (VPN service label) on PE2: 1001
      9012: P1-P2
      9023: P2-PE2
 
@@ -675,43 +669,47 @@ packet:
 ~~~~
 {: #bottom-stack title="SSL or VPN label at bottom of label stack."}
 
-> In some cases, the position of the SSL may not be at a fixed place
-in the MPLS label header. In this case, transit routers cannot expect the SSL
-at a fixed place in the MPLS label stack. This can be addressed by introducing
-a new Special Purpose Label from the label reserved space called a Slice
-Selector Label Indicator (SSLI). The slice policy ingress boundary node, in
-this case, will need to impose at least two additional MPLS labels (SSLI + SSL)
+> In some cases, the position of the SSI may not be at a fixed position
+in the MPLS label header. In this case, the SSI label can show up in any
+position in the in the MPLS label stack. To help transit router identify
+the position of the SSI label, a special purpose label (ideally a base
+special purpose label (bSPL)) can be used. {{!I-D.kompella-mpls-mspl4fa}}
+proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
+to alert of the presence of multiple actions data (including a SSI) that is carried
+within the MPLSS label stack. 
+
+The slice policy ingress boundary node, in
+this case, imposes two labels: the FAI label and a forwarding actions label that includdes the SSI.
 to identify the slice aggregate that the packets belong to as shown in
 {{sli-sl}}.
 
 ~~~~
-     SR Adj-SID:          SSLI/SSL: SSLI/1001
-        9012: P1-P2
-        9023: P2-PE2
+SR Adj-SID:          SSLI/SSL: SSLI/1001
+9012: P1-P2
+9023: P2-PE2
 
-            /-----\        /-----\        /-----\       /-----\
-            | PE1 | -----  | P1  | ------ | P2  |------ | PE2 |
-            \-----/        \-----/        \-----/       \-----/
+    /-----\        /-----\        /-----\       /-----\
+    | PE1 | -----  | P1  | ------ | P2  |------ | PE2 |
+    \-----/        \-----/        \-----/       \-----/
 
-   In
-   packet:
-   +------+       +------+         +------+        +------+
-   | IP   |       | 9012 |         | 9023 |        | SSLI |
-   +------+       +------+         +------+        +------+
-   | Pay- |       | 9023 |         | SSLI |        | 1001 |
-   | Load |       +------+         +------+        +------+
-   +------+       | SSLI |         | 1001 |        | IP   |
-                  +------+         +------+        +------+
-                  | 1001 |         | IP   |        | Pay- |
-                  +------+         +------+        | Load |
-                  | IP   |         | Pay- |        +------+
-                  +------+         | Load |
-                  | Pay- |         +------+
-                  | Load |
-                  +------+
+    In
+    packet:
+    +------+       +------+         +------+     +------+
+    | IP   |       | 9012 |         | 9023 |     | FAI  |
+    +------+       +------+         +------+     +------+
+    | Pay- |       | 9023 |         | FAI  |     | 1001 |
+    | Load |       +------+         +------+     +------+
+    +------+       | FAI  |         | 1001 |     | IP   |
+                   +------+         +------+     +------+
+                   | 1001 |         | IP   |     | Pay- |
+                   +------+         +------+     | Load |
+                   | IP   |         | Pay- |     +------+
+                   +------+         | Load |
+                   | Pay- |         +------+
+                   | Load |
+                   +------+
 ~~~~
-{:#sli-sl title="SSLI and bottom SSL at bottom of label stack."}
-
+{:#sli-sl title="FAI and SSI label in the label stack."}
 
 
 > When the slice is realized over an IP dataplane, the SSL can be encoded in
@@ -789,31 +787,31 @@ to a slice policy.  For example, a topology filtering policy can leverage
 Resource Affinities as defined in {{?RFC2702}} to include or exclude certain
 links for a specific slice aggregate.  The slice policy may also include a
 reference to a predefined topology (e.g. derived from a Flexible Algorithm
-Definition (FAD) as defined in {{!I-D.ietf-lsr-flex-algo}}, or Multi-Topology
-ID as defined {{!RFC4915}}.
+    Definition (FAD) as defined in {{!I-D.ietf-lsr-flex-algo}}, or Multi-Topology
+    ID as defined {{!RFC4915}}.
 
 
 ## Slice Policy Boundary
 
-A network slice originates at the edge nodes of a network slice provider.
-Traffic that is steered over the corresponding slice policy may traverse
-slice policy capable interior nodes, as well as, slice policy incapable
-interior nodes.
+    A network slice originates at the edge nodes of a network slice provider.
+    Traffic that is steered over the corresponding slice policy may traverse
+    slice policy capable interior nodes, as well as, slice policy incapable
+    interior nodes.
 
-The network slice may encompass one or more domains administered by a provider.
-For example, an organization's intranet or an ISP.  The network provider
-is responsible for ensuring that adequate network resources are
-provisioned and/or reserved to support the SLAs offered by the network
-end-to-end.
+    The network slice may encompass one or more domains administered by a provider.
+    For example, an organization's intranet or an ISP.  The network provider
+    is responsible for ensuring that adequate network resources are
+    provisioned and/or reserved to support the SLAs offered by the network
+    end-to-end.
 
 ### Slice Policy Edge Nodes
 
-Slice policy edge nodes sit at the boundary of a network slice provider network
+    Slice policy edge nodes sit at the boundary of a network slice provider network
 and receive traffic that requires steering over network resources specific to a
 slice aggregate. These edge nodes are responsible for identifying slice
 aggregate specific traffic flows by possibly inspecting multiple fields from
 inbound packets (e.g. implementations may inspect IP traffic's network 5-tuple
-in the IP and transport protocol headers) to decide on which slice policy it
+    in the IP and transport protocol headers) to decide on which slice policy it
 can be steered.
 
 Network slice ingress nodes may condition the inbound traffic at network boundaries in
@@ -855,44 +853,44 @@ devices within the network -- including slice policy incapable devices.
 
 For example, when the SS is an MPLS label at the bottom of the MPLS label
 stack, packets can traverse over devices that are slice policy incapable 
-without any further considerations. On the other hand, when the SSL
+  without any further considerations. On the other hand, when the SSL
 is at the top of the MPLS label stack, packets can be bypassed (or tunneled)
-over the slice policy incapable devices towards the next device that
-supports slice policy as shown in {{sl-interworking}}.
+  over the slice policy incapable devices towards the next device that
+  supports slice policy as shown in {{sl-interworking}}.
 
-~~~~
+  ~~~~
   SR Node-SID:           SSL: 1001    @@@: slice policy enforced
-     1601: P1                         ...: slice policy not enforced
-     1602: P2
-     1603: P3
-     1604: P4
-     1605: P5
+  1601: P1                         ...: slice policy not enforced
+  1602: P2
+  1603: P3
+  1604: P4
+  1605: P5
 
-            @@@@@@@@@@@@@@ ........................
-                                                  .
-           /-----\        /-----\        /-----\  .
-           | P1  | -----  | P2  | ----- | P3  |   .
-           \-----/        \-----/        \-----/  .
-                                            |     @@@@@@@@@@
-                                            |     
-                                         /-----\        /-----\ 
-                                         | P4  | ------ | P5  |
-                                         \-----/        \-----/
+  @@@@@@@@@@@@@@ ........................
+  .
+  /-----\        /-----\        /-----\  .
+  | P1  | -----  | P2  | ----- | P3  |   .
+  \-----/        \-----/        \-----/  .
+  |     @@@@@@@@@@
+  |     
+  /-----\        /-----\ 
+  | P4  | ------ | P5  |
+  \-----/        \-----/
 
 
-            +------+       +------+        +------+     
-            | 1001 |       | 1604 |        | 1001 |     
-            +------+       +------+        +------+     
-            | 1605 |       | 1001 |        | IP   |     
-            +------+       +------+        +------+     
-            | IP   |       | 1605 |        | Pay- |     
-            +------+       +------+        | Load |     
-            | Pay- |       | IP   |        +------+     
-            | Load |       +------+                     
-            +----- +       | Pay- |                     
-                           | Load |                     
-                           +------+                     
-~~~~
+  +------+       +------+        +------+     
+  | 1001 |       | 1604 |        | 1001 |     
+  +------+       +------+        +------+     
+  | 1605 |       | 1001 |        | IP   |     
+  +------+       +------+        +------+     
+  | IP   |       | 1605 |        | Pay- |     
+  +------+       +------+        | Load |     
+  | Pay- |       | IP   |        +------+     
+  | Load |       +------+                     
+  +----- +       | Pay- |                     
+  | Load |                     
+  +------+                     
+  ~~~~
 {:#sl-interworking title="Extending network slice over slice policy incapable device(s)."}
 
 ### Combining Slice Policy Modes
@@ -948,7 +946,7 @@ capable devices.
 
 For example, a YANG data model for the slice policy may be supported on network
 devices and controllers. A suitable transport (e.g.  NETCONF {{?RFC6241}},
-RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
+    RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
 retrieval of state information for slice policies on network devices. The slice
 policy YANG data model is outside the scope of this document, and
 is defined in {{!I-D.bestbar-teas-yang-slice-policy}}.
@@ -1011,15 +1009,15 @@ valuable feedback on it.
 The following individuals contributed to this document:
 
 ~~~
-   Colby Barth
-   Juniper Networks
-   Email: cbarth@juniper.net
+Colby Barth
+Juniper Networks
+Email: cbarth@juniper.net
 
-   Srihari R.  Sangli
-   Juniper Networks
-   Email: ssangli@juniper.net
+Srihari R.  Sangli
+Juniper Networks
+Email: ssangli@juniper.net
 
-   Chandra Ramachandran
-   Juniper Networks
-   Email: csekar@juniper.net
+Chandra Ramachandran
+Juniper Networks
+Email: csekar@juniper.net
 ~~~
