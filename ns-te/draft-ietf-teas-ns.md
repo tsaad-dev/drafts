@@ -578,73 +578,34 @@ need to be stored and programmed in a router's forwarding is (N+K)\*M states.
 Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
 both in the control and data planes.
 
-Identifier Based Slice Selector:
+Global Identifier Based Slice Selector:
 
-> A slice policy can include a Slice Selector Identifier (SSI) field that is carried
+> A slice policy can include a Global Identifier Slice Selector (GISS) field that is carried
 in each packet to associate it to a specific slice aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the slice policy domain can use the forwarding
 address (or MPLS forwarding label) to determine the forwarding next-hop(s),
-and use the SSI field in the packet to infer the specific forwarding treatment that needs to be applied on
+and use the GISS field in the packet to infer the specific forwarding treatment that needs to be applied on
 the packet. 
 
-> The SSI can be carried in one of multiple fields within the packet, depending on
-the dataplane used. For example, in MPLS networks, the SSI can be
+> The GISS can be carried in one of multiple fields within the packet, depending on
+the dataplane used. For example, in MPLS networks, the GISS can be
 encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same slice aggregate MAY carry the same SSI label in the
-MPLS label stack. It is possible, as well, to have multiple SSI map
+All packets that belong to the same slice aggregate MAY carry the same GISS label in the
+MPLS label stack. It is possible, as well, to have multiple GISS map
 to the same slice aggregate.
 
-> The SSI can be Label (SSL) may appear in
-several positions in the MPLS label stack.
-For example, the MPLS SSL can be
-maintained at the top of the label stack while the packet is forwarded along the MPLS
-path. In this case, the forwarding at each hop is determined by the forwarding
-label that resides below the SSL.  {{top-stack}} shows an example where the SSL
-appears at the top of MPLS label stack in a packet. PE1 is a slice policy edge node
-that receives the packet that needs to be steered over a slice specific MPLS Path. PE1
-computes the SR Path composed of the Label Segment-List={9012, 9023}. It
-imposes an SSL 1001 corresponding to Slice-ID 1001 followed by the SR Path
-Segment-List.  At P1, the top label sets the context of the packet to
-Slice-ID=1001. The forwarding of the packet is determined by inspecting the
-forwarding label (below the SSL) within the context of SSL.
-
-~~~~
-  SR Adj-SID:           SSL: 1001
-     9012: P1-P2
-     9023: P2-PE2
-
-         /-----\        /-----\        /-----\       /-----\
-         | PE1 | -----  | P1  | ------ | P2  |------ | PE2 |
-         \-----/        \-----/        \-----/       \-----/
-
-In 
-packet: 
-+------+       +------+         +------+        +------+
-| IP   |       | 1001 |         | 1001 |        | 1001 |
-+------+       +------+         +------+        +------+
-| Pay- |       | 9012 |         | 9023 |        | IP   | 
-| Load |       +------+         +------+        +------+
-+----- +       | 9023 |         | IP   |        | Pay- |
-               +------+         +------+        | Load |
-               | IP   |         | Pay- |        +------+
-               +------+         | Load |
-               | Pay- |         +------+
-               | Load |
-               +------+
-~~~~
-{: #top-stack title="SSL at top of label stack."}
-
-> The VPN service label may also be used as an SSI to allow VPN packets
+> The GISS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
+For example, the VPN service label may also act as a GISS to allow VPN packets
 to be associated with a slice aggregate. A single VPN service label
-allocated by all Egress PEs for a VPN can be used as an SSI to associate packets of the VPN
+allocated by all Egress PEs for a VPN can be used as a GISS to associate packets of the VPN
 Alternatively, multiple service labels MAY map to the same slice aggregate to
 allow for different VPN service labels allocated by the Egress PEs of a VPN.
 In other cases, a range of VPN labels can be used to map multiple VPN traffic to
 a single slice aggregate. An example of such deployment is shown in {{bottom-stack}}.
 
 ~~~~
-  SR Adj-SID:          SSI (VPN service label) on PE2: 1001
+  SR Adj-SID:          GISS (VPN service label) on PE2: 1001
      9012: P1-P2
      9023: P2-PE2
 
@@ -669,22 +630,22 @@ packet:
 ~~~~
 {: #bottom-stack title="SSL or VPN label at bottom of label stack."}
 
-> In some cases, the position of the SSI may not be at a fixed position
-in the MPLS label header. In this case, the SSI label can show up in any
+> In some cases, the position of the GISS may not be at a fixed position
+in the MPLS label header. In this case, the GISS label can show up in any
 position in the in the MPLS label stack. To help transit router identify
-the position of the SSI label, a special purpose label (ideally a base
+the position of the GISS label, a special purpose label (ideally a base
 special purpose label (bSPL)) can be used. {{!I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
 to alert of the presence of multiple actions and action data (including the
-presence of the SSI) that are carried within the MPLS label stack. 
+presence of the GISS) that are carried within the MPLS label stack. 
 
 > The slice policy ingress boundary node, in
-this case, imposes two labels: the FAI label and a forwarding actions label that includdes the SSI.
+this case, imposes two labels: the FAI label and a forwarding actions label that includdes the GISS.
 to identify the slice aggregate that the packets belong to as shown in
 {{sli-sl}}.
 
 ~~~~
-     SR Adj-SID:          SSI: 1001
+     SR Adj-SID:          GISS: 1001
         9012: P1-P2
         9023: P2-PE2
 
@@ -709,7 +670,7 @@ to identify the slice aggregate that the packets belong to as shown in
                   | Load |
                   +------+
 ~~~~
-{:#sli-sl title="FAI and SSI label in the label stack."}
+{:#sli-sl title="FAI and GISS label in the label stack."}
 
 > When the slice is realized over an IP dataplane, the SSL can be encoded in
 the IP header. For example, the SSL can be encoded in portion of the IPv6
