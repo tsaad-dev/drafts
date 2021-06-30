@@ -169,7 +169,8 @@ IETF network slice:
 : a well-defined composite of a set of
 endpoints, the connectivity requirements between subsets of these
 endpoints, and associated requirements; the term 'network slice'
-in this document refers to 'IETF network slice' {{?I-D.ietf-teas-ietf-network-slice-definition}}.
+in this document refers to 'IETF network slice' as defined in 
+{{?I-D.ietf-teas-ietf-network-slice-definition}}.
 
 IETF Network Slice Controller (NSC):
 : controller that is used to realize an IETF network slice {{?I-D.ietf-teas-ietf-network-slice-definition}}.
@@ -221,7 +222,7 @@ Slice aggregate aware TE:
 
 > S-PHB: Slice policy Per Hop Behavior as described in {{SlicePHB}}
 
-> SSL: Slice Selector Label as described in section {{SliceSelector}}
+> SSL: Slice Selector Label as described in {{SliceSelector}}
 
 > SSLI: Slice Selector Label Indicator
 
@@ -569,19 +570,19 @@ for each destination in the network in both the control and data plane and on
 each router in the network. For example, consider a network slicing provider
 with a network composed of 'N' nodes, each with 'K' adjacencies to its
 neighbors.  Assuming a node can be reached over 'M' different slice aggregates,
-the node will have to assign and advertise reachability for 'N' unique
+the node assigns and advertises reachability to 'N' unique
 forwarding addresses, or MPLS forwarding labels.
-Similarly, each node will have to assign a unique forwarding address
+Similarly, each node assigns a unique forwarding address
 (or MPLS forwarding label) for each of its 'K' adjacencies to enable strict
-steering over each.  The total number of control and data plane states that
+steering over the adjacency for each slice.  The total number of control and data plane states that
 need to be stored and programmed in a router's forwarding is (N+K)\*M states.
 Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
-both in the control and data planes.
+in both the control and data planes.
 
 Global Identifier Based Slice Selector:
 
-> A slice policy can include a Global Identifier Slice Selector (GISS) field that is carried
-in each packet to associate it to a specific slice aggregate,
+> A slice policy MAY include a Global Identifier Slice Selector (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
+in each packet in order to associate it to a specific slice aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the slice policy domain can use the forwarding
 address (or MPLS forwarding label) to determine the forwarding next-hop(s),
@@ -591,17 +592,17 @@ the packet.
 > The GISS can be carried in one of multiple fields within the packet, depending on
 the dataplane used. For example, in MPLS networks, the GISS can be
 encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same slice aggregate MAY carry the same GISS label in the
-MPLS label stack. It is possible, as well, to have multiple GISS map
+All packets that belong to the same slice aggregate MAY carry the same GISS in the
+MPLS label stack. It is also possible to have multiple GISS's map
 to the same slice aggregate.
 
 > The GISS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
-For example, the VPN service label may also act as a GISS to allow VPN packets
-to be associated with a slice aggregate. A single VPN service label
-allocated by all Egress PEs for a VPN can be used as a GISS to associate packets of the VPN
-Alternatively, multiple service labels MAY map to the same slice aggregate to
-allow for different VPN service labels allocated by the Egress PEs of a VPN.
-In other cases, a range of VPN labels can be used to map multiple VPN traffic to
+For example, the VPN service label may act as a GISS to allow VPN packets
+to be associated with a specific slice aggregate. In this case, a single VPN service label
+acting as a GISS MAY be allocated by all Egress PEs of a VPN.
+Alternatively, multiple VPN service labels MAY act as GISS's that map a single VPN to the same slice aggregate to
+allow for multiple Egress PEs to allocate different VPN service labels for a VPN.
+In other cases, a range of VPN service labels acting as multiple GISS's MAY map multiple VPN traffic to
 a single slice aggregate. An example of such deployment is shown in {{bottom-stack}}.
 
 ~~~~
@@ -640,7 +641,7 @@ to alert of the presence of multiple actions and action data (including the
 presence of the GISS) that are carried within the MPLS label stack. 
 
 > The slice policy ingress boundary node, in
-this case, imposes two labels: the FAI label and a forwarding actions label that includdes the GISS.
+this case, imposes two labels: the FAI label and a forwarding actions label that includes the GISS.
 to identify the slice aggregate that the packets belong to as shown in
 {{sli-sl}}.
 
@@ -696,7 +697,7 @@ A preference based allocation scheme enables prioritization of slice aggregate p
 that can be preempted.
 
 Since network characteristics and its state can change over time, the slice policy
-topology and its state also needs to be propagated in the network to enable
+topology and its state also need to be propagated in the network to enable
 ingress TE routers or Path Computation Engine (PCEs) to perform accurate  path placement
 based on the current state of the slice policy network resources.
 
@@ -746,7 +747,7 @@ as part of the slice policy to limit the specific topology elements that belong
 to a slice policy.  For example, a topology filtering policy can leverage
 Resource Affinities as defined in {{?RFC2702}} to include or exclude certain
 links for a specific slice aggregate.  The slice policy may also include a
-reference to a predefined topology (e.g. derived from a Flexible Algorithm
+reference to a predefined topology (e.g., derived from a Flexible Algorithm
 Definition (FAD) as defined in {{!I-D.ietf-lsr-flex-algo}}, or Multi-Topology
 ID as defined {{!RFC4915}}.
 
@@ -754,8 +755,8 @@ ID as defined {{!RFC4915}}.
 ## Slice Policy Boundary
 
 A network slice originates at the edge nodes of a network slice provider.
-Traffic that is steered over the corresponding slice policy may traverse
-slice policy capable interior nodes, as well as, slice policy incapable
+Traffic that is steered over the corresponding slice aggregate may traverse
+slice policy capable interior nodes as well as slice policy incapable
 interior nodes.
 
 The network slice may encompass one or more domains administered by a provider.
@@ -770,7 +771,7 @@ Slice policy edge nodes sit at the boundary of a network slice provider network
 and receive traffic that requires steering over network resources specific to a
 slice aggregate. These edge nodes are responsible for identifying slice
 aggregate specific traffic flows by possibly inspecting multiple fields from
-inbound packets (e.g. implementations may inspect IP traffic's network 5-tuple
+inbound packets (e.g., implementations may inspect IP traffic's network 5-tuple
 in the IP and transport protocol headers) to decide on which slice policy it
 can be steered.
 
@@ -791,7 +792,7 @@ A slice policy interior node receives slice traffic and MAY be able to identify 
 packets belonging to a specific slice aggregate by inspecting the SS
 field carried inside each packet, or by inspecting other fields
 within the packet that may identify the traffic streams that belong to a specific
-slice aggregate. For example when data plane slice policy is applied, interior
+slice aggregate. For example, when data plane slice policy is applied, interior
 nodes can use the SS carried within the packet to apply the corresponding S-PHB
 forwarding behavior. Nodes within the network slice provider network may also
 inspect the Diffserv CS within each packet to apply a per Diffserv class PHB
@@ -877,7 +878,7 @@ mapped to paths established for a slice aggregate. In this case, the per Virtual
 Forwarding (VRF) instance
 traffic that arrives on the Provider Edge (PE) router over external interfaces can be
 directly mapped to a specific slice aggregate path. External interfaces can be
-further partitioned (e.g. using VLANs) to allow mapping one or more VLANs to
+further partitioned (e.g., using VLANs) to allow mapping one or more VLANs to
 specific slice aggregate paths.
 
 Another option is steer traffic to specific destinations directly over multiple
@@ -905,7 +906,7 @@ are possible to facilitate automation of distribution of a slice policy to
 capable devices.
 
 For example, a YANG data model for the slice policy may be supported on network
-devices and controllers. A suitable transport (e.g.  NETCONF {{?RFC6241}},
+devices and controllers. A suitable transport (e.g.,  NETCONF {{?RFC6241}},
 RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
 retrieval of state information for slice policies on network devices. The slice
 policy YANG data model is outside the scope of this document, and

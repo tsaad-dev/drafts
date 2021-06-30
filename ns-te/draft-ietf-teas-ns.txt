@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: December 26, 2021                                        B. Wen
+Expires: December 31, 2021                                        B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                               J. Halpern
@@ -19,7 +19,7 @@ Expires: December 26, 2021                                        B. Wen
                                                               Telefonica
                                                                 R. Rokui
                                                                    Nokia
-                                                           June 24, 2021
+                                                           June 29, 2021
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 1]
+Saad, et al.            Expires December 31, 2021               [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -63,7 +63,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 26, 2021.
+   This Internet-Draft will expire on December 31, 2021.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 2]
+Saad, et al.            Expires December 31, 2021               [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 3]
+Saad, et al.            Expires December 31, 2021               [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -211,7 +211,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
       a well-defined composite of a set of endpoints, the connectivity
       requirements between subsets of these endpoints, and associated
       requirements; the term 'network slice' in this document refers to
-      'IETF network slice'
+      'IETF network slice' as defined in
       [I-D.ietf-teas-ietf-network-slice-definition].
 
    IETF Network Slice Controller (NSC):
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 4]
+Saad, et al.            Expires December 31, 2021               [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 5]
+Saad, et al.            Expires December 31, 2021               [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -292,7 +292,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
       S-PHB: Slice policy Per Hop Behavior as described in Section 5.1.3
 
-      SSL: Slice Selector Label as described in section Section 5.1.1
+      SSL: Slice Selector Label as described in Section 5.1.1
 
       SSLI: Slice Selector Label Indicator
 
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 6]
+Saad, et al.            Expires December 31, 2021               [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 7]
+Saad, et al.            Expires December 31, 2021               [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -445,7 +445,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 8]
+Saad, et al.            Expires December 31, 2021               [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -501,7 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021               [Page 9]
+Saad, et al.            Expires December 31, 2021               [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 10]
+Saad, et al.            Expires December 31, 2021              [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -613,7 +613,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 11]
+Saad, et al.            Expires December 31, 2021              [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -669,7 +669,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 12]
+Saad, et al.            Expires December 31, 2021              [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -725,7 +725,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 13]
+Saad, et al.            Expires December 31, 2021              [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -770,55 +770,56 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
       and on each router in the network.  For example, consider a
       network slicing provider with a network composed of 'N' nodes,
       each with 'K' adjacencies to its neighbors.  Assuming a node can
-      be reached over 'M' different slice aggregates, the node will have
-      to assign and advertise reachability for 'N' unique forwarding
-      addresses, or MPLS forwarding labels.  Similarly, each node will
-      have to assign a unique forwarding address (or MPLS forwarding
-      label) for each of its 'K' adjacencies to enable strict steering
-      over each.  The total number of control and data plane states that
+      be reached over 'M' different slice aggregates, the node assigns
+      and advertises reachability to 'N' unique forwarding addresses, or
+      MPLS forwarding labels.  Similarly, each node assigns a unique
+      forwarding address (or MPLS forwarding label) for each of its 'K'
+      adjacencies to enable strict steering over the adjacency for each
+      slice.  The total number of control and data plane states that
       need to be stored and programmed in a router's forwarding is
       (N+K)*M states.  Hence, as 'N', 'K', and 'M' parameters increase,
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 14]
+Saad, et al.            Expires December 31, 2021              [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
-      this approach suffers from scalability challenges both in the
+      this approach suffers from scalability challenges in both the
       control and data planes.
 
    Global Identifier Based Slice Selector:
 
-      A slice policy can include a Global Identifier Slice Selector
-      (GISS) field that is carried in each packet to associate it to a
-      specific slice aggregate, independent of the forwarding address or
-      MPLS forwarding label that is bound to the destination.  Routers
-      within the slice policy domain can use the forwarding address (or
-      MPLS forwarding label) to determine the forwarding next-hop(s),
-      and use the GISS field in the packet to infer the specific
-      forwarding treatment that needs to be applied on the packet.
+      A slice policy MAY include a Global Identifier Slice Selector
+      (GISS) field as defined in [I-D.kompella-mpls-mspl4fa] that is
+      carried in each packet in order to associate it to a specific
+      slice aggregate, independent of the forwarding address or MPLS
+      forwarding label that is bound to the destination.  Routers within
+      the slice policy domain can use the forwarding address (or MPLS
+      forwarding label) to determine the forwarding next-hop(s), and use
+      the GISS field in the packet to infer the specific forwarding
+      treatment that needs to be applied on the packet.
 
       The GISS can be carried in one of multiple fields within the
       packet, depending on the dataplane used.  For example, in MPLS
       networks, the GISS can be encoded within an MPLS label that is
       carried in the packet's MPLS label stack.  All packets that belong
-      to the same slice aggregate MAY carry the same GISS label in the
-      MPLS label stack.  It is possible, as well, to have multiple GISS
-      map to the same slice aggregate.
+      to the same slice aggregate MAY carry the same GISS in the MPLS
+      label stack.  It is also possible to have multiple GISS's map to
+      the same slice aggregate.
 
       The GISS can be encoded in an MPLS label and may appear in several
       positions in the MPLS label stack.  For example, the VPN service
-      label may also act as a GISS to allow VPN packets to be associated
-      with a slice aggregate.  A single VPN service label allocated by
-      all Egress PEs for a VPN can be used as a GISS to associate
-      packets of the VPN Alternatively, multiple service labels MAY map
-      to the same slice aggregate to allow for different VPN service
-      labels allocated by the Egress PEs of a VPN.  In other cases, a
-      range of VPN labels can be used to map multiple VPN traffic to a
-      single slice aggregate.  An example of such deployment is shown in
-      Figure 3.
+      label may act as a GISS to allow VPN packets to be associated with
+      a specific slice aggregate.  In this case, a single VPN service
+      label acting as a GISS MAY be allocated by all Egress PEs of a
+      VPN.  Alternatively, multiple VPN service labels MAY act as GISS's
+      that map a single VPN to the same slice aggregate to allow for
+      multiple Egress PEs to allocate different VPN service labels for a
+      VPN.  In other cases, a range of VPN service labels acting as
+      multiple GISS's MAY map multiple VPN traffic to a single slice
+      aggregate.  An example of such deployment is shown in Figure 3.
 
 
 
@@ -836,8 +837,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-
-Saad, et al.            Expires December 26, 2021              [Page 15]
+Saad, et al.            Expires December 31, 2021              [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -879,9 +879,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
       MPLS label stack.
 
       The slice policy ingress boundary node, in this case, imposes two
-      labels: the FAI label and a forwarding actions label that
-      includdes the GISS.  to identify the slice aggregate that the
-      packets belong to as shown in Figure 4.
+      labels: the FAI label and a forwarding actions label that includes
+      the GISS.  to identify the slice aggregate that the packets belong
+      to as shown in Figure 4.
 
 
 
@@ -893,7 +893,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 16]
+Saad, et al.            Expires December 31, 2021              [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -949,7 +949,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 17]
+Saad, et al.            Expires December 31, 2021              [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -961,8 +961,8 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    prioritization of slice aggregate paths that can be preempted.
 
    Since network characteristics and its state can change over time, the
-   slice policy topology and its state also needs to be propagated in
-   the network to enable ingress TE routers or Path Computation Engine
+   slice policy topology and its state also need to be propagated in the
+   network to enable ingress TE routers or Path Computation Engine
    (PCEs) to perform accurate path placement based on the current state
    of the slice policy network resources.
 
@@ -1005,7 +1005,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 18]
+Saad, et al.            Expires December 31, 2021              [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1024,7 +1024,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    example, a topology filtering policy can leverage Resource Affinities
    as defined in [RFC2702] to include or exclude certain links for a
    specific slice aggregate.  The slice policy may also include a
-   reference to a predefined topology (e.g. derived from a Flexible
+   reference to a predefined topology (e.g., derived from a Flexible
    Algorithm Definition (FAD) as defined in [I-D.ietf-lsr-flex-algo], or
    Multi-Topology ID as defined [RFC4915].
 
@@ -1032,7 +1032,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
    A network slice originates at the edge nodes of a network slice
    provider.  Traffic that is steered over the corresponding slice
-   policy may traverse slice policy capable interior nodes, as well as,
+   aggregate may traverse slice policy capable interior nodes as well as
    slice policy incapable interior nodes.
 
    The network slice may encompass one or more domains administered by a
@@ -1048,9 +1048,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    network resources specific to a slice aggregate.  These edge nodes
    are responsible for identifying slice aggregate specific traffic
    flows by possibly inspecting multiple fields from inbound packets
-   (e.g. implementations may inspect IP traffic's network 5-tuple in the
-   IP and transport protocol headers) to decide on which slice policy it
-   can be steered.
+   (e.g., implementations may inspect IP traffic's network 5-tuple in
+   the IP and transport protocol headers) to decide on which slice
+   policy it can be steered.
 
    Network slice ingress nodes may condition the inbound traffic at
    network boundaries in accordance with the requirements or rules of
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 19]
+Saad, et al.            Expires December 31, 2021              [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1078,7 +1078,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    to identify the packets belonging to a specific slice aggregate by
    inspecting the SS field carried inside each packet, or by inspecting
    other fields within the packet that may identify the traffic streams
-   that belong to a specific slice aggregate.  For example when data
+   that belong to a specific slice aggregate.  For example, when data
    plane slice policy is applied, interior nodes can use the SS carried
    within the packet to apply the corresponding S-PHB forwarding
    behavior.  Nodes within the network slice provider network may also
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 20]
+Saad, et al.            Expires December 31, 2021              [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 21]
+Saad, et al.            Expires December 31, 2021              [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1192,7 +1192,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    case, the per Virtual Routing and Forwarding (VRF) instance traffic
    that arrives on the Provider Edge (PE) router over external
    interfaces can be directly mapped to a specific slice aggregate path.
-   External interfaces can be further partitioned (e.g. using VLANs) to
+   External interfaces can be further partitioned (e.g., using VLANs) to
    allow mapping one or more VLANs to specific slice aggregate paths.
 
    Another option is steer traffic to specific destinations directly
@@ -1223,13 +1223,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    distribution of a slice policy to capable devices.
 
    For example, a YANG data model for the slice policy may be supported
-   on network devices and controllers.  A suitable transport (e.g.
+   on network devices and controllers.  A suitable transport (e.g.,
    NETCONF [RFC6241], RESTCONF [RFC8040], or gRPC) may be used to enable
    configuration and retrieval of state information for slice policies
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 22]
+Saad, et al.            Expires December 31, 2021              [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 23]
+Saad, et al.            Expires December 31, 2021              [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 24]
+Saad, et al.            Expires December 31, 2021              [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 25]
+Saad, et al.            Expires December 31, 2021              [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 26]
+Saad, et al.            Expires December 31, 2021              [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1509,7 +1509,7 @@ Authors' Addresses
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 27]
+Saad, et al.            Expires December 31, 2021              [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2021
 
@@ -1565,4 +1565,4 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 26, 2021              [Page 28]
+Saad, et al.            Expires December 31, 2021              [Page 28]
