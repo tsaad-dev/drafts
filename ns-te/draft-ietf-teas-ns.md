@@ -380,12 +380,12 @@ aggregate aware TE), the resource reservation on each link needs to be slice
 aggregate aware. Details of required IGP extensions to support SA-TE are
 described in {{!I-D.bestbar-lsr-slice-aware-te}}.
 
-Multiple slice policies may be applied on the same physical
-link.  The slice aggregate network resource availability on links is
-updated (and may eventually be advertised in the network) when new paths are
+The same physical link may be member of multiple slice policies that instantiate
+different slice aggregates. The slice aggregate network resource availability on such a link is
+updated (and may be advertised) whenever new paths are
 placed in the network. The slice aggregate resource reservation, in this
-case, can be maintained on each device or be centralized on a resource
-reservation manager that holds reservation states on links in the network.
+case, MAY be maintained on each device or off the device on a resource
+reservation manager that holds reservation states for those links in the network.
 
 Multiple slice aggregates can form a group and share the available network
 resources allocated to each slice aggregate. In this case, a node can update
