@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: December 31, 2021                                        B. Wen
+Expires: January 7, 2022                                          B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                               J. Halpern
@@ -19,7 +19,7 @@ Expires: December 31, 2021                                        B. Wen
                                                               Telefonica
                                                                 R. Rokui
                                                                    Nokia
-                                                           June 29, 2021
+                                                           July 06, 2021
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 1]
+Saad, et al.             Expires January 7, 2022                [Page 1]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 31, 2021.
+   This Internet-Draft will expire on January 7, 2022.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 2]
+Saad, et al.             Expires January 7, 2022                [Page 2]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    7.  Applicability to Path Control Technologies  . . . . . . . . .  23
@@ -165,9 +165,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 3]
+Saad, et al.             Expires January 7, 2022                [Page 3]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    applied before the packet is forwarded further.  Similar principles
@@ -221,9 +221,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 4]
+Saad, et al.             Expires January 7, 2022                [Page 4]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Slice policy:
@@ -277,9 +277,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 5]
+Saad, et al.             Expires January 7, 2022                [Page 5]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
 1.2.  Acronyms and Abbreviations
@@ -333,9 +333,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 6]
+Saad, et al.             Expires January 7, 2022                [Page 6]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    contention from traffic of other slice aggregates.  Dedicated network
@@ -389,9 +389,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 7]
+Saad, et al.             Expires January 7, 2022                [Page 7]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    When network resource reservations are also slice aggregate aware,
@@ -445,9 +445,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 8]
+Saad, et al.             Expires January 7, 2022                [Page 8]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    dictates the forwarding path of packets to the destination.  The SS
@@ -501,9 +501,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021               [Page 9]
+Saad, et al.             Expires January 7, 2022                [Page 9]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    take into consideration the available bandwidth from other slice
@@ -557,9 +557,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 10]
+Saad, et al.             Expires January 7, 2022               [Page 10]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    I-----------------------------I       I-----------------------------I
@@ -613,9 +613,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 11]
+Saad, et al.             Expires January 7, 2022               [Page 11]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Engine (PCE) can use to determine optimal path placement for specific
@@ -669,9 +669,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 12]
+Saad, et al.             Expires January 7, 2022               [Page 12]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
                                   |
@@ -725,9 +725,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 13]
+Saad, et al.             Expires January 7, 2022               [Page 13]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    domains and deploy various path control technologies and tunnel
@@ -781,9 +781,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 14]
+Saad, et al.             Expires January 7, 2022               [Page 14]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
       this approach suffers from scalability challenges in both the
@@ -837,9 +837,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 15]
+Saad, et al.             Expires January 7, 2022               [Page 15]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
      SR Adj-SID:          GISS (VPN service label) on PE2: 1001
@@ -865,22 +865,22 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
                   | Load |
                   +------+
 
-           Figure 3: SSL or VPN label at bottom of label stack.
+           Figure 3: GISS or VPN label at bottom of label stack.
 
       In some cases, the position of the GISS may not be at a fixed
       position in the MPLS label header.  In this case, the GISS label
-      can show up in any position in the in the MPLS label stack.  To
-      help transit router identify the position of the GISS label, a
-      special purpose label (ideally a base special purpose label
-      (bSPL)) can be used.  [I-D.kompella-mpls-mspl4fa] proposes a new
-      bSPL called Forwarding Actions Identifier (FAI) that is assigned
-      to alert of the presence of multiple actions and action data
-      (including the presence of the GISS) that are carried within the
-      MPLS label stack.
+      can show up in any position in the MPLS label stack.  To help
+      transit router identify the position of the GISS label, a special
+      purpose label (ideally a base special purpose label (bSPL)) can be
+      used as a GISS label indicator.  [I-D.kompella-mpls-mspl4fa]
+      proposes a new bSPL called Forwarding Actions Identifier (FAI)
+      that is assigned to alert of the presence of multiple actions and
+      action data (including the presence of the GISS) that are carried
+      within the MPLS label stack.
 
       The slice policy ingress boundary node, in this case, imposes two
       labels: the FAI label and a forwarding actions label that includes
-      the GISS.  to identify the slice aggregate that the packets belong
+      the GISS to identify the slice aggregate that the packets belong
       to as shown in Figure 4.
 
 
@@ -893,9 +893,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 16]
+Saad, et al.             Expires January 7, 2022               [Page 16]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
         SR Adj-SID:          GISS: 1001
@@ -925,7 +925,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
              Figure 4: FAI and GISS label in the label stack.
 
-      When the slice is realized over an IP dataplane, the SSL can be
+      When the slice is realized over an IP dataplane, the GISS can be
       encoded in the IP header.  For example, the SSL can be encoded in
       portion of the IPv6 Flow Label field as described in
       [I-D.filsfils-spring-srv6-stateless-slice-id].
@@ -949,9 +949,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 17]
+Saad, et al.             Expires January 7, 2022               [Page 17]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Congestion on shared network resources may result from sub-optimal
@@ -1005,9 +1005,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 18]
+Saad, et al.             Expires January 7, 2022               [Page 18]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
 5.1.4.  Slice Policy Topology
@@ -1061,9 +1061,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 19]
+Saad, et al.             Expires January 7, 2022               [Page 19]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    When data plane slice policy is applied, the slice policy ingress
@@ -1117,9 +1117,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 20]
+Saad, et al.             Expires January 7, 2022               [Page 20]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
      SR Node-SID:           SSL: 1001    @@@: slice policy enforced
@@ -1173,9 +1173,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 21]
+Saad, et al.             Expires January 7, 2022               [Page 21]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    policy mode, and so slice PHB enforcement can resume once traffic
@@ -1229,9 +1229,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 22]
+Saad, et al.             Expires January 7, 2022               [Page 22]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    on network devices.  The slice policy YANG data model is outside the
@@ -1285,9 +1285,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 23]
+Saad, et al.             Expires January 7, 2022               [Page 23]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Such theft-of-service may become a denial-of-service attack when the
@@ -1341,9 +1341,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 24]
+Saad, et al.             Expires January 7, 2022               [Page 24]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    [I-D.bestbar-spring-scalable-ns]
@@ -1397,9 +1397,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 25]
+Saad, et al.             Expires January 7, 2022               [Page 25]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
@@ -1453,9 +1453,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 26]
+Saad, et al.             Expires January 7, 2022               [Page 26]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    [RFC2702]  Awduche, D., Malcolm, J., Agogbua, J., O'Dell, M., and J.
@@ -1509,9 +1509,9 @@ Authors' Addresses
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 27]
+Saad, et al.             Expires January 7, 2022               [Page 27]
 
-Internet-Draft           IP/MPLS Network Slicing               June 2021
+Internet-Draft           IP/MPLS Network Slicing               July 2021
 
 
    Shaofu Peng
@@ -1565,4 +1565,4 @@ Internet-Draft           IP/MPLS Network Slicing               June 2021
 
 
 
-Saad, et al.            Expires December 31, 2021              [Page 28]
+Saad, et al.             Expires January 7, 2022               [Page 28]

@@ -629,19 +629,19 @@ packet:
                | Load |
                +------+
 ~~~~
-{: #bottom-stack title="SSL or VPN label at bottom of label stack."}
+{: #bottom-stack title="GISS or VPN label at bottom of label stack."}
 
 > In some cases, the position of the GISS may not be at a fixed position
 in the MPLS label header. In this case, the GISS label can show up in any
-position in the in the MPLS label stack. To help transit router identify
+position in the MPLS label stack. To help transit router identify
 the position of the GISS label, a special purpose label (ideally a base
-special purpose label (bSPL)) can be used. {{!I-D.kompella-mpls-mspl4fa}}
+special purpose label (bSPL)) can be used as a GISS label indicator. {{!I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
 to alert of the presence of multiple actions and action data (including the
 presence of the GISS) that are carried within the MPLS label stack. 
 
 > The slice policy ingress boundary node, in
-this case, imposes two labels: the FAI label and a forwarding actions label that includes the GISS.
+this case, imposes two labels: the FAI label and a forwarding actions label that includes the GISS
 to identify the slice aggregate that the packets belong to as shown in
 {{sli-sl}}.
 
@@ -673,7 +673,7 @@ to identify the slice aggregate that the packets belong to as shown in
 ~~~~
 {:#sli-sl title="FAI and GISS label in the label stack."}
 
-> When the slice is realized over an IP dataplane, the SSL can be encoded in
+> When the slice is realized over an IP dataplane, the GISS can be encoded in
 the IP header. For example, the SSL can be encoded in portion of the IPv6
 Flow Label field as described in {{!I-D.filsfils-spring-srv6-stateless-slice-id}}.
 
