@@ -633,7 +633,7 @@ packet:
 
 > In some cases, the position of the GISS may not be at a fixed position
 in the MPLS label header. In this case, the GISS label can show up in any
-position in the MPLS label stack. To help transit router identify
+position in the MPLS label stack. To enable a transit router to identify
 the position of the GISS label, a special purpose label (ideally a base
 special purpose label (bSPL)) can be used as a GISS label indicator. {{!I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
