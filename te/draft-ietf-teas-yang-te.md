@@ -445,10 +445,13 @@ TE Tunnel Segment:
 ~~~~~~~~~~~
      +--rw tunnels
      |  +--rw tunnel* [name]
+     |  +--rw tunnel* [name]
+     |     +--rw name                                string
+     |     +--rw alias?                              string
+     |     +--rw identifier?                         uint32
+     |     +--rw color?                              uint32
+     |     +--rw description?                        string
      |     +--ro operational-state?              identityref
-     |     +--rw name                            string
-     |     +--rw identifier?                     uint32
-     |     +--rw description?                    string
      |     +--rw encoding?                       identityref
      |     +--rw switching-type?                 identityref
      |     +--rw admin-state?                    identityref
@@ -492,15 +495,26 @@ of the TE Tunnel can be formatted as a Uniform Resource Indicator (URI) by
 including the namespace to ensure uniqueness of the name amongst all the TE
 Tunnels present on devices and controllers.
 
+alias:
+
+> A YANG leaf that holds an alternate name to the TE tunnel. Unlike the TE tunnel
+name, the alias can be modified at any time during the lifetime of the TE tunnel.
+
 identifier:
 
 > A YANG leaf that holds an identifier of the tunnel. This identifier is unique amongst tunnels
-originated from an ingress device.
+originated from the same ingress device.
+
+color:
+
+> A YANG leaf that holds the color associated with the TE tunnel. The color is used
+to map or steer services that carry matching color on to the TE tunnel as described in
+{{?RFC9012}}.
 
 encoding/switching:
 
 > The 'encoding' and 'switching-type' are YANG leafs that define the specific
-technology in which the tunnel operates.
+technology in which the tunnel operates in as described in {{?RFC3945}}.
 
 reoptimize-timer:
 
@@ -533,7 +547,7 @@ association-objects:
 
 > A YANG container that holds the set of associations of the TE Tunnel to other
 > TE Tunnels. Associations at the TE Tunnel level apply to all paths of the TE
-> Tunnel.  The TE tunnel associations can be overridden by associations
+> Tunnel. The TE tunnel associations can be overridden by associations
 > configured directly under the TE Tunnel path.
 
 protection:
