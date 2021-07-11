@@ -638,12 +638,14 @@ the position of the GISS label, a special purpose label (ideally a base
 special purpose label (bSPL)) can be used as a GISS label indicator. {{!I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
 to alert of the presence of multiple actions and action data (including the
-presence of the GISS) that are carried within the MPLS label stack. 
-
-> The slice policy ingress boundary node, in
+presence of the GISS) that are carried within the MPLS label stack. The slice policy ingress boundary node, in
 this case, imposes two labels: the FAI label and a forwarding actions label that includes the GISS
-to identify the slice aggregate that the packets belong to as shown in
+to identify the slice aggregate that packets belong to as shown in
 {{sli-sl}}.
+
+> {{!I-D.decraene-mpls-slid-encoded-entropy-label-id}} also proposes to repurpose 
+the ELI/EL {{!RFC6790}} to carry the Slice Identifier  in order to minimize the
+size of the MPLS stack and ease incremental deployment.
 
 ~~~~
      SR Adj-SID:          GISS: 1001
