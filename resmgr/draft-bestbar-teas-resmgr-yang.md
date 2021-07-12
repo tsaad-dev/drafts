@@ -99,6 +99,8 @@ modules, as shown in Table 1.
  | inet            | ietf-inet-types      | {{!RFC6991}}       |
  | te-types        | ietf-te-types        | {{!RFC8776}}       |
  | te-packet-types | ietf-te-packet-types | {{!RFC8776}}       |
+ | topo-filt       | ietf-topology-filter | {{!I-D.bestbar-teas-yang-topology-filter |
+ | rt              | ietf-routing         | {{!RFC8349}}       |
  | rrm             | ietf-resmgr          | this document      |
  |-----------------|----------------------|--------------------|
 
@@ -119,6 +121,9 @@ organization:
 * In general, minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
+
+* For optional data nodes, default values are specified when multi-vendor implementations
+  can agree on the default behavior.
 
 * The Network Management Datastore Architecture (NMDA) {{!RFC8342}} addresses
 modeling state data for ephemeral objects.  This document adopts the NMDA model
@@ -177,17 +182,19 @@ modules 'ietf-resmgr.yang'.
 
 ## YANG Module
 
-The generic TE YANG module 'ietf-te' imports the following modules:
+The RRM YANG module 'ietf-resmgr' imports the following modules:
 
 - ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
 - ietf-te-types defined in {{!RFC8776}}
+- ietf-routing defined in {{!RFC8349}}
+- ietf-topology-filter defined in {{!I-D.bestbar-teas-yang-topology-filter}}
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-resmgr@2021-07-01.yang"
 {::include ./ietf-resmgr.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-basic-te title="TE Tunnel data model YANG module"}
+{: #fig-basic-te title="The network RRM YANG module"}
 
 # IANA Considerations
 
@@ -234,14 +241,20 @@ environments. Write operations (e.g., edit-config) to these data nodes without
 proper protection can have a negative effect on network operations. These are
 the subtrees and data nodes and their sensitivity/vulnerability:
 
-"/domains":  This container and any of its encompassing data nodes represent
+"/resmgr/topology-filters": This container and any of its encompassing data nodes defines
+the filter for the network resources managed by this RRM.  Unauthorized access to 
+this list could cause the RRM to ignore some network resources and could cause preemptions
+and disruptions in the network.
+
+"/resmgr/domains":  This container and any of its encompassing data nodes represent
 the set of network resources managed by this RRM.  Unauthorized access to 
-this list could cause the device to ignore packets it should receive and process.
+this list could cause the RRM to preempt existing path and causing disruptions to
+existing services in the network.
 
 Some of the readable data nodes in this YANG module may be considered sensitive
 or vulnerable in some network environments. It is thus important to control
 read access (e.g., via get, get-config, or notification) to these data nodes.
-These are the subtrees and data nodes and their sensitivity/vulnerability:
+These are the subtrees and data nodes and their sensitivity/vulnerability.
 
 Some of the RPC operations in this YANG module may be considered sensitive or
 vulnerable in some network environments. It is thus important to control access

@@ -8,16 +8,6 @@ module ietf-resmgr {
     reference
       "RFC6991: Common YANG Data Types";
   }
-  import ietf-topology-filter {
-    prefix topo-filt;
-    reference
-      "I-D.bestbar-teas-yang-topology-filter";
-  }
-  import ietf-routing {
-    prefix rt;
-    reference
-      "RFC8349: A YANG Data Model for Routing Management";
-  }
 
   organization
     "IETF Traffic Engineering Architecture and Signaling (TEAS)
@@ -179,194 +169,132 @@ module ietf-resmgr {
     }
   }
 
-  container resmgr {
+  container domains {
     description
-      "A container that holds all RRM information.";
-
-    container external-rrms {
+      "A container for the list of managed domains.";
+    list domain {
+      key "domain-id";
       description
-        "A container for the list of external RRMs.";
-
-      list external-rrm {
-        key "external-rrm-id";
+        "Represents a domain in the network.";
+      leaf domain-id {
+        type uint32;
         description
-          "An entry in the list of external RRMs.";
-
-        leaf external-rrm-id {
-          type inet:ip-address;
-          description
-            "The IP address of the external RRM managing network
-             resources.";
-        }
-        leaf external-rrm-role {
-          type enumeration {
-            enum redundancy-active {
-              description
-                "External RRM in active role.";
-            }
-            enum redundancy-stanby {
-              description
-                "External RRM in standby role.";
-            }
-          }
-          description
-            "The redundancy role of the external RRM managing the
-             network resources.";
-        }
-        container topology-filter {
-          description
-            "A container for the set of topology filters that
-             describe network resources managed by the RRM.";
-          leaf filter {
-            type leafref {
-              path "/rt:routing/topo-filt:topology-filters/"
-                   + "topo-filt:topology-filter/topo-filt:name";
-            }
-            description
-              "A filter that describes the set of network resources
-               managed by the RRM.";
-          }
-          leaf filter-set {
-            type leafref {
-              path "/rt:routing/topo-filt:topology-filter-sets/"
-                   + "topo-filt:topology-filter-set/topo-filt:name";
-            }
-            description
-              "A filter set that describes the network resources
-               managed by the RRM.";
-          }
-        }
+          "The domain identifier.";
       }
-    }
-
-    container domains {
-      description
-        "A container for the list of managed domains.";
-      list domain {
-        key "domain-id";
+      container nodes {
         description
-          "Represents a domain in the network.";
-        leaf domain-id {
-          type uint32;
+          "A container for the list of managed nodes.";
+        list node {
+          key "node-id";
           description
-            "The domain identifier.";
-        }
-        container nodes {
-          description
-            "A container for the list of managed nodes.";
-          list node {
-            key "node-id";
+            "Represents a node entry in a domain.";
+          uses node-key;
+          // Node attributes
+          container links {
             description
-              "Represents a node entry in a domain.";
-            uses node-key;
-            // Node attributes
-            container links {
+              "A container for the list of managed links.";
+            list link {
+              key "local-id remote-id";
               description
-                "A container for the list of managed links.";
-              list link {
-                key "local-id remote-id";
+                "A resource reservation managed link entry.";
+              uses link-key;
+              // Static Link attributes
+              leaf total-bw {
+                type uint64;
                 description
-                  "A resource reservation managed link entry.";
-                uses link-key;
-                // Static Link attributes
-                leaf total-bw {
+                  "Link total bandwidth (capacity) of this link.";
+              }
+              leaf max-reservable-bw {
+                type uint64;
+                description
+                  "The maximum reservable bandwidth of this link.";
+              }
+              leaf max-link-bw {
+                type uint64;
+                description
+                  "The maximum bandwidth of this link.";
+              }
+              leaf link-name {
+                type string;
+                description
+                  "The symbolic name of this link (e.g. FQDN).";
+              }
+              list available-bw {
+                key "priority";
+                config false;
+                description
+                  "A list of available bandwidth (by priority).";
+                leaf priority {
+                  type uint8;
+                  description
+                    "The reservation priority.";
+                }
+                leaf val {
                   type uint64;
                   description
-                    "Link total bandwidth (capacity) of this link.";
+                    "Available bandwidth value at specific
+                     priority.";
                 }
-                leaf max-reservable-bw {
-                  type uint64;
-                  description
-                    "The maximum reservable bandwidth of this link.";
+              }
+              leaf admission-method {
+                type identityref {
+                  base path-admission-method;
                 }
-                leaf max-link-bw {
-                  type uint64;
+                default "path-admission-local";
+                description
+                  "The path admission method. By default, it is
+                   locally managed by the RRM.";
+              }
+              container resmgr-server {
+                when "derived-from-or-self(../admission-method, "
+                   + "'path-admission-external')" {
                   description
-                    "The maximum bandwidth of this link.";
+                    "The RRM server where the path admission is
+                     externally managed.";
                 }
-                leaf link-name {
-                  type string;
+                description
+                  "The container that holds information about
+                   RRM external server managing path admission.";
+                leaf resmgr-server-address {
+                  type inet:ip-address;
                   description
-                    "The symbolic name of this link (e.g. FQDN).";
+                    "The IP address of the RRM server externally
+                     managing link resources.";
                 }
-                list available-bw {
-                  key "priority";
-                  config false;
+              }
+              // Admitted paths
+              container paths {
+                description
+                  "A container for the list of admitted paths on a
+                   link.";
+                list path {
+                  key "client-id tunnel-id path-instance-id"
+                    + " multipath-id";
                   description
-                    "A list of available bandwidth (by priority).";
-                  leaf priority {
-                    type uint8;
-                    description
-                      "The reservation priority.";
-                  }
-                  leaf val {
+                    "A list of paths admitted on a link.";
+                  uses path-key;
+                  leaf admission-timestamp {
                     type uint64;
                     description
-                      "Available bandwidth value at specific
-                       priority.";
+                      "The admission timestamp.";
                   }
-                }
-                leaf admission-method {
-                  type identityref {
-                    base path-admission-method;
-                  }
-                  default "path-admission-local";
-                  description
-                    "The path admission method. By default, it is
-                     locally managed by the RRM.";
-                }
-                container external-rrm {
-                  when "derived-from-or-self(../admission-method, "
-                     + "'path-admission-external')" {
+                  leaf admission-bw {
+                    type uint64;
                     description
-                      "The external RRM where the path admission is
-                       managed.";
+                      "The admitted bandwidth on this link.";
                   }
-                  description
-                    "The container that holds information about
-                     RRM external server managing path admission.";
-                  leaf resmgr-server-address {
-                    type inet:ip-address;
+                  leaf admission-priority {
+                    type uint8;
                     description
-                      "The IP address of the RRM server externally
-                       managing link resources.";
+                      "The admission priority for this path.";
                   }
-                }
-                // Admitted paths
-                container paths {
-                  description
-                    "A container for the list of admitted paths on a
-                     link.";
-                  list path {
-                    key "client-id tunnel-id path-instance-id"
-                      + " multipath-id source destination";
+                  leaf admission-reservation-style {
+                    type identityref {
+                      base path-reservation-style;
+                    }
                     description
-                      "A list of paths admitted on a link.";
-                    uses path-key;
-                    leaf admission-timestamp {
-                      type uint64;
-                      description
-                        "The admission timestamp.";
-                    }
-                    leaf admission-bw {
-                      type uint64;
-                      description
-                        "The admitted bandwidth on this link.";
-                    }
-                    leaf admission-priority {
-                      type uint8;
-                      description
-                        "The admission priority for this path.";
-                    }
-                    leaf admission-reservation-style {
-                      type identityref {
-                        base path-reservation-style;
-                      }
-                      default "path-reservation-shared-explicit";
-                      description
-                        "The path admssion bandwidth reservation
-                         style.";
-                    }
+                      "The path admssion bandwidth reservation
+                       style.";
                   }
                 }
               }
@@ -384,11 +312,11 @@ module ietf-resmgr {
     input {
       leaf action {
         type enumeration {
-          enum add {
+          enum ADD {
             description
               "Operation add.";
           }
-          enum delete {
+          enum DEL {
             description
               "Operation delete.";
           }
@@ -444,19 +372,19 @@ module ietf-resmgr {
     output {
       leaf result {
         type enumeration {
-          enum unknown {
+          enum UNKNOWN {
             description
               "The RPC result is unknown.";
           }
-          enum successful {
+          enum SUCCESS {
             description
               "The RPC result is successful.";
           }
-          enum rejected {
+          enum REJECT {
             description
               "The RPC result is rejected.";
           }
-          enum in-progress {
+          enum IN-PROGRESS {
             description
               "The RPC result is in-progress.";
           }
@@ -472,13 +400,19 @@ module ietf-resmgr {
       "Input arguments for the RPC to update the topological
        elements managed by the Resource Reservation Manager.";
     input {
+      leaf topology-filter {
+        type string;
+        description
+          "A filter that identifies the set of resources that
+           are of interest for this resource reservation manager.";
+      }
       leaf topology-element-type {
         type enumeration {
-          enum link {
+          enum LINK {
             description
               "Topology element link type.";
           }
-          enum node {
+          enum NODE {
             description
               "Topology element node type.";
           }
@@ -488,11 +422,11 @@ module ietf-resmgr {
       }
       leaf action {
         type enumeration {
-          enum add {
+          enum ADD {
             description
               "Operation add.";
           }
-          enum delete {
+          enum DEL {
             description
               "Operation delete.";
           }

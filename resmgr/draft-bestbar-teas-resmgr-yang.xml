@@ -34,7 +34,7 @@
       </address>
     </author>
 
-    <date year="2021" month="July" day="11"/>
+    <date year="2021" month="July" day="12"/>
 
     
     <workgroup>TEAS Working Group</workgroup>
@@ -131,6 +131,12 @@ modules, as shown in Table 1.</t>
       <c>te-packet-types</c>
       <c>ietf-te-packet-types</c>
       <c><xref target="RFC8776"/></c>
+      <c>topo-filt</c>
+      <c>ietf-topology-filter</c>
+      <c>{{!I-D.bestbar-teas-yang-topology-filter</c>
+      <c>rt</c>
+      <c>ietf-routing</c>
+      <c><xref target="RFC8349"/></c>
       <c>rrm</c>
       <c>ietf-resmgr</c>
       <c>this document</c>
@@ -157,6 +163,8 @@ organization:</t>
   <t>In general, minimal elements in the model are designated as “mandatory” to
 allow freedom to vendors to adapt the data model to their specific product
 implementation.</t>
+  <t>For optional data nodes, default values are specified when multi-vendor implementations
+can agree on the default behavior.</t>
   <t>The Network Management Datastore Architecture (NMDA) <xref target="RFC8342"/> addresses
 modeling state data for ephemeral objects.  This document adopts the NMDA model
 for configuration and state data representation as per IETF guidelines for new
@@ -219,38 +227,64 @@ modules ‘ietf-resmgr.yang’.</t>
 
 <figure title="The RRM data model YANG tree diagram" anchor="fig-te-tree"><artwork><![CDATA[
 module: ietf-resmgr
-  +--rw domains
-     +--rw domain* [domain-id]
-        +--rw domain-id    uint32
-        +--rw nodes
-           +--rw node* [node-id]
-              +--rw node-id    inet:ip-address
-              +--rw links
-                 +--rw link* [local-id remote-id]
-                    +--rw local-id             inet:ip-address
-                    +--rw remote-id            inet:ip-address
-                    +--rw local-domain-id?     uint32
-                    +--rw remote-domain-id?    uint32
-                    +--rw total-bw?            uint64
-                    +--rw max_reservable_bw?   uint64
-                    +--rw max_link_bw?         uint64
-                    +--rw link_name?           string
-                    +--ro available-bw* [priority]
-                    |  +--ro priority    uint8
-                    |  +--ro val?        uint64
-                    +--rw paths
-                       +--rw path* [client-id context multipath-id]
-                          +--rw client-id              string
-                          +--rw source?
-                          |       inet:ip-address
-                          +--rw destination?
-                          |       inet:ip-address
-                          +--rw context                string
-                          +--rw path-instance-id?      uint32
-                          +--rw multipath-id           uint32
-                          +--rw admission-timestamp?   uint64
-                          +--rw admission-bw?          uint64
-                          +--rw admission-priority?    uint8
+  +--rw resmgr
+     +--rw external-rrms
+     |  +--rw external-rrm* [external-rrm-id]
+     |     +--rw external-rrm-id      inet:ip-address
+     |     +--rw external-rrm-role?   enumeration
+     |     +--rw topology-filter
+     |        +--rw filter?       leafref
+     |        +--rw filter-set?   leafref
+     +--rw domains
+        +--rw domain* [domain-id]
+           +--rw domain-id    uint32
+           +--rw nodes
+              +--rw node* [node-id]
+                 +--rw node-id    inet:ip-address
+                 +--rw links
+                    +--rw link* [local-id remote-id]
+                       +--rw local-id             inet:ip-address
+                       +--rw remote-id            inet:ip-address
+                       +--rw local-domain-id?     uint32
+                       +--rw remote-domain-id?    uint32
+                       +--rw total-bw?            uint64
+                       +--rw max-reservable-bw?   uint64
+                       +--rw max-link-bw?         uint64
+                       +--rw link-name?           string
+                       +--ro available-bw* [priority]
+                       |  +--ro priority    uint8
+                       |  +--ro val?        uint64
+                       +--rw admission-method?    identityref
+                       +--rw external-rrm
+                       |  +--rw resmgr-server-address?
+                       |          inet:ip-address
+                       +--rw paths
+                          +--rw path*
+                                  [client-id tunnel-id
+                                   path-instance-id multipath-id
+                                   source destination]
+                             +--rw client-id
+                             |       string
+                             +--rw source
+                             |       inet:ip-address
+                             +--rw destination
+                             |       inet:ip-address
+                             +--rw context?
+                             |       string
+                             +--rw tunnel-id
+                             |       uint32
+                             +--rw path-instance-id
+                             |       uint32
+                             +--rw multipath-id
+                             |       uint32
+                             +--rw admission-timestamp?
+                             |       uint64
+                             +--rw admission-bw?
+                             |       uint64
+                             +--rw admission-priority?
+                             |       uint8
+                             +--rw admission-reservation-style?
+                                     identityref
 
   rpcs:
     +---x path-admit
@@ -261,13 +295,14 @@ module: ietf-resmgr
     |  |     +---w source?               inet:ip-address
     |  |     +---w destination?          inet:ip-address
     |  |     +---w context?              string
+    |  |     +---w tunnel-id?            uint32
     |  |     +---w path-instance-id?     uint32
     |  |     +---w multipath-id?         uint32
     |  |     +---w admission-priority?   uint8
     |  |     +---w nodes
     |  |        +---w node* [node-id]
     |  |           +---w node-id      inet:ip-address
-    |  |           +---w node_name?   string
+    |  |           +---w node-name?   string
     |  |           +---w links
     |  |              +---w link* [local-id remote-id]
     |  |                 +---w local-id            inet:ip-address
@@ -279,7 +314,6 @@ module: ietf-resmgr
     |     +--ro result?   enumeration
     +---x topology-update
        +---w input
-          +---w topology-filter?         string
           +---w topology-element-type?   enumeration
           +---w action?                  enumeration
           +---w topology-elemnt-info
@@ -296,25 +330,36 @@ module: ietf-resmgr
 </section>
 <section anchor="yang-module" title="YANG Module">
 
-<t>The generic TE YANG module ‘ietf-te’ imports the following modules:</t>
+<t>The RRM YANG module ‘ietf-resmgr’ imports the following modules:</t>
 
 <t><list style="symbols">
   <t>ietf-yang-types and ietf-inet-types defined in <xref target="RFC6991"/></t>
   <t>ietf-te-types defined in <xref target="RFC8776"/></t>
+  <t>ietf-routing defined in <xref target="RFC8349"/></t>
+  <t>ietf-topology-filter defined in <xref target="I-D.bestbar-teas-yang-topology-filter"/></t>
 </list></t>
 
-<figure title="TE Tunnel data model YANG module" anchor="fig-basic-te"><artwork><![CDATA[
+<figure title="The network RRM YANG module" anchor="fig-basic-te"><artwork><![CDATA[
 <CODE BEGINS> file "ietf-resmgr@2021-07-01.yang"
 module ietf-resmgr {
   yang-version 1.1;
-
   namespace "urn:ietf:params:xml:ns:yang:ietf-resmgr";
-  prefix 'rrm';
+  prefix rrm;
 
   import ietf-inet-types {
     prefix inet;
     reference
       "RFC6991: Common YANG Data Types";
+  }
+  import ietf-topology-filter {
+    prefix topo-filt;
+    reference
+      "I-D.bestbar-teas-yang-topology-filter";
+  }
+  import ietf-routing {
+    prefix rt;
+    reference
+      "RFC8349: A YANG Data Model for Routing Management";
   }
 
   organization
@@ -329,7 +374,6 @@ module ietf-resmgr {
 
      Editor:   Vishnu Pavan Beeram
                <mailto:vbeeram@juniper.net>";
-
   description
     "YANG data module for configuration, state, and RPCs of
      a Resource Reservation Manager.
@@ -355,10 +399,48 @@ module ietf-resmgr {
 
   revision 2021-07-01 {
     description
-     "Initial revision";
+      "Initial revision";
     reference
-     "RFC XXXX: A YANG data model for the Resource Reservation
-      Manager.";
+      "RFC XXXX: A YANG data model for the Resource Reservation
+       Manager.";
+  }
+
+  identity path-admission-method {
+    description
+      "Base identity for path admission method.";
+  }
+
+  identity path-admission-local {
+    base path-admission-method;
+    description
+      "Indicates path admission is managed local RRM.";
+  }
+
+  identity path-admission-external {
+    base path-admission-method;
+    description
+      "Indicates path admission is managed by external RRM.";
+  }
+
+  identity path-reservation-style {
+    description
+      "Base identity for reservation style.";
+  }
+
+  identity path-reservation-fixed-filter {
+    base path-reservation-style;
+    description
+      "Fixed-Filter (FF) Style.";
+    reference
+      "RFC2205";
+  }
+
+  identity path-reservation-shared-explicit {
+    base path-reservation-style;
+    description
+      "Shared Explicit (SE) Style.";
+    reference
+      "RFC2205";
   }
 
   grouping path-key {
@@ -390,7 +472,6 @@ module ietf-resmgr {
       description
         "The tunnel ID that is shared for multiple path-instances
          belonging to the tunnel.";
-         type string;
     }
     leaf path-instance-id {
       type uint32;
@@ -441,102 +522,194 @@ module ietf-resmgr {
     }
   }
 
-  container domains {
+  container resmgr {
     description
-      "A container for the list of managed domains.";
-    list domain {
-      key "domain-id";
+      "A container that holds all RRM information.";
+
+    container external-rrms {
       description
-        "Represents a domain in the network.";
+        "A container for the list of external RRMs.";
 
-      leaf domain-id {
-        type uint32;
+      list external-rrm {
+        key "external-rrm-id";
         description
-          "The domain identifier.";
-      }
-      container nodes {
-        description
-          "A container for the list of managed nodes.";
-        list node {
-          key "node-id";
+          "An entry in the list of external RRMs.";
+
+        leaf external-rrm-id {
+          type inet:ip-address;
           description
-            "Represents a node entry in a domain.";
-
-          uses node-key;
-          // Node attributes
-          container links {
-            description
-              "A container for the list of managed links.";
-            list link {
-              key "local-id remote-id";
+            "The IP address of the external RRM managing network
+             resources.";
+        }
+        leaf external-rrm-role {
+          type enumeration {
+            enum redundancy-active {
               description
-                "A resource reservation managed link entry.";
+                "External RRM in active role.";
+            }
+            enum redundancy-stanby {
+              description
+                "External RRM in standby role.";
+            }
+          }
+          description
+            "The redundancy role of the external RRM managing the
+             network resources.";
+        }
+        container topology-filter {
+          description
+            "A container for the set of topology filters that
+             describe network resources managed by the RRM.";
+          leaf filter {
+            type leafref {
+              path "/rt:routing/topo-filt:topology-filters/"
+                   + "topo-filt:topology-filter/topo-filt:name";
+            }
+            description
+              "A filter that describes the set of network resources
+               managed by the RRM.";
+          }
+          leaf filter-set {
+            type leafref {
+              path "/rt:routing/topo-filt:topology-filter-sets/"
+                   + "topo-filt:topology-filter-set/topo-filt:name";
+            }
+            description
+              "A filter set that describes the network resources
+               managed by the RRM.";
+          }
+        }
+      }
+    }
 
-              uses link-key;
-              // Static Link attributes
-              leaf total-bw {
-                type uint64;
+    container domains {
+      description
+        "A container for the list of managed domains.";
+      list domain {
+        key "domain-id";
+        description
+          "Represents a domain in the network.";
+        leaf domain-id {
+          type uint32;
+          description
+            "The domain identifier.";
+        }
+        container nodes {
+          description
+            "A container for the list of managed nodes.";
+          list node {
+            key "node-id";
+            description
+              "Represents a node entry in a domain.";
+            uses node-key;
+            // Node attributes
+            container links {
+              description
+                "A container for the list of managed links.";
+              list link {
+                key "local-id remote-id";
                 description
-                  "Link total bandwidth (capacity) of this link.";
-              }
-              leaf max-reservable-bw {
-                type uint64;
-                description
-                  "The maximum reservable bandwidth of this link.";
-              }
-              leaf max-link-bw {
-                type uint64;
-                description
-                  "The maximum bandwidth of this link.";
-              }
-              leaf link-name {
-                type string;
-                description
-                  "The symbolic name of this link (e.g. FQDN).";
-              }
-              list available-bw {
-                key "priority";
-                config false;
-                description
-                  "A list of available bandwidth (by priority).";
-
-                leaf priority {
-                  type uint8;
-                  description
-                    "The reservation priority.";
-                }
-                leaf val {
+                  "A resource reservation managed link entry.";
+                uses link-key;
+                // Static Link attributes
+                leaf total-bw {
                   type uint64;
                   description
-                    "Available bandwidth value at specific
-                     priority.";
+                    "Link total bandwidth (capacity) of this link.";
                 }
-              }
-              // Admitted paths
-              container paths {
-                description
-                  "A container for the list of admitted paths on a
-                   link.";
-                list path {
-                  key "client-id tunnel-id path-instance-id multipath-id";
+                leaf max-reservable-bw {
+                  type uint64;
                   description
-                    "A list of paths admitted on a link.";
-
-                  uses path-key;
-                  leaf admission-timestamp {
-                    type uint64;
-                    description
-                      "The admission timestamp.";
-                  }
-                  leaf admission-bw {
-                    type uint64;
-                    description
-                      "The admitted bandwidth on this link.";
-                  }
-                  leaf admission-priority {
+                    "The maximum reservable bandwidth of this link.";
+                }
+                leaf max-link-bw {
+                  type uint64;
+                  description
+                    "The maximum bandwidth of this link.";
+                }
+                leaf link-name {
+                  type string;
+                  description
+                    "The symbolic name of this link (e.g. FQDN).";
+                }
+                list available-bw {
+                  key "priority";
+                  config false;
+                  description
+                    "A list of available bandwidth (by priority).";
+                  leaf priority {
                     type uint8;
                     description
-                      "The admission priority for this path.";
+                      "The reservation priority.";
+                  }
+                  leaf val {
+                    type uint64;
+                    description
+                      "Available bandwidth value at specific
+                       priority.";
+                  }
+                }
+                leaf admission-method {
+                  type identityref {
+                    base path-admission-method;
+                  }
+                  default "path-admission-local";
+                  description
+                    "The path admission method. By default, it is
+                     locally managed by the RRM.";
+                }
+                container external-rrm {
+                  when "derived-from-or-self(../admission-method, "
+                     + "'path-admission-external')" {
+                    description
+                      "The external RRM where the path admission is
+                       managed.";
+                  }
+                  description
+                    "The container that holds information about
+                     RRM external server managing path admission.";
+                  leaf resmgr-server-address {
+                    type inet:ip-address;
+                    description
+                      "The IP address of the RRM server externally
+                       managing link resources.";
+                  }
+                }
+                // Admitted paths
+                container paths {
+                  description
+                    "A container for the list of admitted paths on a
+                     link.";
+                  list path {
+                    key "client-id tunnel-id path-instance-id"
+                      + " multipath-id source destination";
+                    description
+                      "A list of paths admitted on a link.";
+                    uses path-key;
+                    leaf admission-timestamp {
+                      type uint64;
+                      description
+                        "The admission timestamp.";
+                    }
+                    leaf admission-bw {
+                      type uint64;
+                      description
+                        "The admitted bandwidth on this link.";
+                    }
+                    leaf admission-priority {
+                      type uint8;
+                      description
+                        "The admission priority for this path.";
+                    }
+                    leaf admission-reservation-style {
+                      type identityref {
+                        base path-reservation-style;
+                      }
+                      default "path-reservation-shared-explicit";
+                      description
+                        "The path admssion bandwidth reservation
+                         style.";
+                    }
                   }
                 }
               }
@@ -554,11 +727,11 @@ module ietf-resmgr {
     input {
       leaf action {
         type enumeration {
-          enum ADD {
+          enum add {
             description
               "Operation add.";
           }
-          enum DEL {
+          enum delete {
             description
               "Operation delete.";
           }
@@ -571,7 +744,6 @@ module ietf-resmgr {
           "A container that includes information about the admitted
            path.";
         uses path-key;
-
         leaf admission-priority {
           type uint8;
           description
@@ -585,7 +757,6 @@ module ietf-resmgr {
             key "node-id";
             description
               "A node that holds resources for the admitted path.";
-
             uses node-key;
             leaf node-name {
               type string;
@@ -601,7 +772,6 @@ module ietf-resmgr {
                 key "local-id remote-id";
                 description
                   "A link that is used by the admitted path.";
-
                 uses link-key;
                 leaf admission-bw {
                   type uint64;
@@ -617,19 +787,19 @@ module ietf-resmgr {
     output {
       leaf result {
         type enumeration {
-          enum UNKNOWN {
+          enum unknown {
             description
               "The RPC result is unknown.";
           }
-          enum SUCCESS {
+          enum successful {
             description
               "The RPC result is successful.";
           }
-          enum REJECT {
+          enum rejected {
             description
               "The RPC result is rejected.";
           }
-          enum IN-PROGRESS {
+          enum in-progress {
             description
               "The RPC result is in-progress.";
           }
@@ -645,19 +815,13 @@ module ietf-resmgr {
       "Input arguments for the RPC to update the topological
        elements managed by the Resource Reservation Manager.";
     input {
-      leaf topology-filter {
-        type string;
-        description
-          "A filter that identifies the set of resources that
-           are of interest for this resource reservation manager.";
-      }
       leaf topology-element-type {
         type enumeration {
-          enum LINK {
+          enum link {
             description
               "Topology element link type.";
           }
-          enum NODE {
+          enum node {
             description
               "Topology element node type.";
           }
@@ -667,11 +831,11 @@ module ietf-resmgr {
       }
       leaf action {
         type enumeration {
-          enum ADD {
+          enum add {
             description
               "Operation add.";
           }
-          enum DEL {
+          enum delete {
             description
               "Operation delete.";
           }
@@ -748,14 +912,20 @@ environments. Write operations (e.g., edit-config) to these data nodes without
 proper protection can have a negative effect on network operations. These are
 the subtrees and data nodes and their sensitivity/vulnerability:</t>
 
-<t>“/domains”:  This container and any of its encompassing data nodes represent
+<t>“/resmgr/topology-filters”: This container and any of its encompassing data nodes defines
+the filter for the network resources managed by this RRM.  Unauthorized access to 
+this list could cause the RRM to ignore some network resources and could cause preemptions
+and disruptions in the network.</t>
+
+<t>“/resmgr/domains”:  This container and any of its encompassing data nodes represent
 the set of network resources managed by this RRM.  Unauthorized access to 
-this list could cause the device to ignore packets it should receive and process.</t>
+this list could cause the RRM to preempt existing path and causing disruptions to
+existing services in the network.</t>
 
 <t>Some of the readable data nodes in this YANG module may be considered sensitive
 or vulnerable in some network environments. It is thus important to control
 read access (e.g., via get, get-config, or notification) to these data nodes.
-These are the subtrees and data nodes and their sensitivity/vulnerability:</t>
+These are the subtrees and data nodes and their sensitivity/vulnerability.</t>
 
 <t>Some of the RPC operations in this YANG module may be considered sensitive or
 vulnerable in some network environments. It is thus important to control access
@@ -890,6 +1060,21 @@ in interruptions to services carried over the network.</t>
 
 
 
+<reference  anchor="RFC8349" target='https://www.rfc-editor.org/info/rfc8349'>
+<front>
+<title>A YANG Data Model for Routing Management (NMDA Version)</title>
+<author initials='L.' surname='Lhotka' fullname='L. Lhotka'><organization /></author>
+<author initials='A.' surname='Lindem' fullname='A. Lindem'><organization /></author>
+<author initials='Y.' surname='Qu' fullname='Y. Qu'><organization /></author>
+<date year='2018' month='March' />
+<abstract><t>This document specifies three YANG modules and one submodule. Together, they form the core routing data model that serves as a framework for configuring and managing a routing subsystem.  It is expected that these modules will be augmented by additional YANG modules defining data models for control-plane protocols, route filters, and other functions.  The core routing data model provides common building blocks for such extensions -- routes, Routing Information Bases (RIBs), and control-plane protocols.</t><t>The YANG modules in this document conform to the Network Management Datastore Architecture (NMDA).  This document obsoletes RFC 8022.</t></abstract>
+</front>
+<seriesInfo name='RFC' value='8349'/>
+<seriesInfo name='DOI' value='10.17487/RFC8349'/>
+</reference>
+
+
+
 <reference  anchor="RFC8340" target='https://www.rfc-editor.org/info/rfc8340'>
 <front>
 <title>YANG Tree Diagrams</title>
@@ -918,6 +1103,29 @@ in interruptions to services carried over the network.</t>
 </front>
 <seriesInfo name='RFC' value='8342'/>
 <seriesInfo name='DOI' value='10.17487/RFC8342'/>
+</reference>
+
+
+<reference anchor="I-D.bestbar-teas-yang-topology-filter">
+   <front>
+      <title>YANG Data Model for Topology Filter</title>
+      <author fullname="Vishnu Pavan Beeram">
+	 <organization>Juniper Networks</organization>
+      </author>
+      <author fullname="Tarek Saad">
+	 <organization>Juniper Networks</organization>
+      </author>
+      <date month="July" day="12" year="2021" />
+      <abstract>
+	 <t>   This document defines a YANG data model for the management of
+   topology filters/filter-sets on network elements and controllers.
+
+
+	 </t>
+      </abstract>
+   </front>
+   <seriesInfo name="Internet-Draft" value="draft-bestbar-teas-yang-topology-filter-00" />
+   <format type="TXT" target="https://www.ietf.org/archive/id/draft-bestbar-teas-yang-topology-filter-00.txt" />
 </reference>
 
 
@@ -1001,147 +1209,168 @@ in interruptions to services carried over the network.</t>
   </back>
 
 <!-- ##markdown-source:
-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
+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
+5qm+vQBRAgCceP8Dwiskewh0AAA=
 
 -->
 

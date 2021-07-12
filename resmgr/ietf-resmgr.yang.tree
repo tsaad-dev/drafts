@@ -1,36 +1,62 @@
 module: ietf-resmgr
-  +--rw domains
-     +--rw domain* [domain-id]
-        +--rw domain-id    uint32
-        +--rw nodes
-           +--rw node* [node-id]
-              +--rw node-id    inet:ip-address
-              +--rw links
-                 +--rw link* [local-id remote-id]
-                    +--rw local-id             inet:ip-address
-                    +--rw remote-id            inet:ip-address
-                    +--rw local-domain-id?     uint32
-                    +--rw remote-domain-id?    uint32
-                    +--rw total-bw?            uint64
-                    +--rw max_reservable_bw?   uint64
-                    +--rw max_link_bw?         uint64
-                    +--rw link_name?           string
-                    +--ro available-bw* [priority]
-                    |  +--ro priority    uint8
-                    |  +--ro val?        uint64
-                    +--rw paths
-                       +--rw path* [client-id context multipath-id]
-                          +--rw client-id              string
-                          +--rw source?
-                          |       inet:ip-address
-                          +--rw destination?
-                          |       inet:ip-address
-                          +--rw context                string
-                          +--rw path-instance-id?      uint32
-                          +--rw multipath-id           uint32
-                          +--rw admission-timestamp?   uint64
-                          +--rw admission-bw?          uint64
-                          +--rw admission-priority?    uint8
+  +--rw resmgr
+     +--rw external-rrms
+     |  +--rw external-rrm* [external-rrm-id]
+     |     +--rw external-rrm-id      inet:ip-address
+     |     +--rw external-rrm-role?   enumeration
+     |     +--rw topology-filter
+     |        +--rw filter?       leafref
+     |        +--rw filter-set?   leafref
+     +--rw domains
+        +--rw domain* [domain-id]
+           +--rw domain-id    uint32
+           +--rw nodes
+              +--rw node* [node-id]
+                 +--rw node-id    inet:ip-address
+                 +--rw links
+                    +--rw link* [local-id remote-id]
+                       +--rw local-id             inet:ip-address
+                       +--rw remote-id            inet:ip-address
+                       +--rw local-domain-id?     uint32
+                       +--rw remote-domain-id?    uint32
+                       +--rw total-bw?            uint64
+                       +--rw max-reservable-bw?   uint64
+                       +--rw max-link-bw?         uint64
+                       +--rw link-name?           string
+                       +--ro available-bw* [priority]
+                       |  +--ro priority    uint8
+                       |  +--ro val?        uint64
+                       +--rw admission-method?    identityref
+                       +--rw external-rrm
+                       |  +--rw resmgr-server-address?
+                       |          inet:ip-address
+                       +--rw paths
+                          +--rw path*
+                                  [client-id tunnel-id
+                                   path-instance-id multipath-id
+                                   source destination]
+                             +--rw client-id
+                             |       string
+                             +--rw source
+                             |       inet:ip-address
+                             +--rw destination
+                             |       inet:ip-address
+                             +--rw context?
+                             |       string
+                             +--rw tunnel-id
+                             |       uint32
+                             +--rw path-instance-id
+                             |       uint32
+                             +--rw multipath-id
+                             |       uint32
+                             +--rw admission-timestamp?
+                             |       uint64
+                             +--rw admission-bw?
+                             |       uint64
+                             +--rw admission-priority?
+                             |       uint8
+                             +--rw admission-reservation-style?
+                                     identityref
 
   rpcs:
     +---x path-admit
@@ -41,13 +67,14 @@ module: ietf-resmgr
     |  |     +---w source?               inet:ip-address
     |  |     +---w destination?          inet:ip-address
     |  |     +---w context?              string
+    |  |     +---w tunnel-id?            uint32
     |  |     +---w path-instance-id?     uint32
     |  |     +---w multipath-id?         uint32
     |  |     +---w admission-priority?   uint8
     |  |     +---w nodes
     |  |        +---w node* [node-id]
     |  |           +---w node-id      inet:ip-address
-    |  |           +---w node_name?   string
+    |  |           +---w node-name?   string
     |  |           +---w links
     |  |              +---w link* [local-id remote-id]
     |  |                 +---w local-id            inet:ip-address
@@ -59,7 +86,6 @@ module: ietf-resmgr
     |     +--ro result?   enumeration
     +---x topology-update
        +---w input
-          +---w topology-filter?         string
           +---w topology-element-type?   enumeration
           +---w action?                  enumeration
           +---w topology-elemnt-info
