@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
-docname: draft-ietf-mpls-static-yang-12
+docname: draft-ietf-mpls-static-yang-13
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group

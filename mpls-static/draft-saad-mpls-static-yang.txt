@@ -5,18 +5,18 @@
 MPLS Working Group                                               T. Saad
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                               R. Gandhi
-Expires: May 5, 2021                                 Cisco Systems, Inc.
+Expires: January 28, 2022                            Cisco Systems, Inc.
                                                                   X. Liu
                                                           Volta Networks
                                                                V. Beeram
                                                         Juniper Networks
                                                               I. Bryskin
                                                      Huawei Technologies
-                                                       November 01, 2020
+                                                           July 27, 2021
 
 
                  A YANG Data Model for MPLS Static LSPs
-                     draft-ietf-mpls-static-yang-12
+                     draft-ietf-mpls-static-yang-13
 
 Abstract
 
@@ -43,19 +43,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 5, 2021.
+   This Internet-Draft will expire on January 28, 2022.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 1]
+Saad, et al.            Expires January 28, 2022                [Page 1]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 2]
+Saad, et al.            Expires January 28, 2022                [Page 2]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    multiple egress path(s).  On an egress LER, it is used to create a
@@ -165,9 +165,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 3]
+Saad, et al.            Expires January 28, 2022                [Page 3]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
 2.1.  Model Organization
@@ -221,9 +221,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 4]
+Saad, et al.            Expires January 28, 2022                [Page 4]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
          |  +--rw in-segment
@@ -277,9 +277,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 5]
+Saad, et al.            Expires January 28, 2022                [Page 5]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
 2.3.  Model Overview
@@ -333,9 +333,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 6]
+Saad, et al.            Expires January 28, 2022                [Page 6]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    o  Defining Static LSP preemption priorities
@@ -389,9 +389,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 7]
+Saad, et al.            Expires January 28, 2022                [Page 7]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    import ietf-routing {
@@ -445,9 +445,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 8]
+Saad, et al.            Expires January 28, 2022                [Page 8]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
        Copyright (c) 2018 IETF Trust and the persons
@@ -501,9 +501,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                  [Page 9]
+Saad, et al.            Expires January 28, 2022                [Page 9]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
            case mpls-label {
@@ -557,9 +557,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 10]
+Saad, et al.            Expires January 28, 2022               [Page 10]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
          }
@@ -613,9 +613,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 11]
+Saad, et al.            Expires January 28, 2022               [Page 11]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
        reference "draft-ietf-mpls-base-yang: MPLS Base YANG Data Model";
@@ -669,9 +669,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 12]
+Saad, et al.            Expires January 28, 2022               [Page 12]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
         Redistribution and use in source and binary forms, with or
@@ -725,9 +725,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 13]
+Saad, et al.            Expires January 28, 2022               [Page 13]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
            range "0..7";
@@ -781,9 +781,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 14]
+Saad, et al.            Expires January 28, 2022               [Page 14]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    This document registers two YANG modules in the YANG Module Names
@@ -837,9 +837,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 15]
+Saad, et al.            Expires January 28, 2022               [Page 15]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
       Himanshu Shah
@@ -856,15 +856,15 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 6.1.  Normative References
 
    [I-D.ietf-mpls-base-yang]
-              Saad, T., Raza, K., Gandhi, R., Liu, X., and V. Beeram, "A
-              YANG Data Model for MPLS Base", draft-ietf-mpls-base-
+              Saad, T., Raza, K., Gandhi, R., Liu, X., and V. P. Beeram,
+              "A YANG Data Model for MPLS Base", draft-ietf-mpls-base-
               yang-17 (work in progress), October 2020.
 
    [I-D.ietf-teas-yang-te]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "A YANG Data Model for Traffic Engineering Tunnels, Label
-              Switched Paths and Interfaces", draft-ietf-teas-yang-te-25
-              (work in progress), July 2020.
+              Saad, T., Gandhi, R., Liu, X., Beeram, V. P., Bryskin, I.,
+              and O. G. D. Dios, "A YANG Data Model for Traffic
+              Engineering Tunnels, Label Switched Paths and Interfaces",
+              draft-ietf-teas-yang-te-27 (work in progress), July 2021.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -893,9 +893,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 16]
+Saad, et al.            Expires January 28, 2022               [Page 16]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
@@ -949,9 +949,9 @@ Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 17]
+Saad, et al.            Expires January 28, 2022               [Page 17]
 
-Internet-Draft      MPLS Static LSPs YANG Data Model       November 2020
+Internet-Draft      MPLS Static LSPs YANG Data Model           July 2021
 
 
 Authors' Addresses
@@ -1005,4 +1005,4 @@ Authors' Addresses
 
 
 
-Saad, et al.               Expires May 5, 2021                 [Page 18]
+Saad, et al.            Expires January 28, 2022               [Page 18]
