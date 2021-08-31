@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-03
+docname: draft-bestbar-teas-ns-packet-04
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -244,6 +244,12 @@ Slice aggregate aware TE:
 
 > VRF: VPN Routing and Forwarding
 
+> AC: Attachment Circuit
+
+> CE: Customer Edge
+
+> PE: Provider Edge
+
 # Network Resource Slicing Membership
 
 A slice aggregate can be instantiated over parts of an IP/MPLS network (e.g., all or
@@ -275,39 +281,191 @@ shapers) and/or partitioned in the control plane by providing a logical
 representation of the physical link that has a subset of the network resources
 available to it.
 
-# Path Selection
+# Network Slice Request Workflow
 
-Path selection in a network can be network state dependent, or network state
-independent as described in Section 5.1 of {{?I-D.ietf-teas-rfc3272bis}}.
-The latter is the choice commonly used by IGPs when selecting a best path to
-a destination prefix, while the former is used by ingress TE routers, or Path
-Computation Engines (PCEs) when optimizing the placement of a flow based on the
-current network resource utilization.
+{{ns-workflow}} describes the steps for the workflow required to realize
+an IETF network slice service in a provider network. Each of steps is further
+elaborated on in a subsequent section.
 
-For example, when steering traffic on a delay optimized path, the IGP can use
-its link state database's view of the network topology to compute a path
-optimizing for the delay metric of each link in the network resulting in a
-cumulative lowest delay path.
+~~~~
+                       --      --      --
+    ----------        |CE|    |CE|    |CE|
+   | Network  |        --      --      --
+   | Slice    |      AC :    AC :    AC :
+   | Orchstr  |      ----------------------        -------
+    ----------      ( |PE|....|PE|....|PE| )      ( IETF  )
+     | IETF        (   --:     --     :--   )    ( Network )
+     | Network     (     :............:     )    (  Slice  )
+     | Slice Svc    (  IETF Network Slice  )      (       )  Customer
+     | Req (1)       ----------------------        -------     View
+   ..|....................................\........./..................
+   --v----------   ----> Slice Aggregation \       /        Controller
+   |Controllers|  |         Mapping (2)     v     v            View
+   |  -------  |  |    -----------------------------------------
+   | |IETF   | |--    ( |PE|.......|PE|........|PE|.......|PE|  )
+   | |Network| |     (   --:        --         :--         --    )
+   | |Slice  | |     (     :...................:                 )
+   | |Cntrlr | |      (           Slice Aggregate         )
+   | |(NSC)  | |       -----------------------------------------
+   |  -------  |---------.
+   |  -------  |         | Path Placement (3)
+   | |       | |         v
+   | |       | |       -----------------------------------------
+   | |       | |      ( |PE|....-..|PE|        |PE|.......|PE|  )
+   | |Network| |     (   --    |P|  --......-...--    -   :--    )
+   | |Cntrlr | |     (          -:.........|P|.......|P|..:      )
+   | |(NC)   | |      ( Path Set            -         -         )
+   | |       | |       -----------------------------------------
+   | |       | |-------.
+   | |       | |       | Apply Topology Filters (0)
+   | |       | |       v
+   |  -------  |      -----------------------------      --------
+   |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
+    -----------     ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
+    |  |     |      ( :.-   -:.......|P|       :-   )  ( Topology )
+    |  |     |      (  |P|...........:-:.......|P|  )   (        )
+    |  |      \      (  -  Policy Filter Topology  )     --------
+    |  |       \      -----------------------------       A
+    |  |        \                       A                /
+   ..............\.......................\............../..............
+    |  | Path     v Service Mapping (6)   \            /  Physical N/w
+     \  \Inst     ------------------------------------------------
+      \  \(5)    ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
+       \  \     (   --     |P|     --       :-...:--     -..:--    )
+   Slice\  --->(    :       -:..............|P|.........|P|         )
+   Policy\     (    -.......................:-:..-       -          )
+   Inst   ----->(  |P|..........................|P|......:         )
+    (4)          (  -                            -                )
+                  ------------------------------------------------
+~~~~
+{: #ns-workflow title="Workflow diagram for IETF network slice instantiation."}
 
-When path selection is network state dependent, the path computation can 
-leverage Traffic Engineering mechanisms (e.g., as defined in {{?RFC2702}})
-to compute feasible paths taking into account the incoming traffic demand
-rate and current state of network. This allows avoiding overly utilized
-links, and reduces the chance of congestion on traversed links.
+## Network Topology Filters (0)
 
-To enable TE path placement, the link state is advertised with current
-reservations, thereby reflecting the available bandwidth on each link.  Such
-link reservations may be maintained centrally on a network wide network
-resource manager, or distributed on devices (as usually done with RSVP). TE
-extensions exist today to allow IGPs (e.g., {{!RFC3630}} and {{!RFC5305}}), and
-BGP-LS {{!RFC7752}} to advertise such link state reservations.
+The Physical Network may be filtered into a number of Policy Filter
+Topologies.  Filter actions may include selection of specific nodes
+and links according to their capabilities and are based on network-
+wide policies.  The resulting topologies can be used to host IETF
+Network Slices and provide a useful way for the network operator to
+know that all of the resources they are using to plan a network
+slice meet specific SLOs.  This step in the work flow could be an
+early, offline planning activity or could be performed dynamically
+as new demands arise (specifically, concurrent with step 3).
 
-When network resource reservations are also slice aggregate aware, the link state can
-carry per slice aggregate state (e.g., reservable
-bandwidth).  This allows path computation to take into account the specific
-network resources available for a slice aggregate when determining the path for a
-specific flow.  In this case, we refer to the process of path placement and
-path provisioning as slice aggregate aware TE.
+{{SlicePolicyTopology}} describes how topology filters can be
+associated with a Slice Aggregate using the Slice Policy.
+
+## IETF Network Slice Service Request (1) {#NetworkSliceServiceRequest}
+
+The customer requests an IETF Network Slice Service specifying the
+CE-AC-PE points of attachment, the connectivity matrix, and the
+SLOs as described in {{?I-D.ietf-teas-ietf-network-slice-definition}}.
+These capabilities are always provided based on a Service Level Agreement (SLA)
+between the network slice consumer and the provider.
+
+This defines the traffic flows that need to be supported
+when the slice is realized.  Depending on the mechanism and
+encoding of the Attachment Circuit (AC), the IETF Network Slice Service may also include
+information that will allow the operator's controllers to configure
+the PEs (see step 6) to determine what customer traffic is intended
+for this IETF Network Slice.
+
+IETF Network Slice Service Requests are likely to arrive at various
+times in the life of the network, and may also be modified.
+
+
+## Slice Aggregation Mapping (2) {#SliceAggregateMapping}
+
+A network may be called upon to support very many IETF Network
+Slices, and this could present scaling challenges in the operation
+of the network.  In order to overcome this, the IETF Network Slices
+may be aggregated into groups according to similar characteristics.
+
+A Slice Aggregate is a construct that comprises the traffic
+flows of one or more IETF Network Slice. The mapping of IETF
+Network Slices into an Slice Aggregate is a matter of local
+operator policy and is a function executed by a sub-component of
+the Controller.  The Slice Aggregate may be preconfigured,
+created on demand, or modified dynamically.
+
+## Path Placement (3)
+
+Depending on the underlying network technology, a Controller may
+plan the paths that the traffic flows will take through the network
+in order to best deliver the SLOs for the different services in the
+Slice Aggregate.  A sub-component of the Controller performs
+this function on the Policy Filter Topology selected to support the
+Slice Aggregate.
+
+Note that this step may indicate the need to increase the capacity
+of the underlying Policy Filter Topology or to create a new Policy
+Filter Topology (see step 0).
+
+## Slice Policy Installation (4)
+
+A sub-component of the Controller programs the physical network
+with policies for handling the traffic flows belonging to the
+Slice Aggregate.  These policies instruct network routers how
+to handle traffic for a specific Slice Aggregate: the routers
+correlate markers present in the packets that belong to the
+Slice Aggregate with the configured policy.  The way in which
+the Slice Policy is installed in the routers and the way that the
+traffic is marked is implementation specific. The Slice Policy
+instantiation in the network is further described in {{SlicePolicyInstantiation}}.
+
+## Path Instantiation (5)
+
+Depending on the underlying network technology, a sub-component of
+the Controller may install forwarding state specific to the
+Slice Aggregate so that traffic is routed along paths derived
+in step 3.  The way in which the paths are instantiated is
+implementation specific.
+
+## Service Mapping (6)
+
+Once the network has been set up, the edge points (PEs) can be
+configured to support the service.  This involves telling them what
+customer traffic should be mapped to which Slice Aggregate
+possibly using information supplied in step 1.  It also instructs
+the edge points how to mark the packets so that the network routers
+will know which policies and routing instructions (installed in
+steps 4 and 5) to apply.
+
+## Network Slice Aggregate Relationships
+
+The following describes the generalization relationships between
+the IETF network slice and different parts of the solution
+as described in {{ns-workflow}}.
+
+o A customer may request 1 or more IETF Network Slices.
+
+o Any given Attachment Circuit (AC) may support the traffic for 1 or more IETF Network
+  Slice, but if there is more than one IETF Network Slice using a
+  single AC, the IETF Network Slice Service request must include
+  enough information to allow the edge nodes to demultiplex the
+  traffic for the different IETF Network Slices.
+
+o By definition, multiple IETF Network Slices may be mapped to a
+  single Slice Aggregate.  However, it is possible for an
+  Slice Aggregate to contain just a single IETF Network Slice.
+  Furthermore, an Slice Aggregate can be planned and
+  preconfigured, and may be "empty" having no IETF Network Slices
+  mapped to it.
+
+o The physical network may be filtered to multiple Policy Filter
+  Topologies.  Each such Policy Filter Topology provides a short-cut
+  to planning the placement and support of Slice Aggregate by
+  presenting only the subset of links and nodes that meet specific
+  criteria.  Note, however, that a network operator does not need to
+  derive any Policy Filter Topologies, choosing to operate directly
+  on the physical network.
+
+o It is anticipated that there may be very many IETF Network Slices
+  supported by a network operator over a single physical network.
+  The scaling mechanisms are deployment choices, but it may be that
+  there are no more than 1000 Slice Aggregate supported by
+  a network, with each Slice Aggregate supporting any number of
+  IETF Network Slices.
 
 # Slice Policy Modes {#SliceModes}
 
@@ -459,7 +617,7 @@ The data plane partitioning protects slice aggregate traffic from network
 resource contention that could occur due to bursts in traffic from other slice
 aggregates traversing the same shared network resource.
 
-# Slice Policy Instantiation
+# Slice Policy Instantiation {#SlicePolicyInstantiation}
 
 A network slice can span multiple technologies and multiple administrative
 domains.  Depending on the network slice consumer's requirements, a network
@@ -467,52 +625,19 @@ slice can be differentiated from other network slices in terms of data, control
 or management planes.
 
 The consumer of a network slice expresses their intent
-by specifying requirements rather than mechanisms to realize the slice.
-The requirements for a network slice can vary and can be expressed in terms of
-connectivity needs between end-points (point-to-point, point-to-multipoint or
-multipoint-to-multipoint) with customizable network capabilities that may
-include data speed, quality, latency, reliability, security, and services
-(refer to {{?I-D.ietf-teas-ietf-network-slice-definition}} for more details).
-These capabilities are always provided based on a Service Level Agreement (SLA)
-between the network slice consumer and the provider.
+by specifying requirements rather than mechanisms to realize the slice as described
+in {{NetworkSliceServiceRequest}}.
 
-The onus is on the network slice controller to consume the service layer slice
-intent and realize it with an appropriate slice policy.  Multiple IETF network
-slices can be mapped to the same slice policy resulting in a slice aggregate.
+The network slice controller consumes the network slice service
+intent and realizes it with an appropriate slice policy. 
+Multiple IETF network slices MAY be mapped to the same slice policy resulting in
+a slice aggregate as described in {{SliceAggregateMapping}}.
+
 The network wide consistent slice policy definition is distributed to the
-devices in the network as shown in {{ns-instantiation}}. The specification of
+devices in the network as shown in {{ns-workflow}}. The specification of
 the network slice intent on the northbound interface of the controller and the
 mechanism used to map the network slice to a slice policy are outside the scope
 of this document.
-
-~~~~~
-                               |
-                               | IETF Network Slice
-                               | (service)
-                    +--------------------+
-                    |    IETF Network    |
-                    |  Slice Controller  |
-                    +--------------------+
-                               |
-                               | Slice Policy
-                              /|\
-                             / | \
-                      slice policy capable        
-                        nodes/controllers     
-                        / /    |    \ \     
-                       v v     v     v v      
-                      xxxxxxxxxxxxxxxxxxxx
-                    xxxx                xxxx
-                  xxxx       Slice        xxxx
-                  xxxx     Aggregate      xxxx
-                    xxxx                xxxx
-                      xxxxxxxxxxxxxxxxxxxx
-                 
-                  <------ Path Control ------>
-                  RSVP-TE/SR-Policy/SR-FlexAlgo
-~~~~~
-{: #ns-instantiation title="Slice Policy Instantiation."}
-
 
 ## Slice Policy Definition {#SliceDefinition}
 
@@ -736,7 +861,7 @@ treatment before packets are forwarded, and in some cases, drop probability for
 each packet.
 
 
-### Slice Policy Topology
+### Slice Policy Topology {#SlicePolicyTopology}
 
 A key element of the slice policy is a customized topology that may include the
 full or subset of the physical network topology. The slice policy topology
@@ -894,6 +1019,62 @@ allows for applying a rich set of rules to identify specific packets to be
 mapped to a slice aggregate. However, it requires data plane network resources to
 be able to perform the additional checks in hardware.
 
+# Path Selection and Instantiation
+
+## Applicability of Path Selection to Slice Aggregates
+
+The path selection in the network can be network state dependent, or network state
+independent as described in Section 5.1 of {{?I-D.ietf-teas-rfc3272bis}}.
+The latter is the choice commonly used by IGPs when selecting a best path to
+a destination prefix, while the former is used by ingress TE routers, or Path
+Computation Engines (PCEs) when optimizing the placement of a flow based on the
+current network resource utilization.
+
+For example, when steering traffic on a delay optimized path, the IGP can use
+its link state database's view of the network topology to compute a path
+optimizing for the delay metric of each link in the network resulting in a
+cumulative lowest delay path.
+
+When path selection is network state dependent, the path computation can 
+leverage Traffic Engineering mechanisms (e.g., as defined in {{?RFC2702}})
+to compute feasible paths taking into account the incoming traffic demand
+rate and current state of network. This allows avoiding overly utilized
+links, and reduces the chance of congestion on traversed links.
+
+To enable TE path placement, the link state is advertised with current
+reservations, thereby reflecting the available bandwidth on each link.  Such
+link reservations may be maintained centrally on a network wide network
+resource manager, or distributed on devices (as usually done with RSVP). TE
+extensions exist today to allow IGPs (e.g., {{!RFC3630}} and {{!RFC5305}}), and
+BGP-LS {{!RFC7752}} to advertise such link state reservations.
+
+When network resource reservations are also slice aggregate aware, the link state can
+carry per slice aggregate state (e.g., reservable
+bandwidth).  This allows path computation to take into account the specific
+network resources available for a slice aggregate when determining the path for a
+specific flow.  In this case, we refer to the process of path placement and
+path provisioning as slice aggregate aware TE.
+
+## Applicability of Path Control Technologies to Slice Aggregates
+
+The slice policy modes described in this document are agnostic to the
+technology used to setup paths that carry slice aggregate traffic.
+One or more paths connecting the endpoints of the mapped IETF network
+slices may be selected to steer the corresponding traffic streams
+over the resources allocated for the slice aggregate.
+
+For example, once the feasible paths within a slice policy topology are
+selected, it is possible to use RSVP-TE protocol {{!RFC3209}} to setup or
+signal the LSPs that would be used to carry the slice aggregate traffic.  Specific
+extensions to RSVP-TE protocol to enable signaling of slice aggregate aware RSVP
+LSPs are outside the scope of this document.
+
+Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
+paths can be realized by steering over specific segments or segment-lists
+using an SR policy. Further details on how the slice policy modes presented in this
+document can be realized over an SR network is discussed in
+{{!I-D.bestbar-spring-scalable-ns}}, and {{!I-D.bestbar-lsr-spring-sa}}.
+
 # Control Plane Extensions
 
 Routing protocols may need to be extended to carry additional per slice aggregate link
@@ -913,26 +1094,6 @@ RESTCONF {{?RFC8040}}, or gRPC) may be used to enable configuration and
 retrieval of state information for slice policies on network devices. The slice
 policy YANG data model is outside the scope of this document, and
 is defined in {{!I-D.bestbar-teas-yang-slice-policy}}.
-
-# Applicability to Path Control Technologies
-
-The slice policy modes described in this document are agnostic to the
-technology used to setup paths that carry slice aggregate traffic.
-One or more paths connecting the endpoints of the mapped IETF network
-slices may be selected to steer the corresponding traffic streams
-over the resources allocated for the slice aggregate.
-
-For example, once the feasible paths within a slice policy topology are
-selected, it is possible to use RSVP-TE protocol {{!RFC3209}} to setup or
-signal the LSPs that would be used to carry the slice aggregate traffic.  Specific
-extensions to RSVP-TE protocol to enable signaling of slice aggregate aware RSVP
-LSPs are outside the scope of this document.
-
-Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
-paths can be realized by steering over specific segments or segment-lists
-using an SR policy. Further details on how the slice policy modes presented in this
-document can be realized over an SR network is discussed in
-{{!I-D.bestbar-spring-scalable-ns}}, and {{!I-D.bestbar-lsr-spring-sa}}.
 
 # IANA Considerations
 
