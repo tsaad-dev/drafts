@@ -43,6 +43,8 @@ module: ietf-resmgr
                              |       inet:ip-address
                              +--rw context?
                              |       string
+                             +--rw association-objs*
+                             |  +--rw association-obj [association-key]
                              +--rw tunnel-id
                              |       uint32
                              +--rw path-instance-id
@@ -67,6 +69,8 @@ module: ietf-resmgr
     |  |     +---w source?               inet:ip-address
     |  |     +---w destination?          inet:ip-address
     |  |     +---w context?              string
+    |  |     +--rw association-objs*
+    |  |        +--rw association-obj [association-key]
     |  |     +---w tunnel-id?            uint32
     |  |     +---w path-instance-id?     uint32
     |  |     +---w multipath-id?         uint32
