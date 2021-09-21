@@ -55,6 +55,12 @@ author:
    email: chen.ran@zte.com.cn
 
  -
+   ins: J. Dong
+   name: Jie Dong
+   organization: Huawei Technologies
+   email: jie.dong@huawei.com
+
+ -
    ins: X. Liu
    name: Xufeng Liu
    organization: Volta Networks
@@ -71,6 +77,12 @@ author:
    name: Reza Rokui
    organization: Nokia
    email: reza.rokui@nokia.com
+
+ -
+   ins: Z. Ali
+   name: Zafar Ali
+   organization: Cisco Systems
+   email: zali@cisco.com
 
 normative:
   RFC2119:
@@ -1063,19 +1075,46 @@ One or more paths connecting the endpoints of the mapped IETF network
 slices may be selected to steer the corresponding traffic streams
 over the resources allocated for the slice aggregate.
 
-For example, once the feasible paths within a slice policy topology are
-selected, it is possible to use RSVP-TE protocol {{!RFC3209}} to setup or
-signal the LSPs that would be used to carry the slice aggregate traffic.  Specific
-extensions to RSVP-TE protocol to enable signaling of slice aggregate aware RSVP
-LSPs are outside the scope of this document.
+The feasible paths can be computed using the slice policy topology and network state
+subject the optimization metrics and constraints.
 
-Alternatively, Segment Routing (SR) {{!RFC8402}} may be used and the feasible
-paths can be realized by steering over specific segments or segment-lists
-using an SR policy. Further details on how the slice policy modes presented in this
-document can be realized over an SR network is discussed in
+
+## RSVP-TE Based Slice Aggregate Paths
+
+RSVP-TE {{!RFC3209}} can be used to signal LSPs over the computed feasible paths
+in order to carry the slice aggregate traffic. The specific extensions to the RSVP-TE
+protocol required to enable signaling of slice aggregate aware RSVP LSPs are
+are outside the scope of this document.
+
+## SR Based Slice Aggregate Paths
+
+Segment Routing (SR) {{!RFC8402}} can be used to setup and steer traffic over
+the computed slice aggregate feasible paths.
+
+The SR architecture defines a number of building blocks that can be leveraged to support
+the realization of slice aggregate in an SR network.
+
+Such building blocks include:
+
+* SR Policy with or without Flexible Algorithm.
+* Steering of services (e.g. VPN) traffic over SR paths
+* SR Operation, Administration and Management (OAM) and Performance Management (PM)
+
+SR allows a headend node to steer packets onto specific SR paths using
+a Segment Routing Policy (SR Policy). The SR policy supports various
+optimization objectives and constraints and can be used to steer slice aggregate
+trafffic in the SR network.
+
+The SR policy can be instantiated with or without the IGP Flexible Algorithm feature.
+The slice aggregate traffic can be associated with a specific
+One or more slice policies can share an SR Flexible-Algorithm topology and optimization
+objective to steer slice aggregate traffic over the Flex-algo computed paths.
+
+Further details on how the slice policy modes presented in this
+document can be realized in an SR network are discussed in
 {{!I-D.bestbar-spring-scalable-ns}}, and {{!I-D.bestbar-lsr-spring-sa}}.
 
-# Control Plane Extensions
+# Slice Policy Protocol Extensions
 
 Routing protocols may need to be extended to carry additional per slice aggregate link
 state. For example, {{!RFC5305}}, {{!RFC3630}}, and {{!RFC7752}} are ISIS, OSPF, and BGP
