@@ -470,7 +470,7 @@ o The physical network may be filtered to multiple Policy Filter
   presenting only the subset of links and nodes that meet specific
   criteria.  Note, however, that a network operator does not need to
   derive any Policy Filter Topologies, choosing to operate directly
-  on the physical network.
+  on the full physical network.
 
 o It is anticipated that there may be very many IETF Network Slices
   supported by a network operator over a single physical network.
@@ -1105,14 +1105,16 @@ a Segment Routing Policy (SR Policy). The SR policy supports various
 optimization objectives and constraints and can be used to steer slice aggregate
 trafffic in the SR network.
 
-The SR policy can be instantiated with or without the IGP Flexible Algorithm feature.
-The slice aggregate traffic can be associated with a specific
-One or more slice policies can share an SR Flexible-Algorithm topology and optimization
-objective to steer slice aggregate traffic over the Flex-algo computed paths.
-
-Further details on how the slice policy modes presented in this
-document can be realized in an SR network are discussed in
-{{!I-D.bestbar-spring-scalable-ns}}, and {{!I-D.bestbar-lsr-spring-sa}}.
+The SR policy can be instantiated with or without the IGP Flexible Algorithm
+(Flex-Algorithm) feature.  It may be possible to dedicate a single SR
+Flex-Algorithm to compute and instantiate SR paths for one slice aggregate
+traffic. In this case, the SR Flex-Algorithm computed paths and Flex-Algorithm
+SR SIDs are not shared by other slice aggregates traffic. However, to allow for better
+scale, it may be desirable for multiple slice aggregates traffic to share the
+same SR Flex-Algorithm computed paths and SIDs. Further details on how the
+slice policy modes presented in this document can be realized in an SR network
+are discussed in {{!I-D.bestbar-spring-scalable-ns}}, and
+{{!I-D.bestbar-lsr-spring-sa}}.
 
 # Slice Policy Protocol Extensions
 
