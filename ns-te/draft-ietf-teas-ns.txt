@@ -248,6 +248,10 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
       controller that is used to realize an IETF network slice
       [I-D.ietf-teas-ietf-network-slices].
 
+   Network Resource Partition:
+      the collection of resources that are used to support a Slice-Flow
+      Aggregate.
+
    Slice-Flow Aggregate:
       a collection of packets that match a NRP Policy selection criteria
       and are given the same forwarding treatment; a Slice-Flow
@@ -255,10 +259,6 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
       streams; the mapping of one or more IETF network slices to a
       Slice-Flow Aggregate is maintained by the IETF Network Slice
       Controller.
-
-   Network Resource Partition:
-      the collection of resources that are used to support a Slice-Flow
-      Aggregate.
 
    Network Resource Partition Policy:
       a policy construct that enables instantiation of mechanisms in
@@ -843,8 +843,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
    *  Topology membership policies: This defines the topology filter
-      policies that dictate node/link/function network resource topology
-      specific to the NRP.
+      policies that dictate node/link/function membership to a specific
+      NRP.
 
    There is a desire for flexibility in realizing network slices to
    support the services across networks consisting of products from

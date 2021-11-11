@@ -179,15 +179,15 @@ in this document refers to 'IETF network slice' as defined in
 IETF Network Slice Controller (NSC):
 : controller that is used to realize an IETF network slice {{?I-D.ietf-teas-ietf-network-slices}}.
 
+Network Resource Partition:
+: the collection of resources that are used to support a Slice-Flow Aggregate.
+
 Slice-Flow Aggregate:
 : a collection of packets that match a NRP Policy selection 
 criteria and are given the same forwarding treatment; a Slice-Flow
 Aggregate comprises of one or more IETF network slice traffic 
 streams; the mapping of one or more IETF network slices to a Slice-Flow
 Aggregate is maintained by the IETF Network Slice Controller.
-
-Network Resource Partition:
-: the collection of resources that are used to support a Slice-Flow Aggregate.
 
 Network Resource Partition Policy:
 : a policy construct that enables instantiation of mechanisms in support 
@@ -652,7 +652,7 @@ classes within it.
   prioritize any reservations of a specific NRP over others.
 
 - Topology membership policies: This defines the topology filter policies that dictate
-  node/link/function network resource topology specific to the NRP.
+  node/link/function membership to a specific NRP.
 
 There is a desire for flexibility in realizing network slices to support the
 services across networks consisting of products from multiple vendors.  These
