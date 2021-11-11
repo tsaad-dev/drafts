@@ -141,7 +141,7 @@ When logical networks associated with a NRP are realized on top of a
 shared physical network infrastructure, it is important to steer traffic on the
 specific network resources partition that is allocated for the Slice-Flow Aggregate.
 In packet networks, the packets of a specific Slice-Flow Aggregate MAY be
-identified by one or more specific fields carried within the packet. A NRP
+identified by one or more specific fields carried within the packet. An NRP
 ingress boundary node populates the respective field(s) in packets that
 are mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes toidentify and apply the specific Per Hop Behavior (PHB) associated with
 the Slice-Flow Aggregate. The PHB defines the scheduling treatment and, in some
@@ -253,7 +253,7 @@ Slice-Flow Aggregate Aware TE:
 
 # Network Resource Slicing Membership
 
-A NRP that supports a Slice-Flow Aggregate can be
+An NRP that supports a Slice-Flow Aggregate can be
 instantiated over parts of an IP/MPLS network (e.g., all or specific network
 resources in the access, aggregation, or core network), and can stretch across
 multiple domains administered by a provider.  The NRP topology may
@@ -297,10 +297,10 @@ section.
      | IETF        (   --:     --     :--   )    ( Network )
      | Network     (     :............:     )    (  Slice  )
      | Slice Svc    (  IETF Network Slice  )      (       )  Customer
-     | Req (1)       ----------------------        -------     View
+     | Req           ----------------------        -------     View
    ..|....................................\........./..................
    --v----------   ----> Slice Aggregation \       /        Controller
-   |Controllers|  |         Mapping (2)     v     v            View
+   |Controllers|  |         Mapping         v     v            View
    |  -------  |  |    -----------------------------------------
    | |IETF   | |--    ( |PE|.......|PE|........|PE|.......|PE|  )
    | |Network| |     (   --:        --         :--         --    )
@@ -308,7 +308,7 @@ section.
    | |Cntrlr | |      (           Slice-Flow Aggregate         )
    | |(NSC)  | |       -----------------------------------------
    |  -------  |---------.
-   |  -------  |         | Path Placement (3)
+   |  -------  |         | Path Placement
    | |       | |         v
    | |       | |       -----------------------------------------
    | |       | |      ( |PE|....-..|PE|        |PE|.......|PE|  )
@@ -317,7 +317,7 @@ section.
    | |(NC)   | |      ( Path Set            -         -         )
    | |       | |       -----------------------------------------
    | |       | |-------.
-   | |       | |       | Apply Topology Filters (0)
+   | |       | |       | Apply Topology Filters    
    | |       | |       v
    |  -------  |      -----------------------------      --------
    |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
@@ -328,17 +328,17 @@ section.
     |  |       \      -----------------------------       A
     |  |        \                       A                /
    ..............\.......................\............../..............
-    |  | Path     v Service Mapping (6)   \            /  Physical N/w
+    |  | Path     v Service Mapping       \            /  Physical N/w
      \  \Inst     ------------------------------------------------
-      \  \(5)    ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
+      \  \       ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
        \  \     (   --     |P|     --       :-...:--     -..:--    )
    NRP  \  --->(    :       -:..............|P|.........|P|         )
    Policy\     (    -.......................:-:..-       -          )
    Inst   ----->(  |P|..........................|P|......:         )
-    (4)          (  -                            -                )
+                 (  -                            -                )
                   ------------------------------------------------
 ~~~~
-{: #ns-workflow title="Workflow diagram for IETF network slice instantiation."}
+{: #ns-workflow title="IETF network slice realization steps."}
 
 ## Network Topology Filters
 
@@ -467,7 +467,7 @@ o It is anticipated that there may be very many IETF Network Slices
 
 # Network Resource Partition Modes {#SliceModes}
 
-A NRP Policy can be used to dictate if the network resource partitioning
+An NRP Policy can be used to dictate if the network resource partitioning
 of the shared network resources among multiple Slice-Flow Aggregates can be achieved:
 
 {:req: counter="bar" style="format %c)"}
@@ -508,7 +508,7 @@ selected path.
 
 For example, the Segment-Routing Flexible Algorithm {{!I-D.ietf-lsr-flex-algo}}
 may be deployed in a network to steer packets on the IGP computed lowest
-cumulative delay path.  A NRP Policy may be used to
+cumulative delay path.  An NRP Policy may be used to
 allow links along the least latency path to share its data plane resources
 amongst multiple Slice-Flow Aggregates. In this case, the packets that are
 steered on a specific NRP carry the SAS that
@@ -596,8 +596,7 @@ actual physical link resource capacity to allow for over subscription.
                                          <--Max Reservable Bandwidth-->
 
    (a) No bandwidth sharing              (b) Sharing bandwidth between
-       between Network Resource              Network Resource Partitions
-       Partitions.                            of the same group.
+       between NRPs.                         NRPs of the same group. 
 
 ~~~~~~
 {: #resource-sharing title="Bandwidth isolation/sharing among NRPs."}
@@ -630,7 +629,7 @@ by specifying requirements rather than mechanisms to realize the slice as descri
 in {{NetworkSliceServiceRequest}}.
 
 The network slice controller consumes the network slice service
-intent and realizes it with an appropriate NRP Policy. 
+intent and realizes it with an appropriate Network Resource Partition Policy (NRP Policy).
 Multiple IETF network slices MAY be mapped to the same Slice-Flow Aggregate as described in {{SliceAggregateMapping}}.
 
 The network wide consistent NRP Policy definition is distributed to the
@@ -645,25 +644,24 @@ The NRP Policy is network-wide construct that is consumed by network devices,
 and may include rules that control the following:
 
 - Data plane specific policies: This includes the SS, any firewall rules or
-  flow-spec filters, and QoS profiles associated with the Network Resource
-Partition Policy and any classes within it.
+  flow-spec filters, and QoS profiles associated with the NRP Policy and any
+classes within it.
 
 - Control plane specific policies: This includes guaranteed bandwidth, any
   network resource sharing amongst slice policies, and reservation preference to
   prioritize any reservations of a specific NRP over others.
 
 - Topology membership policies: This defines the topology filter policies that dictate
-  node/link/function network resource topology specific to the Network Resource
-  Partition.
+  node/link/function network resource topology specific to the NRP.
 
 There is a desire for flexibility in realizing network slices to support the
 services across networks consisting of products from multiple vendors.  These
 networks may also be grouped into disparate domains and deploy various path
 control technologies and tunnel techniques to carry traffic across the network.
 It is expected that a standardized data model for NRP
-Policy will facilitate the instantiation and management of the Network Resource
-Partition on the topological elements selected by the Network Resource
-Partition Policy topology filter.  A YANG data model for the Network Resource
+Policy will facilitate the instantiation and management of the NRP
+on the topological elements selected by the NRP
+Policy topology filter.  A YANG data model for the Network Resource
 Partition Policy instantiation on the controller and network devices is
 described in {{!I-D.bestbar-teas-yang-slice-policy}}.
 
@@ -708,7 +706,7 @@ in both the control and data planes.
 
 Global Identifier Based Selector:
 
-> A NRP Policy MAY include a Global Identifier SAS (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
+> An NRP Policy MAY include a Global Identifier SAS (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
 in each packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the NRP domain can use the forwarding
@@ -873,11 +871,11 @@ full or subset of the physical network topology. The NRP topology
 could also span multiple administrative domains and/or multiple dataplane
 technologies.
 
-A NRP topology can overlap or share a subset of links
+An NRP topology can overlap or share a subset of links
 with another NRP topology. A number of topology
 filtering policies can be defined as part of the NRP
-Policy to limit the specific topology elements that belong to Network Resource
-Partition.  For example, a topology filtering policy can leverage Resource
+Policy to limit the specific topology elements that belong to the NRP.
+For example, a topology filtering policy can leverage Resource
 Affinities as defined in {{?RFC2702}} to include or exclude certain links that
 the NRP is instantiated on in supports of the Slice-Flow
 Aggregate.
@@ -916,15 +914,15 @@ accordance with the requirements or rules of each service's SLAs.  The
 requirements and rules for network slice services are set using
 mechanisms which are outside the scope of this document.
 
-When data plane NRP mode is employed, the Network
-Resource Partition ingress nodes are responsible for adding a suitable SAS onto
+When data plane NRP mode is employed, the NRP
+ingress nodes are responsible for adding a suitable SAS onto
 packets that belong to specific Slice-Flow Aggregate.  In addition, edge nodes
 MAY mark the corresponding Diffserv CS to differentiate between different types
 of traffic carried over the same Slice-Flow Aggregate.
 
 ### Network Resource Partition Interior Nodes
 
-A NRP interior node receives slice traffic and MAY be able to identify the
+An NRP interior node receives slice traffic and MAY be able to identify the
 packets belonging to a specific Slice-Flow Aggregate by inspecting the SS
 field carried inside each packet, or by inspecting other fields
 within the packet that may identify the traffic streams that belong to a specific
@@ -1001,8 +999,8 @@ network. The path selection, in such case, can take into
 account the NRP available network resources.  The SAS carried within
 packets allow transit nodes to enforce the corresponding NRP-PHB on the parts of the
 network that apply the data plane NRP mode. The SAS can be
-maintained while traffic traverses nodes that do not enforce data plane Network Resource
-Partition mode, and so slice PHB enforcement can resume once traffic traverses
+maintained while traffic traverses nodes that do not enforce data plane NRP
+mode, and so slice PHB enforcement can resume once traffic traverses
 capable nodes.
 
 ## Mapping Traffic on Slice-Flow Aggregates

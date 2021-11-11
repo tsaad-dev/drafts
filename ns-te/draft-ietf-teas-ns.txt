@@ -198,7 +198,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    traffic on the specific network resources partition that is allocated
    for the Slice-Flow Aggregate.  In packet networks, the packets of a
    specific Slice-Flow Aggregate MAY be identified by one or more
-   specific fields carried within the packet.  A NRP ingress boundary
+   specific fields carried within the packet.  An NRP ingress boundary
    node populates the respective field(s) in packets that are mapped to
    a Slice-Flow Aggregate in order to allow interior NRP nodes
    toidentify and apply the specific Per Hop Behavior (PHB) associated
@@ -352,7 +352,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 2.  Network Resource Slicing Membership
 
-   A NRP that supports a Slice-Flow Aggregate can be instantiated over
+   An NRP that supports a Slice-Flow Aggregate can be instantiated over
    parts of an IP/MPLS network (e.g., all or specific network resources
    in the access, aggregation, or core network), and can stretch across
    multiple domains administered by a provider.  The NRP topology may
@@ -403,10 +403,10 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
       | IETF        (   --:     --     :--   )    ( Network )
       | Network     (     :............:     )    (  Slice  )
       | Slice Svc    (  IETF Network Slice  )      (       )  Customer
-      | Req (1)       ----------------------        -------     View
+      | Req           ----------------------        -------     View
     ..|....................................\........./..................
     --v----------   ----> Slice Aggregation \       /        Controller
-    |Controllers|  |         Mapping (2)     v     v            View
+    |Controllers|  |         Mapping         v     v            View
     |  -------  |  |    -----------------------------------------
     | |IETF   | |--    ( |PE|.......|PE|........|PE|.......|PE|  )
     | |Network| |     (   --:        --         :--         --    )
@@ -414,7 +414,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
     | |Cntrlr | |      (           Slice-Flow Aggregate         )
     | |(NSC)  | |       -----------------------------------------
     |  -------  |---------.
-    |  -------  |         | Path Placement (3)
+    |  -------  |         | Path Placement
     | |       | |         v
     | |       | |       -----------------------------------------
     | |       | |      ( |PE|....-..|PE|        |PE|.......|PE|  )
@@ -423,7 +423,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
     | |(NC)   | |      ( Path Set            -         -         )
     | |       | |       -----------------------------------------
     | |       | |-------.
-    | |       | |       | Apply Topology Filters (0)
+    | |       | |       | Apply Topology Filters
     | |       | |       v
     |  -------  |      -----------------------------      --------
     |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
@@ -434,14 +434,14 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
      |  |       \      -----------------------------       A
      |  |        \                       A                /
     ..............\.......................\............../..............
-     |  | Path     v Service Mapping (6)   \            /  Physical N/w
+     |  | Path     v Service Mapping       \            /  Physical N/w
       \  \Inst     ------------------------------------------------
-       \  \(5)    ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
+       \  \       ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
         \  \     (   --     |P|     --       :-...:--     -..:--    )
     NRP  \  --->(    :       -:..............|P|.........|P|         )
     Policy\     (    -.......................:-:..-       -          )
     Inst   ----->(  |P|..........................|P|......:         )
-     (4)          (  -                            -                )
+                  (  -                            -                )
 
 
 
@@ -452,7 +452,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
                    ------------------------------------------------
 
-    Figure 1: Workflow diagram for IETF network slice instantiation.
+            Figure 1: IETF network slice realization steps.
 
 3.1.  Network Topology Filters
 
@@ -599,7 +599,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 4.  Network Resource Partition Modes
 
-   A NRP Policy can be used to dictate if the network resource
+   An NRP Policy can be used to dictate if the network resource
    partitioning of the shared network resources among multiple Slice-
    Flow Aggregates can be achieved:
 
@@ -653,7 +653,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    For example, the Segment-Routing Flexible Algorithm
    [I-D.ietf-lsr-flex-algo] may be deployed in a network to steer
-   packets on the IGP computed lowest cumulative delay path.  A NRP
+   packets on the IGP computed lowest cumulative delay path.  An NRP
    Policy may be used to allow links along the least latency path to
    share its data plane resources amongst multiple Slice-Flow
    Aggregates.  In this case, the packets that are steered on a specific
@@ -765,8 +765,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
                                          <--Max Reservable Bandwidth-->
 
    (a) No bandwidth sharing              (b) Sharing bandwidth between
-       between Network Resource              Network Resource Partitions
-       Partitions.                            of the same group.
+       between NRPs.                         NRPs of the same group.
 
           Figure 2: Bandwidth isolation/sharing among NRPs.
 
@@ -775,6 +774,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    In order to support strict guarantees for Slice-Flow Aggregates, the
    network resources can be partitioned in both the control plane and
    data plane.
+
 
 
 
@@ -809,9 +809,9 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    in Section 3.2.
 
    The network slice controller consumes the network slice service
-   intent and realizes it with an appropriate NRP Policy.  Multiple IETF
-   network slices MAY be mapped to the same Slice-Flow Aggregate as
-   described in Section 3.3.
+   intent and realizes it with an appropriate Network Resource Partition
+   Policy (NRP Policy).  Multiple IETF network slices MAY be mapped to
+   the same Slice-Flow Aggregate as described in Section 3.3.
 
    The network wide consistent NRP Policy definition is distributed to
    the devices in the network as shown in Figure 1.  The specification
@@ -826,7 +826,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    *  Data plane specific policies: This includes the SS, any firewall
       rules or flow-spec filters, and QoS profiles associated with the
-      Network Resource Partition Policy and any classes within it.
+      NRP Policy and any classes within it.
 
    *  Control plane specific policies: This includes guaranteed
       bandwidth, any network resource sharing amongst slice policies,
@@ -844,7 +844,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    *  Topology membership policies: This defines the topology filter
       policies that dictate node/link/function network resource topology
-      specific to the Network Resource Partition.
+      specific to the NRP.
 
    There is a desire for flexibility in realizing network slices to
    support the services across networks consisting of products from
@@ -852,11 +852,11 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    domains and deploy various path control technologies and tunnel
    techniques to carry traffic across the network.  It is expected that
    a standardized data model for NRP Policy will facilitate the
-   instantiation and management of the Network Resource Partition on the
-   topological elements selected by the Network Resource Partition
-   Policy topology filter.  A YANG data model for the Network Resource
-   Partition Policy instantiation on the controller and network devices
-   is described in [I-D.bestbar-teas-yang-slice-policy].
+   instantiation and management of the NRP on the topological elements
+   selected by the NRP Policy topology filter.  A YANG data model for
+   the Network Resource Partition Policy instantiation on the controller
+   and network devices is described in
+   [I-D.bestbar-teas-yang-slice-policy].
 
    It is also possible to distribute the NRP Policy to network devices
    using several mechanisms, including protocols such as NETCONF or
@@ -911,7 +911,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    Global Identifier Based Selector:
 
-      A NRP Policy MAY include a Global Identifier SAS (GISS) field as
+      An NRP Policy MAY include a Global Identifier SAS (GISS) field as
       defined in [I-D.kompella-mpls-mspl4fa] that is carried in each
       packet in order to associate it to the NRP supporting a Slice-Flow
       Aggregate, independent of the forwarding address or MPLS
@@ -1129,13 +1129,13 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    topology could also span multiple administrative domains and/or
    multiple dataplane technologies.
 
-   A NRP topology can overlap or share a subset of links with another
+   An NRP topology can overlap or share a subset of links with another
    NRP topology.  A number of topology filtering policies can be defined
    as part of the NRP Policy to limit the specific topology elements
-   that belong to Network Resource Partition.  For example, a topology
-   filtering policy can leverage Resource Affinities as defined in
-   [RFC2702] to include or exclude certain links that the NRP is
-   instantiated on in supports of the Slice-Flow Aggregate.
+   that belong to the NRP.  For example, a topology filtering policy can
+   leverage Resource Affinities as defined in [RFC2702] to include or
+   exclude certain links that the NRP is instantiated on in supports of
+   the Slice-Flow Aggregate.
 
    The NRP Policy may also include a reference to a predefined topology
    (e.g., derived from a Flexible Algorithm Definition (FAD) as defined
@@ -1184,16 +1184,15 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    services are set using mechanisms which are outside the scope of this
    document.
 
-   When data plane NRP mode is employed, the Network Resource Partition
-   ingress nodes are responsible for adding a suitable SAS onto packets
-   that belong to specific Slice-Flow Aggregate.  In addition, edge
-   nodes MAY mark the corresponding Diffserv CS to differentiate between
-   different types of traffic carried over the same Slice-Flow
-   Aggregate.
+   When data plane NRP mode is employed, the NRP ingress nodes are
+   responsible for adding a suitable SAS onto packets that belong to
+   specific Slice-Flow Aggregate.  In addition, edge nodes MAY mark the
+   corresponding Diffserv CS to differentiate between different types of
+   traffic carried over the same Slice-Flow Aggregate.
 
 5.2.2.  Network Resource Partition Interior Nodes
 
-   A NRP interior node receives slice traffic and MAY be able to
+   An NRP interior node receives slice traffic and MAY be able to
    identify the packets belonging to a specific Slice-Flow Aggregate by
    inspecting the SS field carried inside each packet, or by inspecting
    other fields within the packet that may identify the traffic streams
@@ -1225,6 +1224,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    is at the top of the MPLS label stack, packets can be bypassed (or
    tunneled) over the NRP incapable devices towards the next device that
    supports NRP as shown in Figure 5.
+
 
 
 
@@ -1279,8 +1279,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    allow transit nodes to enforce the corresponding NRP-PHB on the parts
    of the network that apply the data plane NRP mode.  The SAS can be
    maintained while traffic traverses nodes that do not enforce data
-   plane Network Resource Partition mode, and so slice PHB enforcement
-   can resume once traffic traverses capable nodes.
+   plane NRP mode, and so slice PHB enforcement can resume once traffic
+   traverses capable nodes.
 
 
 
