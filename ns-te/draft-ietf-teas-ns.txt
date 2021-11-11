@@ -193,7 +193,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    solution proposed in this document does not mandate Diffserv to be
    enabled in the network to provide a specific forwarding treatment.
 
-   When logical networks associated with a NRP are realized on top of a
+   When logical networks associated with an NRP are realized on top of a
    shared physical network infrastructure, it is important to steer
    traffic on the specific network resources partition that is allocated
    for the Slice-Flow Aggregate.  In packet networks, the packets of a
@@ -253,8 +253,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
       Aggregate.
 
    Slice-Flow Aggregate:
-      a collection of packets that match a NRP Policy selection criteria
-      and are given the same forwarding treatment; a Slice-Flow
+      a collection of packets that match an NRP Policy selection
+      criteria and are given the same forwarding treatment; a Slice-Flow
       Aggregate comprises of one or more IETF network slice traffic
       streams; the mapping of one or more IETF network slices to a
       Slice-Flow Aggregate is maintained by the IETF Network Slice
@@ -263,8 +263,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    Network Resource Partition Policy:
       a policy construct that enables instantiation of mechanisms in
       support of IETF network slice specific control and data plane
-      behaviors on select topological elements; the enforcement of a NRP
-      Policy results in the creation of a NRP.
+      behaviors on select topological elements; the enforcement of an
+      NRP Policy results in the creation of an NRP.
 
    NRP Capable Node:
       a node that supports one of the NRP modes described in this
@@ -634,9 +634,9 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    Selector (SAS) MUST be carried in each packet to identify the Slice-
    Flow Aggregate that it belongs to.
 
-   The ingress node of a NRP domain, in addition to marking packets with
-   a Diffserv CS, MAY also add an SAS to each Slice-Flow Aggregate
-   packet.  The transit nodes within a NRP domain MAY use the SAS to
+   The ingress node of an NRP domain, in addition to marking packets
+   with a Diffserv CS, MAY also add an SAS to each Slice-Flow Aggregate
+   packet.  The transit nodes within an NRP domain MAY use the SAS to
    associate packets with a Slice-Flow Aggregate and to determine the
    Network Resource Partition Per Hop Behavior (NRP-PHB) that is applied
    to the packet (refer to Section 5.1.3 for further details).  The CS
@@ -682,7 +682,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    oversubscription is desired).
 
    For example, the physical link bandwidth can be divided into
-   fractions, each dedicated to a NRP that supports a Slice-Flow
+   fractions, each dedicated to an NRP that supports a Slice-Flow
    Aggregate.  The topology associated with the NRP supporting a Slice-
    Flow Aggregate can be used by routing protocols, or by the ingress/
    PCE when computing Slice-Flow Aggregate aware TE paths.
@@ -862,7 +862,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    using several mechanisms, including protocols such as NETCONF or
    RESTCONF, or exchanging it using a suitable routing protocol that
    network devices participate in (such as IGP(s) or BGP).  The
-   extensions to enable specific protocols to carry a NRP Policy
+   extensions to enable specific protocols to carry an NRP Policy
    definition will be described in separate documents.
 
 5.1.1.  Network Resource Partition Data Plane Selector
@@ -1357,8 +1357,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    When the network resource reservations are maintained for NRPs, the
    link state can carry per NRP state (e.g., reservable bandwidth).
    This allows path computation to take into account the specific
-   network resources available for a NRP.  In this case, we refer to the
-   process of path placement and path provisioning as Slice-Flow
+   network resources available for an NRP.  In this case, we refer to
+   the process of path placement and path provisioning as Slice-Flow
    Aggregate aware TE.
 
 6.2.  Applicability of Path Control Technologies to Slice-Flow
@@ -1434,9 +1434,9 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    network slicing may be defined in other documents, and are outside
    the scope of this document.
 
-   The instantiation of a NRP Policy may need to be automated.  Multiple
-   options are possible to facilitate automation of distribution of a
-   NRP Policy to capable devices.
+   The instantiation of an NRP Policy may need to be automated.
+   Multiple options are possible to facilitate automation of
+   distribution of an NRP Policy to capable devices.
 
    For example, a YANG data model for the NRP Policy may be supported on
    network devices and controllers.  A suitable transport (e.g., NETCONF
@@ -1481,7 +1481,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    The defense against this type of theft and denial-of-service attacks
    consists of a combination of traffic conditioning at NRP domain
    boundaries with security and integrity of the network infrastructure
-   within a NRP domain.
+   within an NRP domain.
 
 10.  Acknowledgement
 
