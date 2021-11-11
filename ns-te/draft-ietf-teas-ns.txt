@@ -128,8 +128,8 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
            Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  24
      6.2.  Applicability of Path Control Technologies to Slice-Flow
            Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  25
-     6.3.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . . . .  25
-     6.4.  SR Based Slice-Flow Aggregate Paths . . . . . . . . . . .  25
+       6.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . .  25
+       6.2.2.  SR Based Slice-Flow Aggregate Paths . . . . . . . . .  25
    7.  Network Resource Partition Protocol Extensions  . . . . . . .  26
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  26
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
@@ -382,7 +382,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    Figure 1 describes the steps required to realize an IETF network
    slice service in a provider network using the solution proposed in
-   this document.  Each of steps is further elaborated on in a
+   this document.  Each of the steps is further elaborated on in a
    subsequent section.
 
 
@@ -1374,7 +1374,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    The feasible paths can be computed using the NRP topology and network
    state subject the optimization metrics and constraints.
 
-6.3.  RSVP-TE Based Slice-Flow Aggregate Paths
+6.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths
 
    RSVP-TE [RFC3209] can be used to signal LSPs over the computed
    feasible paths in order to carry the Slice-Flow Aggregate traffic.
@@ -1382,7 +1382,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    signaling of Slice-Flow Aggregate aware RSVP LSPs are outside the
    scope of this document.
 
-6.4.  SR Based Slice-Flow Aggregate Paths
+6.2.2.  SR Based Slice-Flow Aggregate Paths
 
    Segment Routing (SR) [RFC8402] can be used to setup and steer traffic
    over the computed Slice-Flow Aggregate feasible paths.

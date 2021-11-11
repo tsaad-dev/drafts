@@ -1073,14 +1073,14 @@ The feasible paths can be computed using the NRP topology and network state
 subject the optimization metrics and constraints.
 
 
-## RSVP-TE Based Slice-Flow Aggregate Paths
+### RSVP-TE Based Slice-Flow Aggregate Paths
 
 RSVP-TE {{!RFC3209}} can be used to signal LSPs over the computed feasible paths
 in order to carry the Slice-Flow Aggregate traffic. The specific extensions to the RSVP-TE
 protocol required to enable signaling of Slice-Flow Aggregate aware RSVP LSPs are
 outside the scope of this document.
 
-## SR Based Slice-Flow Aggregate Paths
+### SR Based Slice-Flow Aggregate Paths
 
 Segment Routing (SR) {{!RFC8402}} can be used to setup and steer traffic over
 the computed Slice-Flow Aggregate feasible paths.
