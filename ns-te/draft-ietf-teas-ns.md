@@ -251,6 +251,8 @@ Slice-Flow Aggregate Aware TE:
 
 > PE: Provider Edge
 
+> PCEP: Path Computation Element (PCE) Communication Protocol (PCEP)
+
 # Network Resource Slicing Membership
 
 An NRP that supports a Slice-Flow Aggregate can be
@@ -883,7 +885,9 @@ Aggregate.
 The NRP Policy may also include a reference to a
 predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
 as defined in {{!I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
-{{!RFC4915}}.
+{{!RFC4915}}. A YANG data model that covers generic topology filters is described
+in {{?I-D.bestbar-teas-yang-topology-filter}}. Also, the Path Computation Element (PCE) Communication Protocol (PCEP) extensions to carry
+topology filters are defined in {{?I-D.xpbs-pce-topology-filter}}.
 
 
 ## Network Resource Partition Boundary
