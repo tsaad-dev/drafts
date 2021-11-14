@@ -143,7 +143,7 @@ specific network resources partition that is allocated for the Slice-Flow Aggreg
 In packet networks, the packets of a specific Slice-Flow Aggregate MAY be
 identified by one or more specific fields carried within the packet. An NRP
 ingress boundary node populates the respective field(s) in packets that
-are mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes toidentify and apply the specific Per Hop Behavior (PHB) associated with
+are mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes to identify and apply the specific Per Hop Behavior (PHB) associated with
 the Slice-Flow Aggregate. The PHB defines the scheduling treatment and, in some
 cases, the packet drop probability.
 
@@ -301,8 +301,8 @@ section.
      | Slice Svc    (  IETF Network Slice  )      (       )  Customer
      | Req           ----------------------        -------     View
    ..|....................................\........./..................
-   --v----------   ----> Slice Aggregation \       /        Controller
-   |Controllers|  |         Mapping         v     v            View
+   --v----------   ----> Slice-Flow        \       /        Controller
+   |Controllers|  |     Aggregation Mapping v     v            View
    |  -------  |  |    -----------------------------------------
    | |IETF   | |--    ( |PE|.......|PE|........|PE|.......|PE|  )
    | |Network| |     (   --:        --         :--         --    )
@@ -1166,6 +1166,8 @@ Krishnan, and Prabhu Raj Villadathu Karunakaran for their review of this
 document, and for providing valuable feedback on it. The authors would also
 like to thank Adrian Farrel for detailed discussions that resulted in
 {{NSRealization}}.
+
+Add Jie.
 
 # Contributors
 
