@@ -376,7 +376,7 @@ IETF Network Slice Service Requests are likely to arrive at various
 times in the life of the network, and may also be modified.
 
 
-## Slice Aggregation Mapping {#SliceAggregateMapping}
+## Slice-Flow Aggregation Mapping {#SliceAggregateMapping}
 
 A network may be called upon to support very many IETF Network
 Slices, and this could present scaling challenges in the operation

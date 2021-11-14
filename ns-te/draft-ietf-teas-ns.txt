@@ -93,7 +93,7 @@ Table of Contents
    3.  IETF Network Slice Realization  . . . . . . . . . . . . . . .   7
      3.1.  Network Topology Filters  . . . . . . . . . . . . . . . .   9
      3.2.  IETF Network Slice Service Request  . . . . . . . . . . .   9
-     3.3.  Slice Aggregation Mapping . . . . . . . . . . . . . . . .   9
+     3.3.  Slice-Flow Aggregation Mapping  . . . . . . . . . . . . .   9
      3.4.  Path Placement over Slice-Flow Aggregate Topology . . . .  10
      3.5.  NRP Policy Installation . . . . . . . . . . . . . . . . .  10
      3.6.  Path Instantiation  . . . . . . . . . . . . . . . . . . .  10
@@ -486,7 +486,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    IETF Network Slice Service Requests are likely to arrive at various
    times in the life of the network, and may also be modified.
 
-3.3.  Slice Aggregation Mapping
+3.3.  Slice-Flow Aggregation Mapping
 
    A network may be called upon to support very many IETF Network
    Slices, and this could present scaling challenges in the operation of
