@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 18 May 2022                                              B. Wen
+Expires: 19 May 2022                                              B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                               J. Halpern
@@ -19,7 +19,7 @@ Expires: 18 May 2022                                              B. Wen
                                                               Telefonica
                                                                 R. Rokui
                                                                    Nokia
-                                                        14 November 2021
+                                                        15 November 2021
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 1]
+Saad, et al.               Expires 19 May 2022                  [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 May 2022.
+   This Internet-Draft will expire on 19 May 2022.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 2]
+Saad, et al.               Expires 19 May 2022                  [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 3]
+Saad, et al.               Expires 19 May 2022                  [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 4]
+Saad, et al.               Expires 19 May 2022                  [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 5]
+Saad, et al.               Expires 19 May 2022                  [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -315,7 +315,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
       SAS: Slice-Flow Aggregate Selector
 
-      SSL: Slice-Flow Aggregate Selector Label as described in
+      SASL: Slice-Flow Aggregate Selector Label as described in
       Section 5.1.1
 
       SLA: Service Level Agreement
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 6]
+Saad, et al.               Expires 19 May 2022                  [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 7]
+Saad, et al.               Expires 19 May 2022                  [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -445,7 +445,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 8]
+Saad, et al.               Expires 19 May 2022                  [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -501,7 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                  [Page 9]
+Saad, et al.               Expires 19 May 2022                  [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 10]
+Saad, et al.               Expires 19 May 2022                 [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -613,7 +613,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 11]
+Saad, et al.               Expires 19 May 2022                 [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -669,7 +669,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 12]
+Saad, et al.               Expires 19 May 2022                 [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -725,7 +725,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 13]
+Saad, et al.               Expires 19 May 2022                 [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -781,7 +781,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 14]
+Saad, et al.               Expires 19 May 2022                 [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -824,7 +824,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    The NRP Policy is network-wide construct that is consumed by network
    devices, and may include rules that control the following:
 
-   *  Data plane specific policies: This includes the SS, any firewall
+   *  Data plane specific policies: This includes the SAS, any firewall
       rules or flow-spec filters, and QoS profiles associated with the
       NRP Policy and any classes within it.
 
@@ -837,7 +837,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 15]
+Saad, et al.               Expires 19 May 2022                 [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -893,7 +893,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 16]
+Saad, et al.               Expires 19 May 2022                 [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -949,7 +949,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 17]
+Saad, et al.               Expires 19 May 2022                 [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 18]
+Saad, et al.               Expires 19 May 2022                 [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 19]
+Saad, et al.               Expires 19 May 2022                 [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 20]
+Saad, et al.               Expires 19 May 2022                 [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 21]
+Saad, et al.               Expires 19 May 2022                 [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1194,7 +1194,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    An NRP interior node receives slice traffic and MAY be able to
    identify the packets belonging to a specific Slice-Flow Aggregate by
-   inspecting the SS field carried inside each packet, or by inspecting
+   inspecting the SAS field carried inside each packet, or by inspecting
    other fields within the packet that may identify the traffic streams
    that belong to a specific Slice-Flow Aggregate.  For example, when
    data plane NRP mode is applied, interior nodes can use the SAS
@@ -1220,7 +1220,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    For example, when the SAS is an MPLS label at the bottom of the MPLS
    label stack, packets can traverse over devices that are NRP incapable
-   without any further considerations.  On the other hand, when the SSL
+   without any further considerations.  On the other hand, when the SASL
    is at the top of the MPLS label stack, packets can be bypassed (or
    tunneled) over the NRP incapable devices towards the next device that
    supports NRP as shown in Figure 5.
@@ -1229,13 +1229,13 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 22]
+Saad, et al.               Expires 19 May 2022                 [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
-     SR Node-SID:           SSL: 1001    @@@: NRP Policy enforced
-        1601: P1                         ...: NRP Policy not enforced
+     SR Node-SID:           SASL: 1001    @@@: NRP Policy enforced
+        1601: P1                          ...: NRP Policy not enforced
         1602: P2
         1603: P3
         1604: P4
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 23]
+Saad, et al.               Expires 19 May 2022                 [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 24]
+Saad, et al.               Expires 19 May 2022                 [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 25]
+Saad, et al.               Expires 19 May 2022                 [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 26]
+Saad, et al.               Expires 19 May 2022                 [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 27]
+Saad, et al.               Expires 19 May 2022                 [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1565,7 +1565,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 28]
+Saad, et al.               Expires 19 May 2022                 [Page 28]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1621,7 +1621,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 29]
+Saad, et al.               Expires 19 May 2022                 [Page 29]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1677,7 +1677,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 30]
+Saad, et al.               Expires 19 May 2022                 [Page 30]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1733,7 +1733,7 @@ Authors' Addresses
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 31]
+Saad, et al.               Expires 19 May 2022                 [Page 31]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1789,7 +1789,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 32]
+Saad, et al.               Expires 19 May 2022                 [Page 32]
 
 Internet-Draft           IP/MPLS Network Slicing           November 2021
 
@@ -1845,4 +1845,4 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
 
 
-Saad, et al.               Expires 18 May 2022                 [Page 33]
+Saad, et al.               Expires 19 May 2022                 [Page 33]

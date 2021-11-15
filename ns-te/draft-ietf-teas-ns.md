@@ -225,7 +225,7 @@ Slice-Flow Aggregate Aware TE:
 
 > SAS: Slice-Flow Aggregate Selector
 
-> SSL: Slice-Flow Aggregate Selector Label as described in {{SliceSelector}}
+> SASL: Slice-Flow Aggregate Selector Label as described in {{SliceSelector}}
 
 > SLA: Service Level Agreement
 
@@ -645,7 +645,7 @@ of this document.
 The NRP Policy is network-wide construct that is consumed by network devices,
 and may include rules that control the following:
 
-- Data plane specific policies: This includes the SS, any firewall rules or
+- Data plane specific policies: This includes the SAS, any firewall rules or
   flow-spec filters, and QoS profiles associated with the NRP Policy and any
 classes within it.
 
@@ -927,7 +927,7 @@ of traffic carried over the same Slice-Flow Aggregate.
 ### Network Resource Partition Interior Nodes
 
 An NRP interior node receives slice traffic and MAY be able to identify the
-packets belonging to a specific Slice-Flow Aggregate by inspecting the SS
+packets belonging to a specific Slice-Flow Aggregate by inspecting the SAS
 field carried inside each packet, or by inspecting other fields
 within the packet that may identify the traffic streams that belong to a specific
 Slice-Flow Aggregate. For example, when data plane NRP mode is applied, interior
@@ -953,14 +953,14 @@ devices within the network -- including NRP incapable devices.
 
 For example, when the SAS is an MPLS label at the bottom of the MPLS label
 stack, packets can traverse over devices that are NRP incapable 
-without any further considerations. On the other hand, when the SSL
+without any further considerations. On the other hand, when the SASL
 is at the top of the MPLS label stack, packets can be bypassed (or tunneled)
 over the NRP incapable devices towards the next device that
 supports NRP as shown in {{sl-interworking}}.
 
 ~~~~
-  SR Node-SID:           SSL: 1001    @@@: NRP Policy enforced
-     1601: P1                         ...: NRP Policy not enforced
+  SR Node-SID:           SASL: 1001    @@@: NRP Policy enforced
+     1601: P1                          ...: NRP Policy not enforced
      1602: P2
      1603: P3
      1604: P4
