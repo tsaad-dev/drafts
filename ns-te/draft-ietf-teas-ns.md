@@ -1162,12 +1162,10 @@ domain.
 # Acknowledgement
 
 The authors would like to thank Krzysztof Szarkowicz, Swamy SRK, Navaneetha
-Krishnan, and Prabhu Raj Villadathu Karunakaran for their review of this
-document, and for providing valuable feedback on it. The authors would also
+Krishnan, Prabhu Raj Villadathu Karunakaran, and Jie Dong  for their review of this
+document and for providing valuable feedback on it. The authors would also
 like to thank Adrian Farrel for detailed discussions that resulted in
 {{NSRealization}}.
-
-Add Jie.
 
 # Contributors
 
