@@ -357,9 +357,9 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
    An NRP that supports a Slice-Flow Aggregate can be instantiated over
    parts of an IP/MPLS network (e.g., all or specific network resources
    in the access, aggregation, or core network), and can stretch across
-   multiple domains administered by a provider.  The NRP topology may
-   may be comprised of dedicated and/or shared network resources (e.g.,
-   in terms of processing power, storage, and bandwidth).
+   multiple domains administered by a provider.  The NRP topology may be
+   comprised of dedicated and/or shared network resources (e.g., in
+   terms of processing power, storage, and bandwidth).
 
    The physical network resources may be fully dedicated to a specific
    Slice-Flow Aggregate.  For example, traffic belonging to a Slice-Flow
@@ -1220,7 +1220,7 @@ Internet-Draft           IP/MPLS Network Slicing           November 2021
 
    For example, when the SAS is an MPLS label at the bottom of the MPLS
    label stack, packets can traverse over devices that are NRP incapable
-   without any further considerations.  On the other hand, when the SASL
+   without any further considerations.  On the other hand when the SASL
    is at the top of the MPLS label stack, packets can be bypassed (or
    tunneled) over the NRP incapable devices towards the next device that
    supports NRP as shown in Figure 5.
