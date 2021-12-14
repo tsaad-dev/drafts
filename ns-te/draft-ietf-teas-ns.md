@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-05
+docname: draft-bestbar-teas-ns-packet-06
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -83,12 +83,12 @@ informative:
 Network slicing provides the ability to partition a physical network into
 multiple logical networks of varying sizes, structures, and functions so that
 each slice can be dedicated to specific services or customers.  Network slices
-need to operate in parallel while providing slice elasticity in terms of
+need to co-exist on the same network while ensuring slice elasticity in terms of
 network resource allocation. The Differentiated Service (Diffserv) model allows
 for carrying multiple services on top of a single physical network by relying
-on compliant nodes to apply specific forwarding treatment (scheduling and drop
+on compliant domains and nodes to provide forwarding treatment (scheduling and drop
 policy)  on to packets that carry the respective Diffserv code point. This document
-adopts the Diffserv principles and proposes a scalable approach
+adopts a similar approach to Diffserv and proposes a scalable approach
 to realize network slicing in IP/MPLS networks. The solution does not mandate
 Diffserv to be enabled in the network to provide a specific forwarding
 treatment, but can co-exist with and complement it when enabled. 
@@ -100,13 +100,13 @@ treatment, but can co-exist with and complement it when enabled.
 Network slicing allows a Service Provider to create
 independent and logical networks on top of a common or shared physical
 network infrastructure. Such network slices can be offered to customers or used
-internally by the Service Provider to facilitate or enhance their service
+internally by the Service Provider to enhance the delivery of their service
 offerings. A Service Provider can also use network slicing to structure and
 organize the elements of its infrastructure. This document provides a path control
-technology agnostic solution
+technology (e.g., RSVP, SR, or other) agnostic solution
 that a Service Provider can deploy to realize network slicing in IP/MPLS networks.
 
-{{?I-D.ietf-teas-ietf-network-slices}} specifies the definition of a network
+{{?I-D.ietf-teas-ietf-network-slices}} provides the definition of a network
 slice for use within the IETF and discusses the general framework for
 requesting and operating IETF Network Slices, their characteristics, and the
 necessary system components and interfaces. It also  discusses the function of
@@ -128,28 +128,33 @@ Slice-Flow Aggregate are outside the scope of this document. The focus of this
 document is on the mechanisms required at the device level to address the
 requirements of network slicing in packet networks.
 
-In a Differentiated Service (Diffserv) domain {{?RFC2475}}, packets requiring
-the same forwarding treatment (scheduling and drop policy) are classified and
-marked with a Class Selector (CS) at domain ingress nodes. At transit nodes,
-the CS field inside the packet is inspected to determine the specific
-forwarding treatment to be applied before the packet is forwarded further.
-Similar principles are adopted by this document to realize network slicing. The
-solution proposed in this document does not mandate Diffserv to be enabled in
-the network to provide a specific forwarding treatment.
+In a Diffserv (DS) domain {{?RFC2475}}, packets requiring the same forwarding
+treatment (scheduling and drop policy) are classified and marked with the
+respective Class Selector (CS) Codepoint (or the Traffic Class (TC) field for
+MPLS packets [RFC5462]) at the DS domain ingress nodes.  Such packets are said
+to belong to a Behavior Aggregates (BA) that has a common set of behavioral
+characteristics or a common set of delivery requirements.  At transit nodes,
+the CS is inspected to determine the specific forwarding treatment to be
+applied before the packet is forwarded.  A similar approach is adopted in this
+document to realize network slicing. The solution proposed in this document
+does not mandate Diffserv to be enabled in the network to provide a specific
+forwarding treatment.
 
-When logical networks associated with an NRP are realized on top of a
-shared physical network infrastructure, it is important to steer traffic on the
-specific network resources partition that is allocated for the Slice-Flow Aggregate.
-In packet networks, the packets of a specific Slice-Flow Aggregate MAY be
-identified by one or more specific fields carried within the packet. An NRP
-ingress boundary node populates the respective field(s) in packets that
-are mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes to identify and apply the specific Per Hop Behavior (PHB) associated with
-the Slice-Flow Aggregate. The PHB defines the scheduling treatment and, in some
+When logical networks associated with an NRP are realized on top of a shared
+physical network infrastructure, it is important to steer traffic on the
+specific network resources partition that is allocated for a given Slice-Flow
+Aggregate.  In packet networks, the packets of a specific Slice-Flow Aggregate
+may be identified by one or more specific fields carried within the packet. An
+NRP ingress boundary node (where Slice-Flow Aggregate traffic enters the NRP)
+populates the respective field(s) in packets that are
+mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes to
+identify and apply the specific Per NRP Hop Behavior (NRP-PHB) associated with the
+Slice-Flow Aggregate. The NRP-PHB defines the scheduling treatment and, in some
 cases, the packet drop probability.
 
 If Diffserv is enabled within the network, the Slice-Flow Aggregate traffic can
 further carry a Diffserv CS to enable differentiation of forwarding treatments
-for packets within the same Slice-Flow Aggregate.
+for packets within a Slice-Flow Aggregate.
 
 For example, when using MPLS as a dataplane, it is possible to identify packets
 belonging to the same Slice-Flow Aggregate by carrying an identifier in an MPLS Label Stack Entry (LSE).
@@ -170,17 +175,15 @@ The following terminology is used in the document:
 
 {: vspace="0"}
 IETF Network Slice:
-: a well-defined composite of a set of
-endpoints, the connectivity requirements between subsets of these
-endpoints, and associated requirements; the term 'network slice'
-in this document refers to 'IETF network slice' as defined in 
+: refer to the definition of 'IETF network slice' in 
 {{?I-D.ietf-teas-ietf-network-slices}}.
 
 IETF Network Slice Controller (NSC):
-: controller that is used to realize an IETF network slice {{?I-D.ietf-teas-ietf-network-slices}}.
+: refer to the definition in {{?I-D.ietf-teas-ietf-network-slices}}.
 
 Network Resource Partition:
-: the collection of resources that are used to support a Slice-Flow Aggregate.
+: the set of network resources that are used to support a Slice-Flow Aggregate
+to meet the requested SLOs and SLEs.
 
 Slice-Flow Aggregate:
 : a collection of packets that match an NRP Policy selection 
@@ -361,7 +364,7 @@ associated with the NRP instantiated by the NRP Policy.
 
 The customer requests an IETF Network Slice Service specifying the
 CE-AC-PE points of attachment, the connectivity matrix, and the
-SLOs as described in {{?I-D.ietf-teas-ietf-network-slices}}.
+SLOs/SLEs as described in {{?I-D.ietf-teas-ietf-network-slices}}.
 These capabilities are always provided based on a Service Level Agreement (SLA)
 between the network slice costumer and the provider.
 
@@ -380,8 +383,8 @@ times in the life of the network, and may also be modified.
 
 A network may be called upon to support very many IETF Network
 Slices, and this could present scaling challenges in the operation
-of the network.  In order to overcome this, the IETF Network Slices
-may be aggregated into groups according to similar characteristics.
+of the network.  In order to overcome this, the IETF Network Slice
+streams may be aggregated into groups according to similar characteristics.
 
 A Slice-Flow Aggregate is a construct that comprises the traffic flows of one or
 more IETF Network Slices. The mapping of IETF Network Slices into an Slice-Flow
@@ -391,22 +394,22 @@ modified dynamically.
 
 ## Path Placement over Slice-Flow Aggregate Topology {#PathPlacement}
 
-Depending on the underlying network technology, a Controller may
-plan the paths that the traffic flows will take through the network
-in order to best deliver the SLOs for the different services in the
-Slice-Flow Aggregate.  The Controller performs the path placement
-function on the Policy Filter Topology selected to support the
-Slice-Flow Aggregate.
+Depending on the underlying network technology, the paths are selected in the
+network in order to best deliver the SLOs for the different services carried by
+the Slice-Flow Aggregate.  The path placement function (carried on ingress node
+or by a controller) is performed on the Policy Filtered Topology that is
+selected to support the Slice-Flow Aggregate.
 
-Note that this step may indicate the need to increase the capacity
-of the underlying Policy Filter Topology or to create a new Policy
-Filter Topology.
+Note that this step may indicate the need to increase the capacity of the
+underlying Policy Filter Topology or to create a new Policy Filter Topology.
+
+
 
 ## NRP Policy Installation
 
 A Controller function programs the physical network with policies for handling
 the traffic flows belonging to the Slice-Flow Aggregate.  These policies instruct
-network routers how to handle traffic for a specific Slice-Flow Aggregate: the
+underlying routers how to handle traffic for a specific Slice-Flow Aggregate: the
 routers correlate markers present in the packets that belong to the Slice-Flow
 Aggregate.  The way in which the NRP Policy is
 installed in the routers and the way that the traffic is marked is
@@ -423,13 +426,11 @@ implementation specific.
 
 ## Service Mapping
 
-Once the network has been set up, the edge points (PEs) can be
-configured to support the service.  This involves telling them what
-customer traffic should be mapped to which Slice-Flow Aggregate
-possibly using information supplied when the IETF network slice service
-was requested.  It also instructs
-the edge points how to mark the packets so that the network routers
-will know which policies and routing instructions to apply.
+The edge points (PEs) can be configured to support the network slice service by
+mapping the customer traffic to Slice-Flow Aggregates, possibly using
+information supplied when the IETF network slice service was requested.  The
+edge points MAY also be instructed to mark the packets so that the network
+routers will know which policies and routing instructions to apply.
 
 ## Network Slice-Flow Aggregate Relationships
 
@@ -448,9 +449,6 @@ o Any given Attachment Circuit (AC) may support the traffic for 1 or more IETF N
 o By definition, multiple IETF Network Slices may be mapped to a
   single Slice-Flow Aggregate.  However, it is possible for an
   Slice-Flow Aggregate to contain just a single IETF Network Slice.
-  Furthermore, a Slice-Flow Aggregate can be planned and
-  preconfigured, and may be "empty" having no IETF Network Slices
-  mapped to it.
 
 o The physical network may be filtered to multiple Policy Filter
   Topologies.  Each such Policy Filter Topology provides a short-cut
@@ -459,13 +457,6 @@ o The physical network may be filtered to multiple Policy Filter
   criteria.  Note, however, that a network operator does not need to
   derive any Policy Filter Topologies, choosing to operate directly
   on the full physical network.
-
-o It is anticipated that there may be very many IETF Network Slices
-  supported by a network operator over a single physical network.
-  The scaling mechanisms are deployment choices, but it may be that
-  there are no more than 1000 Slice-Flow Aggregates supported by
-  a network, with each Slice-Flow Aggregate supporting any number of
-  IETF Network Slices.
 
 # Network Resource Partition Modes {#SliceModes}
 
@@ -483,27 +474,28 @@ of the shared network resources among multiple Slice-Flow Aggregates can be achi
 
 The physical network resources can be partitioned on network devices
 by applying a Per Hop forwarding Behavior (PHB) onto packets that traverse the
-network devices. In the Diffserv model, a Class Selector (CS) is carried in the
+network devices. In the Diffserv model, a Class Selector Codepoint (CS) is carried in the
 packet and is used by transit nodes to apply the PHB that
 determines the scheduling treatment and drop probability for packets.
 
 When data plane NRP mode is applied, packets need to be forwarded on the
-specific NRP that supports the Slice-Flow Aggregate to ensure
-the proper forwarding treatment dictated in the NRP Policy is applied (refer to
-{{SliceDefinition}} below).  In this case, a Slice-Flow Aggregate Selector (SAS) MUST be carried
-in each packet to identify the Slice-Flow Aggregate that it belongs to. 
+specific NRP that supports the Slice-Flow Aggregate to ensure the proper
+forwarding treatment dictated in the NRP Policy is applied (refer to
+{{SliceDefinition}} below).  In this case, a Slice-Flow Aggregate Selector
+(SAS) MUST be carried in each packet to identify the Slice-Flow Aggregate that
+it belongs to. 
 
-The ingress node of an NRP domain, in addition to marking packets with a
-Diffserv CS, MAY also add an SAS to each Slice-Flow Aggregate packet. The transit nodes within
-an NRP domain MAY use the SAS to associate packets with a Slice-Flow Aggregate and to
-determine the Network Resource Partition Per Hop Behavior (NRP-PHB) that is applied to the packet (refer to
-{{SlicePHB}} for further details). The CS MAY be used to apply a Diffserv PHB
-on to the packet to allow differentiation of traffic treatment within the same
-Slice-Flow Aggregate.
+The ingress node of an NRP domain MAY also add an SAS to each Slice-Flow
+Aggregate packet. The transit nodes within an NRP domain MAY use the SAS to
+associate packets with a Slice-Flow Aggregate and to determine the Network
+Resource Partition Per Hop Behavior (NRP-PHB) that is applied to the packet
+(refer to {{SlicePHB}} for further details). The CS MAY be used to apply a
+Diffserv PHB on to the packet to allow differentiation of traffic treatment
+within the same Slice-Flow Aggregate.
 
 When data plane only NRP mode is used, routers may rely on a
-network state independent view of the topology to determine the best paths to
-reach destinations. In this case, the best path selection dictates the
+network state independent view of the topology to determine the best paths.
+In this case, the best path selection dictates the
 forwarding path of packets to the destination. The SAS field carried in each
 packet determines the specific NRP-PHB treatment along the
 selected path.
@@ -537,7 +529,7 @@ can be used by routing protocols, or by the ingress/PCE when computing Slice-Flo
 To perform network state dependent path computation in this mode (Slice-Flow
 Aggregate aware TE), the resource reservation on each link needs to be Slice-Flow
 Aggregate aware. Details of required IGP extensions to support SA-TE are
-described in {{!I-D.bestbar-lsr-slice-aware-te}}.
+described in {{?I-D.bestbar-lsr-slice-aware-te}}.
 
 The same physical link may be member of multiple slice policies that
 instantiate different NRPs. The NRP
@@ -552,10 +544,10 @@ resources allocated to each. In this case, a node can update
 the reservable bandwidth for each NRP to take into consideration
 the available bandwidth from other NRPs in the same group.
 
-For illustration purposes, the diagram below represents bandwidth isolation or
-sharing amongst a group of NRPs. In Figure 1a, the NRPs:
+For illustration purposes, {{resource-sharing}} describes bandwidth paritioning
+or sharing amongst a group of NRPs. In Figure 2a, the NRPs:
 NRP1, NRP2, NRP3 and NRP4 are not sharing any bandwidths between each
-other. In Figure 1b, the NRPs: NRP1 and NRP2 can share the
+other. In Figure 2b, the NRPs: NRP1 and NRP2 can share the
 available bandwidth portion allocated to each amongst them.
 Similarly, NRP3 and NRP4 can share amongst themselves any available bandwidth
 allocated to them, but they cannot share available bandwidth allocated to
@@ -623,14 +615,14 @@ Aggregate traffic that traverses the same shared network resource.
 
 A network slice can span multiple technologies and multiple administrative
 domains.  Depending on the network slice customer requirements, a network
-slice can be differentiated from other network slices in terms of data, control
-or management planes.
+slice can be differentiated from other network slices in terms of data, control,
+and management planes.
 
-The customer of a network slice expresses their intent
+The customer of a network slice service expresses their intent
 by specifying requirements rather than mechanisms to realize the slice as described
 in {{NetworkSliceServiceRequest}}.
 
-The network slice controller consumes the network slice service
+The network slice controller is fed with the network slice service
 intent and realizes it with an appropriate Network Resource Partition Policy (NRP Policy).
 Multiple IETF network slices MAY be mapped to the same Slice-Flow Aggregate as described in {{SliceAggregateMapping}}.
 
@@ -642,22 +634,22 @@ of this document.
 
 ## NRP Policy Definition {#SliceDefinition}
 
-The NRP Policy is network-wide construct that is consumed by network devices,
+The NRP Policy is network-wide construct that is supplied to network devices,
 and may include rules that control the following:
 
 - Data plane specific policies: This includes the SAS, any firewall rules or
   flow-spec filters, and QoS profiles associated with the NRP Policy and any
 classes within it.
 
-- Control plane specific policies: This includes guaranteed bandwidth, any
+- Control plane specific policies: This includes bandwidth reservations, any
   network resource sharing amongst slice policies, and reservation preference to
-  prioritize any reservations of a specific NRP over others.
+  prioritize reservations of a specific NRP over others.
 
 - Topology membership policies: This defines the topology filter policies that dictate
   node/link/function membership to a specific NRP.
 
 There is a desire for flexibility in realizing network slices to support the
-services across networks consisting of products from multiple vendors.  These
+services across networks consisting of implementations from multiple vendors.  These
 networks may also be grouped into disparate domains and deploy various path
 control technologies and tunnel techniques to carry traffic across the network.
 It is expected that a standardized data model for NRP
@@ -763,7 +755,7 @@ in the MPLS label header. In this case, the GISS label can show up in any
 position in the MPLS label stack. To enable a transit router to identify
 the position of the GISS label, a special purpose label (ideally a base
 special purpose label (bSPL)) can be used to indicate the presence of a GISS
-in the MPLS label stack. {{!I-D.kompella-mpls-mspl4fa}}
+in the MPLS label stack. {{?I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
 to alert of the presence of multiple actions and action data (including the
 presence of the GISS). The NRP ingress boundary node, in
@@ -771,7 +763,7 @@ this case, imposes two labels: the FAI label and a forwarding actions label that
 to identify the Slice-Flow Aggregate packets as shown in
 {{sli-sl}}.
 
-> {{!I-D.decraene-mpls-slid-encoded-entropy-label-id}} also proposes to repurpose 
+> {{?I-D.decraene-mpls-slid-encoded-entropy-label-id}} also proposes to repurpose 
 the ELI/EL {{!RFC6790}} to carry the Slice Identifier in order to minimize the
 size of the MPLS stack and ease incremental deployment.
 
@@ -805,7 +797,7 @@ size of the MPLS stack and ease incremental deployment.
 
 > When the slice is realized over an IP dataplane, the GISS can be encoded in
 the IP header. For example, the GISS can be encoded in portion of the IPv6
-Flow Label field as described in {{!I-D.filsfils-spring-srv6-stateless-slice-id}}.
+Flow Label field as described in {{?I-D.filsfils-spring-srv6-stateless-slice-id}}.
 
 ### Network Resource Partition Resource Reservation
 
@@ -825,7 +817,7 @@ Aggregates.
 Congestion on shared network resources may result from sub-optimal placement
 of paths in different slice policies. When this occurs, preemption
 of some Slice-Flow Aggregate paths may be desirable to alleviate congestion.
-A preference based allocation scheme enables prioritization of Slice-Flow Aggregate paths
+A preference-based allocation scheme enables prioritization of Slice-Flow Aggregate paths
 that can be preempted.
 
 Since network characteristics and its state can change over time, the NRP
@@ -853,7 +845,7 @@ treatment that guarantee the SLA(s).
 
 With Differentiated Services (Diffserv) it is possible to carry  multiple
 services over a single converged network. Packets requiring the same forwarding
-treatment are marked with a Class Selector (CS) at domain ingress nodes. Up to
+treatment are marked with a CS at domain ingress nodes. Up to
 eight classes or Behavior Aggregates (BAs) may be supported for a given
 Forwarding Equivalence Class (FEC) {{?RFC2475}}.  To support multiple
 forwarding treatments over the same Slice-Flow Aggregate, a Slice-Flow Aggregate packet MAY
@@ -884,7 +876,7 @@ Aggregate.
 
 The NRP Policy may also include a reference to a
 predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
-as defined in {{!I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
+as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
 {{!RFC4915}}. A YANG data model that covers generic topology filters is described
 in {{?I-D.bestbar-teas-yang-topology-filter}}. Also, the Path Computation Element (PCE) Communication Protocol (PCEP) extensions to carry
 topology filters are defined in {{?I-D.xpbs-pce-topology-filter}}.
@@ -944,12 +936,12 @@ Packets that belong to a Slice-Flow Aggregate may need to traverse nodes that ar
 NRP incapable. In this case, several options are possible to
 allow the slice traffic to continue to be forwarded over such devices
 and be able to resume the NRP forwarding treatment once the traffic
-reaches devices that are NRP capable.
+reaches devices that are NRP-capable.
 
 When data plane NRP mode is employed, packets carry a SAS to
-allow slice interior nodes to identify them. To enable end-to-end network
+allow slice interior nodes to identify them. To support end-to-end network
 slicing, the SAS MUST be maintained in the packets as they traverse
-devices within the network -- including NRP incapable devices.
+devices within the network -- including NRP capable and incapable devices.
 
 For example, when the SAS is an MPLS label at the bottom of the MPLS label
 stack, packets can traverse over devices that are NRP incapable 
@@ -1013,12 +1005,12 @@ The usual techniques to steer traffic onto paths can be applicable when
 steering traffic over paths established for a specific Slice-Flow Aggregate.
 
 For example, one or more (layer-2 or layer-3) VPN services can be directly
-mapped to paths established for a Slice-Flow Aggregate. In this case, the per Virtual Routing and
-Forwarding (VRF) instance
-traffic that arrives on the Provider Edge (PE) router over external interfaces can be
-directly mapped to a specific Slice-Flow Aggregate path. External interfaces can be
-further partitioned (e.g., using VLANs) to allow mapping one or more VLANs to
-specific Slice-Flow Aggregate paths.
+mapped to paths established for a Slice-Flow Aggregate. In this case, the per
+Virtual Routing and Forwarding (VRF) instance traffic that arrives on the
+Provider Edge (PE) router over external interfaces can be directly mapped to a
+specific Slice-Flow Aggregate path. External interfaces can be further
+partitioned (e.g., using VLANs) to allow mapping one or more VLANs to specific
+Slice-Flow Aggregate paths.
 
 Another option is steer traffic to specific destinations directly over multiple
 slice policies. This allows traffic arriving on any external interface and
@@ -1109,8 +1101,8 @@ SR SIDs are not shared by other Slice-Flow Aggregates traffic. However, to allow
 scale, it may be desirable for multiple Slice-Flow Aggregates traffic to share the
 same SR Flex-Algorithm computed paths and SIDs. Further details on how the
 NRP modes presented in this document can be realized in an SR network
-are discussed in {{!I-D.bestbar-spring-scalable-ns}}, and
-{{!I-D.bestbar-lsr-spring-sa}}.
+are discussed in {{?I-D.bestbar-spring-scalable-ns}}, and
+{{?I-D.bestbar-lsr-spring-sa}}.
 
 # Network Resource Partition Protocol Extensions
 
@@ -1130,7 +1122,7 @@ supported on network devices and controllers. A suitable transport (e.g.,
 NETCONF {{?RFC6241}}, RESTCONF {{?RFC8040}}, or gRPC) may be used to enable
 configuration and retrieval of state information for slice policies on network
 devices. The NRP Policy YANG data model is outside the scope of this
-document, and is defined in {{!I-D.bestbar-teas-yang-slice-policy}}.
+document, and is defined in {{?I-D.bestbar-teas-yang-slice-policy}}.
 
 # IANA Considerations
 
@@ -1162,10 +1154,10 @@ domain.
 # Acknowledgement
 
 The authors would like to thank Krzysztof Szarkowicz, Swamy SRK, Navaneetha
-Krishnan, Prabhu Raj Villadathu Karunakaran, and Jie Dong  for their review of this
-document and for providing valuable feedback on it. The authors would also
-like to thank Adrian Farrel for detailed discussions that resulted in
-{{NSRealization}}.
+Krishnan, Prabhu Raj Villadathu Karunakaran, Jie Dong, and Mohamed Boucadair
+for their review of this document and for providing valuable feedback on it.
+The authors would also like to thank Adrian Farrel for detailed discussions
+that resulted in {{NSRealization}}.
 
 # Contributors
 
