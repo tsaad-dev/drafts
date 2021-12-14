@@ -458,6 +458,11 @@ o The physical network may be filtered to multiple Policy Filter
   derive any Policy Filter Topologies, choosing to operate directly
   on the full physical network.
 
+o It is anticipated that there may be very many IETF Network Slices supported
+  by a network operator over a single physical network.  A network may support a
+  limited number of Slice-Flow Aggregates, with each of the Slice-Flow Aggregates
+  grouping any number of the IETF Network Slices streams.
+
 # Network Resource Partition Modes {#SliceModes}
 
 An NRP Policy can be used to dictate if the network resource partitioning

@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 16 June 2022                                             B. Wen
+Expires: 17 June 2022                                             B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                               J. Halpern
@@ -19,7 +19,7 @@ Expires: 16 June 2022                                             B. Wen
                                                               Telefonica
                                                                 R. Rokui
                                                                    Nokia
-                                                        13 December 2021
+                                                        14 December 2021
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 1]
+Saad, et al.              Expires 17 June 2022                  [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2022.
+   This Internet-Draft will expire on 17 June 2022.
 
 Copyright Notice
 
@@ -101,15 +101,15 @@ Table of Contents
      3.8.  Network Slice-Flow Aggregate Relationships  . . . . . . .  11
    4.  Network Resource Partition Modes  . . . . . . . . . . . . . .  11
      4.1.  Data plane Network Resource Partition Mode  . . . . . . .  12
-     4.2.  Control Plane Network Resource Partition Mode . . . . . .  12
-     4.3.  Data and Control Plane Network Resource Partition Mode  .  14
+     4.2.  Control Plane Network Resource Partition Mode . . . . . .  13
+     4.3.  Data and Control Plane Network Resource Partition Mode  .  15
    5.  Network Resource Partition Instantiation  . . . . . . . . . .  15
      5.1.  NRP Policy Definition . . . . . . . . . . . . . . . . . .  15
        5.1.1.  Network Resource Partition Data Plane Selector  . . .  16
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 2]
+Saad, et al.              Expires 17 June 2022                  [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 3]
+Saad, et al.              Expires 17 June 2022                  [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 4]
+Saad, et al.              Expires 17 June 2022                  [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 5]
+Saad, et al.              Expires 17 June 2022                  [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 6]
+Saad, et al.              Expires 17 June 2022                  [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 7]
+Saad, et al.              Expires 17 June 2022                  [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -445,7 +445,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 8]
+Saad, et al.              Expires 17 June 2022                  [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -501,7 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                  [Page 9]
+Saad, et al.              Expires 17 June 2022                  [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 10]
+Saad, et al.              Expires 17 June 2022                 [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -597,6 +597,12 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    derive any Policy Filter Topologies, choosing to operate directly on
    the full physical network.
 
+   o It is anticipated that there may be very many IETF Network Slices
+   supported by a network operator over a single physical network.  A
+   network may support a limited number of Slice-Flow Aggregates, with
+   each of the Slice-Flow Aggregates grouping any number of the IETF
+   Network Slices streams.
+
 4.  Network Resource Partition Modes
 
    An NRP Policy can be used to dictate if the network resource
@@ -605,18 +611,16 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
    a)  in data plane only,
 
-   b)  in control plane only, or
-
-   c)  in both control and data planes.
 
 
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 11]
+Saad, et al.              Expires 17 June 2022                 [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
+
+   b)  in control plane only, or
+
+   c)  in both control and data planes.
 
 4.1.  Data plane Network Resource Partition Mode
 
@@ -659,20 +663,22 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    to determine the NRP-PHB to enforce on the Slice-Flow Aggregate
    traffic streams.
 
+
+
+
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 12]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
 4.2.  Control Plane Network Resource Partition Mode
 
    Multiple NRPs can be realized over the same set of physical
    resources.  It is possible in this case to allow the state
    reservations to occur on each NRP.
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 12]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
 
    The network reservation state for a specific partition can then be
    represented in a topology that may can contain all or a subset of the
@@ -707,6 +713,23 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    into consideration the available bandwidth from other NRPs in the
    same group.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 13]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
    For illustration purposes, Figure 2 describes bandwidth paritioning
    or sharing amongst a group of NRPs.  In Figure 2a, the NRPs: NRP1,
    NRP2, NRP3 and NRP4 are not sharing any bandwidths between each
@@ -717,18 +740,6 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    allocated to NRP1 or NRP2.  In both cases, the Max Reservable
    Bandwidth may exceed the actual physical link resource capacity to
    allow for over subscription.
-
-
-
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 13]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
 
    I-----------------------------I       I-----------------------------I
    <--NRP1->                     I       I-----------------I           I
@@ -767,6 +778,14 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    (a) No bandwidth sharing              (b) Sharing bandwidth between
        between NRPs.                         NRPs of the same group.
 
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 14]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
           Figure 2: Bandwidth isolation/sharing among NRPs.
 
 4.3.  Data and Control Plane Network Resource Partition Mode
@@ -774,17 +793,6 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    In order to support strict guarantees for Slice-Flow Aggregates, the
    network resources can be partitioned in both the control plane and
    data plane.
-
-
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 14]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
 
    The control plane partitioning allows the creation of customized
    topologies per NRP that each supports a Slice-Flow Aggregate.  The
@@ -824,6 +832,16 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    The NRP Policy is network-wide construct that is supplied to network
    devices, and may include rules that control the following:
 
+
+
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 15]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
    *  Data plane specific policies: This includes the SAS, any firewall
       rules or flow-spec filters, and QoS profiles associated with the
       NRP Policy and any classes within it.
@@ -832,15 +850,6 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
       reservations, any network resource sharing amongst slice policies,
       and reservation preference to prioritize reservations of a
       specific NRP over others.
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 15]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
 
    *  Topology membership policies: This defines the topology filter
       policies that dictate node/link/function membership to a specific
@@ -881,6 +890,14 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
       header not merely to choose the packet's next hop, but also to
       determine a packet's "precedence" or "class of service"'.
       Assigning a unique forwarding address (or MPLS forwarding label)
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 16]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
       to each Slice-Flow Aggregate allows Slice-Flow Aggregate packets
       destined to a node to be distinguished by the destination address
       (or MPLS forwarding label) that is carried in the packet.
@@ -890,14 +907,6 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
       plane and on each router in the network.  For example, consider a
       network slicing provider with a network composed of 'N' nodes,
       each with 'K' adjacencies to its neighbors.  Assuming a node can
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 16]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
-
       be reached over 'M' different Slice-Flow Aggregates, the node
       assigns and advertises reachability to 'N' unique forwarding
       addresses, or MPLS forwarding labels.  Similarly, each node
@@ -937,22 +946,18 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
       Alternatively, multiple VPN service labels MAY act as GISS's that
       map a single VPN to the same Slice-Flow Aggregate to allow for
       multiple Egress PEs to allocate different VPN service labels for a
+
+
+
+Saad, et al.              Expires 17 June 2022                 [Page 17]
+
+Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
       VPN.  In other cases, a range of VPN service labels acting as
       multiple GISS's MAY map multiple VPN traffic to a single Slice-
       Flow Aggregate.  An example of such deployment is shown in
       Figure 3.
-
-
-
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 17]
-
-Internet-Draft           IP/MPLS Network Slicing           December 2021
-
 
      SR Adj-SID:          GISS (VPN service label) on PE2: 1001
         9012: P1-P2
@@ -1000,12 +1005,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-
-
-
-
-
-Saad, et al.              Expires 16 June 2022                 [Page 18]
+Saad, et al.              Expires 17 June 2022                 [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 19]
+Saad, et al.              Expires 17 June 2022                 [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 20]
+Saad, et al.              Expires 17 June 2022                 [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 21]
+Saad, et al.              Expires 17 June 2022                 [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1229,7 +1229,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 22]
+Saad, et al.              Expires 17 June 2022                 [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 23]
+Saad, et al.              Expires 17 June 2022                 [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 24]
+Saad, et al.              Expires 17 June 2022                 [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 25]
+Saad, et al.              Expires 17 June 2022                 [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 26]
+Saad, et al.              Expires 17 June 2022                 [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 27]
+Saad, et al.              Expires 17 June 2022                 [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1565,7 +1565,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 28]
+Saad, et al.              Expires 17 June 2022                 [Page 28]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1621,7 +1621,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 29]
+Saad, et al.              Expires 17 June 2022                 [Page 29]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1677,7 +1677,7 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 30]
+Saad, et al.              Expires 17 June 2022                 [Page 30]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1733,7 +1733,7 @@ Authors' Addresses
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 31]
+Saad, et al.              Expires 17 June 2022                 [Page 31]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
 
@@ -1789,4 +1789,4 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
 
 
 
-Saad, et al.              Expires 16 June 2022                 [Page 32]
+Saad, et al.              Expires 17 June 2022                 [Page 32]
