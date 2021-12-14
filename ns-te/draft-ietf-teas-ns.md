@@ -131,7 +131,7 @@ requirements of network slicing in packet networks.
 In a Diffserv (DS) domain {{?RFC2475}}, packets requiring the same forwarding
 treatment (scheduling and drop policy) are classified and marked with the
 respective Class Selector (CS) Codepoint (or the Traffic Class (TC) field for
-MPLS packets [RFC5462]) at the DS domain ingress nodes.  Such packets are said
+MPLS packets {{?RFC5462}}) at the DS domain ingress nodes.  Such packets are said
 to belong to a Behavior Aggregates (BA) that has a common set of behavioral
 characteristics or a common set of delivery requirements.  At transit nodes,
 the CS is inspected to determine the specific forwarding treatment to be

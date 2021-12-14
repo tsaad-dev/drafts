@@ -1699,6 +1699,11 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
               RFC 2702, DOI 10.17487/RFC2702, September 1999,
               <https://www.rfc-editor.org/info/rfc2702>.
 
+   [RFC5462]  Andersson, L. and R. Asati, "Multiprotocol Label Switching
+              (MPLS) Label Stack Entry: "EXP" Field Renamed to "Traffic
+              Class" Field", RFC 5462, DOI 10.17487/RFC5462, February
+              2009, <https://www.rfc-editor.org/info/rfc5462>.
+
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -1725,17 +1730,15 @@ Authors' Addresses
    Bin Wen
    Comcast
 
-   Email: Bin_Wen@cable.comcast.com
-
-
-
-
 
 
 
 Saad, et al.              Expires 16 June 2022                 [Page 31]
 
 Internet-Draft           IP/MPLS Network Slicing           December 2021
+
+
+   Email: Bin_Wen@cable.comcast.com
 
 
    Daniele Ceccarelli
@@ -1778,9 +1781,6 @@ Internet-Draft           IP/MPLS Network Slicing           December 2021
    Nokia
 
    Email: reza.rokui@nokia.com
-
-
-
 
 
 
