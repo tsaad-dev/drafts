@@ -72,6 +72,12 @@ author:
    organization: Nokia
    email: reza.rokui@nokia.com
 
+ -
+   ins: L. Jalil
+   name: Luay Jalil
+   organization: Verizon
+   email: luay.jalil@verizon.com
+
 normative:
   RFC2119:
   RFC8174:
@@ -230,9 +236,11 @@ Slice-Flow Aggregate Aware TE:
 
 > SASL: Slice-Flow Aggregate Selector Label as described in {{SliceSelector}}
 
-> SLA: Service Level Agreement
+> SLA: Service Level Agreements
 
-> SLO: Service Level Objective
+> SLO: Service Level Objectives
+
+> SLE: Service Level Expectations
 
 > Diffserv: Differentiated Services
 
@@ -451,8 +459,8 @@ o By definition, multiple IETF Network Slices may be mapped to a
   Slice-Flow Aggregate to contain just a single IETF Network Slice.
 
 o The physical network may be filtered to multiple Policy Filter
-  Topologies.  Each such Policy Filter Topology provides a short-cut
-  to planning the placement and support of Slice-Flow Aggregate by
+  Topologies.  Each such Policy Filter Topology facilitates
+  planning the placement and support of the Slice-Flow Aggregate by
   presenting only the subset of links and nodes that meet specific
   criteria.  Note, however, that a network operator does not need to
   derive any Policy Filter Topologies, choosing to operate directly
