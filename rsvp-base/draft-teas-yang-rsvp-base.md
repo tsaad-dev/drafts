@@ -101,7 +101,7 @@ The terminology for describing YANG data models is found in {{!RFC7950}}.
 
 In this document, names of data nodes and other data model objects are prefixed
 using the standard prefix associated with the corresponding YANG imported
-modules, as shown in Table 1.
+modules, as shown in {{tab1}}.
 
    | Prefix    | YANG module        | Reference |
    |-----------|--------------------|-----------|
@@ -111,11 +111,7 @@ modules, as shown in Table 1.
    | inet      | ietf-inet-types    | {{!RFC6991}} |
    | yang      | ietf-yang-types    | {{!RFC6991}} |
    | key-chain | ietf-key-chain     | {{!RFC8177}} |
-   |-----------|--------------------|-----------|
-
-~~~~~~~~~~
-          Table 1: Prefixes and corresponding YANG modules
-~~~~~~~~~~
+{: #tab1 title="Prefixes and corresponding YANG modules"}
 
 ## Model Tree Diagram
 
