@@ -1,7 +1,7 @@
 ---
-title: IGP Extensions for SR Slice Aggregate SIDs
-abbrev: IGP SR Slice Aggregate SIDs
-docname: draft-bestbar-lsr-spring-sa-00
+title: IGP Extensions for SR Network Resource Partition SIDs
+abbrev: IGP SR NRP SIDs
+docname: draft-bestbar-lsr-spring-sa-02
 category: std
 ipr: trust200902
 workgroup: LSR Working Group
@@ -63,13 +63,14 @@ informative:
 --- abstract
 
 Segment Routing (SR) defines a set of topological "segments" within an IGP
-topology to enable steering over a specific SR path.  These segments
-are advertised by the link-state routing protocols (IS-IS and OSPF).
+topology to enable steering over a specific SR path.  These segments are
+advertised by the link-state routing protocols (IS-IS and OSPF).
 
-This document describes extensions to the IS-IS that enable advertising Slice
-Aggregate SR segments that share the same IGP computed forwarding path but
-offer a forwarding treatment (e.g. scheduling and drop policy) that is
-associated with a specific Slice Aggregate.
+This document describes extensions to the IS-IS and OSPF required to support
+the signaling of Resource Partition (NRP) segments that operate over SR-MPLS
+and SRv6 dataplanes.  Multiple SR NRP segments can be associated with the same
+topological element to allow offering of different forwarding treatments
+(e.g. scheduling and drop policy) associated with each NRP.
 
 --- middle
 
@@ -87,26 +88,28 @@ of IETF network slice are specified in
 VPN and traffic-engineering technologies to realize IETF network slices is
 discussed  in {{?I-D.nsdt-teas-ns-framework}}. 
 
-{{!I-D.bestbar-teas-ns-packet}} introduces the notion of a Slice Aggregate as
-the construct that comprises of one of more IETF network slice traffic streams. 
-A slice policy can be used to realize a slice aggregate by
+{{!I-D.bestbar-teas-ns-packet}} introduces a Slice-Flow Aggregate as the
+collection of packets (from one or more IETF network slice traffic streams)
+that match an NRP Policy selection criteria and are offered the same forwarding
+treatment. The NRP Policy is used to realize an NRP by
 instantiating specific control and data plane resources on select topological
 elements in an IP/MPLS network.
 
 {{!I-D.bestbar-spring-scalable-ns}} describes an approach to extend SR to
-advertiser new SID types called Slice Aggregate (SA) SIDs. Such SA SIDs are
-used on a router to define the forwarding action for a packet (next-hop selection),
-as well as enforce the specific treatment (scheduling and drop policy) associated
-with the Slice Aggregate.
+advertise new SID types called NRP SIDs. Such NRP SIDs are
+used by a router to define the forwarding action for a packet (next-hop selection),
+as well as to enforce the specific treatment (scheduling and drop policy) associated
+with the NRP.
 
-This document defines the IS-IS and OSPF encodings for the IGP-Prefix Segment, the
-IGP-Adjacency Segment, the IGP-LAN-Adjacency Segment that are required to
-support the signaling of SR Slice Aggregate SIDs operating over
-SR-MPLS and SRv6 dataplanes. When the Slice Aggregate segments have the same
-topology (and Algorithm for Prefix-SIDs), the SA SIDs share the same
-forwarding path (IGP next-hop(s)), but are associated with different
-forwarding treatment (e.g. scheduling and drop policy) that is associated with
-the specific Slice Aggregate.
+This document defines the IS-IS and OSPF specific encodings for the IGP-Prefix Segment,
+the IGP-Adjacency Segment, the IGP-LAN-Adjacency Segment that are required to
+support the signaling of SR NRP SIDs operating over SR-MPLS and SRv6
+dataplanes.
+
+When the NRP segments share the same topology (and Algorithm for
+NRP Prefix-SIDs), the different NRP SIDs of the same topological element share
+the same forwarding path (i.e., IGP next-hop(s)), but are associated with the specific
+forwarding treatment (e.g. scheduling and drop policy) of each NRP.
 
 # Requirements Language
 
@@ -116,43 +119,43 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they
 appear in all capitals, as shown here.
 
-# Slice Aggregate SIDs for SR-MPLS
+# NRP SIDs for SR-MPLS
 
 Segment Routing can be directly instantiated on the MPLS data plane
 through the use of the Segment Routing header instantiated as a stack of MPLS labels 
 defined in {{!RFC8402}}.
 
-## IS-IS Slice Aggregate Prefix-SID Sub-TLV
+## IS-IS NRP Prefix-SID Sub-TLV {#NrpPrefixSID}
 
 {{!RFC8667}} defines the IS-IS Prefix Segment Identifier sub-TLV (Prefix-SID
 sub-TLV) that is applicable to SR-MPLS dataplane.  The Prefix-SID sub-TLV
 carries the Segment Routing IGP-Prefix-SID, and is associated with a prefix
 advertised by a router.
 
-A new IS-IS SR Slice Aggregate Prefix-SID (SA Prefix-SID) sub-TLV is defined to
-allow a router advertising a prefix to associate multiple SA Prefix-SIDs to the
-same prefix.  The SA Prefix-SIDs associated with the same prefix share the same
-IGP path to the destination prefix within the specific mapped or customized
-topology/algorithm but offer the specific QoS treatment associated with the
-specific Slice Aggregate.
+A new IS-IS SR Network Resource Partition Prefix SID (NRP Prefix-SID) sub-TLV
+is defined to allow a router advertising a prefix to associate multiple NRP
+Prefix-SIDs to the same prefix.  The NRP Prefix-SIDs associated with the same
+prefix share the same IGP path to the destination prefix within the specific
+mapped or customized topology/algorithm but offer the specific QoS treatment
+associated with the specific NRP.
 
-The Slice Aggregate ID is carried in the SA Prefix-SID sub-TLV to associate
-it to Prefix-SID with a specific Slice Aggregate. The SA Prefix-SID sub-TLV has the
+The NRP ID is carried in the NRP Prefix-SID sub-TLV in order to associate
+the Prefix-SID with the specific NRP. The NRP Prefix-SID sub-TLV has the
 following format:
 
 ~~~
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Type=TBD1   |    Length     |     Flag      |   Algorithm   |
+   |   Type        |    Length     |     Flag      |   Algorithm   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                              SA-ID                            |
+   |                             NRP-ID                            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                      SID/Index/Label(Variable)                |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 ~~~
-{:#SaPrefixSID title="SA Prefix-SID sub-TLV for SR-MPLS."}
+{:#SaPrefixSID title="NRP Prefix-SID sub-TLV for SR-MPLS."}
 
 where:
 
@@ -164,7 +167,7 @@ where:
 
 > Algorithm: 1 octet. Associated algorithm. Algorithm values are defined in the IGP Algorithm Type registry
 
-> SA-ID: Identifies a specific Slice Aggregate within the IGP domain.
+> NRP-ID: Identifies a specific NRP within the IGP domain.
 
 This sub-TLV MAY be present in any of the following TLVs:
 
@@ -178,20 +181,20 @@ This sub-TLV MAY be present in any of the following TLVs:
 
 This sub-TLV MAY appear multiple times in each TLV.
 
-## IS-IS Slice Aggregate Adjacency-SID Sub-TLV
+## IS-IS NRP Adjacency-SID Sub-TLV {#NrpAdjSID}
 
 {{!RFC8667}} defines the IS-IS Adjacency Segment Identifier sub-TLV (Adj-SID
 sub-TLV). The Adj-SID sub-TLV is an optional sub-TLV carrying the Segment
 Routing IGP Adjacency-SID as defined in {{!RFC8402}}.
 
-A new SR Slice Aggregate Adjacency-SID (SA Adj-SID) sub-TLV is defined to
-allow a router to allocate and advertise multiple SA Adj-SIDs towards the
-same IS-IS neighbor (adjacency).  The SA Adj-SIDs allows a router to
-enforce the specific treatment associated with the Slice Aggregate.
+A new SR Network Resource Partition Adjacency SID (NRP Adj-SID) sub-TLV is
+defined to allow a router to allocate and advertise multiple NRP Adj-SIDs
+towards the same IS-IS neighbor (adjacency).  The NRP Adj-SIDs allows a router
+to enforce the specific treatment associated with the NRP on the specific
+adjacency.
 
-The Slice Aggregate ID is carried in the SA Adj-SID sub-TLV to associate
-it to the specific Slice Aggregate. The SA Adj-SID sub-TLV has the
-following format:
+The NRP ID is carried in the NRP Adj-SID sub-TLV to associate
+it to the specific NRP, and has the following format:
 
 ~~~
     0                   1                   2                   3
@@ -199,12 +202,12 @@ following format:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |   Type        |     Length    |     Flags     |     Weight    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            SA-ID                              |
+   |                           NRP-ID                              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                      SID/Index/Label(Variable)                |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~
-{:#SaAdjSID title="SA Adj-SID sub-TLV for SR-MPLS."}
+{:#SaAdjSID title="NRP Adj-SID sub-TLV for SR-MPLS."}
 
 where:
 
@@ -212,9 +215,9 @@ where:
 
 > Length: Variable.  Depending on the size of the SID.
 
-> The "Flags" and "SID/Index/Label" fields are the same as the Adj-SID sub-TLV {{!RFC8667}}.
+> The "Flags", "SID/Index/Label", and "Weight" fields are the same as those defined for the Adj-SID sub-TLV in {{!RFC8667}}.
 
-> SA-ID: Identifies a specific Slice Aggregate within the IGP domain.
+> NRP-ID: Identifies a specific NRP within the IGP domain.
 
 This sub-TLV MAY be present in any of the following TLVs:
 
@@ -231,28 +234,70 @@ This sub-TLV MAY be present in any of the following TLVs:
 Multiple Adj-SID sub-TLVs MAY be associated with a single IS-IS
 neighbor.  This sub-TLV MAY appear multiple times in each TLV.
 
-## IS-IS Slice Aggregate LAN Adjacency-SIDs
+## IS-IS NRP per Algorithm Adjacency-SID Sub-TLV {#NrpAlgoAdjSID}
+
+{{!I-D.ietf-lsr-algorithm-related-adjacency-sid}} defines ISIS Adjacency Segment Identifier (Adj-SID) per Algorithm Sub-TLV.
+
+A new per Algorithm SR NRP Adj-SID is defined to allow a router to allocate
+and advertise multiple NRP Adj-SIDs towards the same adjacency. The per
+Algorithm NRP Adj-SID allow the router to enforce the specific forwarding
+treatment associated with the NRP on to packets using that NRP Adj-SID as
+active segment.
+
+The NRP ID is carried in the NRP per Algorithm Adj-SID sub-TLV to associate
+it to the specific NRP. The sub-TLV has the following format:
+
+~~~
+     0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   Type        |     Length    |     Flags     |     Weight    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   Algorithm   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           NRP-ID                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                         SID/Label/Index (variable)            |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+~~~
+{:#AlgoSaAdjSID title="Per Algorithm NRP Adj-SID sub-TLV for SR-MPLS."}
+
+where:
+
+> Type: TBD3.
+
+> Length: 10 or 11 depending on size of the SID.
+
+> NRP-ID: Identifies a specific NRP within the IGP domain.
+
+> The "Flags", "SID/Index/Label", and "Weight" fields are the same as those defined for the Adj-SID sub-TLV in {{!RFC8667}}.
+
+> The "Algorithm" field is as defined in {{!I-D.ietf-lsr-algorithm-related-adjacency-sid}}
+for the per Algorithm Adj-SID Sub-TLV.
+
+
+## IS-IS NRP LAN Adjacency-SID Sub-TLV {#NrpLanAdjSID}
 
 In LAN subnetworks, {{!RFC8667}} defines the SR-MPLS LAN-Adj-SID sub-TLV for a
 router to advertise the Adj-SID of each of its neighbors.
 
-A new SR Slice Aggregate LAN Adjacency-SID (SA LAN-Adj-SID) sub-TLV is defined to
-allow a router to allocate and advertise multiple SA LAN-Adj-SIDs towards
-each of its neighbors on the LAN.  The SA LAN-Adj-SIDs allows a router to
-enforce the specific treatment associated with the specific Slice Aggregate towards
+A new SR Network Resource Partition LAN Adjacency SID (NRP LAN-Adj-SID) sub-TLV is defined to
+allow a router to allocate and advertise multiple NRP LAN-Adj-SIDs towards
+each of its neighbors on the LAN.  The NRP LAN-Adj-SIDs allows a router to
+enforce the specific treatment associated with the specific NRP towards
 a neighbor.
 
-The Slice Aggregate ID is carried in the SA LAN-Adj-SID sub-TLV to associate
-it to the specific Slice Aggregate. The SA LAN-Adj-SID sub-TLV has the
-following format:
+The NRP ID is carried in the NRP LAN-Adj-SID sub-TLV to associate
+it to the specific NRP, and it has the following format:
 
 ~~~
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Type=TBD3   |     Length    |      Flags    |    Weight     |
+   |   Type        |     Length    |      Flags    |    Weight     |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            SA-ID                              |
+   |                           NRP-ID                              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -265,17 +310,17 @@ following format:
    |                   SID/Label/Index (variable)                  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{:#SaLANAdjSID title="SA LAN Adj-SID sub-TLV for SR-MPLS."}
+{:#SaLANAdjSID title="NRP LAN Adj-SID sub-TLV for SR-MPLS."}
 
 where:
 
-> Type: TBD3 (Suggested value to be assigned by IANA)
+> Type: TBD4 (Suggested value to be assigned by IANA)
 
 > Length: Variable.  Depending on the size of the SID.
 
 > The "Flags" and "SID/Index/Label" fields are the same as the LAN-Adj-SID sub-TLV {{!RFC8667}}.
 
-> SA-ID: Identifies a specific Slice Aggregate within the IGP domain.
+> NRP-ID: Identifies a specific NRP within the IGP domain.
 
 This sub-TLV MAY be present in any of the following TLVs:
 
@@ -289,11 +334,49 @@ This sub-TLV MAY be present in any of the following TLVs:
 
 Multiple LAN-Adj-SID sub-TLVs MAY be associated with a single IS-IS neighbor.  This sub-TLV MAY appear multiple times in each TLV.
 
+## IS-IS NRP per Algorithm LAN Adjacency-SID Sub-TLV {#NrpAlgoLanAdjSID}
+
+ISIS Adjacency Segment Identifier (LAN-Adj-SID) per Algorithm Sub-TLV
+has the following format:
+
+~~~
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |     Type      |     Length    |      Flags    |    Weight     |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   Algorithm   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           NRP-ID                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                  Neighbor System-ID (ID length octets)        |
+   +                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                   SID/Label/Index (variable)                  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~
+{:#LANAlgoSaAdjSID title="Per Algorithm NRP LAN Adj-SID sub-TLV for SR-MPLS."}
+
+where:
+
+> Type: TBD5.
+
+> Length: Variable.
+
+> The "Flags", "SID/Index/Label", "Weight", and "Neighbor System-ID" fields are
+> the same as those defined for the LAN-Adj-SID sub-TLV in {{!RFC8667}}.
+
+> The "Algorithm" field is as defined in {{!I-D.ietf-lsr-algorithm-related-adjacency-sid}}
+for the per Algorithm LAN-Adj-SID Sub-TLV.
+
 
 > Editor Note: the OSPF Sub-TLV sections will be populated in further update.
 
 
-# Slice Aggregate SIDs for SRv6
+# NRP SIDs for SRv6
 
 Segment Routing can be directly instantiated on the IPv6 data plane through the
 use of the Segment Routing Header defined in {{!RFC8754}}.  SRv6 refers to this
@@ -302,7 +385,7 @@ SR instantiation on the IPv6 dataplane.
 The SRv6 Locator TLV was introduced in {{!I-D.ietf-lsr-isis-srv6-extensions}}
 to advertise SRv6 Locators and End SIDs associated with each locator.
 
-## SRv6 SID Slice Aggregate Sub-Sub-TLV
+## SRv6 NRP SID Sub-Sub-TLV {#Srv6NrpSID}
 
 The SRv6 End SID sub-TLV was introduced in
 {{!I-D.ietf-lsr-isis-srv6-extensions}} to advertise SRv6 Segment Identifiers
@@ -313,37 +396,37 @@ the topology/algorithm from the parent locator. The SRv6 End SID sub-TLV
 defined in {{!I-D.ietf-lsr-isis-srv6-extensions}} carries optional
 sub-sub-TLVs.
 
-A new SRv6 Slice Aggregate (SA) SID Sub-Sub-TLV is defined to allow a router to
-assign and advertise an SRv6 End SID that is associated with a specific Slice
-Aggregate. The SRv6 SID SA Sub-Sub-TLV allows routers to infer and enforce
-the specific treatment associated with the Slice Aggregate on the selected
+A new SRv6 NRP SID Sub-Sub-TLV is defined to allow a router to
+assign and advertise an SRv6 End SID that is associated with a specific NRP.
+The SRv6 SID NRP Sub-Sub-TLV allows routers to infer and enforce
+the specific treatment associated with the NRP on the selected
 next-hops along the path to the End SID destination.
 
 ~~~
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Type=TBD4   |     Length    |
+   |   Type        |     Length    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            SA-ID                              |
+   |                           NRP-ID                              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~
-{:#SaEndSID title="SRv6 SID SA Sub-Sub-TLV format for SRv6."}
+{:#SaEndSID title="SRv6 SID NRP Sub-Sub-TLV format for SRv6."}
 
 
 where:
 
-> Type: TBD4
+> Type: TBD6
 
 > Length: 4 octets.
 
-> SA-ID: Identifies a specific Slice Aggregate within the IGP domain.
+> NRP-ID: Identifies a specific NRP within the IGP domain.
 
-ISIS SRv6 SID SA Sub-Sub-TLV MUST NOT appear more than once in
+ISIS SRv6 SID NRP Sub-Sub-TLV MUST NOT appear more than once in
 its parent Sub-TLV. If it appears more than once in its parent Sub-
 TLV, the parent Sub-TLV MUST be ignored by the receiver.
 
-The new SRv6 SID SA Sub-Sub-TLV is an optional Sub-Sub-TLV of:
+The new SRv6 SID NRP Sub-Sub-TLV is an optional Sub-Sub-TLV of:
 
 > SRv6 End SID Sub-TLV (Section 7.2 of {{!I-D.ietf-lsr-isis-srv6-extensions}})
 
@@ -353,32 +436,45 @@ The new SRv6 SID SA Sub-Sub-TLV is an optional Sub-Sub-TLV of:
 
 # IANA Considerations
 
-This document requests allocation for the following Sub-TLVs.
+This document requests allocation for the following Sub-TLVs types.
 
-## SR Slice Aggregate Prefix-SID sub-TLV
+## IS-IS Consideration
 
-This TLV shares sub-TLV space with existing "Sub-TLVs for TLVs
+Table 1 summarizes registrations made in the "Sub-TLVs for TLV
 135,235,226 and 237 registry".
 
-> Type: TBD1 (to be assigned by IANA).
+ | Sub-TLV Type | Description                      |  Reference          |
+ |--------------|----------------------------------|--------------------|
+ | TBD1         | NRP Prefix-SID Sub-TLV           | {{NrpPrefixSID}}   |
 
-## SR Slice Aggregate Adjacency-SID sub-TLV
+~~~~~~~~~~
+   Table 1: Summary of Sub-TLV registrations for TLVs 135,235,226 and
+                         237 (to be assigned by IANA).
+~~~~~~~~~~
 
-This TLV shares sub-TLV space with existing "Sub-TLVs for TLVs 22,
-222, 23, 223 and 141 registry".
+Table 2 summarizes registrations made in the "Sub-TLVs for TLV
+22, 23, 25, 141, 222, and 223" registry.
 
-> Type: TBD2 (to be assigned by IANA).
 
-## SR Slice Aggregate LAN-Adj-SID sub-TLV
+ | Sub-TLV Type | Description                      |  Reference          |
+ |--------------|----------------------------------|--------------------|
+ | TBD2         | NRP Adj-SID Sub-TLV              | {{NrpAdjSID}}      |
+ | TBD3         | NRP LAN-Adj-SID Sub-TLV          | {{NrpLanAdjSID}}  |
+ | TBD4         | NRP Per Algo Adj-SID Sub-TLV     | {{NrpAlgoAdjSID}}  |
+ | TBD5         | NRP Per Algo LAN-Adj-SID Sub-TLV | {{NrpAlgoLanAdjSID}}|
 
-This TLV shares sub-TLV space with existing "Sub-TLVs for TLVs 22,
-222, 23, and 223 registry".
+~~~~~~~~~~
+   Table 2: Summary of Sub-TLV registrations for TLVs 22, 23, 25, 141,
+                         222, and 223 (to be assigned by IANA).
+~~~~~~~~~~
 
-> Type: TBD3 (to be assigned by IANA).
+## SRv6 IS-IS NRP SID Sub-Sub-TLV
 
-## SRv6 SID Slice Aggregate Sub-Sub-TLV
+The below is a request to allocate a new sub-sub-TLV type from the
+"sub-sub-TLVs for SRv6 End SID and SRv6 End.X SID" registry:
 
-> Type: TBD4 (to be assigned by IANA).
+> Type: TBD5 (to be assigned by IANA).
+> Reference: {{Srv6NrpSID}}
 
 # Security Considerations
 
