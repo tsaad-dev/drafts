@@ -677,7 +677,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 4.2.  Control Plane Network Resource Partition Mode
 
    Multiple NRPs can be realized over the same set of physical
-   resources.  In this case, the NRP is identified by an unique
+   resources.  In this case, the NRP is identified by a unique
    identifier (NRP-ID) that is globally unique within the NRP domain,
    and state reservations can occur for each NRP.
 
