@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-06
+docname: draft-bestbar-teas-ns-packet-07
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -198,11 +198,15 @@ Aggregate comprises of one or more IETF network slice traffic
 streams; the mapping of one or more IETF network slices to a Slice-Flow
 Aggregate is maintained by the IETF Network Slice Controller.
 
-Network Resource Partition Policy:
+Network Resource Partition Policy (NRP):
 : a policy construct that enables instantiation of mechanisms in support 
 of IETF network slice specific control and data plane behaviors 
 on select topological elements; the enforcement of an NRP Policy 
 results in the creation of an NRP.
+
+NRP Identifier (NRP-ID):
+: an identifier that is globally unique within an NRP domain and that can
+be used in the control plane to identify the resources associated with the NRP.
 
 NRP Capable Node:
 : a node that supports one of the NRP modes described in this document.
@@ -219,8 +223,8 @@ Slice-Flow Aggregate Packet:
 NRP Topology:
 : a set of topological elements associated with a Network Resource Partition.
 
-Slice-Flow Aggregate Aware TE:
-: a mechanism for TE path selection that takes into account the available network resources associated with a specific Slice-Flow Aggregate.
+NRP state aware TE (NRP-TE):
+: a mechanism for TE path selection that takes into account the available network resources associated with a specific NRP.
 
 {::boilerplate bcp14}
 
@@ -400,7 +404,7 @@ Aggregate is a matter of local operator policy is a function executed by the
 Controller.  The Slice-Flow Aggregate may be preconfigured, created on demand, or
 modified dynamically.
 
-## Path Placement over Slice-Flow Aggregate Topology {#PathPlacement}
+## Path Placement over NRP Topology {#PathPlacement}
 
 Depending on the underlying network technology, the paths are selected in the
 network in order to best deliver the SLOs for the different services carried by
@@ -525,24 +529,29 @@ enforce on the Slice-Flow Aggregate traffic streams.
 
 ## Control Plane Network Resource Partition Mode
 
-Multiple NRPs can be realized over the same set of physical resources.
-It is possible in this case to allow the state reservations to occur on each NRP.
+Multiple NRPs can be realized over the same set of physical resources.  Each
+NRP is identified by an identifier (NRP-ID) that is globally unique within the
+NRP domain. The NRP state reservations for each NRP can be maintained on the
+network element or on a controller.
 
-The network reservation state for a specific partition can then be represented
-in a topology that may can contain all or a subset of the physical network
-elements (nodes and links). The logical network resources that appear in the topology can
-reflect a part, whole, or in-excess of the physical network resource capacity (e.g., when
-oversubscription is desired).
+The network reservation states for a specific partition can be represented
+in a topology that contains all or a subset of the physical network
+elements (nodes and links) and reflect the network state reservations in
+that NRP. The logical network resources that appear in the NRP topology can
+reflect a part, whole, or in-excess of the physical network resource capacity
+(e.g., when oversubscription is desirable).
 
 For example, the physical link bandwidth can be
 divided into fractions, each dedicated to an NRP that supports a Slice-Flow Aggregate.
 The topology associated with the NRP supporting a Slice-Flow Aggregate
-can be used by routing protocols, or by the ingress/PCE when computing Slice-Flow Aggregate aware TE paths.
+can be used by routing protocols, or by the ingress/PCE when computing NRP state
+aware TE paths.
 
-To perform network state dependent path computation in this mode (Slice-Flow
-Aggregate aware TE), the resource reservation on each link needs to be Slice-Flow
-Aggregate aware. Details of required IGP extensions to support SA-TE are
-described in {{?I-D.bestbar-lsr-slice-aware-te}}.
+To perform NRP state aware Traffic Engineering (NRP-TE), the resource reservation
+on each link needs to be NRP aware. The NRP reservations state can be managed
+locally on the device or off device (e.g. on a controller). Details of required
+IGP extensions to support NRP-TE are described in
+{{?I-D.bestbar-lsr-slice-aware-te}}.
 
 The same physical link may be member of multiple slice policies that
 instantiate different NRPs. The NRP
@@ -558,7 +567,7 @@ the reservable bandwidth for each NRP to take into consideration
 the available bandwidth from other NRPs in the same group.
 
 For illustration purposes, {{resource-sharing}} describes bandwidth paritioning
-or sharing amongst a group of NRPs. In Figure 2a, the NRPs:
+or sharing amongst a group of NRPs. In Figure 2a, the NRPs indentified by the following NRP-IDs:
 NRP1, NRP2, NRP3 and NRP4 are not sharing any bandwidths between each
 other. In Figure 2b, the NRPs: NRP1 and NRP2 can share the
 available bandwidth portion allocated to each amongst them.
@@ -616,9 +625,9 @@ Aggregates, the network resources can be partitioned in both the control plane
 and data plane.
 
 The control plane partitioning allows the creation of customized topologies per
-NRP that each supports a Slice-Flow Aggregate. The ingress routers or a Path Computation Engine (PCE) can use
-the customized topologies to determine optimal path placement for specific demand flows (Slice-Flow Aggregate
-aware TE).
+NRP that each supports a Slice-Flow Aggregate. The ingress routers or a Path
+Computation Engine (PCE) may use the customized topologies and the NRP state
+to determine optimal path placement for specific demand flows using NRP-TE.
 
 The data plane partitioning provides isolation for Slice-Flow Aggregate traffic, and
 protection when resource contention occurs due to bursts of traffic from other Slice-Flow
@@ -643,7 +652,7 @@ The network wide consistent NRP Policy definition is distributed to the
 devices in the network as shown in {{ns-workflow}}. The specification of
 the network slice intent on the northbound interface of the controller and the
 mechanism used to map the network slice to a Slice-Flow Aggregate are outside the scope
-of this document.
+of this document and will be addressed in separate documents.
 
 ## NRP Policy Definition {#SliceDefinition}
 
@@ -1064,8 +1073,8 @@ When the network resource reservations are maintained for NRPs,
 the link state can carry per NRP state (e.g.,
 reservable bandwidth).  This allows path computation to take into account the
 specific network resources available for an NRP.  In this
-case, we refer to the process of path placement and path provisioning as Slice-Flow
-Aggregate aware TE.
+case, we refer to the process of path placement and path provisioning as NRP
+aware TE (NRP-TE).
 
 ## Applicability of Path Control Technologies to Slice-Flow Aggregates
 
@@ -1084,7 +1093,7 @@ subject the optimization metrics and constraints.
 
 RSVP-TE {{!RFC3209}} can be used to signal LSPs over the computed feasible paths
 in order to carry the Slice-Flow Aggregate traffic. The specific extensions to the RSVP-TE
-protocol required to enable signaling of Slice-Flow Aggregate aware RSVP LSPs are
+protocol required to enable signaling of NRP aware RSVP LSPs are
 outside the scope of this document.
 
 ### SR Based Slice-Flow Aggregate Paths
