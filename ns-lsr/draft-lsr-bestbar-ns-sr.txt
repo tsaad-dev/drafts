@@ -5,18 +5,18 @@
 LSR Working Group                                                T. Saad
 Internet-Draft                                               V.P. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 14 July 2022                                            R. Chen
+Expires: 15 July 2022                                            R. Chen
                                                                  S. Peng
                                                          ZTE Corporation
                                                                   B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                                 Ericsson
-                                                         10 January 2022
+                                                         11 January 2022
 
 
          IGP Extensions for SR Network Resource Partition SIDs
-                     draft-bestbar-lsr-spring-sa-02
+                    draft-bestbar-lsr-spring-nrp-00
 
 Abstract
 
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 July 2022.
+   This Internet-Draft will expire on 15 July 2022.
 
 
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 1]
+Saad, et al.              Expires 15 July 2022                  [Page 1]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 2]
+Saad, et al.              Expires 15 July 2022                  [Page 2]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -165,7 +165,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 3]
+Saad, et al.              Expires 15 July 2022                  [Page 3]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -221,7 +221,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 4]
+Saad, et al.              Expires 15 July 2022                  [Page 4]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -277,7 +277,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 5]
+Saad, et al.              Expires 15 July 2022                  [Page 5]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -333,7 +333,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 6]
+Saad, et al.              Expires 15 July 2022                  [Page 6]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -389,7 +389,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 7]
+Saad, et al.              Expires 15 July 2022                  [Page 7]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -445,7 +445,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 8]
+Saad, et al.              Expires 15 July 2022                  [Page 8]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -501,7 +501,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                  [Page 9]
+Saad, et al.              Expires 15 July 2022                  [Page 9]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -557,7 +557,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 10]
+Saad, et al.              Expires 15 July 2022                 [Page 10]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -613,7 +613,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 11]
+Saad, et al.              Expires 15 July 2022                 [Page 11]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -647,9 +647,9 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
               J., Peng, S., Chen, R., Liu, X., Contreras, L. M., Rokui,
               R., and L. Jalil, "Realizing Network Slices in IP/MPLS
               Networks", Work in Progress, Internet-Draft, draft-
-              bestbar-teas-ns-packet-06, 22 December 2021,
+              bestbar-teas-ns-packet-07, 11 January 2022,
               <https://www.ietf.org/archive/id/draft-bestbar-teas-ns-
-              packet-06.txt>.
+              packet-07.txt>.
 
    [I-D.ietf-lsr-algorithm-related-adjacency-sid]
               Peng, S., Chen, R., Talaulikar, K., and P. Psenak,
@@ -669,7 +669,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 12]
+Saad, et al.              Expires 15 July 2022                 [Page 12]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -725,7 +725,7 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 13]
+Saad, et al.              Expires 15 July 2022                 [Page 13]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -781,7 +781,7 @@ Authors' Addresses
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 14]
+Saad, et al.              Expires 15 July 2022                 [Page 14]
 
 Internet-Draft               IGP SR NRP SIDs                January 2022
 
@@ -837,4 +837,4 @@ Internet-Draft               IGP SR NRP SIDs                January 2022
 
 
 
-Saad, et al.              Expires 14 July 2022                 [Page 15]
+Saad, et al.              Expires 15 July 2022                 [Page 15]

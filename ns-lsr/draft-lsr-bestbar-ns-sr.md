@@ -1,7 +1,7 @@
 ---
 title: IGP Extensions for SR Network Resource Partition SIDs
 abbrev: IGP SR NRP SIDs
-docname: draft-bestbar-lsr-spring-sa-02
+docname: draft-bestbar-lsr-spring-nrp-00
 category: std
 ipr: trust200902
 workgroup: LSR Working Group
