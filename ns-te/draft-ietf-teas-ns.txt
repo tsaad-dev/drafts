@@ -702,7 +702,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    PCE when computing NRP state aware TE paths.
 
    To perform NRP state aware Traffic Engineering (NRP-TE), the resource
-   reservation on each link needs to NRP aware.  The NRP reservations
+   reservation on each link needs to be NRP aware.  The NRP reservations
    state can be managed locally on the device or off device (e.g. on a
    controller).  Details of required IGP extensions to support NRP-TE
    are described in [I-D.bestbar-lsr-slice-aware-te].
@@ -796,9 +796,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    The control plane partitioning allows the creation of customized
    topologies per NRP that each supports a Slice-Flow Aggregate.  The
-   ingress routers or a Path Computation Engine (PCE) can use the
-   customized topologies to determine optimal path placement for
-   specific demand flows using NRP-TE.
+   ingress routers or a Path Computation Engine (PCE) may use the
+   customized topologies and the NRP state to determine optimal path
+   placement for specific demand flows using NRP-TE.
 
    The data plane partitioning provides isolation for Slice-Flow
    Aggregate traffic, and protection when resource contention occurs due
@@ -825,13 +825,13 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    the devices in the network as shown in Figure 1.  The specification
    of the network slice intent on the northbound interface of the
    controller and the mechanism used to map the network slice to a
-   Slice-Flow Aggregate are outside the scope of this document.
+   Slice-Flow Aggregate are outside the scope of this document and will
+   be addressed in separate documents.
 
 5.1.  NRP Policy Definition
 
    The NRP Policy is network-wide construct that is supplied to network
    devices, and may include rules that control the following:
-
 
 
 
