@@ -96,10 +96,10 @@ Table of Contents
      3.3.  Slice-Flow Aggregation Mapping  . . . . . . . . . . . . .  10
      3.4.  Path Placement over NRP Topology  . . . . . . . . . . . .  10
      3.5.  NRP Policy Installation . . . . . . . . . . . . . . . . .  10
-     3.6.  Path Instantiation  . . . . . . . . . . . . . . . . . . .  10
+     3.6.  Path Instantiation  . . . . . . . . . . . . . . . . . . .  11
      3.7.  Service Mapping . . . . . . . . . . . . . . . . . . . . .  11
      3.8.  Network Slice-Flow Aggregate Relationships  . . . . . . .  11
-   4.  Network Resource Partition Modes  . . . . . . . . . . . . . .  11
+   4.  Network Resource Partition Modes  . . . . . . . . . . . . . .  12
      4.1.  Data plane Network Resource Partition Mode  . . . . . . .  12
      4.2.  Control Plane Network Resource Partition Mode . . . . . .  13
      4.3.  Data and Control Plane Network Resource Partition Mode  .  15
@@ -302,10 +302,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
       a set of topological elements associated with a Network Resource
       Partition.
 
-   Slice-Flow Aggregate Aware TE:
+   NRP state aware TE (NRP-TE):
       a mechanism for TE path selection that takes into account the
-      available network resources associated with a specific Slice-Flow
-      Aggregate.
+      available network resources associated with a specific NRP.
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -330,6 +329,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
       SLO: Service Level Objectives
 
+      SLE: Service Level Expectations
 
 
 
@@ -337,8 +337,6 @@ Saad, et al.              Expires 15 July 2022                  [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
-
-      SLE: Service Level Expectations
 
       Diffserv: Differentiated Services
 
@@ -381,11 +379,13 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    dedicated network resources since only one Slice-Flow Aggregate
    traffic stream can traverse the dedicated resource at any time.
 
-   To optimize network utilization, sharing of the physical network
-   resources may be desirable.  In such case, the same physical network
-   resource capacity is divided among multiple NRPs that support
-   multiple Slice-Flow Aggregates.  The shared physical network
-   resources can be partitioned in the data plane (for example by
+
+
+
+
+
+
+
 
 
 
@@ -394,6 +394,11 @@ Saad, et al.              Expires 15 July 2022                  [Page 7]
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
+   To optimize network utilization, sharing of the physical network
+   resources may be desirable.  In such case, the same physical network
+   resource capacity is divided among multiple NRPs that support
+   multiple Slice-Flow Aggregates.  The shared physical network
+   resources can be partitioned in the data plane (for example by
    applying hardware policers and shapers) and/or partitioned in the
    control plane by providing a logical representation of the physical
    link that has a subset of the network resources available to it.
@@ -437,11 +442,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
     | |       | |       | Apply Topology Filters
     | |       | |       v
     |  -------  |      -----------------------------      --------
-    |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
-     -----------     ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
-     |  |     |      ( :.-   -:.......|P|       :-   )  ( Topology )
-     |  |     |      (  |P|...........:-:.......|P|  )   (        )
-     |  |      \      (  -  Policy Filter Topology  )     --------
 
 
 
@@ -450,6 +450,11 @@ Saad, et al.              Expires 15 July 2022                  [Page 8]
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
+    |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
+     -----------     ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
+     |  |     |      ( :.-   -:.......|P|       :-   )  ( Topology )
+     |  |     |      (  |P|...........:-:.......|P|  )   (        )
+     |  |      \      (  -  Policy Filter Topology  )     --------
      |  |       \      -----------------------------       A
      |  |        \                       A                /
     ..............\.......................\............../..............
@@ -494,17 +499,15 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    configure the PEs to determine what customer traffic is intended for
    this IETF Network Slice.
 
-   IETF Network Slice Service Requests are likely to arrive at various
-   times in the life of the network, and may also be modified.
-
-
-
 
 
 Saad, et al.              Expires 15 July 2022                  [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+   IETF Network Slice Service Requests are likely to arrive at various
+   times in the life of the network, and may also be modified.
 
 3.3.  Slice-Flow Aggregation Mapping
 
@@ -546,13 +549,10 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    Policy instantiation in the network is further described in
    Section 5.
 
-3.6.  Path Instantiation
 
-   Depending on the underlying network technology, a Controller function
-   may install the forwarding state specific to the Slice-Flow Aggregate
-   so that traffic is routed along paths derived in the Path Placement
-   step described in Section 3.4.  The way in which the paths are
-   instantiated is implementation specific.
+
+
+
 
 
 
@@ -561,6 +561,14 @@ Saad, et al.              Expires 15 July 2022                 [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+3.6.  Path Instantiation
+
+   Depending on the underlying network technology, a Controller function
+   may install the forwarding state specific to the Slice-Flow Aggregate
+   so that traffic is routed along paths derived in the Path Placement
+   step described in Section 3.4.  The way in which the paths are
+   instantiated is implementation specific.
 
 3.7.  Service Mapping
 
@@ -603,6 +611,13 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    each of the Slice-Flow Aggregates grouping any number of the IETF
    Network Slices streams.
 
+
+
+Saad, et al.              Expires 15 July 2022                 [Page 11]
+
+Internet-Draft           IP/MPLS Network Slicing            January 2022
+
+
 4.  Network Resource Partition Modes
 
    An NRP Policy can be used to dictate if the network resource
@@ -610,13 +625,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    Flow Aggregates can be achieved:
 
    a)  in data plane only,
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 11]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
    b)  in control plane only, or
 
@@ -658,14 +666,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    packets on the IGP computed lowest cumulative delay path.  An NRP
    Policy may be used to allow links along the least latency path to
    share its data plane resources amongst multiple Slice-Flow
-   Aggregates.  In this case, the packets that are steered on a specific
-   NRP carry the SAS that enables routers (along with the Diffserv CS)
-   to determine the NRP-PHB to enforce on the Slice-Flow Aggregate
-   traffic streams.
-
-
-
-
 
 
 
@@ -673,6 +673,11 @@ Saad, et al.              Expires 15 July 2022                 [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+   Aggregates.  In this case, the packets that are steered on a specific
+   NRP carry the SAS that enables routers (along with the Diffserv CS)
+   to determine the NRP-PHB to enforce on the Slice-Flow Aggregate
+   traffic streams.
 
 4.2.  Control Plane Network Resource Partition Mode
 
@@ -684,8 +689,8 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    The network reservation states for a specific partition can be
    represented in a topology that contains all or a subset of the
-   physical network elements (nodes and links) and reflects the network
-   state reservations for that NRP.  The logical network resources that
+   physical network elements (nodes and links) and reflect the network
+   state reservations in that NRP.  The logical network resources that
    appear in the NRP topology can reflect a part, whole, or in-excess of
    the physical network resource capacity (e.g., when oversubscription
    is desirable).
@@ -696,7 +701,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    Flow Aggregate can be used by routing protocols, or by the ingress/
    PCE when computing NRP state aware TE paths.
 
-   To perform NRP state aware path computation (NRP-TE), the resource
+   To perform NRP state aware Traffic Engineering (NRP-TE), the resource
    reservation on each link needs to NRP aware.  The NRP reservations
    state can be managed locally on the device or off device (e.g. on a
    controller).  Details of required IGP extensions to support NRP-TE
@@ -716,12 +721,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    into consideration the available bandwidth from other NRPs in the
    same group.
 
-   For illustration purposes, Figure 2 describes bandwidth paritioning
-   or sharing amongst a group of NRPs.  In Figure 2a, the NRPs
-   indentified by the following NRP-IDs: NRP1, NRP2, NRP3 and NRP4 are
-   not sharing any bandwidths between each other.  In Figure 2b, the
-   NRPs: NRP1 and NRP2 can share the available bandwidth portion
-   allocated to each amongst them.  Similarly, NRP3 and NRP4 can share
+
 
 
 
@@ -730,6 +730,12 @@ Saad, et al.              Expires 15 July 2022                 [Page 13]
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
+   For illustration purposes, Figure 2 describes bandwidth paritioning
+   or sharing amongst a group of NRPs.  In Figure 2a, the NRPs
+   indentified by the following NRP-IDs: NRP1, NRP2, NRP3 and NRP4 are
+   not sharing any bandwidths between each other.  In Figure 2b, the
+   NRPs: NRP1 and NRP2 can share the available bandwidth portion
+   allocated to each amongst them.  Similarly, NRP3 and NRP4 can share
    amongst themselves any available bandwidth allocated to them, but
    they cannot share available bandwidth allocated to NRP1 or NRP2.  In
    both cases, the Max Reservable Bandwidth may exceed the actual
@@ -772,12 +778,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    (a) No bandwidth sharing              (b) Sharing bandwidth between
        between NRPs.                         NRPs of the same group.
 
-          Figure 2: Bandwidth isolation/sharing among NRPs.
-
-
-
-
-
 
 
 
@@ -785,6 +785,8 @@ Saad, et al.              Expires 15 July 2022                 [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+          Figure 2: Bandwidth isolation/sharing among NRPs.
 
 4.3.  Data and Control Plane Network Resource Partition Mode
 
@@ -830,9 +832,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    The NRP Policy is network-wide construct that is supplied to network
    devices, and may include rules that control the following:
 
-   *  Data plane specific policies: This includes the SAS, any firewall
-      rules or flow-spec filters, and QoS profiles associated with the
-      NRP Policy and any classes within it.
+
 
 
 
@@ -841,6 +841,10 @@ Saad, et al.              Expires 15 July 2022                 [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+   *  Data plane specific policies: This includes the SAS, any firewall
+      rules or flow-spec filters, and QoS profiles associated with the
+      NRP Policy and any classes within it.
 
    *  Control plane specific policies: This includes bandwidth
       reservations, any network resource sharing amongst slice policies,
@@ -886,10 +890,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
       header not merely to choose the packet's next hop, but also to
       determine a packet's "precedence" or "class of service"'.
       Assigning a unique forwarding address (or MPLS forwarding label)
-      to each Slice-Flow Aggregate allows Slice-Flow Aggregate packets
-      destined to a node to be distinguished by the destination address
-      (or MPLS forwarding label) that is carried in the packet.
-
 
 
 
@@ -897,6 +897,10 @@ Saad, et al.              Expires 15 July 2022                 [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+      to each Slice-Flow Aggregate allows Slice-Flow Aggregate packets
+      destined to a node to be distinguished by the destination address
+      (or MPLS forwarding label) that is carried in the packet.
 
       This approach requires maintaining per Slice-Flow Aggregate state
       for each destination in the network in both the control and data
@@ -942,10 +946,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
       Alternatively, multiple VPN service labels MAY act as GISS's that
       map a single VPN to the same Slice-Flow Aggregate to allow for
       multiple Egress PEs to allocate different VPN service labels for a
-      VPN.  In other cases, a range of VPN service labels acting as
-      multiple GISS's MAY map multiple VPN traffic to a single Slice-
-      Flow Aggregate.  An example of such deployment is shown in
-      Figure 3.
 
 
 
@@ -953,6 +953,11 @@ Saad, et al.              Expires 15 July 2022                 [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing            January 2022
 
+
+      VPN.  In other cases, a range of VPN service labels acting as
+      multiple GISS's MAY map multiple VPN traffic to a single Slice-
+      Flow Aggregate.  An example of such deployment is shown in
+      Figure 3.
 
      SR Adj-SID:          GISS (VPN service label) on PE2: 1001
         9012: P1-P2
@@ -997,11 +1002,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
       repurpose the ELI/EL [RFC6790] to carry the Slice Identifier in
       order to minimize the size of the MPLS stack and ease incremental
       deployment.
-
-
-
-
-
 
 
 
