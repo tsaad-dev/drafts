@@ -5,7 +5,9 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 15 July 2022                                             B. Wen
+Expires: 5 August 2022                                           J. Dong
+                                                     Huawei Technologies
+                                                                  B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
                                                               J. Halpern
@@ -21,11 +23,11 @@ Expires: 15 July 2022                                             B. Wen
                                                                    Nokia
                                                                 L. Jalil
                                                                  Verizon
-                                                         11 January 2022
+                                                         1 February 2022
 
 
               Realizing Network Slices in IP/MPLS Networks
-                    draft-bestbar-teas-ns-packet-07
+                    draft-bestbar-teas-ns-packet-08
 
 Abstract
 
@@ -51,11 +53,9 @@ Status of This Memo
 
 
 
-
-
-Saad, et al.              Expires 15 July 2022                  [Page 1]
+Saad, et al.              Expires 5 August 2022                 [Page 1]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    Internet-Drafts are working documents of the Internet Engineering
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 July 2022.
+   This Internet-Draft will expire on 5 August 2022.
 
 Copyright Notice
 
@@ -109,36 +109,36 @@ Table of Contents
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 2]
+Saad, et al.              Expires 5 August 2022                 [Page 2]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
        5.1.2.  Network Resource Partition Resource Reservation . . .  19
        5.1.3.  Network Resource Partition Per Hop Behavior . . . . .  20
        5.1.4.  Network Resource Partition Topology . . . . . . . . .  21
      5.2.  Network Resource Partition Boundary . . . . . . . . . . .  21
-       5.2.1.  Network Resource Partition Edge Nodes . . . . . . . .  21
+       5.2.1.  Network Resource Partition Edge Nodes . . . . . . . .  22
        5.2.2.  Network Resource Partition Interior Nodes . . . . . .  22
-       5.2.3.  Network Resource Partition Incapable Nodes  . . . . .  22
-       5.2.4.  Combining Network Resource Partition Modes  . . . . .  23
-     5.3.  Mapping Traffic on Slice-Flow Aggregates  . . . . . . . .  24
-   6.  Path Selection and Instantiation  . . . . . . . . . . . . . .  24
+       5.2.3.  Network Resource Partition Incapable Nodes  . . . . .  23
+       5.2.4.  Combining Network Resource Partition Modes  . . . . .  24
+     5.3.  Mapping Traffic on Slice-Flow Aggregates  . . . . . . . .  25
+   6.  Path Selection and Instantiation  . . . . . . . . . . . . . .  25
      6.1.  Applicability of Path Selection to Slice-Flow
-           Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  24
-     6.2.  Applicability of Path Control Technologies to Slice-Flow
            Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  25
-       6.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . .  25
-       6.2.2.  SR Based Slice-Flow Aggregate Paths . . . . . . . . .  25
-   7.  Network Resource Partition Protocol Extensions  . . . . . . .  26
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  26
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  27
-   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  28
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
+     6.2.  Applicability of Path Control Technologies to Slice-Flow
+           Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  26
+       6.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . .  26
+       6.2.2.  SR Based Slice-Flow Aggregate Paths . . . . . . . . .  26
+   7.  Network Resource Partition Protocol Extensions  . . . . . . .  27
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
+   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  28
+   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  28
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  29
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  30
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 3]
+Saad, et al.              Expires 5 August 2022                 [Page 3]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    that can be used to instantiate control and data plane behaviors on
@@ -221,9 +221,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 4]
+Saad, et al.              Expires 5 August 2022                 [Page 4]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    For example, when using MPLS as a dataplane, it is possible to
@@ -272,14 +272,14 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    NRP Identifier (NRP-ID):
       an identifier that is globally unique within an NRP domain and
-      that can be used in the control plane to identify the resources
-      associated with the NRP.
+      that can be used in the control or management plane to identify
+      the resources associated with the NRP.
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 5]
+Saad, et al.              Expires 5 August 2022                 [Page 5]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    NRP Capable Node:
@@ -320,10 +320,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
       NRP-PHB: NRP Per Hop Behavior as described in Section 5.1.3
 
-      SAS: Slice-Flow Aggregate Selector
+      FAS: Flow Aggregate Selector
 
-      SASL: Slice-Flow Aggregate Selector Label as described in
-      Section 5.1.1
+      FASL: Flow Aggregate Selector Label as described in Section 5.1.1
 
       SLA: Service Level Agreements
 
@@ -333,9 +332,10 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 6]
+
+Saad, et al.              Expires 5 August 2022                 [Page 6]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
       Diffserv: Differentiated Services
@@ -389,9 +389,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 7]
+Saad, et al.              Expires 5 August 2022                 [Page 7]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    To optimize network utilization, sharing of the physical network
@@ -445,9 +445,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 8]
+Saad, et al.              Expires 5 August 2022                 [Page 8]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
     |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
@@ -501,9 +501,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                  [Page 9]
+Saad, et al.              Expires 5 August 2022                 [Page 9]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    IETF Network Slice Service Requests are likely to arrive at various
@@ -557,9 +557,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 10]
+Saad, et al.              Expires 5 August 2022                [Page 10]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 3.6.  Path Instantiation
@@ -613,9 +613,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 11]
+Saad, et al.              Expires 5 August 2022                [Page 11]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 4.  Network Resource Partition Modes
@@ -642,13 +642,13 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    When data plane NRP mode is applied, packets need to be forwarded on
    the specific NRP that supports the Slice-Flow Aggregate to ensure the
    proper forwarding treatment dictated in the NRP Policy is applied
-   (refer to Section 5.1 below).  In this case, a Slice-Flow Aggregate
-   Selector (SAS) MUST be carried in each packet to identify the Slice-
+   (refer to Section 5.1 below).  In this case, a Flow Aggregate
+   Selector (FAS) MUST be carried in each packet to identify the Slice-
    Flow Aggregate that it belongs to.
 
-   The ingress node of an NRP domain MAY also add an SAS to each Slice-
+   The ingress node of an NRP domain MAY also add an FAS to each Slice-
    Flow Aggregate packet.  The transit nodes within an NRP domain MAY
-   use the SAS to associate packets with a Slice-Flow Aggregate and to
+   use the FAS to associate packets with a Slice-Flow Aggregate and to
    determine the Network Resource Partition Per Hop Behavior (NRP-PHB)
    that is applied to the packet (refer to Section 5.1.3 for further
    details).  The CS MAY be used to apply a Diffserv PHB on to the
@@ -658,7 +658,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    When data plane only NRP mode is used, routers may rely on a network
    state independent view of the topology to determine the best paths.
    In this case, the best path selection dictates the forwarding path of
-   packets to the destination.  The SAS field carried in each packet
+   packets to the destination.  The FAS field carried in each packet
    determines the specific NRP-PHB treatment along the selected path.
 
    For example, the Segment-Routing Flexible Algorithm
@@ -669,13 +669,13 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 12]
+Saad, et al.              Expires 5 August 2022                [Page 12]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    Aggregates.  In this case, the packets that are steered on a specific
-   NRP carry the SAS that enables routers (along with the Diffserv CS)
+   NRP carry the FAS that enables routers (along with the Diffserv CS)
    to determine the NRP-PHB to enforce on the Slice-Flow Aggregate
    traffic streams.
 
@@ -725,9 +725,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 13]
+Saad, et al.              Expires 5 August 2022                [Page 13]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    For illustration purposes, Figure 2 describes bandwidth paritioning
@@ -781,9 +781,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 14]
+Saad, et al.              Expires 5 August 2022                [Page 14]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
           Figure 2: Bandwidth isolation/sharing among NRPs.
@@ -837,12 +837,12 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 15]
+Saad, et al.              Expires 5 August 2022                [Page 15]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
-   *  Data plane specific policies: This includes the SAS, any firewall
+   *  Data plane specific policies: This includes the FAS, any firewall
       rules or flow-spec filters, and QoS profiles associated with the
       NRP Policy and any classes within it.
 
@@ -877,9 +877,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 5.1.1.  Network Resource Partition Data Plane Selector
 
    A router MUST be able to identify a packet belonging to a Slice-Flow
-   Aggregate before it can apply the associated forwarding treatment or
-   NRP-PHB.  One or more fields within the packet MAY be used as an SAS
-   to do this.
+   Aggregate before it can apply the associated dataplane forwarding
+   treatment or NRP-PHB.  One or more fields within the packet MAY be
+   used as an FAS to do this.
 
    Forwarding Address Based Selector:
 
@@ -893,9 +893,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 16]
+Saad, et al.              Expires 5 August 2022                [Page 16]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
       to each Slice-Flow Aggregate allows Slice-Flow Aggregate packets
@@ -920,7 +920,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    Global Identifier Based Selector:
 
-      An NRP Policy MAY include a Global Identifier SAS (GISS) field as
+      An NRP Policy MAY include a Global Identifier FAS (GISS) field as
       defined in [I-D.kompella-mpls-mspl4fa] that is carried in each
       packet in order to associate it to the NRP supporting a Slice-Flow
       Aggregate, independent of the forwarding address or MPLS
@@ -949,9 +949,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 17]
+Saad, et al.              Expires 5 August 2022                [Page 17]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
       VPN.  In other cases, a range of VPN service labels acting as
@@ -1005,9 +1005,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 18]
+Saad, et al.              Expires 5 August 2022                [Page 18]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
         SR Adj-SID:          GISS: 1001
@@ -1042,29 +1042,38 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
       portion of the IPv6 Flow Label field as described in
       [I-D.filsfils-spring-srv6-stateless-slice-id].
 
+   A detailed review of NRP scale considerations is presented in
+   [I-D.dong-teas-nrp-scalability].
+
 5.1.2.  Network Resource Partition Resource Reservation
 
    Bandwidth and network resource allocation strategies for slice
    policies are essential to achieve optimal placement of paths within
    the network while still meeting the target SLOs.
 
-   Resource reservation allows for the managing of available bandwidth
-   and for prioritization of existing allocations to enable preference-
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 19]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
+
+   Resource reservation allows for the management of available bandwidth
+   and the prioritization of existing allocations to enable preference-
    based preemption when contention on a specific network resource
    arises.  Sharing of a network resource's available bandwidth amongst
    a group of NRPs may also be desirable.  For example, a Slice-Flow
    Aggregate may not be using all of the NRP reservable bandwidth; this
    allows other NRPs in the same group to use the available bandwidth
    resources for other Slice-Flow Aggregates.
-
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 19]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
    Congestion on shared network resources may result from sub-optimal
    placement of paths in different slice policies.  When this occurs,
@@ -1094,8 +1103,24 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    the same logical network.
 
    The Slice-Flow Aggregate traffic may be identified at NRP ingress
-   boundary nodes by carrying a SAS to allow routers to apply a specific
+   boundary nodes by carrying a FAS to allow routers to apply a specific
    forwarding treatment that guarantee the SLA(s).
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 20]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
 
    With Differentiated Services (Diffserv) it is possible to carry
    multiple services over a single converged network.  Packets requiring
@@ -1111,16 +1136,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    determine the specific PHB that determines the forwarding and
    scheduling treatment before packets are forwarded, and in some cases,
    drop probability for each packet.
-
-
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 20]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
 5.1.4.  Network Resource Partition Topology
 
@@ -1152,6 +1167,17 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    supporting a Slice-Flow Aggregate may traverse NRP capable as well as
    NRP incapable interior nodes.
 
+
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 21]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
+
    The network slice may encompass one or more domains administered by a
    provider.  For example, an organization's intranet or an ISP.  The
    network provider is responsible for ensuring that adequate network
@@ -1169,15 +1195,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    network 5-tuple in the IP and transport protocol headers) to decide
    on which NRP it can be steered.
 
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 21]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
-
    Network slice ingress nodes may condition the inbound traffic at
    network boundaries in accordance with the requirements or rules of
    each service's SLAs.  The requirements and rules for network slice
@@ -1185,7 +1202,7 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    document.
 
    When data plane NRP mode is employed, the NRP ingress nodes are
-   responsible for adding a suitable SAS onto packets that belong to
+   responsible for adding a suitable FAS onto packets that belong to
    specific Slice-Flow Aggregate.  In addition, edge nodes MAY mark the
    corresponding Diffserv CS to differentiate between different types of
    traffic carried over the same Slice-Flow Aggregate.
@@ -1194,16 +1211,28 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    An NRP interior node receives slice traffic and MAY be able to
    identify the packets belonging to a specific Slice-Flow Aggregate by
-   inspecting the SAS field carried inside each packet, or by inspecting
+   inspecting the FAS field carried inside each packet, or by inspecting
    other fields within the packet that may identify the traffic streams
    that belong to a specific Slice-Flow Aggregate.  For example, when
-   data plane NRP mode is applied, interior nodes can use the SAS
+   data plane NRP mode is applied, interior nodes can use the FAS
    carried within the packet to apply the corresponding NRP-PHB
    forwarding behavior.  Nodes within the network slice provider network
    may also inspect the Diffserv CS within each packet to apply a per
    Diffserv class PHB within the NRP Policy, and allow differentiation
    of forwarding treatments for packets forwarded over the same NRP that
    supports the Slice-Flow Aggregate.
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 22]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
 
 5.2.3.  Network Resource Partition Incapable Nodes
 
@@ -1213,15 +1242,15 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    such devices and be able to resume the NRP forwarding treatment once
    the traffic reaches devices that are NRP-capable.
 
-   When data plane NRP mode is employed, packets carry a SAS to allow
+   When data plane NRP mode is employed, packets carry a FAS to allow
    slice interior nodes to identify them.  To support end-to-end network
-   slicing, the SAS MUST be maintained in the packets as they traverse
+   slicing, the FAS MUST be maintained in the packets as they traverse
    devices within the network - including NRP capable and incapable
    devices.
 
-   For example, when the SAS is an MPLS label at the bottom of the MPLS
+   For example, when the FAS is an MPLS label at the bottom of the MPLS
    label stack, packets can traverse over devices that are NRP incapable
-   without any further considerations.  On the other hand when the SASL
+   without any further considerations.  On the other hand when the FASL
    is at the top of the MPLS label stack, packets can be bypassed (or
    tunneled) over the NRP incapable devices towards the next device that
    supports NRP as shown in Figure 5.
@@ -1229,12 +1258,39 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 23]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
-     SR Node-SID:           SASL: 1001    @@@: NRP Policy enforced
+     SR Node-SID:           FASL: 1001    @@@: NRP Policy enforced
         1601: P1                          ...: NRP Policy not enforced
         1602: P2
         1603: P3
@@ -1275,9 +1331,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    and control plane NRP modes can be employed in parts of a network,
    while control plane NRP mode can be employed in the other parts of
    the network.  The path selection, in such case, can take into account
-   the NRP available network resources.  The SAS carried within packets
+   the NRP available network resources.  The FAS carried within packets
    allow transit nodes to enforce the corresponding NRP-PHB on the parts
-   of the network that apply the data plane NRP mode.  The SAS can be
+   of the network that apply the data plane NRP mode.  The FAS can be
    maintained while traffic traverses nodes that do not enforce data
    plane NRP mode, and so slice PHB enforcement can resume once traffic
    traverses capable nodes.
@@ -1285,9 +1341,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 23]
+Saad, et al.              Expires 5 August 2022                [Page 24]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 5.3.  Mapping Traffic on Slice-Flow Aggregates
@@ -1341,9 +1397,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 24]
+Saad, et al.              Expires 5 August 2022                [Page 25]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    To enable TE path placement, the link state is advertised with
@@ -1397,9 +1453,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 25]
+Saad, et al.              Expires 5 August 2022                [Page 26]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    *  Steering of services (e.g.  VPN) traffic over SR paths
@@ -1453,9 +1509,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 26]
+Saad, et al.              Expires 5 August 2022                [Page 27]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 9.  Security Considerations
@@ -1470,9 +1526,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    result will be that some packets may be mapped to specific resources
    and may receive different (e.g., better) service treatment than
    others.  The mapping of network traffic to a specific NRP is
-   indicated primarily by the SAS, and hence an adversary may be able to
+   indicated primarily by the FAS, and hence an adversary may be able to
    utilize resources allocated to a specific NRP by injecting packets
-   carrying the same SAS field in their packets.
+   carrying the same FAS field in their packets.
 
    Such theft-of-service may become a denial-of-service attack when the
    modified or injected traffic depletes the resources available to
@@ -1509,9 +1565,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 27]
+Saad, et al.              Expires 5 August 2022                [Page 28]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 12.  References
@@ -1565,9 +1621,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 28]
+Saad, et al.              Expires 5 August 2022                [Page 29]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
@@ -1621,9 +1677,9 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-Saad, et al.              Expires 15 July 2022                 [Page 29]
+Saad, et al.              Expires 5 August 2022                [Page 30]
 
-Internet-Draft           IP/MPLS Network Slicing            January 2022
+Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
    [I-D.bestbar-spring-scalable-ns]
@@ -1650,13 +1706,21 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
               <https://www.ietf.org/archive/id/draft-decraene-mpls-slid-
               encoded-entropy-label-id-02.txt>.
 
+   [I-D.dong-teas-nrp-scalability]
+              Dong, J., Li, Z., Gong, L., Yang, G., Guichard, J. N.,
+              Mishra, G., and F. Qin, "Scalability Considerations for
+              Network Resource Partition", Work in Progress, Internet-
+              Draft, draft-dong-teas-nrp-scalability-00, 17 December
+              2021, <https://www.ietf.org/archive/id/draft-dong-teas-
+              nrp-scalability-00.txt>.
+
    [I-D.filsfils-spring-srv6-stateless-slice-id]
               Filsfils, C., Clad, F., Camarillo, P., Raza, K., Voyer,
               D., and R. Rokui, "Stateless and Scalable Network Slice
               Identification for SRv6", Work in Progress, Internet-
-              Draft, draft-filsfils-spring-srv6-stateless-slice-id-04,
-              30 July 2021, <https://www.ietf.org/archive/id/draft-
-              filsfils-spring-srv6-stateless-slice-id-04.txt>.
+              Draft, draft-filsfils-spring-srv6-stateless-slice-id-05,
+              30 January 2022, <https://www.ietf.org/archive/id/draft-
+              filsfils-spring-srv6-stateless-slice-id-05.txt>.
 
    [I-D.ietf-teas-ietf-network-slices]
               Farrel, A., Gray, E., Drake, J., Rokui, R., Homma, S.,
@@ -1666,21 +1730,20 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
               October 2021, <https://www.ietf.org/archive/id/draft-ietf-
               teas-ietf-network-slices-05.txt>.
 
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 31]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
+
    [I-D.ietf-teas-rfc3272bis]
               Farrel, A., "Overview and Principles of Internet Traffic
               Engineering", Work in Progress, Internet-Draft, draft-
               ietf-teas-rfc3272bis-13, 8 November 2021,
               <https://www.ietf.org/archive/id/draft-ietf-teas-
               rfc3272bis-13.txt>.
-
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 30]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
    [I-D.xpbs-pce-topology-filter]
               Xiong, Q., Peng, S., Beeram, V. P., Saad, T., and M.
@@ -1721,22 +1784,30 @@ Authors' Addresses
    Email: tsaad@juniper.net
 
 
+
+
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 32]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
+
    Vishnu Pavan Beeram
    Juniper Networks
 
    Email: vbeeram@juniper.net
 
 
+   Jie Dong
+   Huawei Technologies
+
+   Email: jie.dong@huawei.com
+
+
    Bin Wen
    Comcast
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 31]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
    Email: Bin_Wen@cable.comcast.com
 
@@ -1771,6 +1842,14 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
    Email: xufeng.liu.ietf@gmail.com
 
 
+
+
+
+Saad, et al.              Expires 5 August 2022                [Page 33]
+
+Internet-Draft           IP/MPLS Network Slicing           February 2022
+
+
    Luis M. Contreras
    Telefonica
 
@@ -1785,14 +1864,6 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
    Luay Jalil
    Verizon
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 32]
-
-Internet-Draft           IP/MPLS Network Slicing            January 2022
-
 
    Email: luay.jalil@verizon.com
 
@@ -1830,19 +1901,4 @@ Internet-Draft           IP/MPLS Network Slicing            January 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.              Expires 15 July 2022                 [Page 33]
+Saad, et al.              Expires 5 August 2022                [Page 34]

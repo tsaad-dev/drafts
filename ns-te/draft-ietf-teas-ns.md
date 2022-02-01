@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-07
+docname: draft-bestbar-teas-ns-packet-08
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -23,6 +23,12 @@ author:
     name: Vishnu Pavan Beeram
     organization: Juniper Networks
     email: vbeeram@juniper.net
+
+ -
+    ins: J. Dong
+    name: Jie Dong
+    organization: Huawei Technologies
+    email: jie.dong@huawei.com
 
  -
     ins: B. Wen
@@ -206,7 +212,7 @@ results in the creation of an NRP.
 
 NRP Identifier (NRP-ID):
 : an identifier that is globally unique within an NRP domain and that can
-be used in the control plane to identify the resources associated with the NRP.
+be used in the control or management plane to identify the resources associated with the NRP.
 
 NRP Capable Node:
 : a node that supports one of the NRP modes described in this document.
@@ -236,9 +242,9 @@ NRP state aware TE (NRP-TE):
 
 > NRP-PHB: NRP Per Hop Behavior as described in {{SlicePHB}}
 
-> SAS: Slice-Flow Aggregate Selector
+> FAS: Flow Aggregate Selector
 
-> SASL: Slice-Flow Aggregate Selector Label as described in {{SliceSelector}}
+> FASL: Flow Aggregate Selector Label as described in {{SliceSelector}}
 
 > SLA: Service Level Agreements
 
@@ -498,12 +504,12 @@ determines the scheduling treatment and drop probability for packets.
 When data plane NRP mode is applied, packets need to be forwarded on the
 specific NRP that supports the Slice-Flow Aggregate to ensure the proper
 forwarding treatment dictated in the NRP Policy is applied (refer to
-{{SliceDefinition}} below).  In this case, a Slice-Flow Aggregate Selector
-(SAS) MUST be carried in each packet to identify the Slice-Flow Aggregate that
+{{SliceDefinition}} below).  In this case, a Flow Aggregate Selector
+(FAS) MUST be carried in each packet to identify the Slice-Flow Aggregate that
 it belongs to. 
 
-The ingress node of an NRP domain MAY also add an SAS to each Slice-Flow
-Aggregate packet. The transit nodes within an NRP domain MAY use the SAS to
+The ingress node of an NRP domain MAY also add an FAS to each Slice-Flow
+Aggregate packet. The transit nodes within an NRP domain MAY use the FAS to
 associate packets with a Slice-Flow Aggregate and to determine the Network
 Resource Partition Per Hop Behavior (NRP-PHB) that is applied to the packet
 (refer to {{SlicePHB}} for further details). The CS MAY be used to apply a
@@ -513,7 +519,7 @@ within the same Slice-Flow Aggregate.
 When data plane only NRP mode is used, routers may rely on a
 network state independent view of the topology to determine the best paths.
 In this case, the best path selection dictates the
-forwarding path of packets to the destination. The SAS field carried in each
+forwarding path of packets to the destination. The FAS field carried in each
 packet determines the specific NRP-PHB treatment along the
 selected path.
 
@@ -522,7 +528,7 @@ may be deployed in a network to steer packets on the IGP computed lowest
 cumulative delay path.  An NRP Policy may be used to
 allow links along the least latency path to share its data plane resources
 amongst multiple Slice-Flow Aggregates. In this case, the packets that are
-steered on a specific NRP carry the SAS that
+steered on a specific NRP carry the FAS that
 enables routers (along with the Diffserv CS) to determine the NRP-PHB to
 enforce on the Slice-Flow Aggregate traffic streams.
 
@@ -659,7 +665,7 @@ of this document and will be addressed in separate documents.
 The NRP Policy is network-wide construct that is supplied to network devices,
 and may include rules that control the following:
 
-- Data plane specific policies: This includes the SAS, any firewall rules or
+- Data plane specific policies: This includes the FAS, any firewall rules or
   flow-spec filters, and QoS profiles associated with the NRP Policy and any
 classes within it.
 
@@ -691,8 +697,8 @@ be described in separate documents.
 ### Network Resource Partition Data Plane Selector {#SliceSelector}
 
 A router MUST be able to identify a packet belonging to a Slice-Flow Aggregate
-before it can apply the associated forwarding treatment or NRP-PHB.
-One or more fields within the packet MAY be used as an SAS to do this.
+before it can apply the associated dataplane forwarding treatment or NRP-PHB.
+One or more fields within the packet MAY be used as an FAS to do this.
 
 Forwarding Address Based Selector:
 
@@ -722,7 +728,7 @@ in both the control and data planes.
 
 Global Identifier Based Selector:
 
-> An NRP Policy MAY include a Global Identifier SAS (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
+> An NRP Policy MAY include a Global Identifier FAS (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
 in each packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the NRP domain can use the forwarding
@@ -821,13 +827,15 @@ size of the MPLS stack and ease incremental deployment.
 the IP header. For example, the GISS can be encoded in portion of the IPv6
 Flow Label field as described in {{?I-D.filsfils-spring-srv6-stateless-slice-id}}.
 
+A detailed review of NRP scale considerations is presented in {{?I-D.dong-teas-nrp-scalability}}.
+
 ### Network Resource Partition Resource Reservation
 
 Bandwidth and network resource allocation strategies for slice policies are
 essential to achieve optimal placement of paths within the
 network while still meeting the target SLOs.
 
-Resource reservation allows for the managing of available bandwidth and for
+Resource reservation allows for the management of available bandwidth and the
 prioritization of existing allocations to enable preference-based preemption
 when contention on a specific network resource arises. Sharing of a network
 resource's available bandwidth amongst a group of NRPs
@@ -862,7 +870,7 @@ A single NRP may also support multiple forwarding
 treatments or services that can be carried over the same logical network. 
 
 The Slice-Flow Aggregate traffic may be identified at NRP ingress boundary
-nodes by carrying a SAS to allow routers to apply a specific forwarding
+nodes by carrying a FAS to allow routers to apply a specific forwarding
 treatment that guarantee the SLA(s). 
 
 With Differentiated Services (Diffserv) it is possible to carry  multiple
@@ -933,7 +941,7 @@ requirements and rules for network slice services are set using
 mechanisms which are outside the scope of this document.
 
 When data plane NRP mode is employed, the NRP
-ingress nodes are responsible for adding a suitable SAS onto
+ingress nodes are responsible for adding a suitable FAS onto
 packets that belong to specific Slice-Flow Aggregate.  In addition, edge nodes
 MAY mark the corresponding Diffserv CS to differentiate between different types
 of traffic carried over the same Slice-Flow Aggregate.
@@ -941,11 +949,11 @@ of traffic carried over the same Slice-Flow Aggregate.
 ### Network Resource Partition Interior Nodes
 
 An NRP interior node receives slice traffic and MAY be able to identify the
-packets belonging to a specific Slice-Flow Aggregate by inspecting the SAS
+packets belonging to a specific Slice-Flow Aggregate by inspecting the FAS
 field carried inside each packet, or by inspecting other fields
 within the packet that may identify the traffic streams that belong to a specific
 Slice-Flow Aggregate. For example, when data plane NRP mode is applied, interior
-nodes can use the SAS carried within the packet to apply the corresponding NRP-PHB
+nodes can use the FAS carried within the packet to apply the corresponding NRP-PHB
 forwarding behavior. Nodes within the network slice provider network may also
 inspect the Diffserv CS within each packet to apply a per Diffserv class PHB
 within the NRP Policy, and allow differentiation of forwarding treatments
@@ -960,20 +968,20 @@ allow the slice traffic to continue to be forwarded over such devices
 and be able to resume the NRP forwarding treatment once the traffic
 reaches devices that are NRP-capable.
 
-When data plane NRP mode is employed, packets carry a SAS to
+When data plane NRP mode is employed, packets carry a FAS to
 allow slice interior nodes to identify them. To support end-to-end network
-slicing, the SAS MUST be maintained in the packets as they traverse
+slicing, the FAS MUST be maintained in the packets as they traverse
 devices within the network -- including NRP capable and incapable devices.
 
-For example, when the SAS is an MPLS label at the bottom of the MPLS label
+For example, when the FAS is an MPLS label at the bottom of the MPLS label
 stack, packets can traverse over devices that are NRP incapable 
-without any further considerations. On the other hand when the SASL
+without any further considerations. On the other hand when the FASL
 is at the top of the MPLS label stack, packets can be bypassed (or tunneled)
 over the NRP incapable devices towards the next device that
 supports NRP as shown in {{sl-interworking}}.
 
 ~~~~
-  SR Node-SID:           SASL: 1001    @@@: NRP Policy enforced
+  SR Node-SID:           FASL: 1001    @@@: NRP Policy enforced
      1601: P1                          ...: NRP Policy not enforced
      1602: P2
      1603: P3
@@ -1014,9 +1022,9 @@ discussed in {{SliceModes}} to realize a network slice. For example, data and
 control plane NRP modes can be employed in parts of a network, while
 control plane NRP mode can be employed in the other parts of the
 network. The path selection, in such case, can take into
-account the NRP available network resources.  The SAS carried within
+account the NRP available network resources.  The FAS carried within
 packets allow transit nodes to enforce the corresponding NRP-PHB on the parts of the
-network that apply the data plane NRP mode. The SAS can be
+network that apply the data plane NRP mode. The FAS can be
 maintained while traffic traverses nodes that do not enforce data plane NRP
 mode, and so slice PHB enforcement can resume once traffic traverses
 capable nodes.
@@ -1160,9 +1168,9 @@ provided for traffic traversing a given network resource.
 A variety of techniques may be used to achieve this, but the end result will be
 that some packets may be mapped to specific resources and may receive
 different (e.g., better) service treatment than others.  The mapping of network
-traffic to a specific NRP is indicated primarily by the SAS, and hence an
+traffic to a specific NRP is indicated primarily by the FAS, and hence an
 adversary may be able to utilize resources allocated to a specific 
-NRP by injecting packets carrying the same SAS field in their packets.
+NRP by injecting packets carrying the same FAS field in their packets.
 
 Such theft-of-service may become a denial-of-service attack when the modified
 or injected traffic depletes the resources available to forward legitimate
