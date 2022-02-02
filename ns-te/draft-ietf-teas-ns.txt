@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 5 August 2022                                           J. Dong
+Expires: 6 August 2022                                           J. Dong
                                                      Huawei Technologies
                                                                   B. Wen
                                                                  Comcast
@@ -23,7 +23,7 @@ Expires: 5 August 2022                                           J. Dong
                                                                    Nokia
                                                                 L. Jalil
                                                                  Verizon
-                                                         1 February 2022
+                                                         2 February 2022
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 1]
+Saad, et al.              Expires 6 August 2022                 [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 August 2022.
+   This Internet-Draft will expire on 6 August 2022.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 2]
+Saad, et al.              Expires 6 August 2022                 [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 3]
+Saad, et al.              Expires 6 August 2022                 [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 4]
+Saad, et al.              Expires 6 August 2022                 [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 5]
+Saad, et al.              Expires 6 August 2022                 [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 6]
+Saad, et al.              Expires 6 August 2022                 [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 7]
+Saad, et al.              Expires 6 August 2022                 [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -445,7 +445,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 8]
+Saad, et al.              Expires 6 August 2022                 [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -501,7 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                 [Page 9]
+Saad, et al.              Expires 6 August 2022                 [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 10]
+Saad, et al.              Expires 6 August 2022                [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -613,7 +613,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 11]
+Saad, et al.              Expires 6 August 2022                [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -669,7 +669,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 12]
+Saad, et al.              Expires 6 August 2022                [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -725,7 +725,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 13]
+Saad, et al.              Expires 6 August 2022                [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -781,7 +781,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 14]
+Saad, et al.              Expires 6 August 2022                [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -837,7 +837,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 15]
+Saad, et al.              Expires 6 August 2022                [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -893,7 +893,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 16]
+Saad, et al.              Expires 6 August 2022                [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -920,46 +920,45 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
    Global Identifier Based Selector:
 
-      An NRP Policy MAY include a Global Identifier FAS (GISS) field as
+      An NRP Policy MAY include a Global Identifier FAS (GIS) field as
       defined in [I-D.kompella-mpls-mspl4fa] that is carried in each
       packet in order to associate it to the NRP supporting a Slice-Flow
       Aggregate, independent of the forwarding address or MPLS
       forwarding label that is bound to the destination.  Routers within
       the NRP domain can use the forwarding address (or MPLS forwarding
-      label) to determine the forwarding next-hop(s), and use the GISS
+      label) to determine the forwarding next-hop(s), and use the GIS
       field in the packet to infer the specific forwarding treatment
       that needs to be applied on the packet.
 
-      The GISS can be carried in one of multiple fields within the
+      The GIS can be carried in one of multiple fields within the
       packet, depending on the dataplane used.  For example, in MPLS
-      networks, the GISS can be encoded within an MPLS label that is
+      networks, the GIS can be encoded within an MPLS label that is
       carried in the packet's MPLS label stack.  All packets that belong
-      to the same Slice-Flow Aggregate MAY carry the same GISS in the
-      MPLS label stack.  It is also possible to have multiple GISS's map
+      to the same Slice-Flow Aggregate MAY carry the same GIS in the
+      MPLS label stack.  It is also possible to have multiple GIS's map
       to the same Slice-Flow Aggregate.
 
-      The GISS can be encoded in an MPLS label and may appear in several
+      The GIS can be encoded in an MPLS label and may appear in several
       positions in the MPLS label stack.  For example, the VPN service
-      label may act as a GISS to allow VPN packets to be mapped to the
+      label may act as a GIS to allow VPN packets to be mapped to the
       Slice-Flow Aggregate.  In this case, a single VPN service label
-      acting as a GISS MAY be allocated by all Egress PEs of a VPN.
-      Alternatively, multiple VPN service labels MAY act as GISS's that
+      acting as a GIS MAY be allocated by all Egress PEs of a VPN.
+      Alternatively, multiple VPN service labels MAY act as GIS's that
       map a single VPN to the same Slice-Flow Aggregate to allow for
       multiple Egress PEs to allocate different VPN service labels for a
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 17]
+Saad, et al.              Expires 6 August 2022                [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
       VPN.  In other cases, a range of VPN service labels acting as
-      multiple GISS's MAY map multiple VPN traffic to a single Slice-
-      Flow Aggregate.  An example of such deployment is shown in
-      Figure 3.
+      multiple GIS's MAY map multiple VPN traffic to a single Slice-Flow
+      Aggregate.  An example of such deployment is shown in Figure 3.
 
-     SR Adj-SID:          GISS (VPN service label) on PE2: 1001
+     SR Adj-SID:          GIS (VPN service label) on PE2: 1001
         9012: P1-P2
         9023: P2-PE2
 
@@ -982,20 +981,20 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
                   | Load |
                   +------+
 
-           Figure 3: GISS or VPN label at bottom of label stack.
+            Figure 3: GIS or VPN label at bottom of label stack.
 
-      In some cases, the position of the GISS may not be at a fixed
-      position in the MPLS label header.  In this case, the GISS label
+      In some cases, the position of the GIS may not be at a fixed
+      position in the MPLS label header.  In this case, the GIS label
       can show up in any position in the MPLS label stack.  To enable a
-      transit router to identify the position of the GISS label, a
+      transit router to identify the position of the GIS label, a
       special purpose label (ideally a base special purpose label
-      (bSPL)) can be used to indicate the presence of a GISS in the MPLS
+      (bSPL)) can be used to indicate the presence of a GIS in the MPLS
       label stack.  [I-D.kompella-mpls-mspl4fa] proposes a new bSPL
       called Forwarding Actions Identifier (FAI) that is assigned to
       alert of the presence of multiple actions and action data
-      (including the presence of the GISS).  The NRP ingress boundary
+      (including the presence of the GIS).  The NRP ingress boundary
       node, in this case, imposes two labels: the FAI label and a
-      forwarding actions label that includes the GISS to identify the
+      forwarding actions label that includes the GIS to identify the
       Slice-Flow Aggregate packets as shown in Figure 4.
 
       [I-D.decraene-mpls-slid-encoded-entropy-label-id] also proposes to
@@ -1005,12 +1004,13 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 18]
+
+Saad, et al.              Expires 6 August 2022                [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
-        SR Adj-SID:          GISS: 1001
+        SR Adj-SID:          GIS: 1001
            9012: P1-P2
            9023: P2-PE2
 
@@ -1035,10 +1035,10 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
                      | Load |
                      +------+
 
-              Figure 4: FAI and GISS label in the label stack.
+              Figure 4: FAI and GIS label in the label stack.
 
-      When the slice is realized over an IP dataplane, the GISS can be
-      encoded in the IP header.  For example, the GISS can be encoded in
+      When the slice is realized over an IP dataplane, the GIS can be
+      encoded in the IP header.  For example, the GIS can be encoded in
       portion of the IPv6 Flow Label field as described in
       [I-D.filsfils-spring-srv6-stateless-slice-id].
 
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 19]
+Saad, et al.              Expires 6 August 2022                [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 20]
+Saad, et al.              Expires 6 August 2022                [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 21]
+Saad, et al.              Expires 6 August 2022                [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 22]
+Saad, et al.              Expires 6 August 2022                [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 23]
+Saad, et al.              Expires 6 August 2022                [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 24]
+Saad, et al.              Expires 6 August 2022                [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 25]
+Saad, et al.              Expires 6 August 2022                [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 26]
+Saad, et al.              Expires 6 August 2022                [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1509,7 +1509,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 27]
+Saad, et al.              Expires 6 August 2022                [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1565,7 +1565,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 28]
+Saad, et al.              Expires 6 August 2022                [Page 28]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1621,7 +1621,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 29]
+Saad, et al.              Expires 6 August 2022                [Page 29]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1677,7 +1677,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 30]
+Saad, et al.              Expires 6 August 2022                [Page 30]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1733,7 +1733,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 31]
+Saad, et al.              Expires 6 August 2022                [Page 31]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1789,7 +1789,7 @@ Authors' Addresses
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 32]
+Saad, et al.              Expires 6 August 2022                [Page 32]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1845,7 +1845,7 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 33]
+Saad, et al.              Expires 6 August 2022                [Page 33]
 
 Internet-Draft           IP/MPLS Network Slicing           February 2022
 
@@ -1901,4 +1901,4 @@ Internet-Draft           IP/MPLS Network Slicing           February 2022
 
 
 
-Saad, et al.              Expires 5 August 2022                [Page 34]
+Saad, et al.              Expires 6 August 2022                [Page 34]
