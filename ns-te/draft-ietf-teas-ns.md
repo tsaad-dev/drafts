@@ -728,32 +728,32 @@ in both the control and data planes.
 
 Global Identifier Based Selector:
 
-> An NRP Policy MAY include a Global Identifier FAS (GISS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
+> An NRP Policy MAY include a Global Identifier FAS (GIS) field as defined in {{!I-D.kompella-mpls-mspl4fa}} that is carried
 in each packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the NRP domain can use the forwarding
 address (or MPLS forwarding label) to determine the forwarding next-hop(s),
-and use the GISS field in the packet to infer the specific forwarding treatment that needs to be applied on
+and use the GIS field in the packet to infer the specific forwarding treatment that needs to be applied on
 the packet. 
 
-> The GISS can be carried in one of multiple fields within the packet, depending on
-the dataplane used. For example, in MPLS networks, the GISS can be
+> The GIS can be carried in one of multiple fields within the packet, depending on
+the dataplane used. For example, in MPLS networks, the GIS can be
 encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same Slice-Flow Aggregate MAY carry the same GISS in the
-MPLS label stack. It is also possible to have multiple GISS's map
+All packets that belong to the same Slice-Flow Aggregate MAY carry the same GIS in the
+MPLS label stack. It is also possible to have multiple GIS's map
 to the same Slice-Flow Aggregate.
 
-> The GISS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
-For example, the VPN service label may act as a GISS to allow VPN packets
+> The GIS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
+For example, the VPN service label may act as a GIS to allow VPN packets
 to be mapped to the Slice-Flow Aggregate. In this case, a single VPN service label
-acting as a GISS MAY be allocated by all Egress PEs of a VPN.
-Alternatively, multiple VPN service labels MAY act as GISS's that map a single VPN to the same Slice-Flow Aggregate to
+acting as a GIS MAY be allocated by all Egress PEs of a VPN.
+Alternatively, multiple VPN service labels MAY act as GIS's that map a single VPN to the same Slice-Flow Aggregate to
 allow for multiple Egress PEs to allocate different VPN service labels for a VPN.
-In other cases, a range of VPN service labels acting as multiple GISS's MAY map multiple VPN traffic to
+In other cases, a range of VPN service labels acting as multiple GIS's MAY map multiple VPN traffic to
 a single Slice-Flow Aggregate. An example of such deployment is shown in {{bottom-stack}}.
 
 ~~~~
-  SR Adj-SID:          GISS (VPN service label) on PE2: 1001
+  SR Adj-SID:          GIS (VPN service label) on PE2: 1001
      9012: P1-P2
      9023: P2-PE2
 
@@ -776,18 +776,18 @@ packet:
                | Load |
                +------+
 ~~~~
-{: #bottom-stack title="GISS or VPN label at bottom of label stack."}
+{: #bottom-stack title="GIS or VPN label at bottom of label stack."}
 
-> In some cases, the position of the GISS may not be at a fixed position
-in the MPLS label header. In this case, the GISS label can show up in any
+> In some cases, the position of the GIS may not be at a fixed position
+in the MPLS label header. In this case, the GIS label can show up in any
 position in the MPLS label stack. To enable a transit router to identify
-the position of the GISS label, a special purpose label (ideally a base
-special purpose label (bSPL)) can be used to indicate the presence of a GISS
+the position of the GIS label, a special purpose label (ideally a base
+special purpose label (bSPL)) can be used to indicate the presence of a GIS
 in the MPLS label stack. {{?I-D.kompella-mpls-mspl4fa}}
 proposes a new bSPL called Forwarding Actions Identifier (FAI) that is assigned
 to alert of the presence of multiple actions and action data (including the
-presence of the GISS). The NRP ingress boundary node, in
-this case, imposes two labels: the FAI label and a forwarding actions label that includes the GISS
+presence of the GIS). The NRP ingress boundary node, in
+this case, imposes two labels: the FAI label and a forwarding actions label that includes the GIS
 to identify the Slice-Flow Aggregate packets as shown in
 {{sli-sl}}.
 
@@ -796,7 +796,7 @@ the ELI/EL {{!RFC6790}} to carry the Slice Identifier in order to minimize the
 size of the MPLS stack and ease incremental deployment.
 
 ~~~~
-     SR Adj-SID:          GISS: 1001
+     SR Adj-SID:          GIS: 1001
         9012: P1-P2
         9023: P2-PE2
 
@@ -821,10 +821,10 @@ size of the MPLS stack and ease incremental deployment.
                   | Load |
                   +------+
 ~~~~
-{:#sli-sl title="FAI and GISS label in the label stack."}
+{:#sli-sl title="FAI and GIS label in the label stack."}
 
-> When the slice is realized over an IP dataplane, the GISS can be encoded in
-the IP header. For example, the GISS can be encoded in portion of the IPv6
+> When the slice is realized over an IP dataplane, the GIS can be encoded in
+the IP header. For example, the GIS can be encoded in portion of the IPv6
 Flow Label field as described in {{?I-D.filsfils-spring-srv6-stateless-slice-id}}.
 
 A detailed review of NRP scale considerations is presented in {{?I-D.dong-teas-nrp-scalability}}.
