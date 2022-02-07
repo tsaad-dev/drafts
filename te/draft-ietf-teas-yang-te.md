@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-27
+docname: draft-ietf-teas-yang-te-29
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -55,7 +55,6 @@ normative:
   RFC6991:
   RFC6107:
   RFC8040:
-  I-D.ietf-teas-yang-rsvp:
 
 informative:
 
@@ -117,7 +116,7 @@ YANG Data Modeling Language {{!RFC7950}}:
 
 In this document, names of data nodes and other data model objects are prefixed
 using the standard prefix associated with the corresponding YANG imported
-modules, as shown in Table 1.
+modules, as shown in {{tab1}}.
 
  | Prefix          | YANG module          | Reference          |
  |-----------------|----------------------|--------------------|
@@ -128,11 +127,7 @@ modules, as shown in Table 1.
  | te-packet-types | ietf-te-packet-types | {{!RFC8776}}       |
  | te              | ietf-te              | this document      |
  | te-dev          | ietf-te-device       | this document      |
- |-----------------|----------------------|--------------------|
-
-~~~~~~~~~~
-         Table 1: Prefixes and corresponding YANG modules
-~~~~~~~~~~
+{: #tab1 title="Prefixes and corresponding YANG modules"}
 
 ## Model Tree Diagrams
 
@@ -201,7 +196,7 @@ and augments the TE generic model as shown in {{figctrl}}.
 The TE data model for specific instances of signaling protocol are outside the
 scope of this document and are defined in other documents. For example, the
 RSVP-TE YANG model augmentation of the TE model is covered in
-{{I-D.ietf-teas-yang-rsvp}}.
+{{?I-D.ietf-teas-yang-rsvp}}.
 
 ~~~
 
@@ -444,7 +439,6 @@ TE Tunnel Segment:
 
 ~~~~~~~~~~~
      +--rw tunnels
-     |  +--rw tunnel* [name]
      |  +--rw tunnel* [name]
      |     +--rw name                                string
      |     +--rw alias?                              string
@@ -771,7 +765,7 @@ This module references the following documents:
 {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2021-05-16.yang"
+<CODE BEGINS> file "ietf-te@2021-10-22.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -847,7 +841,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2021-05-16.yang"
+<CODE BEGINS> file "ietf-te-device@2021-10-22.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -928,12 +922,14 @@ the subtrees and data nodes and their sensitivity/vulnerability:
 Unauthorized access to this container could cause the device to ignore packets
 it should receive and process.
 
-"/te/tunnels":  This list specifies the configured TE Tunnels on a device.
-Unauthorized access to this list could cause the device to ignore packets it
-should receive and process.
+"/te/tunnels":  This list specifies the configuration and state of TE Tunnels
+present on the device or controller.  Unauthorized access to this list could
+cause the device to ignore packets it should receive and process. An attacker
+may also use state to derive information about the network topology,
+and subsequently orchestrate further attacks.
 
-"/te/interfaces":  This list specifies the configured TE interfaces on a device.
-Unauthorized access to this list could cause the device to ignore packets it
+"/te/interfaces":  This list specifies the configuration and state TE interfaces
+on a device. Unauthorized access to this list could cause the device to ignore packets it
 should receive and process.
 
 Some of the readable data nodes in this YANG module may be considered sensitive
@@ -950,7 +946,7 @@ vulnerable in some network environments. It is thus important to control access
 to these operations. These are the operations and their
 sensitivity/vulnerability:
 
-"unnels-actions": using this RPC, an attacker can modify existing paths that
+"/te/tunnels-actions": using this RPC, an attacker can modify existing paths that
 may be carrying live traffic, and hence result to interruption to services
 carried over the network.
 
@@ -969,7 +965,7 @@ team who are involved in the definition of this model.
 The authors would like to thank Tom Petch for reviewing and providing useful
 feedback about the document. The authors would also like to thank Loa
 Andersson, Lou Berger, Sergio Belotti, Italo Busi, Carlo Perocchio, Francesco
-Lazzeri, Aihua Guo, Dhruv Dhody, for providing useful feedback on this
+Lazzeri, Aihua Guo, Dhruv Dhody, and Raqib Jones for providing useful feedback on this
 document.
 
 # Contributors
@@ -988,12 +984,6 @@ document.
    Email: jescia.chenxia@huawei.com
 
 
-   Raqib Jones
-   Brocade
-
-   Email: raqib@Brocade.com
-
-
    Bin Wen
    Comcast
 
@@ -1001,13 +991,13 @@ document.
 
 ~~~~
 
-# Appendix A: Examples
+# Appendix A: Data Tree Examples
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
 
-For the example we will use a 4 nodes MPLS network were RSVP-TE Tunnels can be setup. The
-loopbacks of each router are shown. The router network in 
-figure X will be used across the section
+For the example we will use a 4 node MPLS network were RSVP-TE MPLS Tunnels can be setup. The
+loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
+described in the following sections.
 
 ~~~
 
@@ -1024,13 +1014,13 @@ figure X will be used across the section
                  +-------+
                  10.0.0.3
 ~~~
-{: #AppFig-Topo title="Example TE topology"}
+{: #AppFig-Topo title="TE network used in data tree examples"}
 
 
 ## Basic Tunnel Setup {#TeTunnel}
 
 This example uses the TE Tunnel YANG data model defined in this document to create an
-RSVP-TE signaled Tunnel. First, the TE Tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
+RSVP-TE signaled Tunnel of packet LSP encoding type. First, the TE Tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
 The TE Tunnel ingresses on router A and egresses on router D. 
 
 In this case, the TE Tunnel is created without specifying additional information about the primary paths.
