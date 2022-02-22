@@ -1,7 +1,7 @@
 ---
 title: Segment-Routing over Forwarding Adjacency Links
 abbrev: SR over FA Links
-docname: draft-saad-sr-fa-link-03
+docname: draft-saad-spring-srfa-link-01
 category: info
 ipr: trust200902
 workgroup: SPRING Working Group
@@ -92,11 +92,7 @@ these are also extensible to other dataplane technologies - e.g. SRv6.
 
 # Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
-
+{::boilerplate bcp14}
 
 # Forwarding Adjacency Links
 
