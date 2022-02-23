@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Standards Track                        Juniper Networks
-Expires: 6 August 2022                                           J. Dong
+Expires: 6 August 2022                                           J. Dong 
                                                      Huawei Technologies
                                                                   B. Wen
                                                                  Comcast
