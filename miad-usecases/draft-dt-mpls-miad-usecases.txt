@@ -510,13 +510,9 @@ Internet-Draft                MIAD Usecases                February 2022
 
    The following individuals contributed to this document:
 
-      Kiran Makhijani
-      Futurewei Technologies
-      Email: kiranm@futurewei.com
-
-      Haoyu Song
-      Futurewei Technologies
-      Email: haoyu.song@futurewei.com
+      Greg Mirsky
+      Ericsson
+      Email: gregimirsky@gmail.com
 
       Loa Andersson
       Bronze Dragon Consulting
@@ -554,6 +550,10 @@ Internet-Draft                MIAD Usecases                February 2022
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
               and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
               OAM Data", Work in Progress, Internet-Draft, draft-gandhi-
+              mpls-ioam-sr-06, 18 February 2021,
+              <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
+              sr-06.txt>.
+
 
 
 
@@ -561,10 +561,6 @@ Saad, et al.             Expires 28 August 2022                [Page 10]
 
 Internet-Draft                MIAD Usecases                February 2022
 
-
-              mpls-ioam-sr-06, 18 February 2021,
-              <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
-              sr-06.txt>.
 
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
@@ -603,10 +599,14 @@ Internet-Draft                MIAD Usecases                February 2022
               12 July 2021, <https://www.ietf.org/archive/id/draft-
               kompella-mpls-nffrr-02.txt>.
 
-
-
-
-
+   [I-D.li-apn-problem-statement-usecases]
+              Li, Z., Peng, S., Voyer, D., Xie, C., Liu, P., Qin, Z.,
+              Mishra, G., Ebisawa, K., Previdi, S., and J. N. Guichard,
+              "Problem Statement and Use Cases of Application-aware
+              Networking (APN)", Work in Progress, Internet-Draft,
+              draft-li-apn-problem-statement-usecases-05, 20 December
+              2021, <https://www.ietf.org/archive/id/draft-li-apn-
+              problem-statement-usecases-05.txt>.
 
 
 
@@ -617,15 +617,6 @@ Saad, et al.             Expires 28 August 2022                [Page 11]
 
 Internet-Draft                MIAD Usecases                February 2022
 
-
-   [I-D.li-apn-problem-statement-usecases]
-              Li, Z., Peng, S., Voyer, D., Xie, C., Liu, P., Qin, Z.,
-              Mishra, G., Ebisawa, K., Previdi, S., and J. N. Guichard,
-              "Problem Statement and Use Cases of Application-aware
-              Networking (APN)", Work in Progress, Internet-Draft,
-              draft-li-apn-problem-statement-usecases-05, 20 December
-              2021, <https://www.ietf.org/archive/id/draft-li-apn-
-              problem-statement-usecases-05.txt>.
 
    [I-D.li-mpls-enhanced-vpn-vtn-id]
               Li, Z. and J. Dong, "Carrying Virtual Transport Network
@@ -666,6 +657,15 @@ Internet-Draft                MIAD Usecases                February 2022
               DOI 10.17487/RFC8595, June 2019,
               <https://www.rfc-editor.org/info/rfc8595>.
 
+   [RFC8596]  Malis, A., Bryant, S., Halpern, J., and W. Henderickx,
+              "MPLS Transport Encapsulation for the Service Function
+              Chaining (SFC) Network Service Header (NSH)", RFC 8596,
+              DOI 10.17487/RFC8596, June 2019,
+              <https://www.rfc-editor.org/info/rfc8596>.
+
+
+
+
 
 
 
@@ -673,12 +673,6 @@ Saad, et al.             Expires 28 August 2022                [Page 12]
 
 Internet-Draft                MIAD Usecases                February 2022
 
-
-   [RFC8596]  Malis, A., Bryant, S., Halpern, J., and W. Henderickx,
-              "MPLS Transport Encapsulation for the Service Function
-              Chaining (SFC) Network Service Header (NSH)", RFC 8596,
-              DOI 10.17487/RFC8596, June 2019,
-              <https://www.rfc-editor.org/info/rfc8596>.
 
    [RFC8986]  Filsfils, C., Ed., Camarillo, P., Ed., Leddy, J., Voyer,
               D., Matsushima, S., and Z. Li, "Segment Routing over IPv6
@@ -704,6 +698,12 @@ Authors' Addresses
    Futurewei Technologies
 
    Email: haoyu.song@futurewei.com
+
+
+
+
+
+
 
 
 

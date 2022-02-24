@@ -372,13 +372,9 @@ The following individuals contributed to this document:
 
 ~~~
 
-   Kiran Makhijani
-   Futurewei Technologies
-   Email: kiranm@futurewei.com
-
-   Haoyu Song
-   Futurewei Technologies
-   Email: haoyu.song@futurewei.com
+   Greg Mirsky
+   Ericsson
+   Email: gregimirsky@gmail.com
 
    Loa Andersson
    Bronze Dragon Consulting
