@@ -1,5 +1,5 @@
 ---
-title: Usecases for MPLS Function Indicators and Ancillary Data
+title: Use Cases for MPLS Function Indicators and Ancillary Data
 abbrev: MIAD Usecases
 docname: draft-saad-mpls-miad-usecases-01
 category: info
@@ -38,29 +38,39 @@ informative:
 
 --- abstract
 
-This document presents a number of use cases that have a common need for encoding
-MPLS function indicators and ancillary data inside MPLS packets. The use cases described
-are not an exhaustive set, but rather the ones that are actively discussed by the
-MPLS working group Open Design Team.
+This document presents a number of use cases that have a common need for
+encoding MPLS function indicators and ancillary data inside MPLS packets.
+There has been significant recent interest in extending the MPLS data plane to
+carry such ancillary data to address a number of use cases described in this
+document.
+
+The use cases described are not an exhaustive set, but rather the ones that are
+actively discussed by members of the IETF MPLS, PALS and DETNET working groups
+in the MPLS Open Design Team.
 
 --- middle
 
 # Introduction
-
 
 This document describes important cases that require carrying
 additional ancillary data within the MPLS packets, as well as the means to indicate
 ancillary data is present.
 
 These use cases have been identified by the MPLS working group design team
-working on defining MPLS function indicators and ancillary data for the MPLS data
-plane.  The use cases described in this document will be used to assist in
+working on defining MPLS function Indicators and Ancillary Data (MIAD) for the MPLS data
+plane. The MPLS ancillary data can be classified as:
+
+- implicit, or "no-data" associated with a funciton indicator,
+- within the label stack, e.g., encoded as labels, referred to as In Stack Data (ISD), and
+- after the Bottom of Stack (BoS), referred to as Post Stack Data (PSD).
+
+The use cases described in this document will be used to assist in
 identifying requirements and issues to be considered for future resolution by
 the working group.
 
 - ID: {{?I-D.gandhi-mpls-ioam}} describes the applicability of IOAM to MPLS
   data plane.
-- {{?RFC8986}} describes the network programming usecase for SRv6 dataplane.
+- {{?RFC8986}} describes the network programming use case for SRv6 dataplane.
 - {{?RFC8595}} describes how Service Function Chaining (SFC) can be achieved in
   an MPLS network by means of a logical representation of the Network Service
   Header (NSH) in an MPLS label stack. Some limitations of this approach that
@@ -94,11 +104,25 @@ Time Sensitive Networking:
 
 > PSD: Post-stack data
 
-> MPLS: Multiprotocol Label Switching
-
 > MIAD: MPLS Indicators and Ancillary Data
 
 # Use Cases
+
+## No Further Fastreroute
+
+MPLS Fast Reroute (FRR) {{?RFC4090}}, {{?RFC5286}} and {{?RFC7490}} is a useful
+and widely deployed tool for minimizing packet loss in the case of a link or
+node failure.
+
+Several cases exist where, once FRR has taken place in an MPLS
+network and resulted in rerouting a packet away from the failure, a second FRR that
+impacts the same packet to rerouting  is not helpful, and may even be disruptive. 
+
+For example, in such a case, the packet may continue to loop until its TTL
+expires.  This can lead to link congestion and further packet loss.
+Thus, the attempt to prevent a packet from being dropped may instead
+affect many other packets. A proposal to address this is presented in {{?I-D.kompella-mpls-nffrr}}.
+
 
 ## In-situ OAM
 
@@ -212,15 +236,15 @@ instructions in the packet in a stack data structure, rather than being
 programmed into the routers.  The SR instructions are contained within a packet
 in the form of a First-in First-out stack dictating the forwarding decisions of
 successive routers.  Segment routing may be used to choose a path sufficiently
-short to be capable of providing sufficiently low end- to-end latency but does
-not influence the queueing of individual packets in each router along that pat
+short to be capable of providing a low end-to-end latency but does
+not influence the queueing of individual packets in each router along that path.
 
-TSN is required for networks transporting time sensitive traffic,
-that is, packets that are required to be delivered to their final
+TSN is required for networks transporting such time sensitive traffic,
+whose packets are required to be delivered to their final
 destination by a given time.
 
 
-### Stack-based Methods for Latency Control
+### Stack Based Methods for Latency Control
 
 One efficient data structure for inserting local deadlines into
 the headers is a "stack", similar to that used in Segment Routing to
@@ -303,7 +327,7 @@ hold the APN attribute.
 # Co-existence of Usecases
 
 Two or more of the aforementioned use cases MAY co-exist in the same packet.
-Some examples of such usecases are described below.
+Some examples of such use cases are described below.
 
 ## IOAM with Network Slicing
 
