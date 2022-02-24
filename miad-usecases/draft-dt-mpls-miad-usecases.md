@@ -313,16 +313,18 @@ within an MPLS packet transport header. For example, in MPLS we can encode the
 FUNC::ARGs within the label stack or after the Bottom of Stack to support the
 equivalent of FUNC::ARG in SRv6 as described in {{?RFC8986}}.
 
-## Application Aware Networking (APN)
+## Application Aware Networking
 
 Application-aware Networking (APN) as described in
 {{?I-D.li-apn-problem-statement-usecases}} allows application-aware information
-(i.e., APN attribute) including APN identification (ID) and/or APN parameters
+(i.e., APN attributes) including APN identification (ID) and/or APN parameters
 (e.g.  network performance requirements) to be encapsulated at network edge
-devices and carried in packets traversing an APN domain in order to facilitate
-service provisioning, perform fine-granularity traffic steering and network
-resource adjustment. To support APN in MPLS networks, mechanisms are needed to
-hold the APN attribute.
+devices and carried in packets traversing an APN domain. 
+
+The APN data is carried in packets to facilitate service provisioning, perform
+fine-granularity traffic steering and network resource adjustment. To support
+APN in MPLS networks, mechanisms are needed to carry such APN data in MPLS
+encapsulated packets.
 
 # Co-existence of Usecases
 

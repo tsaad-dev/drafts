@@ -80,7 +80,7 @@ Table of Contents
        2.4.2.  Stack Entry Format  . . . . . . . . . . . . . . . . .   7
      2.5.  NSH Based Service Function Chaining . . . . . . . . . . .   8
      2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   8
-     2.7.  Application Aware Networking (APN)  . . . . . . . . . . .   8
+     2.7.  Application Aware Networking  . . . . . . . . . . . . . .   8
    3.  Co-existence of Usecases  . . . . . . . . . . . . . . . . . .   9
      3.1.  IOAM with Network Slicing . . . . . . . . . . . . . . . .   9
      3.2.  IOAM with Time-Sensitive Networking . . . . . . . . . . .   9
@@ -434,14 +434,14 @@ Internet-Draft                MIAD Usecases                February 2022
    Stack to support the equivalent of FUNC::ARG in SRv6 as described in
    [RFC8986].
 
-2.7.  Application Aware Networking (APN)
+2.7.  Application Aware Networking
 
    Application-aware Networking (APN) as described in
    [I-D.li-apn-problem-statement-usecases] allows application-aware
-   information (i.e., APN attribute) including APN identification (ID)
+   information (i.e., APN attributes) including APN identification (ID)
    and/or APN parameters (e.g.  network performance requirements) to be
    encapsulated at network edge devices and carried in packets
-   traversing an APN domain in order to facilitate service provisioning,
+   traversing an APN domain.
 
 
 
@@ -450,9 +450,10 @@ Saad, et al.             Expires 28 August 2022                 [Page 8]
 Internet-Draft                MIAD Usecases                February 2022
 
 
-   perform fine-granularity traffic steering and network resource
-   adjustment.  To support APN in MPLS networks, mechanisms are needed
-   to hold the APN attribute.
+   The APN data is carried in packets to facilitate service
+   provisioning, perform fine-granularity traffic steering and network
+   resource adjustment.  To support APN in MPLS networks, mechanisms are
+   needed to carry such APN data in MPLS encapsulated packets.
 
 3.  Co-existence of Usecases
 
@@ -495,7 +496,6 @@ Internet-Draft                MIAD Usecases                February 2022
 
    The authors gratefully acknowledge the input of the members of the
    MPLS Open Design Team.
-
 
 
 
