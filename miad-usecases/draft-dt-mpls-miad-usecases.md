@@ -377,10 +377,6 @@ The following individuals contributed to this document:
 
 ~~~
 
-   Greg Mirsky
-   Ericsson
-   Email: gregimirsky@gmail.com
-
    Loa Andersson
    Bronze Dragon Consulting
    Email: loa@pi.nu

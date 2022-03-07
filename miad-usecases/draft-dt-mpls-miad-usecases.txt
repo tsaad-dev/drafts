@@ -523,10 +523,6 @@ Internet-Draft                MIAD Usecases                   March 2022
 
    The following individuals contributed to this document:
 
-      Greg Mirsky
-      Ericsson
-      Email: gregimirsky@gmail.com
-
       Loa Andersson
       Bronze Dragon Consulting
       Email: loa@pi.nu
@@ -554,6 +550,10 @@ Internet-Draft                MIAD Usecases                   March 2022
    [I-D.gandhi-mpls-ioam]
               Gandhi, R., Ali, Z., Brockners, F., Wen, B., Decraene, B.,
               and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
+              OAM Data", Work in Progress, Internet-Draft, draft-gandhi-
+              mpls-ioam-04, 2 March 2022,
+              <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
+              04.txt>.
 
 
 
@@ -561,11 +561,6 @@ Saad, et al.            Expires 8 September 2022               [Page 10]
 
 Internet-Draft                MIAD Usecases                   March 2022
 
-
-              OAM Data", Work in Progress, Internet-Draft, draft-gandhi-
-              mpls-ioam-04, 2 March 2022,
-              <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
-              04.txt>.
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -606,18 +601,6 @@ Internet-Draft                MIAD Usecases                   March 2022
               <https://www.ietf.org/archive/id/draft-kompella-mpls-
               mspl4fa-02.txt>.
 
-
-
-
-
-
-
-
-Saad, et al.            Expires 8 September 2022               [Page 11]
-
-Internet-Draft                MIAD Usecases                   March 2022
-
-
    [I-D.kompella-mpls-nffrr]
               Kompella, K. and W. Lin, "No Further Fast Reroute", Work
               in Progress, Internet-Draft, draft-kompella-mpls-nffrr-02,
@@ -627,6 +610,14 @@ Internet-Draft                MIAD Usecases                   March 2022
    [I-D.li-apn-problem-statement-usecases]
               Li, Z., Peng, S., Voyer, D., Xie, C., Liu, P., Qin, Z.,
               and G. Mishra, "Problem Statement and Use Cases of
+
+
+
+Saad, et al.            Expires 8 September 2022               [Page 11]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
               Application-aware Networking (APN)", Work in Progress,
               Internet-Draft, draft-li-apn-problem-statement-usecases-
               06, 7 March 2022, <https://www.ietf.org/archive/id/draft-
@@ -666,6 +657,15 @@ Internet-Draft                MIAD Usecases                   March 2022
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
 
+   [RFC8595]  Farrel, A., Bryant, S., and J. Drake, "An MPLS-Based
+              Forwarding Plane for Service Function Chaining", RFC 8595,
+              DOI 10.17487/RFC8595, June 2019,
+              <https://www.rfc-editor.org/info/rfc8595>.
+
+
+
+
+
 
 
 
@@ -673,11 +673,6 @@ Saad, et al.            Expires 8 September 2022               [Page 12]
 
 Internet-Draft                MIAD Usecases                   March 2022
 
-
-   [RFC8595]  Farrel, A., Bryant, S., and J. Drake, "An MPLS-Based
-              Forwarding Plane for Service Function Chaining", RFC 8595,
-              DOI 10.17487/RFC8595, June 2019,
-              <https://www.rfc-editor.org/info/rfc8595>.
 
    [RFC8596]  Malis, A., Bryant, S., Halpern, J., and W. Henderickx,
               "MPLS Transport Encapsulation for the Service Function
@@ -715,6 +710,11 @@ Authors' Addresses
    Ericsson
 
    Email: gregimirsky@gmail.com
+
+
+
+
+
 
 
 
