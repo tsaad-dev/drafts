@@ -30,6 +30,11 @@ author:
     organization: Futurewei Technologies
     email: haoyu.song@futurewei.com
 
+ -
+    ins: G. Mirsky
+    name: Greg Mirsky
+    organization: Ericsson
+    email: gregimirsky@gmail.com
 
 
 normative:
@@ -46,7 +51,7 @@ document.
 
 The use cases described are not an exhaustive set, but rather the ones that are
 actively discussed by members of the IETF MPLS, PALS and DETNET working groups
-in the MPLS Open Design Team.
+participating in the MPLS Open Design Team.
 
 --- middle
 

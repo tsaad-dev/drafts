@@ -5,9 +5,11 @@
 MPLS Working Group                                               T. Saad
 Internet-Draft                                          Juniper Networks
 Intended status: Informational                              K. Makhijani
-Expires: 28 August 2022                                          H. Song
+Expires: 8 September 2022                                        H. Song
                                                   Futurewei Technologies
-                                                        24 February 2022
+                                                               G. Mirsky
+                                                                Ericsson
+                                                            7 March 2022
 
 
        Use Cases for MPLS Function Indicators and Ancillary Data
@@ -23,7 +25,7 @@ Abstract
 
    The use cases described are not an exhaustive set, but rather the
    ones that are actively discussed by members of the IETF MPLS, PALS
-   and DETNET working groups in the MPLS Open Design Team.
+   and DETNET working groups participating in the MPLS Open Design Team.
 
 Status of This Memo
 
@@ -40,24 +42,25 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2022.
+   This Internet-Draft will expire on 8 September 2022.
 
 Copyright Notice
 
    Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
+
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 1]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
    license-info) in effect on the date of publication of this document.
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 1]
-
-Internet-Draft                MIAD Usecases                February 2022
-
-
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
    extracted from this document must include Simplified BSD License text
@@ -75,18 +78,18 @@ Table of Contents
      2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   5
        2.3.1.  Global Identifier as Slice Selector . . . . . . . . .   6
        2.3.2.  Forwarding Label as a Slice Selector  . . . . . . . .   6
-     2.4.  Time Sensitive Networking . . . . . . . . . . . . . . . .   6
+     2.4.  Time Sensitive Networking . . . . . . . . . . . . . . . .   7
        2.4.1.  Stack Based Methods for Latency Control . . . . . . .   7
-       2.4.2.  Stack Entry Format  . . . . . . . . . . . . . . . . .   7
+       2.4.2.  Stack Entry Format  . . . . . . . . . . . . . . . . .   8
      2.5.  NSH Based Service Function Chaining . . . . . . . . . . .   8
      2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   8
-     2.7.  Application Aware Networking  . . . . . . . . . . . . . .   8
+     2.7.  Application Aware Networking  . . . . . . . . . . . . . .   9
    3.  Co-existence of Usecases  . . . . . . . . . . . . . . . . . .   9
      3.1.  IOAM with Network Slicing . . . . . . . . . . . . . . . .   9
      3.2.  IOAM with Time-Sensitive Networking . . . . . . . . . . .   9
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   6.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .   9
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   6.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  10
    7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  10
    8.  Informative References  . . . . . . . . . . . . . . . . . . .  10
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -104,15 +107,15 @@ Table of Contents
 
    *  implicit, or "no-data" associated with a funciton indicator,
 
+
+
+Saad, et al.            Expires 8 September 2022                [Page 2]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    *  within the label stack, e.g., encoded as labels, referred to as In
       Stack Data (ISD), and
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 2]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    *  after the Bottom of Stack (BoS), referred to as Post Stack Data
       (PSD).
@@ -159,16 +162,17 @@ Internet-Draft                MIAD Usecases                February 2022
 
       ISD: In-stack data
 
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 3]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
       PSD: Post-stack data
 
       MIAD: MPLS Indicators and Ancillary Data
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 3]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
 2.  Use Cases
 
@@ -213,19 +217,20 @@ Internet-Draft                MIAD Usecases                February 2022
    transported using the MPLS data plane encapsulations, including
    Segment Routing (SR) with MPLS data plane (SR-MPLS).
 
+
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 4]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    The IOAM data may be added after the bottom of the MPLS label stack.
    The IOAM data fields can be of fixed or incremental size as defined
    in [I-D.ietf-ippm-ioam-data].  [I-D.gandhi-mpls-ioam] describes
    applicability of IOAM to MPLS dataplane.  The encapsulating MPLS node
    needs to know if the decapsulating MPLS node can process the IOAM
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 4]
-
-Internet-Draft                MIAD Usecases                February 2022
-
-
    data before adding it in the packet.  In HbH IOAM mode, nodes that
    are capable of processing IOAM will intercept and process the IOAM
    data.  The presence of IOAM data will be transparent to nodes that
@@ -270,17 +275,16 @@ Internet-Draft                MIAD Usecases                February 2022
        by active measurements (inferred) or by using hybrid measurement
        methods, e.g., IOAM.
 
+
+
+Saad, et al.            Expires 8 September 2022                [Page 5]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    5.  Additionally, there is an on-going discussion on using Service
        Functions (SFs) with network slices.  This may require insertion
        of an NSH.
-
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 5]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    6.  For multi-domain scenarios, a packet that traverses multiple
        domains may encode different identifiers within each domain.
@@ -321,6 +325,19 @@ Internet-Draft                MIAD Usecases                February 2022
    [I-D.ietf-spring-resource-aware-segments] and
    [I-D.bestbar-teas-ns-packet].
 
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 6]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
 2.4.  Time Sensitive Networking
 
    The routers in a network can perform two distinct functions on
@@ -330,13 +347,6 @@ Internet-Draft                MIAD Usecases                February 2022
    mechanisms for scheduling under the assumption that routers are time
    synchronized.  The most effective mechanisms for delay minimization
    involve per-flow resource allocation.
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 6]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    Segment Routing (SR) is a forwarding paradigm that allows encoding
    forwarding instructions in the packet in a stack data structure,
@@ -373,6 +383,17 @@ Internet-Draft                MIAD Usecases                February 2022
    the associated "deadline" carried in the packet (either in MPLS stack
    or after BoS).
 
+
+
+
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 7]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
 2.4.2.  Stack Entry Format
 
    A number of different time formats commonly used in networking
@@ -383,16 +404,6 @@ Internet-Draft                MIAD Usecases                February 2022
    thus SR-TSN stack entries could be 64-bits in size comprising a
    32-bit MPLS label and the aforementioned nonstandard 32-bit
    timestamp.
-
-
-
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 7]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    Alternatively, an SR-TSN stack entry could be 96 bits in length
    comprising a 32-bit MPLS label and either of the standardized 64-bit
@@ -428,6 +439,17 @@ Internet-Draft                MIAD Usecases                February 2022
    Network Programming combines Segment Routing (SR) functions to
    achieve a networking objective that goes beyond mere packet routing.
 
+
+
+
+
+
+
+Saad, et al.            Expires 8 September 2022                [Page 8]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    It may be desirable to encode a pointer to function and its arguments
    within an MPLS packet transport header.  For example, in MPLS we can
    encode the FUNC::ARGs within the label stack or after the Bottom of
@@ -442,13 +464,6 @@ Internet-Draft                MIAD Usecases                February 2022
    and/or APN parameters (e.g.  network performance requirements) to be
    encapsulated at network edge devices and carried in packets
    traversing an APN domain.
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 8]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    The APN data is carried in packets to facilitate service
    provisioning, perform fine-granularity traffic steering and network
@@ -484,6 +499,13 @@ Internet-Draft                MIAD Usecases                February 2022
    multiple ancilary data (whether In-stack or Post-stack ancillary
    data) to be present in the same MPLS packet.
 
+
+
+Saad, et al.            Expires 8 September 2022                [Page 9]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
 4.  IANA Considerations
 
    This document has no IANA actions.
@@ -496,15 +518,6 @@ Internet-Draft                MIAD Usecases                February 2022
 
    The authors gratefully acknowledge the input of the members of the
    MPLS Open Design Team.
-
-
-
-
-
-Saad, et al.             Expires 28 August 2022                 [Page 9]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
 7.  Contributors
 
@@ -541,10 +554,18 @@ Internet-Draft                MIAD Usecases                February 2022
    [I-D.gandhi-mpls-ioam]
               Gandhi, R., Ali, Z., Brockners, F., Wen, B., Decraene, B.,
               and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
+
+
+
+Saad, et al.            Expires 8 September 2022               [Page 10]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
               OAM Data", Work in Progress, Internet-Draft, draft-gandhi-
-              mpls-ioam-03, 1 February 2022,
+              mpls-ioam-04, 2 March 2022,
               <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
-              03.txt>.
+              04.txt>.
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -553,14 +574,6 @@ Internet-Draft                MIAD Usecases                February 2022
               mpls-ioam-sr-06, 18 February 2021,
               <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
               sr-06.txt>.
-
-
-
-
-Saad, et al.             Expires 28 August 2022                [Page 10]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
@@ -573,17 +586,17 @@ Internet-Draft                MIAD Usecases                February 2022
               Dong, J., Bryant, S., Miyasaka, T., Zhu, Y., Qin, F., Li,
               Z., and F. Clad, "Introducing Resource Awareness to SR
               Segments", Work in Progress, Internet-Draft, draft-ietf-
-              spring-resource-aware-segments-03, 12 July 2021,
+              spring-resource-aware-segments-04, 5 March 2022,
               <https://www.ietf.org/archive/id/draft-ietf-spring-
-              resource-aware-segments-03.txt>.
+              resource-aware-segments-04.txt>.
 
    [I-D.ietf-teas-ietf-network-slices]
-              Farrel, A., Gray, E., Drake, J., Rokui, R., Homma, S.,
-              Makhijani, K., Contreras, L. M., and J. Tantsura,
-              "Framework for IETF Network Slices", Work in Progress,
-              Internet-Draft, draft-ietf-teas-ietf-network-slices-05, 25
-              October 2021, <https://www.ietf.org/archive/id/draft-ietf-
-              teas-ietf-network-slices-05.txt>.
+              Farrel, A., Drake, J., Rokui, R., Homma, S., Makhijani,
+              K., Contreras, L. M., and J. Tantsura, "Framework for IETF
+              Network Slices", Work in Progress, Internet-Draft, draft-
+              ietf-teas-ietf-network-slices-08, 6 March 2022,
+              <https://www.ietf.org/archive/id/draft-ietf-teas-ietf-
+              network-slices-08.txt>.
 
    [I-D.kompella-mpls-mspl4fa]
               Kompella, K., Beeram, V. P., Saad, T., and I. Meilik,
@@ -593,6 +606,18 @@ Internet-Draft                MIAD Usecases                February 2022
               <https://www.ietf.org/archive/id/draft-kompella-mpls-
               mspl4fa-02.txt>.
 
+
+
+
+
+
+
+
+Saad, et al.            Expires 8 September 2022               [Page 11]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    [I-D.kompella-mpls-nffrr]
               Kompella, K. and W. Lin, "No Further Fast Reroute", Work
               in Progress, Internet-Draft, draft-kompella-mpls-nffrr-02,
@@ -601,29 +626,18 @@ Internet-Draft                MIAD Usecases                February 2022
 
    [I-D.li-apn-problem-statement-usecases]
               Li, Z., Peng, S., Voyer, D., Xie, C., Liu, P., Qin, Z.,
-              Mishra, G., Ebisawa, K., Previdi, S., and J. N. Guichard,
-              "Problem Statement and Use Cases of Application-aware
-              Networking (APN)", Work in Progress, Internet-Draft,
-              draft-li-apn-problem-statement-usecases-05, 20 December
-              2021, <https://www.ietf.org/archive/id/draft-li-apn-
-              problem-statement-usecases-05.txt>.
-
-
-
-
-
-
-Saad, et al.             Expires 28 August 2022                [Page 11]
-
-Internet-Draft                MIAD Usecases                February 2022
-
+              and G. Mishra, "Problem Statement and Use Cases of
+              Application-aware Networking (APN)", Work in Progress,
+              Internet-Draft, draft-li-apn-problem-statement-usecases-
+              06, 7 March 2022, <https://www.ietf.org/archive/id/draft-
+              li-apn-problem-statement-usecases-06.txt>.
 
    [I-D.li-mpls-enhanced-vpn-vtn-id]
               Li, Z. and J. Dong, "Carrying Virtual Transport Network
               Identifier in MPLS Packet", Work in Progress, Internet-
-              Draft, draft-li-mpls-enhanced-vpn-vtn-id-01, 14 April
-              2021, <https://www.ietf.org/archive/id/draft-li-mpls-
-              enhanced-vpn-vtn-id-01.txt>.
+              Draft, draft-li-mpls-enhanced-vpn-vtn-id-02, 7 March 2022,
+              <https://www.ietf.org/archive/id/draft-li-mpls-enhanced-
+              vpn-vtn-id-02.txt>.
 
    [I-D.lm-mpls-sfc-path-verification]
               Yao, L. and G. Mirsky, "MPLS-based Service Function
@@ -652,6 +666,14 @@ Internet-Draft                MIAD Usecases                February 2022
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
 
+
+
+
+Saad, et al.            Expires 8 September 2022               [Page 12]
+
+Internet-Draft                MIAD Usecases                   March 2022
+
+
    [RFC8595]  Farrel, A., Bryant, S., and J. Drake, "An MPLS-Based
               Forwarding Plane for Service Function Chaining", RFC 8595,
               DOI 10.17487/RFC8595, June 2019,
@@ -662,17 +684,6 @@ Internet-Draft                MIAD Usecases                February 2022
               Chaining (SFC) Network Service Header (NSH)", RFC 8596,
               DOI 10.17487/RFC8596, June 2019,
               <https://www.rfc-editor.org/info/rfc8596>.
-
-
-
-
-
-
-
-Saad, et al.             Expires 28 August 2022                [Page 12]
-
-Internet-Draft                MIAD Usecases                February 2022
-
 
    [RFC8986]  Filsfils, C., Ed., Camarillo, P., Ed., Leddy, J., Voyer,
               D., Matsushima, S., and Z. Li, "Segment Routing over IPv6
@@ -700,6 +711,10 @@ Authors' Addresses
    Email: haoyu.song@futurewei.com
 
 
+   Greg Mirsky
+   Ericsson
+
+   Email: gregimirsky@gmail.com
 
 
 
@@ -710,19 +725,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.             Expires 28 August 2022                [Page 13]
+Saad, et al.            Expires 8 September 2022               [Page 13]
