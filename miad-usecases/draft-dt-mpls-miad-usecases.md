@@ -196,33 +196,33 @@ An IETF network slice MAY support the following key features:
 6. For multi-domain scenarios, a packet that traverses multiple domains may
    encode different identifiers within each domain.
 
-### Global Identifier as Slice Selector
+### Global Identifier as Flow-Aggregate Selector
 
-A Global Identifier as a Slice Selector (GISS) can be encoded in the MPLS
-packet as defined in {{?I-D.kompella-mpls-mspl4fa}},
+A Global Identifier as a Flow-Aggregate Selector (FAS) can be encoded in the
+MPLS packet as defined in {{?I-D.kompella-mpls-mspl4fa}},
 {{?I-D.li-mpls-enhanced-vpn-vtn-id}}, and
-{{?I-D.decraene-mpls-slid-encoded-entropy-label-id}}.  The Global Identifier
-Slice Selector can be used to associate the packets to the slice aggregate,
-independent of the MPLS forwarding label that is bound to the destination.
-LSRs use the MPLS forwarding label to determine the forwarding next-hop(s), and
-use the Global Identifier Slice Selector field in the packet to infer the
+{{?I-D.decraene-mpls-slid-encoded-entropy-label-id}}.  The FAS is used to
+associate the packets with a flow aggregate that utilizes resources defined by
+Network Resource Partition (NRP) as described in {{?I-D.bestbar-teas-ns-packet}}.
+
+The FAS can be encoded within an MPLS label carried in the packet's MPLS label
+stack. All packets that belong to the same flow aggregate MAY carry the same FAS in
+the MPLS label stack.  
+
+LSRs use the MPLS forwarding label to determine the forwarding
+next-hop(s), and can use the FAS present in the MPLS packet to infer the
 specific forwarding treatment that needs to be applied on the packet.
 
-The GISS can be encoded within an MPLS label carried in the packet's
-MPLS label stack.  All packets that belong to the same slice aggregate MAY
-carry the same GISS in the MPLS label stack.  It is also possible to have
-multiple GISS's map to the same slice aggregate. The GISS can be encoded in an
-MPLS label and may appear in several positions in the MPLS label stack.
 
-### Forwarding Label as a Slice Selector
+### Forwarding Label as a Flow-Aggregate Selector
 
 {{?RFC3031}} states in Section 2.1 that: 'Some routers analyze a packet's
 network layer header not merely to choose the packet's next hop, but also to
 determine a packet's "precedence" or "class of service"'.  
 
-It is possible by assigning a unique MPLS forwarding label to each slice
-aggregate (FEC) to distinguish the packets forwarded to the same destination
-but that belong to different slice aggregates.  In this case, LSRs can use the
+It is possible by assigning a unique MPLS forwarding label to each flow
+aggregate (FEC) to distinguish the packets forwarded to the same destination.
+from other flow aggregates.  In this case, LSRs can use the
 top forwarding label to infer both the forwarding action and the forwarding
 treatment to be invoked on the packets.  A similar approach is described in
 {{?I-D.ietf-spring-resource-aware-segments}} and {{?I-D.bestbar-teas-ns-packet}}.
