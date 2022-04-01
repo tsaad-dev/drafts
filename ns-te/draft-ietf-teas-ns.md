@@ -476,13 +476,14 @@ forwarding treatment dictated in the NRP Policy is applied (refer to
 (FAS) must be carried in each packet to identify the Slice-Flow Aggregate that
 it belongs to. 
 
-The ingress node of an NRP domain may also add an FAS to each Slice-Flow
-Aggregate packet. The transit nodes within an NRP domain can use the FAS to
-associate packets with a Slice-Flow Aggregate and to determine the Network
-Resource Partition Per Hop Behavior (NRP-PHB) that is applied to the packet
-(refer to {{SlicePHB}} for further details). The CS is used to apply a
-Diffserv PHB on to the packet to allow differentiation of traffic treatment
-within the same Slice-Flow Aggregate.
+The ingress node of an NRP domain adds a FAS field if one is not already
+present in each Slice-Flow Aggregate packet. In the data plane NRP mode, the
+transit nodes within an NRP domain use the FAS to associate packets with a
+Slice-Flow Aggregate and to determine the Network Resource Partition Per Hop
+Behavior (NRP-PHB) that is applied to the packet (refer to {{SlicePHB}} for
+further details). The CS is used to apply a Diffserv PHB on to the packet to
+allow differentiation of traffic treatment within the same Slice-Flow
+Aggregate.
 
 When data plane only NRP mode is used, routers may rely on a
 network state independent view of the topology to determine the best paths.

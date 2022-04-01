@@ -618,13 +618,14 @@ Saad, et al.             Expires 3 October 2022                [Page 11]
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
-   The ingress node of an NRP domain may also add an FAS to each Slice-
-   Flow Aggregate packet.  The transit nodes within an NRP domain can
-   use the FAS to associate packets with a Slice-Flow Aggregate and to
-   determine the Network Resource Partition Per Hop Behavior (NRP-PHB)
-   that is applied to the packet (refer to Section 5.1.3 for further
-   details).  The CS is used to apply a Diffserv PHB on to the packet to
-   allow differentiation of traffic treatment within the same Slice-Flow
+   The ingress node of an NRP domain adds a FAS field if one is not
+   already present in each Slice-Flow Aggregate packet.  In the data
+   plane NRP mode, the transit nodes within an NRP domain use the FAS to
+   associate packets with a Slice-Flow Aggregate and to determine the
+   Network Resource Partition Per Hop Behavior (NRP-PHB) that is applied
+   to the packet (refer to Section 5.1.3 for further details).  The CS
+   is used to apply a Diffserv PHB on to the packet to allow
+   differentiation of traffic treatment within the same Slice-Flow
    Aggregate.
 
    When data plane only NRP mode is used, routers may rely on a network
@@ -664,7 +665,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    Aggregate.  The topology associated with the NRP supporting a Slice-
    Flow Aggregate can be used by routing protocols, or by the ingress/
    PCE when computing NRP state aware TE paths.
-
 
 
 
