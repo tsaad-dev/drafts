@@ -85,14 +85,12 @@ author:
    email: luay.jalil@verizon.com
 
 normative:
-  RFC2119:
-  RFC8174:
 
 informative:
 
 --- abstract
 
-Realizing Network slices may require the Service Provider to have the ability to
+Realizing network slices may require the Service Provider to have the ability to
 partition a physical network into multiple logical networks of varying sizes,
 structures, and functions so that each slice can be dedicated to specific
 services or customers. Multiple network slices can be realized on the same
@@ -201,6 +199,9 @@ Slice-Flow Aggregate:
 forwarding treatment; a Slice-Flow Aggregate comprises of one or more IETF
 network slice traffic streams; the mapping of one or more IETF network slices
 to a Slice-Flow Aggregate is maintained by the IETF Network Slice Controller.
+The boundary nodes MAY also maintain a mapping of specific IETF network slice
+service(s) to a SFA.
+
 
 Network Resource Partition Policy (NRP):
 : a policy construct that enables instantiation of mechanisms in support 
@@ -224,7 +225,7 @@ Slice-Flow Aggregate Path:
 Slice-Flow Aggregate Packet:
 : a packet that traverses over the NRP that is associated with a specific Slice-Flow Aggregate.
 
-NRP Topology:
+NRP Filter Topology:
 : a set of topological elements associated with a Network Resource Partition.
 
 NRP state aware TE (NRP-TE):
@@ -301,69 +302,67 @@ available to it.
 
 # IETF Network Slice Realization {#NSRealization}
 
-{{ns-workflow}} describes the steps required to realize an
-IETF network slice service in a provider network  using the solution proposed
-in this document. Each of the steps is further elaborated on in a subsequent
-section.
+{{ns-workflow}} describes the steps required to realize an IETF network slice
+service in a provider network  using the solution proposed in this document.
+While Figure 4 of {{?I-D.ietf-teas-ietf-network-slices}} provides an abstract
+architecture of an IETF Network Slice, this section intends to offer a
+realization of that architecture specific for IP/MPLS packet networks.
 
-
+Each of the steps is further elaborated on in a subsequent section.
 
 ~~~~
-                       --      --      --
-    ----------        |CE|    |CE|    |CE|
-   | Network  |        --      --      --
-   | Slice    |      AC :    AC :    AC :
-   | Orchstr  |      ----------------------        -------
-    ----------      ( |PE|....|PE|....|PE| )      ( IETF  )
-     | IETF        (   --:     --     :--   )    ( Network )
-     | Network     (     :............:     )    (  Slice  )
-     | Slice Svc    (  IETF Network Slice  )      (       )  Customer
-     | Req           ----------------------        -------     View
-   ..|....................................\........./..................
-   --v----------   ----> Slice-Flow        \       /        Controller
-   |Controllers|  |     Aggregation Mapping v     v            View
-   |  -------  |  |    -----------------------------------------
-   | |IETF   | |--    ( |PE|.......|PE|........|PE|.......|PE|  )
-   | |Network| |     (   --:        --         :--         --    )
-   | |Slice  | |     (     :...................:                 )
-   | |Cntrlr | |      (           Slice-Flow Aggregate         )
-   | |(NSC)  | |       -----------------------------------------
-   |  -------  |---------.
-   |  -------  |         | Path Placement
-   | |       | |         v
-   | |       | |       -----------------------------------------
-   | |       | |      ( |PE|....-..|PE|        |PE|.......|PE|  )
-   | |Network| |     (   --    |P|  --......-...--    -   :--    )
-   | |Cntrlr | |     (          -:.........|P|.......|P|..:      )
-   | |(NC)   | |      ( Path Set            -         -         )
-   | |       | |       -----------------------------------------
-   | |       | |-------.
-   | |       | |       | Apply Topology Filters    
-   | |       | |       v
-   |  -------  |      -----------------------------      --------
-   |           |     (|PE|..-..|PE|... ..|PE|..|PE|)    ( Policy )
-    -----------     ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
-    |  |     |      ( :.-   -:.......|P|       :-   )  ( Topology )
-    |  |     |      (  |P|...........:-:.......|P|  )   (        )
-    |  |      \      (  -  Policy Filter Topology  )     --------
-    |  |       \      -----------------------------       A
-    |  |        \                       A                /
-   ..............\.......................\............../..............
-    |  | Path     v Service Mapping       \            /  Physical N/w
-     \  \Inst     ------------------------------------------------
-      \  \       ( |PE|.....-.....|PE|.......    |PE|.......|PE|  )
-       \  \     (   --     |P|     --       :-...:--     -..:--    )
-   NRP  \  --->(    :       -:..............|P|.........|P|         )
-   Policy\     (    -.......................:-:..-       -          )
-   Inst   ----->(  |P|..........................|P|......:         )
-                 (  -                            -                )
-                  ------------------------------------------------
+
+                          --      --      --
+                         |CE|    |CE|    |CE|
+                          --      --      --
+                        AC :    AC :    AC :
+                        ----------------------       -------
+                       ( |PE|....|PE|....|PE| )     ( IETF  )
+      IETF Network    (   --:     --     :--   )   ( Network )
+      Slice Service   (     :............:     )   (  Slice  )
+      Request          (  IETF Network Slice  )     (       )  Customer
+        v               ----------------------       -------     View
+        v        ............................\........./...............
+        v                                     \       /        Provider
+        v    >>>>>>>>>>>>>>>  Slice-Flow       \     /           View
+        v   ^                 Aggregate Mapping v   v
+        v   ^             -----------------------------------------
+        v   ^            ( |PE|.......|PE|........|PE|.......|PE|  )
+       ---------        (   --:        --         :--         --    )
+      |         |       (     :...................:                 )
+      |   NSC   |        (        Network Resource Partition       )
+      |         |         -----------------------------------------
+      |         |                             ^
+      |         |>>>>>  Resource Partitioning |
+       ---------          of Filter Topology  |
+        v   v                                 |
+        v   v            -----------------------------      --------
+        v   v           (|PE|..-..|PE|... ..|PE|..|PE|)    (        )
+        v   v          ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
+        v   v          ( :.-   -:.......|P|       :-   )  ( Topology )
+        v   v          (  |P|...........:-:.......|P|  )   (        )
+        v   v           (  -    Filter Topology       )     --------
+        v   v            -----------------------------       ^
+        v    >>>>>>>>>>>>  Topology Filter ^                /
+        v        ...........................\............../...........
+        v                                    \            /  Underlay
+       ----------                             \          /  (Physical)
+      |          |                             \        /    Network
+      | Network  |    ----------------------------------------------
+      |Controller|   ( |PE|.....-.....|PE|......    |PE|.......|PE| )
+      |          |  (   --     |P|     --      :-...:--     -..:--   )
+       ----------  (    :       -:.............|P|.........|P|        )
+           v       (    -......................:-:..-       -         )
+            >>>>>>> (  |P|.........................|P|......:        )
+        Program the  (  -                           -               )
+          Network     ----------------------------------------------
+        via NRP Policy
 ~~~~
 {: #ns-workflow title="IETF network slice realization steps."}
 
 ## Network Topology Filters
 
-The Physical Network may be filtered into a number of Policy Filter
+The Physical Network may be filtered into a number of Filter
 Topologies.  Filter actions may include selection of specific nodes
 and links according to their capabilities and are based on network-
 wide policies.  The resulting topologies can be used to host IETF
@@ -408,16 +407,16 @@ Aggregate is a matter of local operator policy is a function executed by the
 Controller.  The Slice-Flow Aggregate may be preconfigured, created on demand, or
 modified dynamically.
 
-## Path Placement over NRP Topology {#PathPlacement}
+## Path Placement over NRP Filter Topology {#PathPlacement}
 
 Depending on the underlying network technology, the paths are selected in the
 network in order to best deliver the SLOs for the different services carried by
 the Slice-Flow Aggregate.  The path placement function (carried on ingress node
-or by a controller) is performed on the Policy Filtered Topology that is
+or by a controller) is performed on the Filter Topology that is
 selected to support the Slice-Flow Aggregate.
 
 Note that this step may indicate the need to increase the capacity of the
-underlying Policy Filter Topology or to create a new Policy Filter Topology.
+underlying Filter Topology or to create a new Filter Topology.
 
 
 
@@ -491,16 +490,6 @@ In this case, the best path selection dictates the
 forwarding path of packets to the destination. The FAS field carried in each
 packet determines the specific NRP-PHB treatment along the
 selected path.
-
-For example, the Segment-Routing Flexible Algorithm {{!I-D.ietf-lsr-flex-algo}}
-may be deployed in a network to steer packets on the IGP computed lowest
-cumulative delay path.  An NRP Policy may be used to
-allow links along the least latency path to share its data plane resources
-amongst multiple Slice-Flow Aggregates. In this case, the packets that are
-steered on a specific NRP carry the FAS that
-enables routers (along with the Diffserv CS) to determine the NRP-PHB to
-enforce on the Slice-Flow Aggregate traffic streams.
-
 
 ## Control Plane Network Resource Partition Mode
 
@@ -652,9 +641,7 @@ control technologies and tunnel techniques to carry traffic across the network.
 It is expected that a standardized data model for NRP
 Policy will facilitate the instantiation and management of the NRP
 on the topological elements selected by the NRP
-Policy topology filter.  A YANG data model for the Network Resource
-Partition Policy instantiation on the controller and network devices is
-described in {{!I-D.bestbar-teas-yang-slice-policy}}.
+Policy topology filter.
 
 It is also possible to distribute the NRP Policy to
 network devices using several mechanisms, including protocols such as NETCONF
@@ -866,16 +853,16 @@ The NRP Policy may also include a reference to a
 predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
 as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
 {{!RFC4915}}. A YANG data model that covers generic topology filters is described
-in {{?I-D.bestbar-teas-yang-topology-filter}}. Also, the Path Computation Element (PCE) Communication Protocol (PCEP) extensions to carry
-topology filters are defined in {{?I-D.xpbs-pce-topology-filter}}.
+in {{?I-D.bestbar-teas-yang-topology-filter}}. Also, the Path Computation
+Element Communication Protocol (PCEP) extensions to carry topology filters are
+defined in {{?I-D.xpbs-pce-topology-filter}}.
 
 
 ## Network Resource Partition Boundary
 
 A network slice originates at the edge nodes of a network slice provider.
-Traffic that is steered over the corresponding NRP
-supporting a Slice-Flow Aggregate may traverse NRP
-capable as well as NRP incapable interior nodes.
+Traffic that is steered over the corresponding NRP supporting a Slice-Flow
+Aggregate may traverse NRP capable as well as NRP incapable interior nodes.
 
 The network slice may encompass one or more domains administered by a provider.
 For example, an organization's intranet or an ISP.  The network provider
@@ -918,7 +905,7 @@ within the NRP Policy, and allow differentiation of forwarding treatments
 for packets forwarded over the same NRP that supports the
 Slice-Flow Aggregate.
 
-### Network Resource Partition Incapable Nodes
+### Network Resource Partition Incapable Nodes {#NRPIncapbale}
 
 Packets that belong to a Slice-Flow Aggregate may need to traverse nodes that are
 NRP incapable. In this case, several options are possible to
@@ -1029,12 +1016,12 @@ o By definition, multiple IETF Network Slices may be mapped to a
   single Slice-Flow Aggregate.  However, it is possible for an
   Slice-Flow Aggregate to contain just a single IETF Network Slice.
 
-o The physical network may be filtered to multiple Policy Filter
-  Topologies.  Each such Policy Filter Topology facilitates
+o The physical network may be filtered to multiple Filter
+  Topologies.  Each such Filter Topology facilitates
   planning the placement of paths for the Slice-Flow Aggregate by
   presenting only the subset of links and nodes that meet specific
   criteria.  Note, however, in absence of 
-  any Policy Filter Topology, Slice-Flow Aggregate are free to
+  any Filter Topology, Slice-Flow Aggregate are free to
   operate over the full physical network.
 
 o It is anticipated that there may be very many IETF Network Slices supported
@@ -1046,25 +1033,15 @@ o It is anticipated that there may be very many IETF Network Slices supported
 
 ## Applicability of Path Selection to Slice-Flow Aggregates
 
-The path selection in the network can be network state dependent, or network state
-independent as described in Section 5.1 of {{?I-D.ietf-teas-rfc3272bis}}.
-The latter is the choice commonly used by IGPs when selecting a best path to
-a destination prefix, while the former is used by ingress TE routers, or Path
-Computation Engines (PCEs) when optimizing the placement of a flow based on the
-current network resource utilization.
-
-When path selection is network state dependent, the path computation can 
-leverage Traffic Engineering mechanisms (e.g., as defined in {{?RFC2702}})
-to compute feasible paths taking into account the incoming traffic demand
-rate and current state of network. This allows avoiding overly utilized
-links, and reduces the chance of congestion on traversed links.
-
-To enable TE path placement, the link state is advertised with current
-reservations, thereby reflecting the available bandwidth on each link.  Such
-link reservations may be maintained centrally on a network wide network
-resource manager, or distributed on devices (as usually done with RSVP-TE). TE
-extensions exist today to allow IGPs (e.g., {{!RFC3630}} and {{!RFC5305}}), and
-BGP-LS {{!RFC7752}} to advertise such link state reservations.
+In State-dependent TE {{?I-D.ietf-teas-rfc3272bis}}, the path selection adapts
+based on the current state of the network. The state of the network can be
+based on parameters flooded by the routers as described in {{?RFC2702}}.  The
+link state is advertised with current reservations, thereby reflecting the
+available bandwidth on each link.  Such link reservations may be maintained
+centrally on a network wide network resource manager, or distributed on devices
+(as usually done with RSVP-TE). TE extensions exist today to allow IGPs (e.g.,
+{{!RFC3630}} and {{!RFC5305}}), and BGP-LS {{!RFC7752}} to advertise such link
+state reservations.
 
 When the network resource reservations are maintained for NRPs,
 the link state can carry per NRP state (e.g.,
@@ -1141,13 +1118,48 @@ supported on network devices and controllers. A suitable transport (e.g.,
 NETCONF {{?RFC6241}}, RESTCONF {{?RFC8040}}, or gRPC) may be used to enable
 configuration and retrieval of state information for slice policies on network
 devices. The NRP Policy YANG data model is outside the scope of this
-document, and is defined in {{?I-D.bestbar-teas-yang-slice-policy}}.
+document.
+
+# Outstanding Issues
+
+Note to RFC Editor: Please remove this section prior to publication.
+
+This section records non-blocking issues that were raised during the Working
+Group Adoption Poll for the document. The below list of issues needs to be fully
+addressed before progressing the document to publication in IESG.
+
+- Add new Appendix section with examples for the NRP modes described in
+{{SliceModes}},
+
+- Add text to describe the purpose and the policy that governs a Slice-Flow
+  Aggregate. Also, clarify the difference between Slice-Flow Aggregates and
+  NRP.
+
+- Remove redundant description of Diffserv behaviors.
+
+- Elaborate on the SFA packet treatment when no rules to associate the packet
+to an NRP are defined in the NRP Policy.
+
+- Clarify the NRP instantiation through the NRP Policy enforcement.
+
+- Align to {{?I-D.ietf-teas-ietf-network-slices}} for the boundary of IETF Network Slice
+Service Demarcation Points (SDPs) and the underlying NRP.
+
+- Clarify the relationship the underlay physical network, the filter topology
+  and the NRP resources.
+
+- Expand {{DataplaneSlicing}} on how isolation between NRPs can be realized
+depending on the deployed NRP mode.
+
+- Expand {{NRPIncapbale}} on how nodes can discover NRP incapable downstream neighbors.
+
+- Expand {{SecurityConsiderations}} on additional threats introduced.
 
 # IANA Considerations
 
 This document has no IANA actions.
 
-# Security Considerations
+# Security Considerations {#SecurityConsiderations}
 
 The main goal of network slicing is to allow for varying treatment of
 traffic from multiple different network slices that are utilizing a common
