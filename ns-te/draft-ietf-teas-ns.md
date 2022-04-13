@@ -441,7 +441,7 @@ implementation specific.
 
 ## Service Mapping
 
-The edge points (PEs) can be configured to support the network slice service by
+The edge points can be configured to support the network slice service by
 mapping the customer traffic to Slice-Flow Aggregates, possibly using
 information supplied when the IETF network slice service was requested.  The
 edge points may also be instructed to mark the packets so that the network

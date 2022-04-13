@@ -596,7 +596,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 3.7.  Service Mapping
 
-   The edge points (PEs) can be configured to support the network slice
+   The edge points can be configured to support the network slice
    service by mapping the customer traffic to Slice-Flow Aggregates,
    possibly using information supplied when the IETF network slice
    service was requested.  The edge points may also be instructed to
