@@ -1489,7 +1489,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    publication in IESG.
 
    *  Add new Appendix section with examples for the NRP modes described
-      in Section 4,
+      in Section 4.
 
    *  Add text to describe the purpose and the policy that governs a
       Slice-Flow Aggregate.  Also, clarify the difference between Slice-

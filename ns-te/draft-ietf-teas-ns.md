@@ -1129,7 +1129,7 @@ Group Adoption Poll for the document. The below list of issues needs to be fully
 addressed before progressing the document to publication in IESG.
 
 - Add new Appendix section with examples for the NRP modes described in
-{{SliceModes}},
+{{SliceModes}}.
 
 - Add text to describe the purpose and the policy that governs a Slice-Flow
   Aggregate. Also, clarify the difference between Slice-Flow Aggregates and
