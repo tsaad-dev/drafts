@@ -231,8 +231,6 @@ NRP Filter Topology:
 NRP state aware TE (NRP-TE):
 : a mechanism for TE path selection that takes into account the available network resources associated with a specific NRP.
 
-{::boilerplate bcp14}
-
 ## Acronyms and Abbreviations
 
 > BA: Behavior Aggregate
@@ -532,8 +530,8 @@ resources allocated to each. In this case, a node can update
 the reservable bandwidth for each NRP to take into consideration
 the available bandwidth from other NRPs in the same group.
 
-For illustration purposes, {{resource-sharing}} describes bandwidth paritioning
-or sharing amongst a group of NRPs. In Figure 2a, the NRPs indentified by the following NRP-IDs:
+For illustration purposes, {{resource-sharing}} describes bandwidth partitioning
+or sharing amongst a group of NRPs. In Figure 2a, the NRPs identified by the following NRP-IDs:
 NRP1, NRP2, NRP3 and NRP4 are not sharing any bandwidths between each
 other. In Figure 2b, the NRPs: NRP1 and NRP2 can share the
 available bandwidth portion allocated to each amongst them.
@@ -1074,7 +1072,7 @@ outside the scope of this document.
 
 ### SR Based Slice-Flow Aggregate Paths
 
-Segment Routing (SR) {{!RFC8402}} can be used to setup and steer traffic over
+Segment Routing (SR) {{?RFC8402}} can be used to setup and steer traffic over
 the computed Slice-Flow Aggregate feasible paths.
 
 The SR architecture defines a number of building blocks that can be leveraged to support
