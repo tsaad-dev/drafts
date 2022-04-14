@@ -1129,33 +1129,33 @@ Group Adoption Poll for the document. The below list of issues needs to be fully
 addressed before progressing the document to publication in IESG.
 
 1. Add new Appendix section with examples for the NRP modes described in
-{{SliceModes}}.
+   {{SliceModes}}.
 
-2. Add text to clarify the relationship between Slice-Flow Aggregates,
-  the NRP Policy, and the NRP.
+2. Add text to clarify the relationship between Slice-Flow Aggregates, the NRP
+   Policy, and the NRP.
 
 3. Remove redundant references to Diffserv behaviors.
 
 4. Elaborate on the SFA packet treatment when no rules to associate the packet
-to an NRP are defined in the NRP Policy.
+   to an NRP are defined in the NRP Policy.
 
 5. Clarify the NRP instantiation through the NRP Policy enforcement.
 
 6. Clarify how the solution caters to the different IETF Network Slice Service
-  Demarcation Point locations described in Section 4.2 of
-  {{?I-D.ietf-teas-ietf-network-slices}}.
+   Demarcation Point locations described in Section 4.2 of
+   {{?I-D.ietf-teas-ietf-network-slices}}.
 
 7. Clarify the relationship the underlay physical network, the filter topology
-  and the NRP resources.
+   and the NRP resources.
 
 8. Expand on how isolation between NRPs can be realized depending on the
-  deployed NRP mode.
+   deployed NRP mode.
 
-9. Revise {{NRPIncapbale}} to describe how nodes can discover NRP incapable	 		
-  downstream neighbors.
+9. Revise {{NRPIncapbale}} to describe how nodes can discover NRP incapable
+   downstream neighbors.
 
 10. Expand {{SecurityConsiderations}} on additional security threats introduced
-  with the solution.
+    with the solution.
 
 # IANA Considerations
 
