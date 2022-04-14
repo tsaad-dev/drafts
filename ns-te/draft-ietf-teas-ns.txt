@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Informational                          Juniper Networks
-Expires: 15 October 2022                                         J. Dong
+Expires: 16 October 2022                                         J. Dong
                                                      Huawei Technologies
                                                                   B. Wen
                                                                  Comcast
@@ -23,7 +23,7 @@ Expires: 15 October 2022                                         J. Dong
                                                                    Nokia
                                                                 L. Jalil
                                                                  Verizon
-                                                           13 April 2022
+                                                           14 April 2022
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 1]
+Saad, et al.             Expires 16 October 2022                [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 October 2022.
+   This Internet-Draft will expire on 16 October 2022.
 
 Copyright Notice
 
@@ -91,15 +91,15 @@ Table of Contents
      1.2.  Acronyms and Abbreviations  . . . . . . . . . . . . . . .   6
    2.  Network Resource Slicing Membership . . . . . . . . . . . . .   7
    3.  IETF Network Slice Realization  . . . . . . . . . . . . . . .   8
-     3.1.  Network Topology Filters  . . . . . . . . . . . . . . . .  10
-     3.2.  IETF Network Slice Service Request  . . . . . . . . . . .  10
+     3.1.  Network Topology Filters  . . . . . . . . . . . . . . . .   9
+     3.2.  IETF Network Slice Service Request  . . . . . . . . . . .   9
      3.3.  Slice-Flow Aggregation  . . . . . . . . . . . . . . . . .  10
-     3.4.  Path Placement over NRP Filter Topology . . . . . . . . .  11
-     3.5.  NRP Policy Installation . . . . . . . . . . . . . . . . .  11
+     3.4.  Path Placement over NRP Filter Topology . . . . . . . . .  10
+     3.5.  NRP Policy Installation . . . . . . . . . . . . . . . . .  10
      3.6.  Path Instantiation  . . . . . . . . . . . . . . . . . . .  11
      3.7.  Service Mapping . . . . . . . . . . . . . . . . . . . . .  11
    4.  Network Resource Partition Modes  . . . . . . . . . . . . . .  11
-     4.1.  Data plane Network Resource Partition Mode  . . . . . . .  12
+     4.1.  Data plane Network Resource Partition Mode  . . . . . . .  11
      4.2.  Control Plane Network Resource Partition Mode . . . . . .  12
      4.3.  Data and Control Plane Network Resource Partition Mode  .  14
    5.  Network Resource Partition Instantiation  . . . . . . . . . .  15
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 2]
+Saad, et al.             Expires 16 October 2022                [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -135,7 +135,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    9.  Outstanding Issues  . . . . . . . . . . . . . . . . . . . . .  27
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
    11. Security Considerations . . . . . . . . . . . . . . . . . . .  28
-   12. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  28
+   12. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  29
    13. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  29
    14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  29
      14.1.  Normative References . . . . . . . . . . . . . . . . . .  29
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 3]
+Saad, et al.             Expires 16 October 2022                [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 4]
+Saad, et al.             Expires 16 October 2022                [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 5]
+Saad, et al.             Expires 16 October 2022                [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 6]
+Saad, et al.             Expires 16 October 2022                [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022                [Page 7]
+Saad, et al.             Expires 16 October 2022                [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -413,42 +413,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    for IP/MPLS packet networks.
 
    Each of the steps is further elaborated on in a subsequent section.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.             Expires 15 October 2022                [Page 8]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
                            --      --      --
                           |CE|    |CE|    |CE|
@@ -478,6 +442,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
          v   v           (|PE|..-..|PE|... ..|PE|..|PE|)    (        )
          v   v          ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
          v   v          ( :.-   -:.......|P|       :-   )  ( Topology )
+
+
+
+Saad, et al.             Expires 16 October 2022                [Page 8]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
          v   v          (  |P|...........:-:.......|P|  )   (        )
          v   v           (  -    Filter Topology       )     --------
          v   v            -----------------------------       ^
@@ -494,17 +466,12 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
              >>>>>>> (  |P|.........................|P|......:        )
          Program the  (  -                           -               )
            Network     ----------------------------------------------
-         via NRP Policy
+                                (NRP Policies and Paths)*
+
+    * : NRP Policy installation and path placement can be centralized
+        or distributed.
 
             Figure 1: IETF network slice realization steps.
-
-
-
-
-Saad, et al.             Expires 15 October 2022                [Page 9]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
 3.1.  Network Topology Filters
 
@@ -531,6 +498,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    This defines the traffic flows that need to be supported when the
    slice is realized.  Depending on the mechanism and encoding of the
    Attachment Circuit (AC), the IETF Network Slice Service may also
+
+
+
+Saad, et al.             Expires 16 October 2022                [Page 9]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    include information that will allow the operator's controllers to
    configure the PEs to determine what customer traffic is intended for
    this IETF Network Slice.
@@ -552,15 +527,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    operator policy is a function executed by the Controller.  The Slice-
    Flow Aggregate may be preconfigured, created on demand, or modified
    dynamically.
-
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 10]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
 3.4.  Path Placement over NRP Filter Topology
 
@@ -586,6 +552,16 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    Policy instantiation in the network is further described in
    Section 5.
 
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 10]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
 3.6.  Path Instantiation
 
    Depending on the underlying network technology, a Controller function
@@ -610,14 +586,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    partitioning of the shared network resources among multiple Slice-
    Flow Aggregates can be achieved:
 
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 11]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
-
    a)  in data plane only,
 
    b)  in control plane only, or
@@ -639,6 +607,16 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    (refer to Section 5.1 below).  In this case, a Flow Aggregate
    Selector (FAS) must be carried in each packet to identify the Slice-
    Flow Aggregate that it belongs to.
+
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 11]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
 
    The ingress node of an NRP domain adds a FAS field if one is not
    already present in each Slice-Flow Aggregate packet.  In the data
@@ -664,16 +642,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    for each NRP can be maintained on the network element or on a
    controller.
 
-
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 12]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
-
    The network reservation states for a specific partition can be
    represented in a topology that contains all or a subset of the
    physical network elements (nodes and links) and reflect the network
@@ -698,6 +666,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    instantiate different NRPs.  The NRP reservable or utilized bandwidth
    on such a link is updated (and may be advertised) whenever new paths
    are placed in the network.  The NRP reservation state, in this case,
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 12]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    is maintained on each device or off the device on a resource
    reservation manager that holds reservation states for those links in
    the network.
@@ -725,7 +701,31 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 13]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -781,7 +781,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 14]
+Saad, et al.             Expires 16 October 2022               [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -837,7 +837,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 15]
+Saad, et al.             Expires 16 October 2022               [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -893,7 +893,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 16]
+Saad, et al.             Expires 16 October 2022               [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -949,7 +949,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 17]
+Saad, et al.             Expires 16 October 2022               [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 18]
+Saad, et al.             Expires 16 October 2022               [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 19]
+Saad, et al.             Expires 16 October 2022               [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 20]
+Saad, et al.             Expires 16 October 2022               [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 21]
+Saad, et al.             Expires 16 October 2022               [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 22]
+Saad, et al.             Expires 16 October 2022               [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 23]
+Saad, et al.             Expires 16 October 2022               [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 24]
+Saad, et al.             Expires 16 October 2022               [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 25]
+Saad, et al.             Expires 16 October 2022               [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 26]
+Saad, et al.             Expires 16 October 2022               [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1488,42 +1488,45 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    issues needs to be fully addressed before progressing the document to
    publication in IESG.
 
-   *  Add new Appendix section with examples for the NRP modes described
-      in Section 4.
+   1.   Add new Appendix section with examples for the NRP modes
+        described in Section 4.
 
-   *  Add text to describe the purpose and the policy that governs a
-      Slice-Flow Aggregate.  Also, clarify the difference between Slice-
-      Flow Aggregates and NRP.
+   2.   Add text to clarify the relationship between Slice-Flow
+        Aggregates, the NRP Policy, and the NRP.
 
-   *  Remove redundant description of Diffserv behaviors.
+   3.   Remove redundant references to Diffserv behaviors.
 
-   *  Elaborate on the SFA packet treatment when no rules to associate
-      the packet to an NRP are defined in the NRP Policy.
+   4.   Elaborate on the SFA packet treatment when no rules to associate
+        the packet to an NRP are defined in the NRP Policy.
 
-   *  Clarify the NRP instantiation through the NRP Policy enforcement.
+   5.   Clarify the NRP instantiation through the NRP Policy
+        enforcement.
 
-   *  Align to [I-D.ietf-teas-ietf-network-slices] for the boundary of
-      IETF Network Slice Service Demarcation Points (SDPs) and the
-      underlying NRP.
-
-
+   6.   Clarify how the solution caters to the different IETF Network
+        Slice Service Demarcation Point locations described in
+        Section 4.2 of [I-D.ietf-teas-ietf-network-slices].
 
 
-Saad, et al.             Expires 15 October 2022               [Page 27]
+
+
+Saad, et al.             Expires 16 October 2022               [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
-   *  Clarify the relationship the underlay physical network, the filter
-      topology and the NRP resources.
+   7.   Clarify the relationship the underlay physical network, the
+        filter topology and the NRP resources.
 
-   *  Expand Section 4.1 on how isolation between NRPs can be realized
-      depending on the deployed NRP mode.
+   8.   Expand on how isolation between NRPs can be realized depending
+        on the deployed NRP mode.
 
-   *  Expand Section 5.2.3 on how nodes can discover NRP incapable
-      downstream neighbors.
+   9.   Revise Section 5.2.3 to describe how nodes can discover NRP
+        incapable
 
-   *  Expand Section 11 on additional threats introduced.
+        downstream neighbors.
+
+   10.  Expand Section 11 on additional security threats introduced with
+        the solution.
 
 10.  IANA Considerations
 
@@ -1554,6 +1557,19 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    boundaries with security and integrity of the network infrastructure
    within an NRP domain.
 
+
+
+
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 28]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
 12.  Acknowledgement
 
    The authors would like to thank Krzysztof Szarkowicz, Swamy SRK,
@@ -1561,14 +1577,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    Mohamed Boucadair for their review of this document and for providing
    valuable feedback on it.  The authors would also like to thank Adrian
    Farrel for detailed discussions that resulted in Section 3.
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 28]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
 13.  Contributors
 
@@ -1610,6 +1618,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
               DOI 10.17487/RFC3630, September 2003,
               <https://www.rfc-editor.org/info/rfc3630>.
 
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 29]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
               Pillay-Esnault, "Multi-Topology (MT) Routing in OSPF",
               RFC 4915, DOI 10.17487/RFC4915, June 2007,
@@ -1618,13 +1634,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    [RFC5305]  Li, T. and H. Smit, "IS-IS Extensions for Traffic
               Engineering", RFC 5305, DOI 10.17487/RFC5305, October
               2008, <https://www.rfc-editor.org/info/rfc5305>.
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 29]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
    [RFC7752]  Gredler, H., Ed., Medved, J., Previdi, S., Farrel, A., and
               S. Ray, "North-Bound Distribution of Link-State and
@@ -1659,6 +1668,20 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
               <https://www.ietf.org/archive/id/draft-bestbar-lsr-spring-
               sa-01.txt>.
 
+
+
+
+
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 30]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    [I-D.bestbar-spring-scalable-ns]
               Saad, T., Beeram, V. P., Chen, R., Peng, S., Wen, B., and
               D. Ceccarelli, "Scalable Network Slicing over SR
@@ -1673,14 +1696,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
               Internet-Draft, draft-bestbar-teas-yang-topology-filter-
               03, 7 March 2022, <https://www.ietf.org/archive/id/draft-
               bestbar-teas-yang-topology-filter-03.txt>.
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 30]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
    [I-D.dong-teas-nrp-scalability]
               Dong, J., Li, Z., Gong, L., Yang, G., Guichard, J. N.,
@@ -1713,6 +1728,16 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
               <https://www.ietf.org/archive/id/draft-ietf-teas-
               rfc3272bis-16.txt>.
 
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 31]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    [I-D.xpbs-pce-topology-filter]
               Xiong, Q., Peng, S., Beeram, V. P., Saad, T., and M.
               Koldychev, "PCEP Extensions for Topology Filter", Work in
@@ -1729,14 +1754,6 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
               McManus, "Requirements for Traffic Engineering Over MPLS",
               RFC 2702, DOI 10.17487/RFC2702, September 1999,
               <https://www.rfc-editor.org/info/rfc2702>.
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 31]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
-
 
    [RFC5462]  Andersson, L. and R. Asati, "Multiprotocol Label Switching
               (MPLS) Label Stack Entry: "EXP" Field Renamed to "Traffic
@@ -1769,6 +1786,14 @@ Authors' Addresses
    Jie Dong
    Huawei Technologies
 
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 32]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    Email: jie.dong@huawei.com
 
 
@@ -1782,16 +1807,6 @@ Authors' Addresses
    Ericsson
 
    Email: daniele.ceccarelli@ericsson.com
-
-
-
-
-
-
-
-Saad, et al.             Expires 15 October 2022               [Page 32]
-
-Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
    Joel Halpern
@@ -1827,6 +1842,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    Reza Rokui
    Nokia
 
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 33]
+
+Internet-Draft           IP/MPLS Network Slicing              April 2022
+
+
    Email: reza.rokui@nokia.com
 
 
@@ -1845,4 +1868,37 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 15 October 2022               [Page 33]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.             Expires 16 October 2022               [Page 34]

@@ -311,7 +311,6 @@ realization of that architecture specific for IP/MPLS packet networks.
 Each of the steps is further elaborated on in a subsequent section.
 
 ~~~~
-
                           --      --      --
                          |CE|    |CE|    |CE|
                           --      --      --
@@ -356,7 +355,10 @@ Each of the steps is further elaborated on in a subsequent section.
             >>>>>>> (  |P|.........................|P|......:        )
         Program the  (  -                           -               )
           Network     ----------------------------------------------
-        via NRP Policy
+                               (NRP Policies and Paths)*
+
+   * : NRP Policy installation and path placement can be centralized
+       or distributed.
 ~~~~
 {: #ns-workflow title="IETF network slice realization steps."}
 
@@ -1128,32 +1130,34 @@ This section records non-blocking issues that were raised during the Working
 Group Adoption Poll for the document. The below list of issues needs to be fully
 addressed before progressing the document to publication in IESG.
 
-- Add new Appendix section with examples for the NRP modes described in
+1. Add new Appendix section with examples for the NRP modes described in
 {{SliceModes}}.
 
-- Add text to describe the purpose and the policy that governs a Slice-Flow
-  Aggregate. Also, clarify the difference between Slice-Flow Aggregates and
-  NRP.
+2. Add text to clarify the relationship between Slice-Flow Aggregates,
+  the NRP Policy, and the NRP.
 
-- Remove redundant description of Diffserv behaviors.
+3. Remove redundant references to Diffserv behaviors.
 
-- Elaborate on the SFA packet treatment when no rules to associate the packet
+4. Elaborate on the SFA packet treatment when no rules to associate the packet
 to an NRP are defined in the NRP Policy.
 
-- Clarify the NRP instantiation through the NRP Policy enforcement.
+5. Clarify the NRP instantiation through the NRP Policy enforcement.
 
-- Align to {{?I-D.ietf-teas-ietf-network-slices}} for the boundary of IETF Network Slice
-Service Demarcation Points (SDPs) and the underlying NRP.
+6. Clarify how the solution caters to the different IETF Network Slice Service
+  Demarcation Point locations described in Section 4.2 of
+  {{?I-D.ietf-teas-ietf-network-slices}}.
 
-- Clarify the relationship the underlay physical network, the filter topology
+7. Clarify the relationship the underlay physical network, the filter topology
   and the NRP resources.
 
-- Expand {{DataplaneSlicing}} on how isolation between NRPs can be realized
-depending on the deployed NRP mode.
+8. Expand on how isolation between NRPs can be realized depending on the
+  deployed NRP mode.
 
-- Expand {{NRPIncapbale}} on how nodes can discover NRP incapable downstream neighbors.
+9. Revise {{NRPIncapbale}} to describe how nodes can discover NRP incapable	 		
+  downstream neighbors.
 
-- Expand {{SecurityConsiderations}} on additional threats introduced.
+10. Expand {{SecurityConsiderations}} on additional security threats introduced
+  with the solution.
 
 # IANA Considerations
 
