@@ -193,17 +193,17 @@ A Global Identifier as a Flow-Aggregate Selector (G-FAS) can be encoded in the
 MPLS packet as defined in {{?I-D.kompella-mpls-mspl4fa}},
 {{?I-D.li-mpls-enhanced-vpn-vtn-id}}, and
 {{?I-D.decraene-mpls-slid-encoded-entropy-label-id}}.  The G-FAS is used to
-associate the packets to the underlying Network Resource Partition (NRP) as described in 
+associate the packets belonging to Slice-Flow Aggregate to the underlying
+Network Resource Partition (NRP) as described in
 {{?I-D.bestbar-teas-ns-packet}}.
 
 The G-FAS can be encoded within an MPLS label carried in the packet's MPLS label
 stack. All packets that belong to the same flow aggregate MAY carry the same FAS in
 the MPLS label stack.  
 
-LSRs use the MPLS forwarding label to select the forwarding
-next-hop(s), and use the G-FAS present in the MPLS packet to infer the
+When MPLS packets carry a G-FAS, MPLS LSRs use the forwarding label to select the forwarding
+next-hop(s), and use the G-FAS in the MPLS packet to infer the
 specific forwarding treatment that needs to be applied on the packet.
-
 
 ### Forwarding Label as a Flow-Aggregate Selector
 
@@ -268,7 +268,7 @@ an MPLS network by emulating the NSH by using only MPLS label stack elements.
 
 The approach in {{?RFC8595}} introduces some limitations that are discussed in
 {{?I-D.lm-mpls-sfc-path-verification}}. This approach, however, can benefit
-from the solution framework introduced with MIAD.
+from the framework introduced with MNA {{?I-D.andersson-mpls-mna-fwk}}.
 
 For example, it may be possible to extend NSH emulation using MPLS
 labels [RFC8595] to support the functionality of NSH Context Headers,

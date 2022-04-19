@@ -271,9 +271,9 @@ Internet-Draft                MNA Usecases                    April 2022
    encoded in the MPLS packet as defined in [I-D.kompella-mpls-mspl4fa],
    [I-D.li-mpls-enhanced-vpn-vtn-id], and
    [I-D.decraene-mpls-slid-encoded-entropy-label-id].  The G-FAS is used
-   to associate the packets to the underlying Network Resource Partition
-   (NRP) as described in [I-D.bestbar-teas-ns-packet].
-
+   to associate the packets belonging to Slice-Flow Aggregate to the
+   underlying Network Resource Partition (NRP) as described in
+   [I-D.bestbar-teas-ns-packet].
 
 
 
@@ -286,9 +286,10 @@ Internet-Draft                MNA Usecases                    April 2022
    MPLS label stack.  All packets that belong to the same flow aggregate
    MAY carry the same FAS in the MPLS label stack.
 
-   LSRs use the MPLS forwarding label to select the forwarding next-
-   hop(s), and use the G-FAS present in the MPLS packet to infer the
-   specific forwarding treatment that needs to be applied on the packet.
+   When MPLS packets carry a G-FAS, MPLS LSRs use the forwarding label
+   to select the forwarding next-hop(s), and use the G-FAS in the MPLS
+   packet to infer the specific forwarding treatment that needs to be
+   applied on the packet.
 
 2.3.2.  Forwarding Label as a Flow-Aggregate Selector
 
@@ -332,7 +333,6 @@ Internet-Draft                MNA Usecases                    April 2022
 
 
 
-
 Saad, et al.             Expires 21 October 2022                [Page 6]
 
 Internet-Draft                MNA Usecases                    April 2022
@@ -368,8 +368,8 @@ Internet-Draft                MNA Usecases                    April 2022
 
    The approach in [RFC8595] introduces some limitations that are
    discussed in [I-D.lm-mpls-sfc-path-verification].  This approach,
-   however, can benefit from the solution framework introduced with
-   MIAD.
+   however, can benefit from the framework introduced with MNA
+   [I-D.andersson-mpls-mna-fwk].
 
    For example, it may be possible to extend NSH emulation using MPLS
    labels [RFC8595] to support the functionality of NSH Context Headers,
@@ -480,6 +480,13 @@ Internet-Draft                MNA Usecases                    April 2022
 
 8.  Informative References
 
+   [I-D.andersson-mpls-mna-fwk]
+              Andersson, L., Bryant, S., Bocci, M., and T. Li, "MPLS
+              Network Actions Framework", Work in Progress, Internet-
+              Draft, draft-andersson-mpls-mna-fwk-00, 4 April 2022,
+              <https://www.ietf.org/archive/id/draft-andersson-mpls-mna-
+              fwk-00.txt>.
+
    [I-D.bestbar-teas-ns-packet]
               Saad, T., Beeram, V. P., Dong, J., Wen, B., Ceccarelli,
               D., Halpern, J., Peng, S., Chen, R., Liu, X., Contreras,
@@ -489,14 +496,7 @@ Internet-Draft                MNA Usecases                    April 2022
               <https://www.ietf.org/archive/id/draft-bestbar-teas-ns-
               packet-08.txt>.
 
-   [I-D.decraene-mpls-slid-encoded-entropy-label-id]
-              Decraene, B., Filsfils, C., Henderickx, W., Saad, T.,
-              Beeram, V. P., and L. Jalil, "Using Entropy Label for
-              Network Slice Identification in MPLS networks.", Work in
-              Progress, Internet-Draft, draft-decraene-mpls-slid-
-              encoded-entropy-label-id-03, 11 February 2022,
-              <https://www.ietf.org/archive/id/draft-decraene-mpls-slid-
-              encoded-entropy-label-id-03.txt>.
+
 
 
 
@@ -505,6 +505,15 @@ Saad, et al.             Expires 21 October 2022                [Page 9]
 
 Internet-Draft                MNA Usecases                    April 2022
 
+
+   [I-D.decraene-mpls-slid-encoded-entropy-label-id]
+              Decraene, B., Filsfils, C., Henderickx, W., Saad, T.,
+              Beeram, V. P., and L. Jalil, "Using Entropy Label for
+              Network Slice Identification in MPLS networks.", Work in
+              Progress, Internet-Draft, draft-decraene-mpls-slid-
+              encoded-entropy-label-id-03, 11 February 2022,
+              <https://www.ietf.org/archive/id/draft-decraene-mpls-slid-
+              encoded-entropy-label-id-03.txt>.
 
    [I-D.gandhi-mpls-ioam]
               Gandhi, R., Ali, Z., Brockners, F., Wen, B., Decraene, B.,
@@ -545,15 +554,6 @@ Internet-Draft                MNA Usecases                    April 2022
               <https://www.ietf.org/archive/id/draft-ietf-teas-ietf-
               network-slices-10.txt>.
 
-   [I-D.kompella-mpls-mspl4fa]
-              Kompella, K., Beeram, V. P., Saad, T., and I. Meilik,
-              "Multi-purpose Special Purpose Label for Forwarding
-              Actions", Work in Progress, Internet-Draft, draft-
-              kompella-mpls-mspl4fa-02, 9 February 2022,
-              <https://www.ietf.org/archive/id/draft-kompella-mpls-
-              mspl4fa-02.txt>.
-
-
 
 
 
@@ -561,6 +561,14 @@ Saad, et al.             Expires 21 October 2022               [Page 10]
 
 Internet-Draft                MNA Usecases                    April 2022
 
+
+   [I-D.kompella-mpls-mspl4fa]
+              Kompella, K., Beeram, V. P., Saad, T., and I. Meilik,
+              "Multi-purpose Special Purpose Label for Forwarding
+              Actions", Work in Progress, Internet-Draft, draft-
+              kompella-mpls-mspl4fa-02, 9 February 2022,
+              <https://www.ietf.org/archive/id/draft-kompella-mpls-
+              mspl4fa-02.txt>.
 
    [I-D.kompella-mpls-nffrr]
               Kompella, K. and W. Lin, "No Further Fast Reroute", Work
@@ -600,6 +608,16 @@ Internet-Draft                MNA Usecases                    April 2022
               DOI 10.17487/RFC4090, May 2005,
               <https://www.rfc-editor.org/info/rfc4090>.
 
+
+
+
+
+
+Saad, et al.             Expires 21 October 2022               [Page 11]
+
+Internet-Draft                MNA Usecases                    April 2022
+
+
    [RFC5286]  Atlas, A., Ed. and A. Zinin, Ed., "Basic Specification for
               IP Fast Reroute: Loop-Free Alternates", RFC 5286,
               DOI 10.17487/RFC5286, September 2008,
@@ -609,14 +627,6 @@ Internet-Draft                MNA Usecases                    April 2022
               So, "Remote Loop-Free Alternate (LFA) Fast Reroute (FRR)",
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
-
-
-
-
-Saad, et al.             Expires 21 October 2022               [Page 11]
-
-Internet-Draft                MNA Usecases                    April 2022
-
 
    [RFC8595]  Farrel, A., Bryant, S., and J. Drake, "An MPLS-Based
               Forwarding Plane for Service Function Chaining", RFC 8595,
@@ -653,16 +663,6 @@ Authors' Addresses
    Ericsson
 
    Email: gregimirsky@gmail.com
-
-
-
-
-
-
-
-
-
-
 
 
 
