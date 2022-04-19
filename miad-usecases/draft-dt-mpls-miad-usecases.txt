@@ -75,17 +75,16 @@ Table of Contents
    2.  Use Cases . . . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  No Further Fastreroute  . . . . . . . . . . . . . . . . .   3
      2.2.  In-situ OAM . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   5
-       2.3.1.  Global Identifier as Flow-Aggregate Selector  . . . .   6
+     2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   4
+       2.3.1.  Global Identifier as Flow-Aggregate Selector  . . . .   5
        2.3.2.  Forwarding Label as a Flow-Aggregate Selector . . . .   6
      2.4.  Time Sensitive Networking . . . . . . . . . . . . . . . .   6
        2.4.1.  Stack Based Methods for Latency Control . . . . . . .   7
-       2.4.2.  Stack Entry Format  . . . . . . . . . . . . . . . . .   7
      2.5.  NSH Based Service Function Chaining . . . . . . . . . . .   7
-     2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   8
+     2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   7
      2.7.  Application Aware Networking  . . . . . . . . . . . . . .   8
    3.  Co-existence of Usecases  . . . . . . . . . . . . . . . . . .   8
-     3.1.  IOAM with Network Slicing . . . . . . . . . . . . . . . .   9
+     3.1.  IOAM with Network Slicing . . . . . . . . . . . . . . . .   8
      3.2.  IOAM with Time-Sensitive Networking . . . . . . . . . . .   9
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
@@ -105,7 +104,8 @@ Table of Contents
    Design Team working on defining MPLS Network Actions for the MPLS
    data plane.  The MPLS Ancillary Data (AD) can be classified as:
 
-
+   *  implicit, or "no-data" associated with a Network Action (NA)
+      indicator,
 
 
 
@@ -113,9 +113,6 @@ Saad, et al.             Expires 21 October 2022                [Page 2]
 
 Internet-Draft                MNA Usecases                    April 2022
 
-
-   *  implicit, or "no-data" associated with a Network Action (NA)
-      indicator,
 
    *  residing within the MPLS label stack and referred to as In Stack
       Data (ISD), and
@@ -161,7 +158,10 @@ Internet-Draft                MNA Usecases                    April 2022
    useful and widely deployed tool for minimizing packet loss in the
    case of a link or node failure.
 
-
+   Several cases exist where, once FRR has taken place in an MPLS
+   network and resulted in rerouting a packet away from the failure, a
+   second FRR that impacts the same packet to rerouting is not helpful,
+   and may even be disruptive.
 
 
 
@@ -169,11 +169,6 @@ Saad, et al.             Expires 21 October 2022                [Page 3]
 
 Internet-Draft                MNA Usecases                    April 2022
 
-
-   Several cases exist where, once FRR has taken place in an MPLS
-   network and resulted in rerouting a packet away from the failure, a
-   second FRR that impacts the same packet to rerouting is not helpful,
-   and may even be disruptive.
 
    For example, in such a case, the packet may continue to loop until
    its TTL expires.  This can lead to link congestion and further packet
@@ -215,7 +210,12 @@ Internet-Draft                MNA Usecases                    April 2022
    data.  The presence of IOAM data will be transparent to nodes that do
    not support or do not participate in the IOAM process.
 
+2.3.  Network Slicing
 
+   [I-D.ietf-teas-ietf-network-slices] specifies the definition of an
+   IETF Network Slice.  It further discusses the general framework for
+   requesting and operating IETF Network Slices, their characteristics,
+   and the necessary system components and interfaces.
 
 
 
@@ -225,13 +225,6 @@ Saad, et al.             Expires 21 October 2022                [Page 4]
 
 Internet-Draft                MNA Usecases                    April 2022
 
-
-2.3.  Network Slicing
-
-   [I-D.ietf-teas-ietf-network-slices] specifies the definition of an
-   IETF Network Slice.  It further discusses the general framework for
-   requesting and operating IETF Network Slices, their characteristics,
-   and the necessary system components and interfaces.
 
    Multiple network slices can be realized on top of a single physical
    network.
@@ -272,16 +265,6 @@ Internet-Draft                MNA Usecases                    April 2022
    6.  For multi-domain scenarios, a packet that traverses multiple
        domains may encode different identifiers within each domain.
 
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 5]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
 2.3.1.  Global Identifier as Flow-Aggregate Selector
 
    A Global Identifier as a Flow-Aggregate Selector (G-FAS) can be
@@ -290,6 +273,14 @@ Internet-Draft                MNA Usecases                    April 2022
    [I-D.decraene-mpls-slid-encoded-entropy-label-id].  The G-FAS is used
    to associate the packets to the underlying Network Resource Partition
    (NRP) as described in [I-D.bestbar-teas-ns-packet].
+
+
+
+
+Saad, et al.             Expires 21 October 2022                [Page 5]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
    The G-FAS can be encoded within an MPLS label carried in the packet's
    MPLS label stack.  All packets that belong to the same flow aggregate
@@ -331,16 +322,21 @@ Internet-Draft                MNA Usecases                    April 2022
    capable of providing a low end-to-end latency but does not influence
    the queueing of individual packets in each router along that path.
 
+   TSN is required for networks transporting such time sensitive
+   traffic, whose packets are required to be delivered to their final
+   destination by a given time.
+
+
+
+
+
+
 
 
 Saad, et al.             Expires 21 October 2022                [Page 6]
 
 Internet-Draft                MNA Usecases                    April 2022
 
-
-   TSN is required for networks transporting such time sensitive
-   traffic, whose packets are required to be delivered to their final
-   destination by a given time.
 
 2.4.1.  Stack Based Methods for Latency Control
 
@@ -364,16 +360,6 @@ Internet-Draft                MNA Usecases                    April 2022
    the associated "deadline" carried in the packet (either in MPLS stack
    as ISD or after BoS as PSD).
 
-2.4.2.  Stack Entry Format
-
-   A number of different time formats commonly used in networking
-   applications can be used to encode the local deadlines.
-
-   For example when using SR-MPLS, an SR TSN MPLS stack entry can be
-   made of a pair of Label Stack Entries (LSEs), where the first LSE is
-   used for MPLS forwarding and the second LSE carrying ad 32-bit
-   timestamp.
-
 2.5.  NSH Based Service Function Chaining
 
    [RFC8595] describes how Service Function Chaining (SFC) can be
@@ -384,15 +370,6 @@ Internet-Draft                MNA Usecases                    April 2022
    discussed in [I-D.lm-mpls-sfc-path-verification].  This approach,
    however, can benefit from the solution framework introduced with
    MIAD.
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 7]
-
-Internet-Draft                MNA Usecases                    April 2022
-
 
    For example, it may be possible to extend NSH emulation using MPLS
    labels [RFC8595] to support the functionality of NSH Context Headers,
@@ -409,6 +386,13 @@ Internet-Draft                MNA Usecases                    April 2022
    network.  A function is locally defined on the node where it is
    executed and may range from simply moving forward in the segment list
    to any complex user-defined behavior.
+
+
+
+Saad, et al.             Expires 21 October 2022                [Page 7]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
    Network Programming combines Segment Routing (SR) functions to
    achieve a networking objective that goes beyond mere packet routing.
@@ -438,18 +422,6 @@ Internet-Draft                MNA Usecases                    April 2022
    Two or more of the aforementioned use cases MAY co-exist in the same
    packet.  Some examples of such use cases are described below.
 
-
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 8]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
 3.1.  IOAM with Network Slicing
 
    IOAM may provide key functions with network slicing to help ensure
@@ -466,6 +438,17 @@ Internet-Draft                MNA Usecases                    April 2022
 
    Note that the IOAM ancillary data may have to be modified, and
    updated on some/all LSRs traversed by the network slice MPLS packets.
+
+
+
+
+
+
+
+Saad, et al.             Expires 21 October 2022                [Page 8]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
 3.2.  IOAM with Time-Sensitive Networking
 
@@ -497,15 +480,6 @@ Internet-Draft                MNA Usecases                    April 2022
 
 8.  Informative References
 
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 9]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
    [I-D.bestbar-teas-ns-packet]
               Saad, T., Beeram, V. P., Dong, J., Wen, B., Ceccarelli,
               D., Halpern, J., Peng, S., Chen, R., Liu, X., Contreras,
@@ -523,6 +497,14 @@ Internet-Draft                MNA Usecases                    April 2022
               encoded-entropy-label-id-03, 11 February 2022,
               <https://www.ietf.org/archive/id/draft-decraene-mpls-slid-
               encoded-entropy-label-id-03.txt>.
+
+
+
+
+Saad, et al.             Expires 21 October 2022                [Page 9]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
    [I-D.gandhi-mpls-ioam]
               Gandhi, R., Ali, Z., Brockners, F., Wen, B., Decraene, B.,
@@ -555,13 +537,6 @@ Internet-Draft                MNA Usecases                    April 2022
               <https://www.ietf.org/archive/id/draft-ietf-sfc-nsh-tlv-
               14.txt>.
 
-
-
-Saad, et al.             Expires 21 October 2022               [Page 10]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
    [I-D.ietf-teas-ietf-network-slices]
               Farrel, A., Drake, J., Rokui, R., Homma, S., Makhijani,
               K., Contreras, L. M., and J. Tantsura, "Framework for IETF
@@ -577,6 +552,15 @@ Internet-Draft                MNA Usecases                    April 2022
               kompella-mpls-mspl4fa-02, 9 February 2022,
               <https://www.ietf.org/archive/id/draft-kompella-mpls-
               mspl4fa-02.txt>.
+
+
+
+
+
+Saad, et al.             Expires 21 October 2022               [Page 10]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
    [I-D.kompella-mpls-nffrr]
               Kompella, K. and W. Lin, "No Further Fast Reroute", Work
@@ -611,13 +595,6 @@ Internet-Draft                MNA Usecases                    April 2022
               DOI 10.17487/RFC3031, January 2001,
               <https://www.rfc-editor.org/info/rfc3031>.
 
-
-
-Saad, et al.             Expires 21 October 2022               [Page 11]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
               DOI 10.17487/RFC4090, May 2005,
@@ -632,6 +609,14 @@ Internet-Draft                MNA Usecases                    April 2022
               So, "Remote Loop-Free Alternate (LFA) Fast Reroute (FRR)",
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
+
+
+
+
+Saad, et al.             Expires 21 October 2022               [Page 11]
+
+Internet-Draft                MNA Usecases                    April 2022
+
 
    [RFC8595]  Farrel, A., Bryant, S., and J. Drake, "An MPLS-Based
               Forwarding Plane for Service Function Chaining", RFC 8595,
@@ -664,16 +649,6 @@ Authors' Addresses
    Email: haoyu.song@futurewei.com
 
 
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022               [Page 12]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
    Greg Mirsky
    Ericsson
 
@@ -694,35 +669,4 @@ Internet-Draft                MNA Usecases                    April 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022               [Page 13]
+Saad, et al.             Expires 21 October 2022               [Page 12]

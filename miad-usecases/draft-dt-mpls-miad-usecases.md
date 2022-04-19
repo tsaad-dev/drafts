@@ -261,15 +261,6 @@ MPLS LSRs that expose the Top of Stack (ToS) label can also inspect the
 associated "deadline" carried in the packet (either in MPLS stack as ISD or
 after BoS as PSD). 
 
-### Stack Entry Format
-
-A number of different time formats commonly used in networking applications can
-be used to encode the local deadlines.
-
-For example when using SR-MPLS, an SR TSN MPLS stack entry can be made of a
-pair of Label Stack Entries (LSEs), where the first LSE is used for MPLS
-forwarding and the second LSE carrying ad 32-bit timestamp.
-
 ## NSH Based Service Function Chaining
 
 {{?RFC8595}} describes how Service Function Chaining (SFC) can be realized in
