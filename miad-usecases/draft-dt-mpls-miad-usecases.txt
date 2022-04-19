@@ -78,7 +78,7 @@ Table of Contents
      2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   4
        2.3.1.  Global Identifier as Flow-Aggregate Selector  . . . .   5
        2.3.2.  Forwarding Label as a Flow-Aggregate Selector . . . .   6
-     2.4.  Time Sensitive Networking . . . . . . . . . . . . . . . .   6
+     2.4.  Delay Budgets for Low-Latency Applications  . . . . . . .   6
        2.4.1.  Stack Based Methods for Latency Control . . . . . . .   7
      2.5.  NSH Based Service Function Chaining . . . . . . . . . . .   7
      2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   7
@@ -304,7 +304,7 @@ Internet-Draft                MNA Usecases                    April 2022
    the top forwarding label to infer both the forwarding action and the
    forwarding treatment to be invoked on the packets.
 
-2.4.  Time Sensitive Networking
+2.4.  Delay Budgets for Low-Latency Applications
 
    The routers in a network can perform two distinct functions on
    incoming packets, namely forwarding (where the packet should be sent)
@@ -323,9 +323,9 @@ Internet-Draft                MNA Usecases                    April 2022
    capable of providing a low end-to-end latency but does not influence
    the queueing of individual packets in each router along that path.
 
-   TSN is required for networks transporting such time sensitive
-   traffic, whose packets are required to be delivered to their final
-   destination by a given time.
+   When carried over MPLS dataplane, a solution that enables the
+   delivery such packets that can be delivered to their final
+   destination by a given time budget is required.
 
 
 

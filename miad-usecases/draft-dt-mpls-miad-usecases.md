@@ -217,7 +217,7 @@ from other flow aggregates.  In this case, LSRs can use the
 top forwarding label to infer both the forwarding action and the forwarding
 treatment to be invoked on the packets.
 
-## Time Sensitive Networking
+## Delay Budgets for Low-Latency Applications
 
 The routers in a network can perform two distinct functions on incoming
 packets, namely forwarding (where the packet should be sent) and scheduling
@@ -234,10 +234,8 @@ successive routers.  Segment routing may be used to choose a path sufficiently
 short to be capable of providing a low end-to-end latency but does
 not influence the queueing of individual packets in each router along that path.
 
-TSN is required for networks transporting such time sensitive traffic,
-whose packets are required to be delivered to their final
-destination by a given time.
-
+When carried over MPLS dataplane, a solution that enables the delivery such packets
+that can be delivered to their final destination by a given time budget is required.
 
 ### Stack Based Methods for Latency Control
 
