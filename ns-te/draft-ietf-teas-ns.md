@@ -75,8 +75,8 @@ author:
  -
    ins: R. Rokui
    name: Reza Rokui
-   organization: Nokia
-   email: reza.rokui@nokia.com
+   organization: Ciena
+   email: rrokui@ciena.com
 
  -
    ins: L. Jalil
@@ -1187,7 +1187,7 @@ domain.
 # Acknowledgement
 
 The authors would like to thank Krzysztof Szarkowicz, Swamy SRK, Navaneetha
-Krishnan, Prabhu Raj Villadathu Karunakaran, Jie Dong, and Mohamed Boucadair
+Krishnan, Prabhu Raj Villadathu Karunakaran, and Mohamed Boucadair
 for their review of this document and for providing valuable feedback on it.
 The authors would also like to thank Adrian Farrel for detailed discussions
 that resulted in {{NSRealization}}.

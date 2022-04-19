@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 V. Beeram
 Intended status: Informational                          Juniper Networks
-Expires: 16 October 2022                                         J. Dong
+Expires: 21 October 2022                                         J. Dong
                                                      Huawei Technologies
                                                                   B. Wen
                                                                  Comcast
@@ -20,10 +20,10 @@ Expires: 16 October 2022                                         J. Dong
                                                             L. Contreras
                                                               Telefonica
                                                                 R. Rokui
-                                                                   Nokia
+                                                                   Ciena
                                                                 L. Jalil
                                                                  Verizon
-                                                           14 April 2022
+                                                           19 April 2022
 
 
               Realizing Network Slices in IP/MPLS Networks
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 1]
+Saad, et al.             Expires 21 October 2022                [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -68,7 +68,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 October 2022.
+   This Internet-Draft will expire on 21 October 2022.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 2]
+Saad, et al.             Expires 21 October 2022                [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 3]
+Saad, et al.             Expires 21 October 2022                [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 4]
+Saad, et al.             Expires 21 October 2022                [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 5]
+Saad, et al.             Expires 21 October 2022                [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -333,7 +333,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 6]
+Saad, et al.             Expires 21 October 2022                [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -389,7 +389,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 7]
+Saad, et al.             Expires 21 October 2022                [Page 7]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -445,7 +445,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 8]
+Saad, et al.             Expires 21 October 2022                [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -501,7 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022                [Page 9]
+Saad, et al.             Expires 21 October 2022                [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 10]
+Saad, et al.             Expires 21 October 2022               [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -613,7 +613,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 11]
+Saad, et al.             Expires 21 October 2022               [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -669,7 +669,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 12]
+Saad, et al.             Expires 21 October 2022               [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -725,7 +725,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 13]
+Saad, et al.             Expires 21 October 2022               [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -781,7 +781,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 14]
+Saad, et al.             Expires 21 October 2022               [Page 14]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -837,7 +837,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 15]
+Saad, et al.             Expires 21 October 2022               [Page 15]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -893,7 +893,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 16]
+Saad, et al.             Expires 21 October 2022               [Page 16]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -949,7 +949,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 17]
+Saad, et al.             Expires 21 October 2022               [Page 17]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 18]
+Saad, et al.             Expires 21 October 2022               [Page 18]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 19]
+Saad, et al.             Expires 21 October 2022               [Page 19]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 20]
+Saad, et al.             Expires 21 October 2022               [Page 20]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 21]
+Saad, et al.             Expires 21 October 2022               [Page 21]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 22]
+Saad, et al.             Expires 21 October 2022               [Page 22]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 23]
+Saad, et al.             Expires 21 October 2022               [Page 23]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 24]
+Saad, et al.             Expires 21 October 2022               [Page 24]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1397,7 +1397,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 25]
+Saad, et al.             Expires 21 October 2022               [Page 25]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1453,7 +1453,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 26]
+Saad, et al.             Expires 21 October 2022               [Page 26]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1502,14 +1502,14 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 12.  Acknowledgement
 
    The authors would like to thank Krzysztof Szarkowicz, Swamy SRK,
-   Navaneetha Krishnan, Prabhu Raj Villadathu Karunakaran, Jie Dong, and
-   Mohamed Boucadair for their review of this document and for providing
+   Navaneetha Krishnan, Prabhu Raj Villadathu Karunakaran, and Mohamed
+   Boucadair for their review of this document and for providing
    valuable feedback on it.  The authors would also like to thank Adrian
    Farrel for detailed discussions that resulted in Section 3.
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 27]
+Saad, et al.             Expires 21 October 2022               [Page 27]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1565,7 +1565,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 28]
+Saad, et al.             Expires 21 October 2022               [Page 28]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1621,7 +1621,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 29]
+Saad, et al.             Expires 21 October 2022               [Page 29]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1677,7 +1677,7 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 30]
+Saad, et al.             Expires 21 October 2022               [Page 30]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1733,7 +1733,7 @@ Authors' Addresses
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 31]
+Saad, et al.             Expires 21 October 2022               [Page 31]
 
 Internet-Draft           IP/MPLS Network Slicing              April 2022
 
@@ -1763,9 +1763,9 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
    Reza Rokui
-   Nokia
+   Ciena
 
-   Email: reza.rokui@nokia.com
+   Email: rrokui@ciena.com
 
 
    Luay Jalil
@@ -1789,4 +1789,4 @@ Internet-Draft           IP/MPLS Network Slicing              April 2022
 
 
 
-Saad, et al.             Expires 16 October 2022               [Page 32]
+Saad, et al.             Expires 21 October 2022               [Page 32]
