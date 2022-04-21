@@ -513,9 +513,7 @@ aware TE paths.
 
 To perform NRP state aware Traffic Engineering (NRP-TE), the resource reservation
 on each link needs to be NRP aware. The NRP reservations state can be managed
-locally on the device or off device (e.g. on a controller). Details of required
-IGP extensions to support NRP-TE are described in
-{{?I-D.bestbar-lsr-slice-aware-te}}.
+locally on the device or off device (e.g. on a controller).
 
 The same physical link may be member of multiple slice policies that
 instantiate different NRPs. The NRP
@@ -660,7 +658,7 @@ Forwarding Address Based FAS:
 
 >  It is possible to assign a different forwarding address (or MPLS forwarding
 >  label in case of MPLS network) for each Slice-Flow Aggregate on a specific node
->  in the network. {{!RFC3031}} states in Section 2.1 that: 'Some routers
+>  in the network. {{?RFC3031}} states in Section 2.1 that: 'Some routers
 >  analyze a packet's network layer header not merely to choose the packet's
 >  next hop, but also to determine a packet's "precedence" or "class of
 >  service"'. Assigning a unique forwarding address (or MPLS forwarding label)
@@ -772,8 +770,6 @@ in the MPLS label stack as shown in {{sli-sl}}.
 > When the slice is realized over an IP dataplane, the G-FAS can be encoded in
 the IP header (e.g. as an  IPv6 option header).
 
-A detailed review of NRP scale considerations is presented in {{?I-D.dong-teas-nrp-scalability}}.
-
 ### Network Resource Partition Resource Reservation
 
 Bandwidth and network resource allocation strategies for slice policies are
@@ -832,7 +828,6 @@ specific PHB that determines the forwarding and scheduling
 treatment before packets are forwarded, and in some cases, drop probability for
 each packet.
 
-
 ### Network Resource Partition Topology {#SlicePolicyTopology}
 
 A key element of the NRP Policy is a customized topology that may include the
@@ -852,11 +847,7 @@ Aggregate.
 The NRP Policy may also include a reference to a
 predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
 as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
-{{!RFC4915}}. A YANG data model that covers generic topology filters is described
-in {{?I-D.bestbar-teas-yang-topology-filter}}. Also, the Path Computation
-Element Communication Protocol (PCEP) extensions to carry topology filters are
-defined in {{?I-D.xpbs-pce-topology-filter}}.
-
+{{?RFC4915}}.
 
 ## Network Resource Partition Boundary
 
@@ -1095,10 +1086,7 @@ Flex-Algorithm to compute and instantiate SR paths for one Slice-Flow Aggregate
 traffic. In this case, the SR Flex-Algorithm computed paths and Flex-Algorithm
 SR SIDs are not shared by other Slice-Flow Aggregates traffic. However, to allow for better
 scale, it may be desirable for multiple Slice-Flow Aggregates traffic to share the
-same SR Flex-Algorithm computed paths and SIDs. Further details on how the
-NRP modes presented in this document can be realized in an SR network
-are discussed in {{?I-D.bestbar-spring-scalable-ns}}, and
-{{?I-D.bestbar-lsr-spring-sa}}.
+same SR Flex-Algorithm computed paths and SIDs.
 
 # Network Resource Partition Protocol Extensions
 
@@ -1208,4 +1196,9 @@ The following individuals contributed to this document:
    Chandra Ramachandran
    Juniper Networks
    Email: csekar@juniper.net
+
+   Adrian Farrel
+   Old Dog Consulting
+   United Kingdom
+   Email: adrian@olddog.co.uk
 ~~~
