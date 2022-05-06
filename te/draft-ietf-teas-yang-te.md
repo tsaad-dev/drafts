@@ -825,7 +825,7 @@ egressing the device) that the TE controller manages.
 ## Tree Diagram
 
 {{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG model defined in
-modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixA}}.
+modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-02.tree}
@@ -1074,7 +1074,7 @@ document.
 
 ~~~~
 
-# Appendix B: Data Tree Examples {#AppendixB}
+# Appendix A: Data Tree Examples {#AppendixA}
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
 
@@ -1288,7 +1288,7 @@ The request, with status code 200 would include, for example, the following json
 }
 ~~~
 
-# Appendix A: Full Model Tree Diagram {#AppendixA}
+# Appendix B: Full Model Tree Diagram {#AppendixB}
 
 {{fig-te-tree-full}} shows the full tree diagram of the TE YANG model defined in
 module 'ietf-te.yang'.

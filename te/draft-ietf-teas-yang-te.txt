@@ -100,7 +100,7 @@ Table of Contents
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  76
    11. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  78
    12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  78
-   13. Appendix B: Data Tree Examples  . . . . . . . . . . . . . . .  78
+   13. Appendix A: Data Tree Examples  . . . . . . . . . . . . . . .  78
      13.1.  Basic Tunnel Setup . . . . . . . . . . . . . . . . . . .  79
      13.2.  Global Named Path Constraints  . . . . . . . . . . . . .  80
      13.3.  Tunnel with Global Path Constraint . . . . . . . . . . .  80
@@ -114,7 +114,7 @@ Saad, et al.             Expires 7 November 2022                [Page 2]
 Internet-Draft             TE YANG Data Model                   May 2022
 
 
-   14. Appendix A: Full Model Tree Diagram . . . . . . . . . . . . .  84
+   14. Appendix B: Full Model Tree Diagram . . . . . . . . . . . . .  84
    15. References  . . . . . . . . . . . . . . . . . . . . . . . . . 124
      15.1.  Normative References . . . . . . . . . . . . . . . . . . 124
      15.2.  Informative References . . . . . . . . . . . . . . . . . 127
@@ -4344,7 +4344,7 @@ Internet-Draft             TE YANG Data Model                   May 2022
 
       Email: Bin_Wen@cable.comcast.com
 
-13.  Appendix B: Data Tree Examples
+13.  Appendix A: Data Tree Examples
 
    This section contains examples of use of the model with RESTCONF
    [RFC8040] and JSON encoding.
@@ -4650,7 +4650,7 @@ Saad, et al.             Expires 7 November 2022               [Page 83]
 Internet-Draft             TE YANG Data Model                   May 2022
 
 
-14.  Appendix A: Full Model Tree Diagram
+14.  Appendix B: Full Model Tree Diagram
 
    Figure 12 shows the full tree diagram of the TE YANG model defined in
    module 'ietf-te.yang'.
