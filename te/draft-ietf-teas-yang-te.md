@@ -1,9 +1,9 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-29
-category: std
+docname: draft-ietf-teas-yang-te-30
 ipr: trust200902
+category: std
 workgroup: TEAS Working Group
 keyword: Internet-Draft
 
@@ -195,8 +195,7 @@ and augments the TE generic model as shown in {{figctrl}}.
 
 The TE data model for specific instances of signaling protocol are outside the
 scope of this document and are defined in other documents. For example, the
-RSVP-TE YANG model augmentation of the TE model is covered in
-{{?I-D.ietf-teas-yang-rsvp}}.
+RSVP-TE YANG model augmentation of the TE model is covered in a separate document.
 
 ~~~
 
@@ -238,15 +237,21 @@ The generic TE YANG module ('ietf-te') is meant to manage and operate a TE netwo
 This includes creating, modifying and retrieving TE Tunnels, LSPs, and interfaces
 and their associated attributes (e.g. Administrative-Groups, SRLGs, etc.).
 
-The detailed tree structure is provided in {{fig-highlevel}}.
-
 ## Module Structure
 
-The 'ietf-te' uses three main containers grouped under the main 'te' container
-(see {{fig-highlevel}}). The 'te' container is the top level container in the
-data model. The presence of the 'te' container enables TE function system wide.
-Below provides further descriptions of containers that exist under the 'te' top
-level container.
+A high-level tree structure of the TE YANG model is shown in
+{{fig-highlevel}}.
+
+The 'ietf-te' model uses three main containers grouped
+under the main 'te' container. The 'te' container is the top level container in
+the data model. The presence of the 'te' container enables TE function system
+wide.  Below provides further descriptions of containers that exist under the
+'te' top level container.
+
+~~~~~~~~~~~
+{::include ../../te/ietf-te-01.tree}
+~~~~~~~~~~~
+{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
 
 globals:
 
@@ -275,26 +280,7 @@ tunnels-action:
 > An RPC to request a specific action (e.g. reoptimize, or tear-and-setup) to be taken
 on a specific tunnel or all tunnels.
 
-~~~~~~~~~~~
-module: ietf-te
-   +--rw te!
-      +--rw globals
-         .
-         .
-
-      +--rw tunnels
-         .
-         .
-
-      +-- lsps
-
-rpcs:
-   +---x tunnels-path-compute
-   +---x tunnels-action
-~~~~~~~~~~~
-{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
-
-### TE Globals
+### TE Globals {#TeGlobals}
 
 The 'globals' container covers properties that control TE features behavior
 system-wide, and its respective state (see {{fig-globals}}).
@@ -304,13 +290,12 @@ The TE globals configuration include:
      +--rw globals
      |  +--rw named-admin-groups
      |  |  +--rw named-admin-group* [name]
-     ..
+     |  |        ...
      |  +--rw named-srlgs
-     |  |  +--rw named-srlg* [name] {te-types:named-srlg-groups}?
-     ..
+     |  |  +--rw named-srlg* [name]
+     |  |        ...
      |  +--rw named-path-constraints
-     |  |  +--rw named-path-constraint* [name]
-     ..
+     |     +--rw named-path-constraint* [name]
 ~~~~~~~
 {: #fig-globals title="TE globals YANG subtree high-level structure"}
 
@@ -336,40 +321,42 @@ derived from the referenced named path constraint. A named path constraint entry
 formed up of the following path constraints:
 
 ~~~~~
-
-
-
      |  +--rw named-path-constraints
      |     +--rw named-path-constraint* [name]
+     |             {te-types:named-path-constraints}?
      |        +--rw name                             string
      |        +--rw te-bandwidth
-     // ...
+     |        |     ...
      |        +--rw link-protection?                 identityref
      |        +--rw setup-priority?                  uint8
      |        +--rw hold-priority?                   uint8
      |        +--rw signaling-type?                  identityref
      |        +--rw path-metric-bounds
-     // ...
+     |        |     ...
      |        +--rw path-affinities-values
-     // ...
+     |        |     ...
      |        +--rw path-affinity-names
-     // ...
+     |        |     ...
      |        +--rw path-srlgs-lists
-     // ...
+     |        |     ...
      |        +--rw path-srlgs-names
-     // ...
+     |        |     ...
      |        +--rw disjointness?
      |        |       te-path-disjointness
-     // ...
      |        +--rw explicit-route-objects-always
-     // ...
-     |        |  +--rw route-object-exclude-always* [index]
+     |        |     ...
+     |        +--rw path-in-segment!
+     |        |     ...
+     |        +--rw path-out-segment!
+     |              ...
 
-     |        |  +--rw route-object-include-exclude* [index]
 ~~~~~
 {: #fig-named-constraints title="Named path constraints YANG subtree"}
 
 
+>>
+- name: A YANG leaf that holds the named path constraint entry. This is unique in the list
+and used as a key.
 >>
 - te-bandwidth: A YANG container that holds the technology agnostic TE bandwidth constraint.
 >>
@@ -402,28 +389,115 @@ of a TE tunnel has to adhere to.
     * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation.
 
 
->> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
+>>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
 
->> The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
+>>> The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
 
->> 1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
+>>> 1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
 2. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
 3. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
 4. An empty 'route-object-include-exclude' list for the secondary (forward) path indicates that the secondary path has the same endpoints as the primary path.
+>>
+- path-in-segment: A YANG container that contains a list of label restrictions
+  that have to be taken into considerations when crossing domains. This TE
+  tunnel segment in this case is being stitched to the upstream TE tunnel segment.
+>>
+- path-out-segment: A YANG container that contains a list of label restrictions
+  that have to be taken into considerations when crossing domains. The TE
+  tunnel segment in this case is being stitched to the downstream TE tunnel segment.
+
 
 ### TE Tunnels {#TE_TUNNELS}
 
 The 'tunnels' container holds the list of TE Tunnels that are provisioned on
-devices in the network (see {{fig-te-tunnel}}).
+devices in the network as shown in {{fig-te-tunnel}}.
 
-A TE Tunnel in the list is uniquely identified by a name.
+~~~~~~~~~~~
+
+     +--rw tunnels
+     |  +--rw tunnel* [name]
+     |     +--rw name                            string
+     |     +--rw alias?                          string
+     |     +--rw identifier?                     uint32
+     |     +--rw color?                          uint32
+     |     +--rw description?                    string
+     |     +--rw admin-state?                    identityref
+     |     +--ro operational-state?              identityref
+     |     +--rw encoding?                       identityref
+     |     +--rw switching-type?                 identityref
+     |     +--rw source?                         te-types:te-node-id
+     |     +--rw destination?                    te-types:te-node-id
+     |     +--rw src-tunnel-tp-id?               binary
+     |     +--rw dst-tunnel-tp-id?               binary
+     |     +--rw bidirectional?                  boolean
+     |     +--rw controller
+     |     |  +--rw protocol-origin?        identityref
+     |     |  +--rw controller-entity-id?   string
+     |     +--rw reoptimize-timer?               uint16
+     |     +--rw association-objects
+     |     |  +--rw association-object* [association-key]
+     |     |  |     ...
+     |     |  +--rw association-object-extended* [association-key]
+     |     |        ...
+     |     +--rw protection
+     |     |  +--rw enable?                         boolean
+     |     |  +--rw protection-type?                identityref
+     |     |  +--rw protection-reversion-disable?   boolean
+     |     |  +--rw hold-off-time?                  uint32
+     |     |  +--rw wait-to-revert?                 uint16
+     |     |  +--rw aps-signal-id?                  uint8
+     |     +--rw restoration
+     |     |  +--rw enable?                          boolean
+     |     |  +--rw restoration-type?                identityref
+     |     |  +--rw restoration-scheme?              identityref
+     |     |  +--rw restoration-reversion-disable?   boolean
+     |     |  +--rw hold-off-time?                   uint32
+     |     |  +--rw wait-to-restore?                 uint16
+     |     |  +--rw wait-to-revert?                  uint16
+     |     +--rw te-topology-identifier
+     |     |  +--rw provider-id?   te-global-id
+     |     |  +--rw client-id?     te-global-id
+     |     |  +--rw topology-id?   te-topology-id
+     |     +--rw te-bandwidth
+     |     |  +--rw (technology)?
+     |     |        ...
+     |     +--rw link-protection?                identityref
+     |     +--rw setup-priority?                 uint8
+     |     +--rw hold-priority?                  uint8
+     |     +--rw signaling-type?                 identityref
+     |     +--rw hierarchy
+     |     |  +--rw dependency-tunnels
+     |     |  |     ...
+     |     |  +--rw hierarchical-link
+     |     |        ...
+     |     +--rw primary-paths
+     |     |  +--rw primary-path* [name]
+     |     |        ...
+     |     +--rw secondary-paths
+     |     |  +--rw secondary-path* [name]
+     |     |        ...
+     |     +--rw secondary-reverse-paths
+     |     |  +--rw secondary-reverse-path* [name]
+     |     |        ...
+     |     +---x tunnel-action
+     |     |  +---w input
+     |     |  |     ...
+     |     |  +--ro output
+     |     |        ...
+     |     +---x protection-external-commands
+     |        +---w input
+     |              ...
+~~~~~~~~~~~
+{: #fig-te-tunnel title="TE Tunnel list YANG subtree structure"}
+
+
 When the model is used to manage a specific device, the 'tunnels' list contains
 the TE Tunnels originating from the specific device. When the model is used to
 manage a TE controller, the 'tunnels' list contains all TE Tunnels and TE
 tunnel segments originating from device(s) that the TE controller manages.
 
 The TE Tunnel model allows the configuration and management of the following TE
-tunnel related objected:
+tunnel objects:
 
 TE Tunnel:
 
@@ -436,46 +510,8 @@ TE Tunnel Segment:
 
 > A part of a multi-domain TE Tunnel that is within a specific network domain.
 
-
-~~~~~~~~~~~
-     +--rw tunnels
-     |  +--rw tunnel* [name]
-     |     +--rw name                                string
-     |     +--rw alias?                              string
-     |     +--rw identifier?                         uint32
-     |     +--rw color?                              uint32
-     |     +--rw description?                        string
-     |     +--ro operational-state?              identityref
-     |     +--rw encoding?                       identityref
-     |     +--rw switching-type?                 identityref
-     |     +--rw admin-state?                    identityref
-     |     +--rw reoptimize-timer?               uint16
-     |     +--rw source?                         te-types:te-node-id
-     |     +--rw destination?                    te-types:te-node-id
-     |     +--rw src-tunnel-tp-id?               binary
-     |     +--rw dst-tunnel-tp-id?               binary
-     |     +--rw controller
-     |     |  +--rw protocol-origin?             identityref
-     |     |  +--rw controller-entity-id?        string
-     |     +--rw bidirectional?                  boolean
-     |     +--rw association-objects
-     |     |  +--rw association-object* [association-key]
-     // ..
-     |     |
-     |     +--rw protection
-     // ..
-     |     +--rw restoration
-     // ..
-     |     +--rw te-topology-identifier
-     // ..
-     |     +--rw hierarchy
-     // ..
-
-~~~~~~~~~~~
-{: #fig-te-tunnel title="TE Tunnel list YANG subtree structure"}
-
 The TE Tunnel has a number of attributes that are set directly under the
-tunnel (see {{fig-te-tunnel}}). The main attributes of a TE Tunnel are described below:
+tunnel (as shown in {{fig-te-tunnel}}). The main attributes of a TE Tunnel are described below:
 
 operational-state:
 
@@ -505,14 +541,21 @@ color:
 to map or steer services that carry matching color on to the TE tunnel as described in
 {{?RFC9012}}.
 
+admin-state:
+
+> A YANG leaf that holds the tunnel administrative state. The administrative
+status in state datastore transitions to 'tunnel-admin-up' when the tunnel used
+by the client layer, and to 'tunnel-admin-down' when it is not used by the
+client layer.
+
+operational-state:
+
+> A YANG leaf that holds the tunnel operational state.
+
 encoding/switching:
 
 > The 'encoding' and 'switching-type' are YANG leafs that define the specific
 technology in which the tunnel operates in as described in {{?RFC3945}}.
-
-reoptimize-timer:
-
-> A YANG leaf to set the inteval period for tunnel reoptimization.
 
 source/destination:
 
@@ -526,6 +569,9 @@ src-tunnel-tp-id/dst-tunnel-tp-id:
 >  single TTP per node. For example, TTP identifiers are optional for packet
 >  (IP/MPLS) routers.
 
+bidirectional:
+
+> A YANG leaf that when present indicates the LSPs of a TE Tunnel are bidirectional and co-routed.
 
 controller:
 
@@ -533,9 +579,10 @@ controller:
 may initiate or control a tunnel. This target node may be augmented by external module(s), for example, to add data for PCEP initiated and/or
 delegated tunnels.
 
-bidirectional:
+reoptimize-timer:
 
-> A YANG leaf that when present indicates the LSPs of a TE Tunnel are bidirectional and co-routed.
+> A YANG leaf to set the inteval period for tunnel reoptimization.
+
 
 association-objects:
 
@@ -556,30 +603,9 @@ te-topology-identifier:
 
 > A YANG container that holds the topology identifier associated with the topology where paths for the TE tunnel are computed.
 
-
-~~~~~~~
-    +--rw hierarchy
-    |  +--rw dependency-tunnels
-    |  |  +--rw dependency-tunnel* [name]
-    |  |     +--rw name
-    |  |     |       -> ../../../../../../tunnels/tunnel/name
-    |  |     +--rw encoding?         identityref
-    |  |     +--rw switching-type?   identityref
-    |  +--rw hierarchical-link
-    |     +--rw local-te-node-id?         te-types:te-node-id
-    |     +--rw local-te-link-tp-id?      te-types:te-tp-id
-    |     +--rw remote-te-node-id?        te-types:te-node-id
-    |     +--rw te-topology-identifier
-    |        +--rw provider-id?   te-global-id
-    |        +--rw client-id?     te-global-id
-    |        +--rw topology-id?   te-topology-id
-~~~~~~~
-{: #fig-hierarchy title="TE Tunnel hierarchy YANG subtree"}
-
-
 hierarchy:
 
-> A YANG container that holds hierarchy related properties of the TE Tunnel (see {{fig-hierarchy}}. A TE LSP
+> A YANG container that holds hierarchy related properties of the TE Tunnel. A TE LSP
   can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
   a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
   case, the model introduces the TE Tunnel hierarchical link endpoint parameters
@@ -600,46 +626,6 @@ hierarchy:
   The endpoints of the hierarchical link are defined by TE tunnel source and
   destination node endpoints. The hierarchical link can be identified by its source
   and destination link termination point identifiers.
-
-#### TE Tunnel Paths
-
-The TE Tunnel can be configured with a set of paths that define the tunnel
-forward and reverse paths as described in {{fig-tunnel-paths}}. Moreover, a primary
-path can be specified a set of candidate secondary paths that can be visited to
-support path protection. The following describe further the list of paths associated with a
-TE Tunnel.
-
-~~~~~~
-
-     |     +--rw primary-paths
-     |     |  +--rw primary-path* [name]
-     |     |     +--rw name                             string
-     // ..
-     |     |     +
-     |     |     +--rw primary-reverse-path
-     |     |     |  +--rw name?                                string
-     // ..
-     |     |     |  |
-     |     |     |  +--rw candidate-secondary-reverse-paths
-     |     |     |     +--rw candidate-secondary-reverse-path*
-     |     |     |             [secondary-path]
-     |     |     |        +--rw secondary-path    leafref
-     |     |     +--rw candidate-secondary-paths
-     |     |        +--rw candidate-secondary-path* [secondary-path]
-     |     |           +--rw secondary-path    leafref
-     |     |           +--ro active?           boolean
-
-     |     +--rw secondary-paths
-     |     |  +--rw secondary-path* [name]
-     |     |     +--rw name                             string
-     // ..
-     |     |
-     |     +--rw secondary-reverse-paths
-     |     |  +--rw secondary-reverse-path* [name]
-     |     |     +--rw name                             string
-
-~~~~~~
-{: #fig-tunnel-paths title="TE Tunnel paths YANG tree structure"}
 
 primary-paths:
 
@@ -682,6 +668,15 @@ attributes similar to a primary path.
 
 The following set common path attributes are shared for primary forward and reverse primary and secondary paths:
 
+path-computation-method:
+
+> A YANG leaf that specifies the method used for computing the TE path.
+
+path-computation-server:
+
+> A YANG container that holds the path computation server properties when the path is
+ externally queried.
+
 compute-only:
 
 > A path of TE Tunnel is, by default, provisioned so that it can is instantiated
@@ -707,16 +702,98 @@ lockdown:
 > A YANG leaf that when set indicates the existing path should not be reoptimized
   after a failure on any of its traversed links.
 
+path-scope:
 
-te-topology-identifier:
+> A YANG leaf that specifies the path scope if segment or an end-to-end path.
 
-> A YANG container that holds the topology identifier
-  associated with the tunnel.
+preference:
+
+> A YANG leaf that specifies the preference for the path. The lower the number
+ higher the preference.
+
+k-requested-paths:
+
+> A YANG leaf that specifies the number of k-shortest-paths requested from the path
+computation server and returned sorted by its optimization
+objective.
+
+association-objects:
+
+> A YANG container that holds a list of tunnel association properties.
 
 optimizations:
 
 > a YANG container that holds the optimization objectives
   that path computation will use to select a path.
+
+named-path-constraint:
+
+> A YANG leafref that references an entry from the global list of named path constraints.
+
+
+te-bandwidth:
+
+> A YANG container that holds the path bandwidth (see {{RFC8776}}).
+
+link-protection:
+
+> A YANG leaf that specifies the link protection type required for the links to
+be included the computed path (see {{RFC8776}}).
+
+setup/hold-priority:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+signaling-type:
+
+> see description provided in {{TeGlobals}}. This value overrides
+the provided one in the referenced named-path-constraint.
+
+path-metric-bounds:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-affinities-values:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-affinity-names:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-srlgs-lists:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-srlgs-names:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+disjointness:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+explicit-route-objects-always:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-in-segment:
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
+
+path-out-segment!
+
+> see description provided in {{TeGlobals}}. These values override
+those provided in the referenced named-path-constraint.
 
 computed-paths-properties:
 > A YANG container that holds properties for the list of computed paths.
@@ -725,6 +802,10 @@ computed-path-error-infos:
 
 > A YANG container that holds a list of errors related to the path.
 
+lsp-provisioning-error-infos:
+
+> A YANG container that holds the list of LSP provisioning error information.
+
 lsps:
 
 > a YANG container that holds a list of LSPs that are instantiated for this specific path.
@@ -732,7 +813,7 @@ lsps:
 ### TE LSPs {#TE_LSPS}
 
 The 'lsps' container includes the set of TE LSP(s) that are instantiated.
-A TE LSP is identified by a 3-tuple ('tunnel-name', 'node', 'lsp-id').
+A TE LSP is identified by a 3-tuple ('tunnel-name', 'lsp-id', 'node').
 
 When the model is used to manage a specific device, the 'lsps' list contains all TE
 LSP(s) that traverse the device (including ingressing, transiting and egressing the device).
@@ -743,13 +824,13 @@ egressing the device) that the TE controller manages.
 
 ## Tree Diagram
 
-{{fig-te-tree}} shows the tree diagram of the generic TE YANG model defined in
-modules 'ietf-te.yang'.
+{{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG model defined in
+modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixA}}.
 
 ~~~~~~~~~~~
-{::include ../../te/ietf-te.tree}
+{::include ../../te/ietf-te-02.tree}
 ~~~~~~~~~~~
-{: #fig-te-tree title="TE Tunnel generic model YANG tree diagram"}
+{: #fig-te-tree title="Tree diagram of depth-4 of TE Tunnel YANG data model"}
 
 
 ## YANG Module
@@ -761,11 +842,13 @@ The generic TE YANG module 'ietf-te' imports the following modules:
 
 This module references the following documents:
 {{!RFC6991}}, {{!RFC4875}}, {{!RFC7551}}, {{!RFC4206}}, {{?RFC4427}},
-{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{?RFC8800}}, and
-{{!RFC7308}}.
+{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{?RFC8800}}, 
+{{?RFC5441}}, {{?RFC8685}}, {{?RFC5440}}, {{?RFC8306}}, {{?RFC5557}},
+{{?RFC5520}}, {{?RFC5512}}, {{?RFC7471}}, {{?RFC9012}}, {{?RFC8570}},
+{{?RFC8232}}, and {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2021-10-22.yang"
+<CODE BEGINS> file "ietf-te@2022-05-05.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -841,7 +924,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2021-10-22.yang"
+<CODE BEGINS> file "ietf-te-device@2022-05-05.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -991,7 +1074,7 @@ document.
 
 ~~~~
 
-# Appendix A: Data Tree Examples
+# Appendix B: Data Tree Examples {#AppendixB}
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
 
@@ -1048,7 +1131,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Global Named Path Constraints
 
-This example uses the YANG data model to create a 'named path constraitnt' that can be reference by TE Tunnels.
+This example uses the YANG data model to create a 'named path constraint' that can be reference by TE Tunnels.
 The path constraint, in this case, limits the TE Tunnel hops for the computed path.
 
 ~~~
@@ -1204,3 +1287,15 @@ The request, with status code 200 would include, for example, the following json
   }
 }
 ~~~
+
+# Appendix A: Full Model Tree Diagram {#AppendixA}
+
+{{fig-te-tree-full}} shows the full tree diagram of the TE YANG model defined in
+module 'ietf-te.yang'.
+
+~~~~~~~~~~~
+{::include ../../te/ietf-te.tree}
+~~~~~~~~~~~
+{: #fig-te-tree-full title="Full tree diagram of TE Tunnel YANG data model"}
+
+
