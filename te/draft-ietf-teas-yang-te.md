@@ -26,7 +26,7 @@ author:
  -
    ins: X. Liu
    name: Xufeng Liu
-   organization: Volta Networks
+   organization: IBM Corporation
    email: xufeng.liu.ietf@gmail.com
 
  -
@@ -80,10 +80,11 @@ RESTCONF {{RFC8040}}) and encoding other than XML (e.g. JSON) are being defined.
 Furthermore, YANG data models can be used as the basis of implementation for
 other interfaces, such as CLI and programmatic APIs.
 
-This document describes YANG data model for Traffic Engineering (TE) tunnels,
-Label Switched Paths (LSPs), and interfaces. The model covers data applicable
-to generic or device-independent, device-specific, and Multiprotocol Label
-Switching (MPLS) technology specific.
+This document describes a YANG data model for Traffic Engineering (TE) tunnels,
+Label Switched Paths (LSPs), and interfaces. The data model is divided into two
+YANG modules. The module 'ietf-te.yang' includes data that is generic and
+device-independent, while the module 'ietf-te-device.yang' includes data that is
+device-specific.
 
 The document describes a high-level relationship between the modules defined in
 this document, as well as other external protocol YANG modules.  The TE generic
@@ -91,13 +92,17 @@ YANG data model does not include any data specific to a signaling protocol.  It
 is expected other data plane technology model(s) will augment the TE generic
 YANG data model. 
 
-Also, it is expected other YANG module(s) that model TE signaling protocols,
+Also, it is expected other YANG modules that model TE signaling protocols,
 such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
 {{?I-D.ietf-spring-segment-routing-policy}} will augment the generic TE YANG  module.
 
-# Requirements Language
+# Terms and Conventions
+
+## Requirements Language
 
 {::boilerplate bcp14}
+
+## Terminology
 
 The following terms are defined in {{!RFC6241}} and are used in this specification:
 
@@ -150,13 +155,13 @@ Also, the generic TE YANG data model does not cover signaling protocol data.
 The signaling protocol used to instantiate TE LSPs are outside the scope of this
 document and expected to be covered by augmentations defined in other document(s).
 
-The following other design considerations are taken into account with respect data
+The following other design considerations are taken into account with respect to data
 organization:
 
 * The generic TE YANG data model 'ietf-te' contains device independent data and
   can be used to model data off a device (e.g. on a TE controller).  The
   device-specific TE data is defined in module 'ietf-te-device' as
-  shown in {{figctrl}},
+  shown in {{figctrl}}.
 * In general, minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
@@ -175,8 +180,8 @@ IETF YANG models.
 
 The data models defined in this document cover the core TE features that are
 commonly supported by different vendor implementations. The support of extended
-or vendor specific TE feature(s) is expected to be in either augmentations, or
-deviations to the model defined in this document.
+or vendor specific TE feature(s) is expected to be either in augmentations, or
+deviations to this model and to be defined in separate documents.
 
 
 ## Module Relationship
@@ -188,14 +193,11 @@ technology or control plane instances. The TE device model defined in
 that is specific to a device --  for example, attributes of TE interfaces, or
 TE timers that are local to a TE node.
 
-The TE data model for specific instances of data plane technology exist in a
-separate YANG module(s) that augment the generic TE YANG data model. For
-example, the MPLS-TE module "ietf-te-mpls.yang" is defined in another document
-and augments the TE generic model as shown in {{figctrl}}.
-
-The TE data model for specific instances of signaling protocol are outside the
-scope of this document and are defined in other documents. For example, the
-RSVP-TE YANG model augmentation of the TE model is covered in a separate document.
+The TE data models for specific instances of data plane technology exist in a
+separate YANG module(s) that augment the generic TE YANG data model.  The TE
+data models for specific instances of signaling protocols`are outside the scope
+of this document and are defined in other documents. For example, the RSVP-TE
+YANG model augmentation of the TE model is covered in a separate document.
 
 ~~~
 
@@ -204,9 +206,9 @@ RSVP-TE YANG model augmentation of the TE model is covered in a separate documen
                  +---------+               \
                         o                   \
                         |\                   \
-                        | \                   \
+                        | \ TE device module  \
                         |  +----------------+  \
-                        |  | ietf-te-device | TE device module
+                        |  | ietf-te-device |   \
                         |  +----------------+    \
                         |       o        o        \
                         |     /           \        \
@@ -225,38 +227,36 @@ RSVP-TE YANG model augmentation of the TE model is covered in a separate documen
                  +-----------+           RSVP-TE with OTN
                                          extensions
 
-                        ^ shown for illustration
-                          (not in this document)
-
+                X---oY indicates that module X augments module Y
+                ^ indicates a module defined in another document
 ~~~
 {: #figctrl title="Relationship of TE module(s) with signaling protocol modules"}
 
 # TE YANG Model
 
-The generic TE YANG module ('ietf-te') is meant to manage and operate a TE network.
-This includes creating, modifying and retrieving TE Tunnels, LSPs, and interfaces
-and their associated attributes (e.g. Administrative-Groups, SRLGs, etc.).
+The generic TE YANG module ('ietf-te') is meant for the management and operation of
+a TE network. This includes creating, modifying and retrieving TE Tunnels,
+LSPs, and interfaces and their associated attributes (e.g.
+Administrative-Groups, SRLGs, etc.).
+
+A full tree diagram of the TE model is shown in the Appendix in
+{{fig-te-tree-full}}.
 
 ## Module Structure
 
-A high-level tree structure of the TE YANG model is shown in
-{{fig-highlevel}}.
+The 'te' container is the top level container in the 'ietf-te' module. The
+presence of the 'te' container enables TE function system wide.  Below provides
+further descriptions of containers that exist under the 'te' top level
+container.
 
-The 'ietf-te' model uses three main containers grouped
-under the main 'te' container. The 'te' container is the top level container in
-the data model. The presence of the 'te' container enables TE function system
-wide.  Below provides further descriptions of containers that exist under the
-'te' top level container.
+There are three further containers grouped under the 'te'
+container as shown in {{fig-highlevel}} and described below.
 
-~~~~~~~~~~~
-{::include ../../te/ietf-te-01.tree}
-~~~~~~~~~~~
-{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
 
 globals:
 
 > The 'globals' container maintains the set of global TE attributes that can be
-applicable to TE Tunnel(s) and interface(s).
+applicable to TE Tunnels and interfaces.
 
 tunnels:
 
@@ -268,9 +268,12 @@ lsps:
 > The 'lsps' container includes the list of TE LSP(s) that are instantiated for
 > TE Tunnels. Refer to {{TE_LSPS}} for further details on the properties of a TE LSP.
 
+The model also contains two Remote Procedure Calls (RPCs) as shown
+in {{fig-te-tree-full}} and described below.
+
 tunnels-path-compute:
 
-> A Remote Procedure Call (RPC) to request path computation for a specific TE Tunnel.
+> A RPC to request path computation for a specific TE Tunnel.
 The RPC allows requesting path computation using atomic and stateless operation.
 A tunnel may also be configured in 'compute-only' mode to provide stateful path updates
 - see {{TE_TUNNELS}} for further details.
@@ -280,11 +283,20 @@ tunnels-action:
 > An RPC to request a specific action (e.g. reoptimize, or tear-and-setup) to be taken
 on a specific tunnel or all tunnels.
 
+{{fig-te-tree-full}} shows the relationships of these containers and RPCs within
+the 'ietf-te' module.
+
+~~~~~~~~~~~
+{::include ../../te/ietf-te-01.tree}
+~~~~~~~~~~~
+{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
+
 ### TE Globals {#TeGlobals}
 
-The 'globals' container covers properties that control TE features behavior
-system-wide, and its respective state (see {{fig-globals}}).
-The TE globals configuration include:
+The 'globals' container covers properties that control a TE feature's
+behavior system-wide, and its respective state as shown in {{fig-globals}}
+and described in the text that follows.
+
 
 ~~~~~~~
      +--rw globals
@@ -307,7 +319,7 @@ to TE links.
 
 named-srlgs:
 
-> A YANG container for the list named Shared Risk Link Groups (SRLGs) that may be
+> A YANG container for the list of named Shared Risk Link Groups (SRLGs) that may be
 applied to TE links.
 
 named-path-constraints:
@@ -315,10 +327,10 @@ named-path-constraints:
 > A YANG container for a list of named path constraints. Each named path constraint is
 composed of a set of constraints that can be applied during path computation.
 A named path constraint can be applied to multiple TE Tunnels. Path constraints may also
-be specified directly under the TE Tunnel. The path constraint specified under
+be specified directly under the TE Tunnel. The path constraints specified under
 the TE Tunnel take precedence over the path constraints 
 derived from the referenced named path constraint. A named path constraint entry can be
-formed up of the following path constraints:
+formed of the path constraints shown in {{fig-named-constraints}}:
 
 ~~~~~
      |  +--rw named-path-constraints
@@ -362,7 +374,7 @@ and used as a key.
 >>
 - link-protection: A YANG leaf that holds the link protection type constraint required for the links to be included in the computed path.
 >>
-- setup/hold priority: A YANG leaf that holds the LSP setup and hold admission priority as defined in {{?RFC3209}}.
+- setup/hold priority: YANG leafs that hold the LSP setup and hold admission priority as defined in {{?RFC3209}}.
 >>
 - signaling-type: A YANG leaf that holds the LSP setup type, such as RSVP-TE or SR.
 >>
@@ -373,13 +385,13 @@ computed TE tunnel path.
 mask to be used during path computation.
 >>
 - path-affinity-names: A YANG container that holds the set of named affinity constraints and
-corresponding inclusion or exclusions instruction for each to be used during path computation.
+corresponding inclusion or exclusion instructions for each to be used during path computation.
 >>
 - path-srlgs-lists: A YANG container that holds the set of SRLG values and
-corresponding inclusion or exclusions instruction to be used during path computation.
+corresponding inclusion or exclusion instructions to be used during path computation.
 >>
 - path-srlgs-names: A YANG container that holds the set of named SRLG constraints and
-corresponding inclusion or exclusions instruction for each to be used during path computation.
+corresponding inclusion or exclusion instructions for each to be used during path computation.
 >>
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
@@ -581,7 +593,7 @@ delegated tunnels.
 
 reoptimize-timer:
 
-> A YANG leaf to set the inteval period for tunnel reoptimization.
+> A YANG leaf to set the interval period for tunnel reoptimization.
 
 
 association-objects:
@@ -607,7 +619,7 @@ hierarchy:
 
 > A YANG container that holds hierarchy related properties of the TE Tunnel. A TE LSP
   can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
-  a TE links to carry traffic in other (client) networks {{RFC6107}}.  In this
+  a TE link to carry traffic in other (client) networks {{RFC6107}}.  In this
   case, the model introduces the TE Tunnel hierarchical link endpoint parameters
   to identify the specific link in the client layer that the underlying TE Tunnel is
   associated with. The hierarchy container includes the following:
@@ -661,12 +673,12 @@ secondary-paths:
 
 secondary-reverse-paths:
 
-> A YANG container that holds teh set of secondary reverse paths. A secondary reverse
+> A YANG container that holds the set of secondary reverse paths. A secondary reverse
 path is identified by 'name'. A secondary reverse path can be referenced from the
 TE Tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
 attributes similar to a primary path.
 
-The following set common path attributes are shared for primary forward and reverse primary and secondary paths:
+The following set of common path attributes are shared for primary forward and reverse primary and secondary paths:
 
 path-computation-method:
 
@@ -679,17 +691,18 @@ path-computation-server:
 
 compute-only:
 
-> A path of TE Tunnel is, by default, provisioned so that it can is instantiated
-  in forwarding to carry traffic as soon as a valid path is computed. In some cases,
-  a TE path may be provisioned for the only purpose of computing a path
-  and reporting it without the need to instantiate the LSP or commit any
-  resources. In such a case, the path is configured in 'compute-only' mode to
-  distinguish it from the default behavior. A 'compute-only' path is configured
-  as a usual with the associated per path constraint(s) and properties on a
-  device or TE controller. The device or TE controller computes the feasible path(s) subject
-  to configured constraints.  A client may query the
-  'compute-only' computed path properties 'on-demand', or alternatively, can subscribe
-  to be notified of computed path(s) and whenever the path properties change.
+> A path of a TE Tunnel is, by default, provisioned so that it can instantiated
+  in the forwarding plane so that it can carry traffic as soon as a valid path
+  is computed. In some cases, a TE path may be instantiated only for the
+  purpose of computing a path and reporting it without the need to instantiate
+  the LSP or commit any resources. In such a case, the path is configured in
+  'compute-only' mode to distinguish it from the default behavior. A
+  'compute-only' path is configured as a usual with the associated per path
+  constraint(s) and properties on a device or TE controller. The device or TE
+  controller computes the feasible path(s) subject to configured constraints.
+  A client may query the 'compute-only' computed path properties 'on-demand',
+  or alternatively, can subscribe to be notified of computed path(s) and
+  whenever the path properties change.
 
 
 use-path-computation:
@@ -723,7 +736,7 @@ association-objects:
 
 optimizations:
 
-> a YANG container that holds the optimization objectives
+> A YANG container that holds the optimization objectives
   that path computation will use to select a path.
 
 named-path-constraint:
@@ -808,7 +821,7 @@ lsp-provisioning-error-infos:
 
 lsps:
 
-> a YANG container that holds a list of LSPs that are instantiated for this specific path.
+> A YANG container that holds a list of LSPs that have been instantiated for this specific path.
 
 ### TE LSPs {#TE_LSPS}
 
@@ -841,11 +854,11 @@ The generic TE YANG module 'ietf-te' imports the following modules:
 - ietf-te-types defined in {{!RFC8776}}
 
 This module references the following documents:
-{{!RFC6991}}, {{!RFC4875}}, {{!RFC7551}}, {{!RFC4206}}, {{?RFC4427}},
-{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{?RFC8800}}, 
-{{?RFC5441}}, {{?RFC8685}}, {{?RFC5440}}, {{?RFC8306}}, {{?RFC5557}},
-{{?RFC5520}}, {{?RFC5512}}, {{?RFC7471}}, {{?RFC9012}}, {{?RFC8570}},
-{{?RFC8232}}, and {{!RFC7308}}.
+{{!RFC6991}}, {{!RFC4875}}, {{!RFC7551}}, {{!RFC4206}}, {{!RFC4427}},
+{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{!RFC8800}}, 
+{{!RFC5441}}, {{!RFC8685}}, {{!RFC5440}}, {{!RFC8306}}, {{!RFC5557}},
+{{!RFC5520}}, {{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
+{{!RFC8232}}, and {{!RFC7308}}.
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-te@2022-05-05.yang"
@@ -869,7 +882,7 @@ Examples of TE interface properties are:
 * Maximum reservable bandwidth, bandwidth constraints (BC)
 * Flooding parameters
    * Flooding intervals and threshold values
-* interface attributes
+* Interface attributes
    * (Extended) administrative groups
    * SRLG values
    * TE metric value
@@ -905,7 +918,7 @@ module: ietf-te-device
 ## Tree Diagram
 
 {{fig-te-dev-tree}} shows the tree diagram of the device TE YANG model defined in
-modules 'ietf-te.yang'.
+modules 'ietf-te-device.yang'.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
@@ -945,8 +958,6 @@ user to:
    that only contents of interest will be sent.
 
 *  Specify either periodic or on-demand notifications.
-
-# TE Generic and Helper YANG Modules
 
 # IANA Considerations
 
