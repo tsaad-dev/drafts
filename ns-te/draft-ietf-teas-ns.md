@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-bestbar-teas-ns-packet-09
+docname: draft-ietf-teas-ns-ip-mpls-00
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -849,7 +849,7 @@ predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
 as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
 {{?RFC4915}}.
 
-## Network Resource Partition Boundary
+## Network Resource Partition Boundary {#NRPBoundary}
 
 A network slice originates at the edge nodes of a network slice provider.
 Traffic that is steered over the corresponding NRP supporting a Slice-Flow
@@ -1144,6 +1144,8 @@ addressed before progressing the document to publication in IESG.
 
 10. Expand {{SecurityConsiderations}} on additional security threats introduced
     with the solution.
+
+11. Expand {{NRPBoundary}} on NRP domain boundary and multi-domain aspects.
 
 # IANA Considerations
 
