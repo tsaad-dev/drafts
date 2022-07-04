@@ -62,8 +62,9 @@ informative:
 
 This document defines a YANG data model for the provisioning and management of
 Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs), and interfaces.
-The model is divided into YANG modules that classify data into generic,
-device-specific, technology agnostic, and technology-specific elements.
+The model covers data that is independent of any technology or dataplane encapsulation
+and is divided into two YANG modules that cover device-specific, and device independent
+data.
 
 This model covers data for configuration, operational state, remote procedural
 calls, and event notifications.
@@ -234,10 +235,10 @@ YANG model augmentation of the TE model is covered in a separate document.
 
 # TE YANG Model
 
-The generic TE YANG module ('ietf-te') is meant for the management and operation of
-a TE network. This includes creating, modifying and retrieving TE Tunnels,
-LSPs, and interfaces and their associated attributes (e.g.
-Administrative-Groups, SRLGs, etc.).
+The generic TE YANG module ('ietf-te') is meant for the management and
+operation of a TE network. This includes creating, modifying and retrieving
+information about TE Tunnels, LSPs, and interfaces and their associated
+attributes (e.g.  Administrative-Groups, SRLGs, etc.).
 
 A full tree diagram of the TE model is shown in the Appendix in
 {{fig-te-tree-full}}.
@@ -803,7 +804,7 @@ path-in-segment:
 > see description provided in {{TeGlobals}}. These values override
 those provided in the referenced named-path-constraint.
 
-path-out-segment!
+path-out-segment:
 
 > see description provided in {{TeGlobals}}. These values override
 those provided in the referenced named-path-constraint.
