@@ -1,7 +1,7 @@
 ---
 title: Use Cases for MPLS Network Action Indicators and MPLS Ancillary Data
 abbrev: MNA Usecases
-docname: draft-saad-mpls-miad-usecases-02
+docname: draft-ietf-mpls-mna-usecases-00
 category: info
 ipr: trust200902
 workgroup: MPLS Working Group
@@ -59,7 +59,7 @@ DETNET working groups participating in the MPLS Open Design Team.
 
 This document describes important cases that require carrying additional
 ancillary data within the MPLS packets, as well as means to indicate the
-ancillary data is present, and a specificn action needs to be performed on the
+ancillary data is present, and a specific action needs to be performed on the
 packet.
 
 These use cases have been identified by the MPLS Working Group Open Design Team
@@ -86,8 +86,8 @@ endpoints, and associated requirements; the term 'network slice'
 in this document refers to 'IETF network slice' as defined in 
 {{?I-D.ietf-teas-ietf-network-slices}}.
 
-Time Sensitive Networking:
-: Networks that transport time sensitive traffic.
+Time-Bound Networking:
+: Networks that transport time-bounded traffic.
 
 ## Acronyms and Abbreviations
 
@@ -144,12 +144,12 @@ data plane (SR-MPLS).
 
 The IOAM data may be added after the bottom of the MPLS label stack. The IOAM
 data fields can be of fixed or incremental size as defined in
-{{?I-D.ietf-ippm-ioam-data}}.  {{?I-D.gandhi-mpls-ioam}} describes
+{{?I-D.ietf-ippm-ioam-data}}.  {{?I-D.gandhi-mpls-ioam}} describes the
 applicability of IOAM to MPLS dataplane.  The encapsulating MPLS node needs to
 know if the decapsulating MPLS node can process the IOAM data before adding it
 in the packet. In HbH IOAM mode, nodes that are capable of processing IOAM will
-intercept and process the IOAM data. The presence of IOAM data will be
-transparent to nodes that do not support or do not participate in the IOAM
+intercept and process the IOAM data accordingly. The presence of IOAM header and optional IOAM 
+data will betransparent to nodes that do not support or do not participate in the IOAM
 process.
 
 ## Network Slicing
@@ -180,7 +180,7 @@ An IETF network slice MAY support the following key features:
 1. A Slice Selector
 2. A Network Resource Partition associated with a slice aggregate.
 3. A Path selection criteria
-4. Verification that per slice SLOs are being met. This may be done by active measurements
+4. Verification that per slice Slice Level Objectives (SLOs) are being met. This may be done by active measurements
    (inferred) or by using hybrid measurement methods, e.g., IOAM.
 5. Additionally, there is an on-going discussion on using Service Functions
    (SFs) with network slices. This may require insertion of an NSH.
@@ -217,13 +217,13 @@ from other flow aggregates.  In this case, LSRs can use the
 top forwarding label to infer both the forwarding action and the forwarding
 treatment to be invoked on the packets.
 
-## Delay Budgets for Low-Latency Applications
+## Delay Budgets for Time-Bound Applications
 
 The routers in a network can perform two distinct functions on incoming
 packets, namely forwarding (where the packet should be sent) and scheduling
-(when the packet should be sent). Time Sensitive Networking (TSN) and
+(when the packet should be sent). IEEE-802.1 Time Sensitive Networking (TSN) and
 Deterministic Networking provide several mechanisms for scheduling under the
-assumption that routers are time synchronized.  The most effective mechanisms
+assumption that routers are time-synchronized.  The most effective mechanisms
 for delay minimization involve per-flow resource allocation.
 
 Segment Routing (SR) is a forwarding paradigm that allows encoding forwarding
@@ -231,11 +231,12 @@ instructions in the packet in a stack data structure, rather than being
 programmed into the routers.  The SR instructions are contained within a packet
 in the form of a First-in First-out stack dictating the forwarding decisions of
 successive routers.  Segment routing may be used to choose a path sufficiently
-short to be capable of providing a low end-to-end latency but does
+short to be capable of providing a bounded end-to-end latency but does
 not influence the queueing of individual packets in each router along that path.
 
-When carried over MPLS dataplane, a solution that enables the delivery such packets
-that can be delivered to their final destination by a given time budget is required.
+When carried over the MPLS data plane, a solution is required to enable the
+delivery of such packets that can be delivered to their final destination by a
+given time budget.
 
 ### Stack Based Methods for Latency Control
 
@@ -251,7 +252,7 @@ local deadlines in the stack are later or equal to the current time
 always earlier or equal to times closer to the BoS.
 
 The ingress router inserts the deadline stack into the packet headers; no other
-router needs to be aware of the requirements of the time sensitive flows.
+router needs to be aware of the requirements of the time-bound flows.
 Hence admitting a new flow only requires updating the information base of the
 ingress router.
 
@@ -259,7 +260,7 @@ MPLS LSRs that expose the Top of Stack (ToS) label can also inspect the
 associated "deadline" carried in the packet (either in MPLS stack as ISD or
 after BoS as PSD). 
 
-## NSH Based Service Function Chaining
+## NSH-based Service Function Chaining
 
 {{?RFC8595}} describes how Service Function Chaining (SFC) can be realized in
 an MPLS network by emulating the NSH by using only MPLS label stack elements.
@@ -270,7 +271,7 @@ from the framework introduced with MNA {{?I-D.andersson-mpls-mna-fwk}}.
 
 For example, it may be possible to extend NSH emulation using MPLS
 labels [RFC8595] to support the functionality of NSH Context Headers,
-whether fixed or variable-length. One of use cases could support Flow ID
+whether fixed or variable-length. One of the use cases could support Flow ID
 {{?I-D.ietf-sfc-nsh-tlv}} that may be used for load-balancing among
 Service Function Forwarders (SFFs) and/or the Service Function (SF)
 within the same SFP.
@@ -300,36 +301,21 @@ Application-aware Networking (APN) as described in
 (e.g.  network performance requirements) to be encapsulated at network edge
 devices and carried in packets traversing an APN domain. 
 
-The APN data is carried in packets to facilitate service provisioning, perform
-fine-granularity traffic steering and network resource adjustment. To support
-APN in MPLS networks, mechanisms are needed to carry such APN data in MPLS
-encapsulated packets.
+The APN data is carried in packets to facilitate service provisioning, and be
+used to perform fine-granularity traffic steering and network resource
+adjustment. To support APN in MPLS networks, mechanisms are needed to carry
+such APN data in MPLS encapsulated packets.
 
 # Co-existence of Usecases
 
 Two or more of the aforementioned use cases MAY co-exist in the same packet.
-Some examples of such use cases are described below.
-
-## IOAM with Network Slicing
-
-IOAM may provide key functions with network slicing to help ensure that
-critical network slice SLOs are being met by the network provider.
-
-In such a case, IOAM is able to collect key performance measurement parameters of
-network slice traffic flows as it traverses the transport network.
-
-This may require, in addition to carrying a specific network slice selector
-(e.g., GISS), the MPLS network slice packets may have to also carry IOAM
-ancillary data.
-
-Note that the IOAM ancillary data may have to be modified, and updated on
-some/all LSRs traversed by the network slice MPLS packets.
-
-## IOAM with Time-Sensitive Networking
-
-IOAM operation may also be desirable on MPLS packets that carry time-sensitive
-related data. Similarly, this may require the presence of multiple ancilary data
+This may require the presence of multiple ancilary data
 (whether In-stack or Post-stack ancillary data) to be present in the same MPLS packet.
+
+For example, IOAM may provide key functions along with network slicing to help
+ensure that critical network slice SLOs are being met by the network provider.
+In this case, IOAM is able to collect key performance measurement parameters of
+network slice traffic flows as it traverses the transport network.
 
 # IANA Considerations
 
