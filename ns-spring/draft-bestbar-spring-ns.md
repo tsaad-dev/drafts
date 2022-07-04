@@ -1,7 +1,7 @@
 ---
 title: Scalable Network Slicing over SR Networks
 abbrev: Scalable Network Slices over SR
-docname: draft-bestbar-spring-scalable-ns-01
+docname: draft-bestbar-spring-scalable-ns-02
 category: std
 ipr: trust200902
 workgroup: SPRING Working Group
