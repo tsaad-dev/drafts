@@ -160,8 +160,14 @@ The following other design considerations are taken into account with respect to
 organization:
 
 * The generic TE YANG data model 'ietf-te' contains device independent data and
-  can be used to model data off a device (e.g. on a TE controller).  The
-  device-specific TE data is defined in module 'ietf-te-device' as
+  can be used to model data off a device (e.g. on a TE controller). When the
+  model is used to manage a specific device, the model contains the TE Tunnels
+  originating from the specific device.  When the model is used to manage a TE
+  controller, the 'tunnels' list contains all TE Tunnels and TE tunnel segments
+  originating from device(s) that the TE controller manages.
+
+
+* The device-specific TE data is defined in module 'ietf-te-device' as
   shown in {{figctrl}}.
 * In general, minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
@@ -181,8 +187,8 @@ IETF YANG models.
 
 The data models defined in this document cover the core TE features that are
 commonly supported by different vendor implementations. The support of extended
-or vendor specific TE feature(s) is expected to be either in augmentations, or
-deviations to this model and to be defined in separate documents.
+or vendor specific TE feature(s) is expected to either be in augmentations, or
+deviations to this model that are defined in separate documents.
 
 
 ## Module Relationship
@@ -194,8 +200,8 @@ technology or control plane instances. The TE device model defined in
 that is specific to a device --  for example, attributes of TE interfaces, or
 TE timers that are local to a TE node.
 
-The TE data models for specific instances of data plane technology exist in a
-separate YANG module(s) that augment the generic TE YANG data model.  The TE
+The TE data models for specific instances of data plane technology exist in
+separate YANG modules that augment the generic TE YANG data model.  The TE
 data models for specific instances of signaling protocols`are outside the scope
 of this document and are defined in other documents. For example, the RSVP-TE
 YANG model augmentation of the TE model is covered in a separate document.
@@ -229,7 +235,7 @@ YANG model augmentation of the TE model is covered in a separate document.
                                          extensions
 
                 X---oY indicates that module X augments module Y
-                ^ indicates a module defined in another document
+                ^ indicates a module defined in other documents
 ~~~
 {: #figctrl title="Relationship of TE module(s) with signaling protocol modules"}
 
@@ -514,10 +520,19 @@ tunnel objects:
 
 TE Tunnel:
 
-> A YANG container of one or more LSPs established between the source and destination
-TE Tunnel termination points. A TE Tunnel LSP is a connection-oriented service
-provided by the network layer for the delivery of client data between a source and
-the destination of the TE Tunnel termination points.
+> A YANG container of one or more TE LSPs established between the source and destination
+TE Tunnel termination points. 
+
+TE Path:
+
+> An engineered path that once instantiated in the forwarding plane can be used
+> to forward traffic from the source to the destination TE Tunnel termination points.
+
+TE LSP:
+
+> A TE LSP is a connection-oriented service established over a TE Path
+and that allows the delivery of traffic between the TE Tunnel source and
+destination termination points.
 
 TE Tunnel Segment:
 
@@ -694,7 +709,7 @@ compute-only:
 
 > A path of a TE Tunnel is, by default, provisioned so that it can instantiated
   in the forwarding plane so that it can carry traffic as soon as a valid path
-  is computed. In some cases, a TE path may be instantiated only for the
+  is computed. In some cases, a TE path may be configured only for the
   purpose of computing a path and reporting it without the need to instantiate
   the LSP or commit any resources. In such a case, the path is configured in
   'compute-only' mode to distinguish it from the default behavior. A
@@ -826,7 +841,7 @@ lsps:
 
 ### TE LSPs {#TE_LSPS}
 
-The 'lsps' container includes the set of TE LSP(s) that are instantiated.
+The 'lsps' container includes the set of TE LSP(s) that have been instantiated.
 A TE LSP is identified by a 3-tuple ('tunnel-name', 'lsp-id', 'node').
 
 When the model is used to manage a specific device, the 'lsps' list contains all TE
@@ -1134,7 +1149,6 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "admin-state": "te-types:tunnel-state-up",
       "source": "10.0.0.1",
       "destination": "10.0.0.4",
-      "bidirectional": "false",
       "signaling-type": "te-types:path-setup-rsvp"
     }
   ]
@@ -1185,7 +1199,6 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "source": "10.0.0.1",
       "destination": "10.0.0.4",
       "signaling-type": "path-setup-rsvp",
-      "bidirectional": "false",
       "primary-paths": [
         {
           "primary-path": {
@@ -1218,7 +1231,6 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "admin-state": "te-types:tunnel-state-up",
       "source": "10.0.0.1",
       "destination": "10.0.0.4",
-      "bidirectional": "false",
       "signaling-type": "te-types:path-setup-rsvp",
       "primary-paths": {
         "primary-path": [
