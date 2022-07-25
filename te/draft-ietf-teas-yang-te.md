@@ -202,7 +202,7 @@ TE timers that are local to a TE node.
 
 The TE data models for specific instances of data plane technology exist in
 separate YANG modules that augment the generic TE YANG data model.  The TE
-data models for specific instances of signaling protocols`are outside the scope
+data models for specific instances of signaling protocols are outside the scope
 of this document and are defined in other documents. For example, the RSVP-TE
 YANG model augmentation of the TE model is covered in a separate document.
 
@@ -877,7 +877,7 @@ This module references the following documents:
 {{!RFC8232}}, and {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2022-05-05.yang"
+<CODE BEGINS> file "ietf-te@2022-07-11.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -953,7 +953,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2022-05-05.yang"
+<CODE BEGINS> file "ietf-te-device@2022-07-11.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1072,11 +1072,11 @@ The security considerations spelled out in the YANG 1.1 specification
 The authors would like to thank the  members of the multi-vendor YANG design
 team who are involved in the definition of this model.
 
-The authors would like to thank Tom Petch for reviewing and providing useful
-feedback about the document. The authors would also like to thank Loa
-Andersson, Lou Berger, Sergio Belotti, Italo Busi, Carlo Perocchio, Francesco
-Lazzeri, Aihua Guo, Dhruv Dhody, and Raqib Jones for providing useful feedback on this
-document.
+The authors would like to thank Tom Petch and Adrian Farrel for reviewing and
+providing useful feedback about the document. The authors would also like to
+thank Loa Andersson, Lou Berger, Sergio Belotti, Italo Busi, Carlo Perocchio,
+Francesco Lazzeri, Aihua Guo, Dhruv Dhody, and Raqib Jones for providing
+feedback on this document.
 
 # Contributors
 
