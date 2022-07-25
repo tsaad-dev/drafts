@@ -70,6 +70,8 @@ pyang --ietf --lint -f tree --tree-line-length=69 --tree-depth=2 ietf-te.yang ie
 pyang --ietf --lint -f tree --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev.tree
 pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-packet-types.yang > rsvp_te_model.tree
 
+pyang --ietf --lint -f tree --tree-path="/te/globals" --tree-line-length=69 ietf-te.yang ietf-te-types.yang  > ietf-te-globals.tree
+
 java -jar plantuml.jar ietf-netconf-monitoring.uml 
 
 
@@ -115,3 +117,22 @@ dummy change...
 pyang -f yang --keep-comments --yang-line-length 69 ietf-te-device.yang > ietf-te-device.yang
 
 pyang --ietf --max-line-length 69 ietf-te.yang
+
+
+### UML
+protoc \
+  --plugin=protoc-gen-doc=protoc-gen-doc \
+  --doc_out=./doc \
+  --doc_opt=html,index.html \
+  topo_svc.proto
+
+
+protoc \
+  --plugin=protoc-gen-doc=./protoc-gen-doc \
+  --doc_out=./doc \
+  --doc_opt=html,index.html \
+  topo_svc.proto
+
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk
+
