@@ -1,13 +1,14 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-30
+docname: draft-ietf-teas-yang-te-31
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
 keyword: Internet-Draft
 
-stand_alone: yes
+stand_alone: true
+submissiontype: IETF
 pi: [toc, sortrefs, symrefs, comments]
 
 author:
@@ -15,8 +16,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems Inc
+    email: tsaad.net@gmail.com
  -
    ins: R. Gandhi
    name: Rakesh Gandhi
@@ -95,7 +96,7 @@ YANG data model.
 
 Also, it is expected other YANG modules that model TE signaling protocols,
 such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
-{{?I-D.ietf-spring-segment-routing-policy}} will augment the generic TE YANG  module.
+{{?RFC9256}} will augment the generic TE YANG  module.
 
 # Terms and Conventions
 
@@ -685,7 +686,7 @@ secondary-paths:
 
 > A YANG container that holds the set of secondary paths. A secondary path is
  identified by 'name'. A secondary path can be referenced from the TE Tunnel's
-'candidate-secondary-path' list. A secondary path contains attributes similar to a primary path.
+'candidate-secondary-path' list.
 
 secondary-reverse-paths:
 
@@ -694,7 +695,7 @@ path is identified by 'name'. A secondary reverse path can be referenced from th
 TE Tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
 attributes similar to a primary path.
 
-The following set of common path attributes are shared for primary forward and reverse primary and secondary paths:
+The following set of common path attributes are shared for primary (forward and reverse) and secondary paths:
 
 path-computation-method:
 
@@ -839,6 +840,16 @@ lsps:
 
 > A YANG container that holds a list of LSPs that have been instantiated for this specific path.
 
+In addition to the path common attributes, the primary has the following
+additional attributes that are not present in a secondary path:
+
+ - Only the primary path contains the list of 'candidate-secondary-paths' that
+   can protect the primary path.
+
+ - Only the primary path can contain a primary-reverse-path associated with the
+   primary path (and its associated list of
+   'candidate-secondary-reverse-path').
+
 ### TE LSPs {#TE_LSPS}
 
 The 'lsps' container includes the set of TE LSP(s) that have been instantiated.
@@ -870,14 +881,13 @@ The generic TE YANG module 'ietf-te' imports the following modules:
 - ietf-te-types defined in {{!RFC8776}}
 
 This module references the following documents:
-{{!RFC6991}}, {{!RFC4875}}, {{!RFC7551}}, {{!RFC4206}}, {{!RFC4427}},
-{{!RFC4872}}, {{!RFC3945}}, {{!RFC3209}}, {{!RFC6780}}, {{!RFC8800}}, 
-{{!RFC5441}}, {{!RFC8685}}, {{!RFC5440}}, {{!RFC8306}}, {{!RFC5557}},
-{{!RFC5520}}, {{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
-{{!RFC8232}}, and {{!RFC7308}}.
+{{!RFC4206}}, {{!RFC4427}},
+{{!RFC4872}}, {{!RFC3209}}, {{!RFC6780}},
+{{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
+{{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, and {{!RFC7308}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2022-07-11.yang"
+<CODE BEGINS> file "ietf-te@2022-10-12.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -946,14 +956,13 @@ modules 'ietf-te-device.yang'.
 
 The device TE YANG module 'ietf-te-device' imports the following module(s):
 
-- ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
 - ietf-interfaces defined in {{!RFC8343}}
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-te-types defined in {{!RFC8776}}
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2022-07-11.yang"
+<CODE BEGINS> file "ietf-te-device@2022-10-12.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1161,12 +1170,13 @@ This example uses the YANG data model to create a 'named path constraint' that c
 The path constraint, in this case, limits the TE Tunnel hops for the computed path.
 
 ~~~
-POST /restconf/data/ietf-te:te/globals/named-path-constraints HTTP/1.1
+POST /restconf/data/ietf-te:te/globals/named-path-constraints
+     HTTP/1.1
     Host: example.com
     Accept: application/yang-data+json
     Content-Type: application/yang-data+json
 
-{
+
   "ietf-te:named-path-constraint": {
           "name": "max-hop-3",
           "path-metric-bounds": {
@@ -1257,7 +1267,8 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 In this example, the 'GET' query is sent to return the state stored about the tunnel.
 
 ~~~
-GET  /restconf/data/ietf-te:te/tunnels/tunnel="Example_LSP_Tunnel_A_4_1"
+GET  /restconf/data/ietf-te:te/tunnels +
+     /tunnel="Example_LSP_Tunnel_A_4_1"
      /p2p-primary-paths/ HTTP/1.1
     Host: example.com
     Accept: application/yang-data+json
