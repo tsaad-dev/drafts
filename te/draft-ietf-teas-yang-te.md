@@ -210,7 +210,7 @@ YANG model augmentation of the TE model is covered in a separate document.
 ~~~
 
   TE generic     +---------+         o: augment
-  module         | ietf-te |o-------------+        
+  module         | ietf-te |o-------------+
                  +---------+               \
                         o                   \
                         |\                   \
@@ -218,10 +218,10 @@ YANG model augmentation of the TE model is covered in a separate document.
                         |  +----------------+  \
                         |  | ietf-te-device |   \
                         |  +----------------+    \
-                        |       o        o        \
-                        |     /           \        \
-                        |   /              \        \
-                 +--------------+           +---------------+ 
+                        |       o                 \
+                        |     /                    \
+                        |   /                       \
+                 +--------------+           +---------------+
   RSVP-TE module | ietf-rsvp-te |o .        | ietf-te-mpls^ |
                  +--------------+   \       +---------------+
                     |                \
@@ -229,9 +229,9 @@ YANG model augmentation of the TE model is covered in a separate document.
                     |                  \
                     |                   \
                     |                    \
-                    o                 +-------------------+  
-                 +-----------+        | ietf-rsvp-otn-te^ |  
-  RSVP module    | ietf-rsvp |        +-------------------+  
+                    o                 +-------------------+
+                 +-----------+        | ietf-rsvp-otn-te^ |
+  RSVP module    | ietf-rsvp |        +-------------------+
                  +-----------+           RSVP-TE with OTN
                                          extensions
 
@@ -840,15 +840,15 @@ lsps:
 
 > A YANG container that holds a list of LSPs that have been instantiated for this specific path.
 
-In addition to the path common attributes, the primary has the following
-additional attributes that are not present in a secondary path:
+In addition to the path common attributes, the primary path has the following
+attributes that are not present in the secondary path:
 
- - Only the primary path contains the list of 'candidate-secondary-paths' that
-   can protect the primary path.
+- Only the primary path contains the list of 'candidate-secondary-paths' that
+  can protect the primary path.
 
- - Only the primary path can contain a primary-reverse-path associated with the
-   primary path (and its associated list of
-   'candidate-secondary-reverse-path').
+- Only the primary path can contain a primary-reverse-path associated with the
+  primary path (and its associated list of
+  'candidate-secondary-reverse-path').
 
 ### TE LSPs {#TE_LSPS}
 
@@ -1120,18 +1120,18 @@ described in the following sections.
 
 ~~~
 
- 10.0.0.1         10.0.0.2      10.0.0.4
- +-----+         +------+      +------+
- |     |         |      |      |      |
- |  A  +---------+  B   +------+  D   |
- +--+--+         +------+      +--+---+
-    |                             |
-    |            +-------+        |
-    |            |       |        |
-    +------------+   C   +--------+
-                 |       |
-                 +-------+
-                 10.0.0.3
+ 192.0.2.1        192.0.2.2      192.0.2.4
+ +-------+        +-------+      +-------+
+ |       |        |       |      |       |
+ |   A   +--------+   B   +------+   D   |
+ +---+---+        +-------+      +---+---+
+     |                               |
+     |            +-------+          |
+     |            |       |          |
+     +------------+   C   +----------+
+                  |       |
+                  +-------+
+                  192.0.2.3
 ~~~
 {: #AppFig-Topo title="TE network used in data tree examples"}
 
@@ -1149,15 +1149,16 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
     Host: example.com
     Accept: application/yang-data+json
     Content-Type: application/yang-data+json
- 
+
 {
   "ietf-te:tunnel": [
     {
       "name": "Example_LSP_Tunnel_A_2",
       "encoding": "te-types:lsp-encoding-packet",
       "admin-state": "te-types:tunnel-state-up",
-      "source": "10.0.0.1",
-      "destination": "10.0.0.4",
+      "source": "192.0.2.1",
+      "destination": "192.0.2.4",
+      "bidirectional": "false",
       "signaling-type": "te-types:path-setup-rsvp"
     }
   ]
@@ -1206,8 +1207,8 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "encoding": "te-types:lsp-encoding-packet",
       "description": "Simple_LSP_with_named_path",
       "admin-state": "te-types:tunnel-state-up",
-      "source": "10.0.0.1",
-      "destination": "10.0.0.4",
+      "source": "192.0.2.1",
+      "destination": "192.0.2.4",
       "signaling-type": "path-setup-rsvp",
       "primary-paths": [
         {
@@ -1239,8 +1240,8 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "name": "Example_LSP_Tunnel_A_4_2",
       "encoding": "te-types:lsp-encoding-packet",
       "admin-state": "te-types:tunnel-state-up",
-      "source": "10.0.0.1",
-      "destination": "10.0.0.4",
+      "source": "192.0.2.1",
+      "destination": "192.0.2.4",
       "signaling-type": "te-types:path-setup-rsvp",
       "primary-paths": {
         "primary-path": [
@@ -1293,13 +1294,13 @@ The request, with status code 200 would include, for example, the following json
                     {
                       "index": "1",
                       "numbered-node-hop": {
-                        "node-id": "10.0.0.2"
+                        "node-id": "192.0.2.2"
                       }
                     },
                     {
                       "index": "2",
                       "numbered-node-hop": {
-                        "node-id": "10.0.0.4"
+                        "node-id": "192.0.2.4"
                       }
                     }
                   ]
@@ -1312,7 +1313,7 @@ The request, with status code 200 would include, for example, the following json
           "lsp": [
             {
               "tunnel-name": "Example_LSP_Tunnel_A_4_1",
-              "node": "10.0.0.1 ",
+              "node": "192.0.2.1 ",
               "lsp-id": "25356"
             }
           ]
@@ -1322,6 +1323,379 @@ The request, with status code 200 would include, for example, the following json
   }
 }
 ~~~
+
+## Example TE Tunnel with Primary and Secondary Paths
+
+~~~
+                       ┌──────────┐          ┌──────────┐
+                     ┌─┤192.0.2.9 ├───┐      │192.0.2.10│
+                     │ └──────────┘   │      └───┬───┬──┘
+                     │                │          │   │
+┌──────────┐    ┌────┴─────┐     ┌────┴─────┐    │   │
+│192.0.2.8 ├────┤192.0.2.3 ├─────┤192.0.2.4 ├────┘   │
+└─┬────────┘    └────┬─────┘     └────┬─────┘        │
+  │                  │                │              │
+┌─┴────────┐         │                │              │
+│192.0.2.1 ├─────────┘                │           ┌──┴───────┐
+└─────┬──┬─┘                          └───────────┤192.0.2.5 │
+      │  │                                        └──────┬─┬─┘
+      │  │              ┌──────────┐                     │ │
+      │  └──────────────┤192.0.2.2 ├─────────────────────┘ │
+      │                 └─────┬─┬──┘                       │
+      │                       │ │                          │
+  ┌───┴──────┐                │ │                   ┌──────┴───┐
+  │192.0.2.6 ├────────────────┘ └───────────────────┤192.0.2.7 │
+  └──────────┘                                      └──────────┘
+
+~~~
+{: #AppFig-Topo2 title="TE network used in data tree examples"}
+
+Below is the state retrieved for a TE tunnel from source 192.0.2.1 to 192.0.2.5
+with primary, secondary, reverse, and secondary reverse paths as shown in {{AppFig-Topo2}}.
+
+~~~
+{
+  "ietf-te:te": {
+    "tunnels": {
+      "tunnel": [
+        {
+          "name": "example-1",
+          "description": "Example in slide 1",
+          "source": "192.0.2.1",
+          "destination": "192.0.2.5",
+          "bidirectional": false,
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-1 (fwd)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                },
+                "primary-reverse-path": {
+                  "name": "primary-2 (rev)",
+                  "explicit-route-objects-always": {
+                    "route-object-include-exclude": [
+                      {
+                        "index": 1,
+                        "numbered-node-hop": {
+                          "node-id": "192.0.2.3",
+                          "hop-type": "loose"
+                        }
+                      }
+                    ]
+                  },
+                  "candidate-secondary-reverse-paths": {
+                    "candidate-secondary-reverse-path": [
+                      "secondary-3 (rev)",
+                      "secondary-4 (rev)",
+                      "secondary-5 (rev)"
+                    ]
+                  }
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    "secondary-1 (fwd)",
+                    "secondary-2 (fwd)"
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-1 (fwd)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.1"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "secondary-2 (fwd)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.5",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-reverse-paths": {
+            "secondary-reverse-path": [
+              {
+                "name": "secondary-3 (rev)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.5"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.4",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "secondary-4 (rev)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.4"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.3",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "secondary-5 (rev)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.3"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.1",
+                        "hop-type":"loose"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "example-3",
+          "description": "Example in slide 3",
+          "source": "192.0.2.1",
+          "destination": "192.0.2.5",
+          "bidirectional": true,
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-1 (bidir)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    "secondary-1 (bidir)",
+                    "secondary-2 (bidir)"
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-1 (bidir)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.1"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "secondary-2 (bidir)",
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.5",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "example-4",
+          "description": "Example in slide 4",
+          "source": "192.0.2.1",
+          "destination": "192.0.2.5",
+          "bidirectional": false,
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-1 (fwd)",
+                "co-routed": [null],
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                },
+                "primary-reverse-path": {
+                  "name": "primary-2 (rev)",
+                  "candidate-secondary-reverse-paths": {
+                    "candidate-secondary-reverse-path": [
+                      "secondary-3 (rev)",
+                      "secondary-4 (rev)"
+                    ]
+                  }
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    "secondary-1 (fwd)",
+                    "secondary-2 (fwd)"
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-1 (fwd)",
+                "co-routed": [null],
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.1"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "secondary-2 (fwd)",
+                "co-routed": [null],
+                "explicit-route-objects-always": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.2"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "numbered-node-hop": {
+                        "node-id": "192.0.2.5",
+                        "hop-type": "loose"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-reverse-paths": {
+            "secondary-reverse-path": [
+              {
+                "name": "secondary-3 (rev)"
+              },
+              {
+                "name": "secondary-4 (rev)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+~~~
+
 
 # Appendix B: Full Model Tree Diagram {#AppendixB}
 
