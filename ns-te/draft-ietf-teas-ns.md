@@ -1,11 +1,12 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-00
+docname: draft-ietf-teas-ns-ip-mpls-01
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
 keyword: Internet-Draft
+submissiontype: IETF
 
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
@@ -15,8 +16,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems Inc.
+    email: tsaad.net@gmail.com
 
  -
     ins: V. Beeram
@@ -195,12 +196,13 @@ Network Resource Partition:
 : refer to the definition in {{?I-D.ietf-teas-ietf-network-slices}}.
 
 Slice-Flow Aggregate:
-: a collection of packets that match an NRP Policy and are given the same
+: a collection of packets that are mapped to an NRP Policy and are given the same
 forwarding treatment; a Slice-Flow Aggregate comprises of one or more IETF
-network slice traffic streams; the mapping of one or more IETF network slices
-to a Slice-Flow Aggregate is maintained by the IETF Network Slice Controller.
-The boundary nodes MAY also maintain a mapping of specific IETF network slice
-service(s) to a SFA.
+network slice traffic streams from one or more connectivity constructs
+(belonging to one or more IETF network slices); the mapping of one or more IETF
+network slice streams to a Slice-Flow Aggregate is maintained by the IETF Network
+Slice Controller.  The boundary nodes MAY also maintain a mapping of specific
+IETF network slice service(s) to a SFA.
 
 
 Network Resource Partition Policy (NRP):
@@ -309,54 +311,54 @@ realization of that architecture specific for IP/MPLS packet networks.
 Each of the steps is further elaborated on in a subsequent section.
 
 ~~~~
-                          --      --      --
-                         |CE|    |CE|    |CE|
-                          --      --      --
-                        AC :    AC :    AC :
-                        ----------------------       -------
-                       ( |PE|....|PE|....|PE| )     ( IETF  )
-      IETF Network    (   --:     --     :--   )   ( Network )
-      Slice Service   (     :............:     )   (  Slice  )
-      Request          (  IETF Network Slice  )     (       )  Customer
-        v               ----------------------       -------     View
-        v        ............................\........./...............
-        v                                     \       /        Provider
-        v    >>>>>>>>>>>>>>>  Slice-Flow       \     /           View
-        v   ^                 Aggregate Mapping v   v
-        v   ^             -----------------------------------------
-        v   ^            ( |PE|.......|PE|........|PE|.......|PE|  )
-       ---------        (   --:        --         :--         --    )
-      |         |       (     :...................:                 )
-      |   NSC   |        (        Network Resource Partition       )
-      |         |         -----------------------------------------
-      |         |                             ^
-      |         |>>>>>  Resource Partitioning |
-       ---------          of Filter Topology  |
-        v   v                                 |
-        v   v            -----------------------------      --------
-        v   v           (|PE|..-..|PE|... ..|PE|..|PE|)    (        )
-        v   v          ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
-        v   v          ( :.-   -:.......|P|       :-   )  ( Topology )
-        v   v          (  |P|...........:-:.......|P|  )   (        )
-        v   v           (  -    Filter Topology       )     --------
-        v   v            -----------------------------       ^
-        v    >>>>>>>>>>>>  Topology Filter ^                /
-        v        ...........................\............../...........
-        v                                    \            /  Underlay
-       ----------                             \          /  (Physical)
-      |          |                             \        /    Network
-      | Network  |    ----------------------------------------------
-      |Controller|   ( |PE|.....-.....|PE|......    |PE|.......|PE| )
-      |          |  (   --     |P|     --      :-...:--     -..:--   )
-       ----------  (    :       -:.............|P|.........|P|        )
-           v       (    -......................:-:..-       -         )
-            >>>>>>> (  |P|.........................|P|......:        )
-        Program the  (  -                           -               )
-          Network     ----------------------------------------------
-                               (NRP Policies and Paths)*
+                        --      --      --
+                       |CE|    |CE|    |CE|
+                        --      --      --
+                      AC :    AC :    AC :
+                      ----------------------       -------
+                     ( |PE|....|PE|....|PE| )     ( IETF  )
+    IETF Network    (   --:     --     :--   )   ( Network )
+    Slice Service   (     :............:     )   (  Slice  )
+    Request          (  IETF Network Slice  )     (       )  Customer
+      v               ----------------------       -------     View
+      v        ............................\........./...............
+      v                                     \       /        Provider
+      v    >>>>>>>>>>>>>>>  Slice-Flow       \     /           View
+      v   ^                 Aggregate Mapping v   v
+      v   ^             -----------------------------------------
+      v   ^            ( |PE|.......|PE|........|PE|.......|PE|  )
+     ---------        (   --:        --         :--         --    )
+    |         |       (     :...................:                 )
+    |   NSC   |        (        Network Resource Partition       )
+    |         |         -----------------------------------------
+    |         |                             ^
+    |         |>>>>>  Resource Partitioning |
+     ---------          of Filter Topology  |
+      v   v                                 |
+      v   v            -----------------------------      --------
+      v   v           (|PE|..-..|PE|... ..|PE|..|PE|)    (        )
+      v   v          ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
+      v   v          ( :.-   -:.......|P|       :-   )  ( Topology )
+      v   v          (  |P|...........:-:.......|P|  )   (        )
+      v   v           (  -    Filter Topology       )     --------
+      v   v            -----------------------------       ^
+      v    >>>>>>>>>>>>  Topology Filter ^                /
+      v        ...........................\............../...........
+      v                                    \            /  Underlay
+     ----------                             \          /  (Physical)
+    |          |                             \        /    Network
+    | Network  |    ----------------------------------------------
+    |Controller|   ( |PE|.....-.....|PE|......    |PE|.......|PE| )
+    |          |  (   --     |P|     --      :-...:--     -..:--   )
+     ----------  (    :       -:.............|P|.........|P|        )
+         v       (    -......................:-:..-       -         )
+          >>>>>>> (  |P|.........................|P|......:        )
+      Program the  (  -                           -               )
+        Network     ----------------------------------------------
+                             (NRP Policies and Paths)*
 
-   * : NRP Policy installation and path placement can be centralized
-       or distributed.
+ * : NRP Policy installation and path placement can be centralized
+     or distributed.
 ~~~~
 {: #ns-workflow title="IETF network slice realization steps."}
 
@@ -539,42 +541,42 @@ NRP1 or NRP2.  In both cases, the Max Reservable Bandwidth may exceed the
 actual physical link resource capacity to allow for over subscription.
 
 ~~~~~~
-   I-----------------------------I       I-----------------------------I 
-   <--NRP1->                     I       I-----------------I           I
-   I---------I                   I       I <-NRP1->        I           I
-   I         I                   I       I I-------I       I           I
-   I---------I                   I       I I       I       I           I
-   I                             I       I I-------I       I           I
-   <-----NRP2------>             I       I                 I           I
-   I-----------------I           I       I <-NRP2->        I           I
-   I                 I           I       I I---------I     I           I
-   I-----------------I           I       I I         I     I           I
-   I                             I       I I---------I     I           I
-   <---NRP3---->                 I       I                 I           I
-   I-------------I               I       I NRP1 + NRP2     I           I
-   I             I               I       I-----------------I           I
-   I-------------I               I       I                             I
-   I                             I       I                             I
-   <---NRP4---->                 I       I-----------------I           I
-   I-------------I               I       I <-NRP3->        I           I
-   I             I               I       I I-------I       I           I
-   I-------------I               I       I I       I       I           I
-   I                             I       I I-------I       I           I
-   I NRP1+NRP2+NRP3+NRP4         I       I                 I           I
-   I                             I       I <-NRP4->        I           I
-   I-----------------------------I       I I---------I     I           I
-   <--Max Reservable Bandwidth-->        I I         I     I           I
-                                         I I---------I     I           I
-                                         I                 I           I
-                                         I NRP3 + NRP4     I           I
-                                         I-----------------I           I
-                                         I NRP1+NRP2+NRP3+NRP4         I
-                                         I                             I
-                                         I-----------------------------I
-                                         <--Max Reservable Bandwidth-->
+  I-----------------------------I     I-----------------------------I 
+  <--NRP1->                     I     I-----------------I           I
+  I---------I                   I     I <-NRP1->        I           I
+  I         I                   I     I I-------I       I           I
+  I---------I                   I     I I       I       I           I
+  I                             I     I I-------I       I           I
+  <-----NRP2------>             I     I                 I           I
+  I-----------------I           I     I <-NRP2->        I           I
+  I                 I           I     I I---------I     I           I
+  I-----------------I           I     I I         I     I           I
+  I                             I     I I---------I     I           I
+  <---NRP3---->                 I     I                 I           I
+  I-------------I               I     I NRP1 + NRP2     I           I
+  I             I               I     I-----------------I           I
+  I-------------I               I     I                             I
+  I                             I     I                             I
+  <---NRP4---->                 I     I-----------------I           I
+  I-------------I               I     I <-NRP3->        I           I
+  I             I               I     I I-------I       I           I
+  I-------------I               I     I I       I       I           I
+  I                             I     I I-------I       I           I
+  I NRP1+NRP2+NRP3+NRP4         I     I                 I           I
+  I                             I     I <-NRP4->        I           I
+  I-----------------------------I     I I---------I     I           I
+  <--Max Reservable Bandwidth-->      I I         I     I           I
+                                      I I---------I     I           I
+                                      I                 I           I
+                                      I NRP3 + NRP4     I           I
+                                      I-----------------I           I
+                                      I NRP1+NRP2+NRP3+NRP4         I
+                                      I                             I
+                                      I-----------------------------I
+                                      <--Max Reservable Bandwidth-->
 
-   (a) No bandwidth sharing              (b) Sharing bandwidth between
-       between NRPs.                         NRPs of the same group. 
+  (a) No bandwidth sharing            (b) Sharing bandwidth between
+      between NRPs.                       NRPs of the same group.
 
 ~~~~~~
 {: #resource-sharing title="Bandwidth isolation/sharing among NRPs."}
@@ -654,7 +656,7 @@ A router should be able to identify a packet belonging to a Slice-Flow Aggregate
 before it can apply the associated dataplane forwarding treatment or NRP-PHB.
 One or more fields within the packet are used as an FAS to do this.
 
-Forwarding Address Based FAS:
+Forwarding Based FAS:
 
 >  It is possible to assign a different forwarding address (or MPLS forwarding
 >  label in case of MPLS network) for each Slice-Flow Aggregate on a specific node
@@ -680,34 +682,34 @@ need to be stored and programmed in a router's forwarding is (N+K)\*M states.
 Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
 in both the control and data planes.
 
-Global Identifier Based FAS:
+Identifier Based FAS:
 
-> An NRP Policy may include a Global Identifier FAS (G-FAS) field that is carried
+> An NRP Policy may include an identifier FAS field that is carried
 in each packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
 independent of the forwarding address or MPLS forwarding label that is bound to
 the destination. Routers within the NRP domain can use the forwarding
 address (or MPLS forwarding label) to determine the forwarding next-hop(s),
-and use the G-FAS field in the packet to infer the specific forwarding treatment that needs to be applied on
+and use the FAS field in the packet to infer the specific forwarding treatment that needs to be applied on
 the packet. 
 
-> The G-FAS can be carried in one of multiple fields within the packet, depending on
-the dataplane used. For example, in MPLS networks, the G-FAS can be
+> The FAS can be carried in one of multiple fields within the packet, depending on
+the dataplane used. For example, in MPLS networks, the FAS can be
 encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same Slice-Flow Aggregate may carry the same G-FAS in the
-MPLS label stack. It is also possible to have multiple G-FAS's map
+All packets that belong to the same Slice-Flow Aggregate may carry the same FAS in the
+MPLS label stack. It is also possible to have multiple FAS's map
 to the same Slice-Flow Aggregate.
 
-> The G-FAS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
-For example, the VPN service label may act as a G-FAS to allow VPN packets
+> The FAS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
+For example, the VPN service label may act as a FAS to allow VPN packets
 to be mapped to the Slice-Flow Aggregate. In this case, a single VPN service label
-acting as a G-FAS may be allocated by all Egress PEs of a VPN.
-Alternatively, multiple VPN service labels may act as G-FAS's that map a single VPN to the same Slice-Flow Aggregate to
+acting as a FAS may be allocated by all Egress PEs of a VPN.
+Alternatively, multiple VPN service labels may act as FAS's that map a single VPN to the same Slice-Flow Aggregate to
 allow for multiple Egress PEs to allocate different VPN service labels for a VPN.
-In other cases, a range of VPN service labels acting as multiple G-FAS's may map multiple VPN traffic to
+In other cases, a range of VPN service labels acting as multiple FAS's may map multiple VPN traffic to
 a single Slice-Flow Aggregate. An example of such deployment is shown in {{bottom-stack}}.
 
 ~~~~
-  SR Adj-SID:          G-FAS (VPN service label) on PE2: 1001
+  SR Adj-SID:          FAS (VPN service label) on PE2: 1001
      9012: P1-P2
      9023: P2-PE2
 
@@ -730,17 +732,17 @@ packet:
                | Load |
                +------+
 ~~~~
-{: #bottom-stack title="G-FAS or VPN label at bottom of label stack."}
+{: #bottom-stack title="FAS or VPN label at bottom of label stack."}
 
-> In some cases, the position of the G-FAS may not be at a fixed position
-in the MPLS label header. In this case, the G-FAS label can show up in any
+> In some cases, the position of the FAS may not be at a fixed position
+in the MPLS label header. In this case, the FAS label can show up in any
 position in the MPLS label stack. To enable a transit router to identify
-the position of the G-FAS label, a special purpose label 
-can be used to indicate the presence of a G-FAS
+the position of the FAS label, a special purpose label 
+can be used to indicate the presence of a FAS
 in the MPLS label stack as shown in {{sli-sl}}.
 
 ~~~~
-     SR Adj-SID:          G-FAS: 1001
+     SR Adj-SID:          FAS: 1001
         9012: P1-P2
         9023: P2-PE2
 
@@ -765,9 +767,9 @@ in the MPLS label stack as shown in {{sli-sl}}.
                   | Load |
                   +------+
 ~~~~
-{:#sli-sl title="FAI and G-FAS label in the label stack."}
+{:#sli-sl title="FAI and FAS label in the label stack."}
 
-> When the slice is realized over an IP dataplane, the G-FAS can be encoded in
+> When the slice is realized over an IP dataplane, the FAS can be encoded in
 the IP header (e.g. as an  IPv6 option header).
 
 ### Network Resource Partition Resource Reservation
