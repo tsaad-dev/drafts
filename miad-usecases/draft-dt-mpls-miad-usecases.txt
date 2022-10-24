@@ -3,17 +3,17 @@
 
 
 MPLS Working Group                                               T. Saad
-Internet-Draft                                          Juniper Networks
+Internet-Draft                                       Cisco Systems, Inc.
 Intended status: Informational                              K. Makhijani
-Expires: 21 October 2022                                         H. Song
+Expires: 27 April 2023                                           H. Song
                                                   Futurewei Technologies
                                                                G. Mirsky
                                                                 Ericsson
-                                                           19 April 2022
+                                                         24 October 2022
 
 
   Use Cases for MPLS Network Action Indicators and MPLS Ancillary Data
-                    draft-saad-mpls-miad-usecases-02
+                    draft-ietf-mpls-mna-usecases-01
 
 Abstract
 
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 October 2022.
+   This Internet-Draft will expire on 27 April 2023.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Saad, et al.             Expires 21 October 2022                [Page 1]
+Saad, et al.              Expires 27 April 2023                 [Page 1]
 
-Internet-Draft                MNA Usecases                    April 2022
+Internet-Draft                MNA Usecases                  October 2022
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -63,9 +63,9 @@ Internet-Draft                MNA Usecases                    April 2022
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -75,29 +75,29 @@ Table of Contents
    2.  Use Cases . . . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  No Further Fastreroute  . . . . . . . . . . . . . . . . .   3
      2.2.  In-situ OAM . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   4
-       2.3.1.  Global Identifier as Flow-Aggregate Selector  . . . .   5
+       2.2.1.  In-situ OAM Direct Export . . . . . . . . . . . . . .   5
+     2.3.  Network Slicing . . . . . . . . . . . . . . . . . . . . .   5
+       2.3.1.  Dedicated Identifier as Flow-Aggregate Selector . . .   6
        2.3.2.  Forwarding Label as a Flow-Aggregate Selector . . . .   6
-     2.4.  Delay Budgets for Low-Latency Applications  . . . . . . .   6
-       2.4.1.  Stack Based Methods for Latency Control . . . . . . .   7
-     2.5.  NSH Based Service Function Chaining . . . . . . . . . . .   7
-     2.6.  Network Programming . . . . . . . . . . . . . . . . . . .   7
-     2.7.  Application Aware Networking  . . . . . . . . . . . . . .   8
-   3.  Co-existence of Usecases  . . . . . . . . . . . . . . . . . .   8
-     3.1.  IOAM with Network Slicing . . . . . . . . . . . . . . . .   8
-     3.2.  IOAM with Time-Sensitive Networking . . . . . . . . . . .   9
+     2.4.  Generic Delivery Functions  . . . . . . . . . . . . . . .   6
+     2.5.  Delay Budgets for Time-Bound Applications . . . . . . . .   7
+       2.5.1.  Stack Based Methods for Latency Control . . . . . . .   7
+     2.6.  NSH-based Service Function Chaining . . . . . . . . . . .   8
+     2.7.  Network Programming . . . . . . . . . . . . . . . . . . .   8
+     2.8.  Application Aware Networking  . . . . . . . . . . . . . .   8
+   3.  Co-existence of Usecases  . . . . . . . . . . . . . . . . . .   9
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    6.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .   9
    7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .   9
    8.  Informative References  . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
    This document describes important cases that require carrying
    additional ancillary data within the MPLS packets, as well as means
-   to indicate the ancillary data is present, and a specificn action
+   to indicate the ancillary data is present, and a specific action
    needs to be performed on the packet.
 
    These use cases have been identified by the MPLS Working Group Open
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Saad, et al.             Expires 21 October 2022                [Page 2]
+Saad, et al.              Expires 27 April 2023                 [Page 2]
 
-Internet-Draft                MNA Usecases                    April 2022
+Internet-Draft                MNA Usecases                  October 2022
 
 
    *  residing within the MPLS label stack and referred to as In Stack
@@ -135,8 +135,8 @@ Internet-Draft                MNA Usecases                    April 2022
       'IETF network slice' as defined in
       [I-D.ietf-teas-ietf-network-slices].
 
-   Time Sensitive Networking:
-      Networks that transport time sensitive traffic.
+   Time-Bound Networking:
+      Networks that transport time-bounded traffic.
 
 1.2.  Acronyms and Abbreviations
 
@@ -165,9 +165,9 @@ Internet-Draft                MNA Usecases                    April 2022
 
 
 
-Saad, et al.             Expires 21 October 2022                [Page 3]
+Saad, et al.              Expires 27 April 2023                 [Page 3]
 
-Internet-Draft                MNA Usecases                    April 2022
+Internet-Draft                MNA Usecases                  October 2022
 
 
    For example, in such a case, the packet may continue to loop until
@@ -200,96 +200,107 @@ Internet-Draft                MNA Usecases                    April 2022
    transported using the MPLS data plane encapsulations, including
    Segment Routing (SR) with MPLS data plane (SR-MPLS).
 
+   IOAM uses the user data packet to trigger the collection of
+   operational state and telemetry information on network nodes within a
+   limited domain.  Several IOAM Options have been defined:
+
+   *  Pre-allocated and Incremental
+
+   *  Edge-to-Edge
+
+   *  Proof-of-Transit
+
+   Operational state and telemetry information collected in the data
+   packet into a space allocated by the IOAM encapsulating node or with
+   each IOAM node adding to the IOAM section of the data packet - IOAM
+   Pre-allocated or Incremental Option types
+
    The IOAM data may be added after the bottom of the MPLS label stack.
    The IOAM data fields can be of fixed or incremental size as defined
-   in [I-D.ietf-ippm-ioam-data].  [I-D.gandhi-mpls-ioam] describes
+   in [I-D.ietf-ippm-ioam-data].  [I-D.gandhi-mpls-ioam] describes the
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 4]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
    applicability of IOAM to MPLS dataplane.  The encapsulating MPLS node
    needs to know if the decapsulating MPLS node can process the IOAM
    data before adding it in the packet.  In HbH IOAM mode, nodes that
    are capable of processing IOAM will intercept and process the IOAM
-   data.  The presence of IOAM data will be transparent to nodes that do
-   not support or do not participate in the IOAM process.
+   data accordingly.  The presence of IOAM header and optional IOAM data
+   will betransparent to nodes that do not support or do not participate
+   in the IOAM process.
+
+2.2.1.  In-situ OAM Direct Export
+
+   IOAM Direct Export (DEX) [I-D.ietf-ippm-ioam-direct-export] is an
+   IOAM Option-Type in which the operational state and telemetry
+   information is collected according to the specified profile and
+   exported in a manner and format defined by a local policy.
+
+   In IOAM DEX, the user data packet is only used to trigger the IOAM
+   data to be directly exported or locally aggregated without being
+   pushed into in-flight data packets.
 
 2.3.  Network Slicing
 
-   [I-D.ietf-teas-ietf-network-slices] specifies the definition of an
-   IETF Network Slice.  It further discusses the general framework for
-   requesting and operating IETF Network Slices, their characteristics,
-   and the necessary system components and interfaces.
+   An IETF Network Slice service provides connectivity coupled with a
+   set of network resource commitments and is expressed in terms of one
+   or more connectivity constructs.  A slice-flow aggregate
+   [I-D.bestbar-teas-ns-packet] refers to the set of traffic streams
+   from one or more connectivity constructs belonging to one or more
+   IETF Network Slices that are mapped to a set of network resources and
+   provided the same forwarding treatment.  The packets associated with
+   a slice-flow aggregate may carry a marking in the packet's network
+   layer header to identify this association and this marking is
+   referred to as Flow-Aggregate Selector (FAS).  The FAS is used to map
+   the packet to the associated set of network resources and provide the
+   corresponding forwarding treatment to the packet.
 
+   A router that requires forwarding of a packet that belongs to a
+   slice-flow aggregate may have to decide on the forwarding action to
+   take based on selected next-hop(s), and the forwarding treatment
+   (e.g., scheduling and drop policy) to enforce based on the associated
+   per-hop behavior.
 
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 4]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
-   Multiple network slices can be realized on top of a single physical
-   network.
-
-   In order to overcome scale challenges, IETF Network Slices may be
-   aggregated into groups according to similar characteristics.  The
-   slice aggregate [I-D.bestbar-teas-ns-packet] is a construct that
-   comprises of the traffic flows of one or more IETF Network Slices of
-   similar characteristics.
-
-   A router that requires forwarding of a packet that belongs to a slice
-   aggregate may have to decide on the forwarding action to take based
-   on selected next-hop(s), and the forwarding treatment (e.g.,
-   scheduling and drop policy) to enforce based on the associated per-
-   hop behavior.
-
-   The routers in the network that forward traffic over links that are
-   shared by multiple slice aggregates need to identify the slice
-   aggregate packets in order to enforce the associated forwarding
+   In this case, the routers that forward traffic over resources that
+   are shared by multiple slice-flow aggregates need to identify the
+   slice aggregate packets in order to enforce the associated forwarding
    action and treatment.
 
-   An IETF network slice MAY support the following key features:
+   MNA can be used to indicate the action and carry ancillary data for
+   packets traversing Label Switched Paths (LSPs).  An MNA network
+   action can be used to carry the FAS in MPLS packets.
 
-   1.  A Slice Selector
 
-   2.  A Network Resource Partition associated with a slice aggregate.
 
-   3.  A Path selection criteria
+Saad, et al.              Expires 27 April 2023                 [Page 5]
+
+Internet-Draft                MNA Usecases                  October 2022
 
-   4.  Verification that per slice SLOs are being met.  This may be done
-       by active measurements (inferred) or by using hybrid measurement
-       methods, e.g., IOAM.
 
-   5.  Additionally, there is an on-going discussion on using Service
-       Functions (SFs) with network slices.  This may require insertion
-       of an NSH.
+2.3.1.  Dedicated Identifier as Flow-Aggregate Selector
 
-   6.  For multi-domain scenarios, a packet that traverses multiple
-       domains may encode different identifiers within each domain.
-
-2.3.1.  Global Identifier as Flow-Aggregate Selector
-
-   A Global Identifier as a Flow-Aggregate Selector (G-FAS) can be
-   encoded in the MPLS packet as defined in [I-D.kompella-mpls-mspl4fa],
-   [I-D.li-mpls-enhanced-vpn-vtn-id], and
-   [I-D.decraene-mpls-slid-encoded-entropy-label-id].  The G-FAS is used
+   A dedicated Identifier that is independent of forwarding can be
+   carried in the packet as a Flow-Aggregate Selector (FAS).  This can
+   be encoded in the MPLS packet as defined in
+   [I-D.kompella-mpls-mspl4fa], [I-D.li-mpls-enhanced-vpn-vtn-id], and
+   [I-D.decraene-mpls-slid-encoded-entropy-label-id].  The FAS is used
    to associate the packets belonging to Slice-Flow Aggregate to the
    underlying Network Resource Partition (NRP) as described in
    [I-D.bestbar-teas-ns-packet].
 
+   When MPLS packets carry a dedicated FAS identifier, the MPLS LSRs use
+   the forwarding label to select the forwarding next-hop(s), and use
+   the FAS in the MPLS packet to infer the specific forwarding treatment
+   that needs to be applied on the packet.
 
-
-Saad, et al.             Expires 21 October 2022                [Page 5]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
-   The G-FAS can be encoded within an MPLS label carried in the packet's
-   MPLS label stack.  All packets that belong to the same flow aggregate
-   MAY carry the same FAS in the MPLS label stack.
-
-   When MPLS packets carry a G-FAS, MPLS LSRs use the forwarding label
-   to select the forwarding next-hop(s), and use the G-FAS in the MPLS
-   packet to infer the specific forwarding treatment that needs to be
-   applied on the packet.
+   The FAS can be encoded within an MPLS label carried in the packet's
+   MPLS label stack.  All MPLS packets that belong to the same flow
+   aggregate MAY carry the same FAS identifier.
 
 2.3.2.  Forwarding Label as a Flow-Aggregate Selector
 
@@ -304,15 +315,38 @@ Internet-Draft                MNA Usecases                    April 2022
    the top forwarding label to infer both the forwarding action and the
    forwarding treatment to be invoked on the packets.
 
-2.4.  Delay Budgets for Low-Latency Applications
+2.4.  Generic Delivery Functions
+
+   The Generic Delivery Functions (GDF), defined in
+   [I-D.zzhang-intarea-generic-delivery-functions], provide a new
+   mechanism to support functions analogous to those supported through
+   the IPv6 Extension Headers mechanism.  For example, GDF can support
+   fragmentation/reassembly functionality in the MPLS network by using
+   the Generic Fragmentation Header.  MNA can support GDF by placing a
+   GDF header in an MPLS packet within the Post-Stack Data block
+   [I-D.ietf-mpls-mna-fwk].  Multiple GDF headers can also be present in
+   the same MPLS packet organized as a list of headers.
+
+
+
+
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 6]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
+2.5.  Delay Budgets for Time-Bound Applications
 
    The routers in a network can perform two distinct functions on
    incoming packets, namely forwarding (where the packet should be sent)
-   and scheduling (when the packet should be sent).  Time Sensitive
-   Networking (TSN) and Deterministic Networking provide several
-   mechanisms for scheduling under the assumption that routers are time
-   synchronized.  The most effective mechanisms for delay minimization
-   involve per-flow resource allocation.
+   and scheduling (when the packet should be sent).  IEEE-802.1 Time
+   Sensitive Networking (TSN) and Deterministic Networking provide
+   several mechanisms for scheduling under the assumption that routers
+   are time-synchronized.  The most effective mechanisms for delay
+   minimization involve per-flow resource allocation.
 
    Segment Routing (SR) is a forwarding paradigm that allows encoding
    forwarding instructions in the packet in a stack data structure,
@@ -320,25 +354,15 @@ Internet-Draft                MNA Usecases                    April 2022
    are contained within a packet in the form of a First-in First-out
    stack dictating the forwarding decisions of successive routers.
    Segment routing may be used to choose a path sufficiently short to be
-   capable of providing a low end-to-end latency but does not influence
-   the queueing of individual packets in each router along that path.
+   capable of providing a bounded end-to-end latency but does not
+   influence the queueing of individual packets in each router along
+   that path.
 
-   When carried over MPLS dataplane, a solution that enables the
-   delivery such packets that can be delivered to their final
-   destination by a given time budget is required.
+   When carried over the MPLS data plane, a solution is required to
+   enable the delivery of such packets that can be delivered to their
+   final destination by a given time budget.
 
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 6]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
-2.4.1.  Stack Based Methods for Latency Control
+2.5.1.  Stack Based Methods for Latency Control
 
    One efficient data structure for inserting local deadlines into the
    headers is a "stack", similar to that used in Segment Routing to
@@ -353,14 +377,24 @@ Internet-Draft                MNA Usecases                    April 2022
 
    The ingress router inserts the deadline stack into the packet
    headers; no other router needs to be aware of the requirements of the
-   time sensitive flows.  Hence admitting a new flow only requires
-   updating the information base of the ingress router.
+   time-bound flows.  Hence admitting a new flow only requires updating
+   the information base of the ingress router.
 
    MPLS LSRs that expose the Top of Stack (ToS) label can also inspect
    the associated "deadline" carried in the packet (either in MPLS stack
    as ISD or after BoS as PSD).
 
-2.5.  NSH Based Service Function Chaining
+
+
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 7]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
+2.6.  NSH-based Service Function Chaining
 
    [RFC8595] describes how Service Function Chaining (SFC) can be
    realized in an MPLS network by emulating the NSH by using only MPLS
@@ -373,12 +407,12 @@ Internet-Draft                MNA Usecases                    April 2022
 
    For example, it may be possible to extend NSH emulation using MPLS
    labels [RFC8595] to support the functionality of NSH Context Headers,
-   whether fixed or variable-length.  One of use cases could support
+   whether fixed or variable-length.  One of the use cases could support
    Flow ID [I-D.ietf-sfc-nsh-tlv] that may be used for load-balancing
    among Service Function Forwarders (SFFs) and/or the Service Function
    (SF) within the same SFP.
 
-2.6.  Network Programming
+2.7.  Network Programming
 
    In SR, an ingress node steers a packet through an ordered list of
    instructions, called "segments".  Each one of these instructions
@@ -386,13 +420,6 @@ Internet-Draft                MNA Usecases                    April 2022
    network.  A function is locally defined on the node where it is
    executed and may range from simply moving forward in the segment list
    to any complex user-defined behavior.
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 7]
-
-Internet-Draft                MNA Usecases                    April 2022
-
 
    Network Programming combines Segment Routing (SR) functions to
    achieve a networking objective that goes beyond mere packet routing.
@@ -403,7 +430,7 @@ Internet-Draft                MNA Usecases                    April 2022
    Stack to support the equivalent of FUNC::ARG in SRv6 as described in
    [RFC8986].
 
-2.7.  Application Aware Networking
+2.8.  Application Aware Networking
 
    Application-aware Networking (APN) as described in
    [I-D.li-apn-problem-statement-usecases] allows application-aware
@@ -412,50 +439,35 @@ Internet-Draft                MNA Usecases                    April 2022
    encapsulated at network edge devices and carried in packets
    traversing an APN domain.
 
+
+
+
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 8]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
    The APN data is carried in packets to facilitate service
-   provisioning, perform fine-granularity traffic steering and network
-   resource adjustment.  To support APN in MPLS networks, mechanisms are
-   needed to carry such APN data in MPLS encapsulated packets.
+   provisioning, and be used to perform fine-granularity traffic
+   steering and network resource adjustment.  To support APN in MPLS
+   networks, mechanisms are needed to carry such APN data in MPLS
+   encapsulated packets.
 
 3.  Co-existence of Usecases
 
    Two or more of the aforementioned use cases MAY co-exist in the same
-   packet.  Some examples of such use cases are described below.
+   packet.  This may require the presence of multiple ancilary data
+   (whether In-stack or Post-stack ancillary data) to be present in the
+   same MPLS packet.
 
-3.1.  IOAM with Network Slicing
-
-   IOAM may provide key functions with network slicing to help ensure
-   that critical network slice SLOs are being met by the network
-   provider.
-
-   In such a case, IOAM is able to collect key performance measurement
-   parameters of network slice traffic flows as it traverses the
-   transport network.
-
-   This may require, in addition to carrying a specific network slice
-   selector (e.g., GISS), the MPLS network slice packets may have to
-   also carry IOAM ancillary data.
-
-   Note that the IOAM ancillary data may have to be modified, and
-   updated on some/all LSRs traversed by the network slice MPLS packets.
-
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 8]
-
-Internet-Draft                MNA Usecases                    April 2022
-
-
-3.2.  IOAM with Time-Sensitive Networking
-
-   IOAM operation may also be desirable on MPLS packets that carry time-
-   sensitive related data.  Similarly, this may require the presence of
-   multiple ancilary data (whether In-stack or Post-stack ancillary
-   data) to be present in the same MPLS packet.
+   For example, IOAM may provide key functions along with network
+   slicing to help ensure that critical network slice SLOs are being met
+   by the network provider.  In this case, IOAM is able to collect key
+   performance measurement parameters of network slice traffic flows as
+   it traverses the transport network.
 
 4.  IANA Considerations
 
@@ -483,45 +495,42 @@ Internet-Draft                MNA Usecases                    April 2022
    [I-D.andersson-mpls-mna-fwk]
               Andersson, L., Bryant, S., Bocci, M., and T. Li, "MPLS
               Network Actions Framework", Work in Progress, Internet-
-              Draft, draft-andersson-mpls-mna-fwk-00, 4 April 2022,
+              Draft, draft-andersson-mpls-mna-fwk-04, 27 June 2022,
               <https://www.ietf.org/archive/id/draft-andersson-mpls-mna-
-              fwk-00.txt>.
+              fwk-04.txt>.
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 9]
+
+Internet-Draft                MNA Usecases                  October 2022
+
 
    [I-D.bestbar-teas-ns-packet]
               Saad, T., Beeram, V. P., Dong, J., Wen, B., Ceccarelli,
-              D., Halpern, J., Peng, S., Chen, R., Liu, X., Contreras,
-              L. M., Rokui, R., and L. Jalil, "Realizing Network Slices
-              in IP/MPLS Networks", Work in Progress, Internet-Draft,
-              draft-bestbar-teas-ns-packet-08, 2 February 2022,
-              <https://www.ietf.org/archive/id/draft-bestbar-teas-ns-
-              packet-08.txt>.
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022                [Page 9]
-
-Internet-Draft                MNA Usecases                    April 2022
-
+              D., Halpern, J. M., Peng, S., Chen, R., Liu, X.,
+              Contreras, L. M., Rokui, R., and L. Jalil, "Realizing
+              Network Slices in IP/MPLS Networks", Work in Progress,
+              Internet-Draft, draft-bestbar-teas-ns-packet-10, 5 May
+              2022, <https://www.ietf.org/archive/id/draft-bestbar-teas-
+              ns-packet-10.txt>.
 
    [I-D.decraene-mpls-slid-encoded-entropy-label-id]
               Decraene, B., Filsfils, C., Henderickx, W., Saad, T.,
               Beeram, V. P., and L. Jalil, "Using Entropy Label for
               Network Slice Identification in MPLS networks.", Work in
               Progress, Internet-Draft, draft-decraene-mpls-slid-
-              encoded-entropy-label-id-03, 11 February 2022,
+              encoded-entropy-label-id-04, 14 June 2022,
               <https://www.ietf.org/archive/id/draft-decraene-mpls-slid-
-              encoded-entropy-label-id-03.txt>.
+              encoded-entropy-label-id-04.txt>.
 
    [I-D.gandhi-mpls-ioam]
               Gandhi, R., Ali, Z., Brockners, F., Wen, B., Decraene, B.,
-              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
-              OAM Data", Work in Progress, Internet-Draft, draft-gandhi-
-              mpls-ioam-04, 2 March 2022,
+              Song, H., and V. Kozak, "MPLS Data Plane Encapsulation for
+              In-situ OAM Data", Work in Progress, Internet-Draft,
+              draft-gandhi-mpls-ioam-07, 13 October 2022,
               <https://www.ietf.org/archive/id/draft-gandhi-mpls-ioam-
-              04.txt>.
+              07.txt>.
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -533,70 +542,99 @@ Internet-Draft                MNA Usecases                    April 2022
 
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
-              for In-situ OAM", Work in Progress, Internet-Draft, draft-
-              ietf-ippm-ioam-data-17, 13 December 2021,
+              for In Situ Operations, Administration, and Maintenance
+              (IOAM)", Work in Progress, Internet-Draft, draft-ietf-
+              ippm-ioam-data-17, 13 December 2021,
               <https://www.ietf.org/archive/id/draft-ietf-ippm-ioam-
               data-17.txt>.
 
+   [I-D.ietf-ippm-ioam-direct-export]
+              Song, H., Gafni, B., Brockners, F., Bhandari, S., and T.
+              Mizrahi, "In-situ OAM Direct Exporting", Work in Progress,
+              Internet-Draft, draft-ietf-ippm-ioam-direct-export-11, 23
+              September 2022, <https://www.ietf.org/archive/id/draft-
+              ietf-ippm-ioam-direct-export-11.txt>.
+
+
+
+Saad, et al.              Expires 27 April 2023                [Page 10]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
+   [I-D.ietf-mpls-mna-fwk]
+              Andersson, L., Bryant, S., Bocci, M., and T. Li, "MPLS
+              Network Actions Framework", Work in Progress, Internet-
+              Draft, draft-ietf-mpls-mna-fwk-02, 21 October 2022,
+              <https://www.ietf.org/archive/id/draft-ietf-mpls-mna-fwk-
+              02.txt>.
+
    [I-D.ietf-sfc-nsh-tlv]
               Wei, Y., Elzur, U., Majee, S., Pignataro, C., and D. E.
-              Eastlake, "Network Service Header Metadata Type 2
+              Eastlake, "Network Service Header (NSH) Metadata Type 2
               Variable-Length Context Headers", Work in Progress,
-              Internet-Draft, draft-ietf-sfc-nsh-tlv-14, 30 March 2022,
+              Internet-Draft, draft-ietf-sfc-nsh-tlv-15, 20 April 2022,
               <https://www.ietf.org/archive/id/draft-ietf-sfc-nsh-tlv-
-              14.txt>.
+              15.txt>.
 
    [I-D.ietf-teas-ietf-network-slices]
               Farrel, A., Drake, J., Rokui, R., Homma, S., Makhijani,
               K., Contreras, L. M., and J. Tantsura, "Framework for IETF
               Network Slices", Work in Progress, Internet-Draft, draft-
-              ietf-teas-ietf-network-slices-10, 27 March 2022,
+              ietf-teas-ietf-network-slices-16, 24 October 2022,
               <https://www.ietf.org/archive/id/draft-ietf-teas-ietf-
-              network-slices-10.txt>.
-
-
-
-
-Saad, et al.             Expires 21 October 2022               [Page 10]
-
-Internet-Draft                MNA Usecases                    April 2022
-
+              network-slices-16.txt>.
 
    [I-D.kompella-mpls-mspl4fa]
               Kompella, K., Beeram, V. P., Saad, T., and I. Meilik,
               "Multi-purpose Special Purpose Label for Forwarding
               Actions", Work in Progress, Internet-Draft, draft-
-              kompella-mpls-mspl4fa-02, 9 February 2022,
+              kompella-mpls-mspl4fa-03, 10 July 2022,
               <https://www.ietf.org/archive/id/draft-kompella-mpls-
-              mspl4fa-02.txt>.
+              mspl4fa-03.txt>.
 
    [I-D.kompella-mpls-nffrr]
               Kompella, K. and W. Lin, "No Further Fast Reroute", Work
-              in Progress, Internet-Draft, draft-kompella-mpls-nffrr-02,
-              12 July 2021, <https://www.ietf.org/archive/id/draft-
-              kompella-mpls-nffrr-02.txt>.
+              in Progress, Internet-Draft, draft-kompella-mpls-nffrr-03,
+              8 July 2022, <https://www.ietf.org/archive/id/draft-
+              kompella-mpls-nffrr-03.txt>.
 
    [I-D.li-apn-problem-statement-usecases]
               Li, Z., Peng, S., Voyer, D., Xie, C., Liu, P., Qin, Z.,
-              and G. Mishra, "Problem Statement and Use Cases of
+              and G. S. Mishra, "Problem Statement and Use Cases of
               Application-aware Networking (APN)", Work in Progress,
               Internet-Draft, draft-li-apn-problem-statement-usecases-
-              06, 7 March 2022, <https://www.ietf.org/archive/id/draft-
-              li-apn-problem-statement-usecases-06.txt>.
+              07, 30 September 2022, <https://www.ietf.org/archive/id/
+              draft-li-apn-problem-statement-usecases-07.txt>.
 
    [I-D.li-mpls-enhanced-vpn-vtn-id]
               Li, Z. and J. Dong, "Carrying Virtual Transport Network
-              Identifier in MPLS Packet", Work in Progress, Internet-
-              Draft, draft-li-mpls-enhanced-vpn-vtn-id-02, 7 March 2022,
-              <https://www.ietf.org/archive/id/draft-li-mpls-enhanced-
-              vpn-vtn-id-02.txt>.
+              (VTN) Information in MPLS Packet", Work in Progress,
+
+
+
+Saad, et al.              Expires 27 April 2023                [Page 11]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
+              Internet-Draft, draft-li-mpls-enhanced-vpn-vtn-id-03, 16
+              October 2022, <https://www.ietf.org/archive/id/draft-li-
+              mpls-enhanced-vpn-vtn-id-03.txt>.
 
    [I-D.lm-mpls-sfc-path-verification]
               Yao, L. and G. Mirsky, "MPLS-based Service Function
               Path(SFP) Consistency Verification", Work in Progress,
-              Internet-Draft, draft-lm-mpls-sfc-path-verification-02, 21
-              February 2021, <https://www.ietf.org/archive/id/draft-lm-
-              mpls-sfc-path-verification-02.txt>.
+              Internet-Draft, draft-lm-mpls-sfc-path-verification-03, 11
+              June 2022, <https://www.ietf.org/archive/id/draft-lm-mpls-
+              sfc-path-verification-03.txt>.
+
+   [I-D.zzhang-intarea-generic-delivery-functions]
+              Zhang, Z. J., Bonica, R., Kompella, K., and G. Mirsky,
+              "Generic Delivery Functions", Work in Progress, Internet-
+              Draft, draft-zzhang-intarea-generic-delivery-functions-03,
+              11 July 2022, <https://www.ietf.org/archive/id/draft-
+              zzhang-intarea-generic-delivery-functions-03.txt>.
 
    [RFC3031]  Rosen, E., Viswanathan, A., and R. Callon, "Multiprotocol
               Label Switching Architecture", RFC 3031,
@@ -607,16 +645,6 @@ Internet-Draft                MNA Usecases                    April 2022
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
               DOI 10.17487/RFC4090, May 2005,
               <https://www.rfc-editor.org/info/rfc4090>.
-
-
-
-
-
-
-Saad, et al.             Expires 21 October 2022               [Page 11]
-
-Internet-Draft                MNA Usecases                    April 2022
-
 
    [RFC5286]  Atlas, A., Ed. and A. Zinin, Ed., "Basic Specification for
               IP Fast Reroute: Loop-Free Alternates", RFC 5286,
@@ -639,29 +667,32 @@ Internet-Draft                MNA Usecases                    April 2022
               DOI 10.17487/RFC8986, February 2021,
               <https://www.rfc-editor.org/info/rfc8986>.
 
+
+
+Saad, et al.              Expires 27 April 2023                [Page 12]
+
+Internet-Draft                MNA Usecases                  October 2022
+
+
 Authors' Addresses
 
    Tarek Saad
-   Juniper Networks
-
-   Email: tsaad@juniper.net
+   Cisco Systems, Inc.
+   Email: tsaad.net@gmail.com
 
 
    Kiran Makhijani
    Futurewei Technologies
-
    Email: kiranm@futurewei.com
 
 
    Haoyu Song
    Futurewei Technologies
-
    Email: haoyu.song@futurewei.com
 
 
    Greg Mirsky
    Ericsson
-
    Email: gregimirsky@gmail.com
 
 
@@ -669,4 +700,29 @@ Authors' Addresses
 
 
 
-Saad, et al.             Expires 21 October 2022               [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 27 April 2023                [Page 13]

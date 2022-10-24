@@ -1,11 +1,12 @@
 ---
 title: Use Cases for MPLS Network Action Indicators and MPLS Ancillary Data
 abbrev: MNA Usecases
-docname: draft-ietf-mpls-mna-usecases-00
+docname: draft-ietf-mpls-mna-usecases-01
 category: info
 ipr: trust200902
 workgroup: MPLS Working Group
 keyword: Internet-Draft
+submissionType: IETF
 
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
@@ -15,8 +16,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems, Inc.
+    email: tsaad.net@gmail.com
 
  -
     ins: K. Makhijani
@@ -142,6 +143,22 @@ used for various use-cases of OAM and PM.
 the MPLS data plane encapsulations, including Segment Routing (SR) with MPLS
 data plane (SR-MPLS).
 
+IOAM uses the user data packet to trigger the collection of operational state and telemetry
+information on network nodes within a limited domain. Several IOAM Options have been
+defined:
+
+- Pre-allocated and Incremental
+- Edge-to-Edge
+- Proof-of-Transit
+
+Operational state and telemetry information collected in the data packet into a
+space allocated by the IOAM encapsulating node or with each IOAM node adding to
+the IOAM section of the data packet – IOAM Pre-allocated or Incremental Option
+types
+
+
+
+
 The IOAM data may be added after the bottom of the MPLS label stack. The IOAM
 data fields can be of fixed or incremental size as defined in
 {{?I-D.ietf-ippm-ioam-data}}.  {{?I-D.gandhi-mpls-ioam}} describes the
@@ -152,58 +169,67 @@ intercept and process the IOAM data accordingly. The presence of IOAM header and
 data will betransparent to nodes that do not support or do not participate in the IOAM
 process.
 
+### In-situ OAM Direct Export
+
+
+IOAM Direct Export (DEX) {{?I-D.ietf-ippm-ioam-direct-export}} is an IOAM
+Option-Type in which the operational state and telemetry information is
+collected according to the specified profile and exported in a manner and
+format defined by a local policy.
+
+In IOAM DEX, the user data packet is only
+used to trigger the IOAM data to be directly exported or locally aggregated
+without being pushed into in-flight data packets.
+
+
+
 ## Network Slicing
 
-{{?I-D.ietf-teas-ietf-network-slices}} specifies the definition of 
-an IETF Network Slice. It further discusses the general framework for
-requesting and operating IETF Network Slices, their characteristics, and the
-necessary system components and interfaces.
+An IETF Network Slice service provides connectivity coupled with a set of
+network resource commitments and is expressed in terms of one or more
+connectivity constructs.  A slice-flow aggregate
+{{?I-D.bestbar-teas-ns-packet}} refers to the set of traffic streams from one
+or more connectivity constructs belonging to one or more IETF Network Slices
+that are mapped to a set of network resources and provided the same forwarding
+treatment.  The packets associated with a slice-flow aggregate may carry a
+marking in the packet's network layer header to identify this association and
+this marking is referred to as Flow-Aggregate Selector (FAS).  The FAS is used
+to map the packet to the associated set of network resources and provide the
+corresponding forwarding treatment to the packet.
 
-Multiple network slices can be realized on top of a single physical network.  
-
-In order to overcome scale challenges, IETF Network Slices may be aggregated
-into groups according to similar characteristics.  The slice aggregate
-{{?I-D.bestbar-teas-ns-packet}} is a construct that comprises of the traffic
-flows of one or more IETF Network Slices of similar characteristics.
-
-A router that requires forwarding of a packet that belongs to a slice aggregate
-may have to decide on the forwarding action to take based on selected
+A router that requires forwarding of a packet that belongs to a slice-flow
+aggregate may have to decide on the forwarding action to take based on selected
 next-hop(s), and the forwarding treatment (e.g., scheduling and drop policy) to
 enforce based on the associated  per-hop behavior.
 
-The routers in the network that forward traffic over links that are shared by
-multiple slice aggregates need to identify the slice aggregate packets
+In this case, the routers that forward traffic over resources that are shared
+by multiple slice-flow aggregates need to identify the slice aggregate packets
 in order to enforce the associated forwarding action and treatment.
 
-An IETF network slice MAY support the following key features:
+MNA can be used to indicate the action and carry ancillary data for packets
+traversing Label Switched Paths (LSPs). An MNA network action can be used to
+carry the FAS in MPLS packets.
 
-1. A Slice Selector
-2. A Network Resource Partition associated with a slice aggregate.
-3. A Path selection criteria
-4. Verification that per slice Slice Level Objectives (SLOs) are being met. This may be done by active measurements
-   (inferred) or by using hybrid measurement methods, e.g., IOAM.
-5. Additionally, there is an on-going discussion on using Service Functions
-   (SFs) with network slices. This may require insertion of an NSH.
-6. For multi-domain scenarios, a packet that traverses multiple domains may
-   encode different identifiers within each domain.
+### Dedicated Identifier as Flow-Aggregate Selector
 
-### Global Identifier as Flow-Aggregate Selector
-
-A Global Identifier as a Flow-Aggregate Selector (G-FAS) can be encoded in the
-MPLS packet as defined in {{?I-D.kompella-mpls-mspl4fa}},
+A dedicated Identifier that is independent of forwarding can be carried in the
+packet as a Flow-Aggregate Selector (FAS). This can be encoded in the MPLS
+packet as defined in {{?I-D.kompella-mpls-mspl4fa}},
 {{?I-D.li-mpls-enhanced-vpn-vtn-id}}, and
-{{?I-D.decraene-mpls-slid-encoded-entropy-label-id}}.  The G-FAS is used to
+{{?I-D.decraene-mpls-slid-encoded-entropy-label-id}}.  The FAS is used to
 associate the packets belonging to Slice-Flow Aggregate to the underlying
 Network Resource Partition (NRP) as described in
 {{?I-D.bestbar-teas-ns-packet}}.
 
-The G-FAS can be encoded within an MPLS label carried in the packet's MPLS label
-stack. All packets that belong to the same flow aggregate MAY carry the same FAS in
-the MPLS label stack.  
+When MPLS packets carry a dedicated FAS identifier, the MPLS LSRs use the
+forwarding label to select the forwarding next-hop(s), and use the FAS in the
+MPLS packet to infer the specific forwarding treatment that needs to be applied
+on the packet.
 
-When MPLS packets carry a G-FAS, MPLS LSRs use the forwarding label to select the forwarding
-next-hop(s), and use the G-FAS in the MPLS packet to infer the
-specific forwarding treatment that needs to be applied on the packet.
+The FAS can be encoded within an MPLS label carried in the packet's MPLS label
+stack. All MPLS packets that belong to the same flow aggregate MAY carry the
+same FAS identifier.
+
 
 ### Forwarding Label as a Flow-Aggregate Selector
 
@@ -216,6 +242,17 @@ aggregate (FEC) to distinguish the packets forwarded to the same destination.
 from other flow aggregates.  In this case, LSRs can use the
 top forwarding label to infer both the forwarding action and the forwarding
 treatment to be invoked on the packets.
+
+## Generic Delivery Functions
+
+The Generic Delivery Functions (GDF), defined in
+{{?I-D.zzhang-intarea-generic-delivery-functions}}, provide a new mechanism to
+support functions analogous to those supported through the IPv6 Extension
+Headers mechanism. For example, GDF can support fragmentation/reassembly
+functionality in the MPLS network by using the Generic Fragmentation Header.
+MNA can support GDF by placing a GDF header in an MPLS packet within the
+Post-Stack Data block {{?I-D.ietf-mpls-mna-fwk}}. Multiple GDF headers can also
+be present in the same MPLS packet organized as a list of headers.
 
 ## Delay Budgets for Time-Bound Applications
 
