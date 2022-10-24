@@ -123,41 +123,30 @@ packets. A proposal to address this is presented in
 
 ## In-situ OAM
 
-In-situ Operations, Administration, and Maintenance (IOAM) may record operational
-and telemetry information within the packet while the packet traverses a
-particular path in a network domain.
+In-situ Operations, Administration, and Maintenance (IOAM) is used to collect
+operational and telemetry information while packets traverses a particular path
+in a network domain.
 
 The term "in-situ" refers to the fact that the IOAM data fields are added to
 the data packets rather than being sent within the probe packets specifically
 dedicated to OAM or Performance Measurement (PM). 
 
-IOAM can run in two modes Edge-to-Edge (E2E) and Hop-by-Hop (HbH).  In E2E mode,
-only the encapsulating and decapsulating nodes will process IOAM data fields.
-In HbH mode, the encapsulating and decapsulating nodes as well as intermediate
-IOAM-capable nodes process IOAM data fields. 
+IOAM can run in two modes Edge-to-Edge (E2E) and Hop-by-Hop (HbH).  In E2E
+mode, only the encapsulating and decapsulating nodes will process IOAM data
+fields.  In HbH mode, the encapsulating and decapsulating nodes as well as
+intermediate IOAM-capable nodes process IOAM data fields. The IOAM data fields
+are defined in {{?I-D.ietf-ippm-ioam-data}}, and can be used for various
+use-cases of OAM and PM.
 
-The IOAM data fields are defined in {{?I-D.ietf-ippm-ioam-data}}, and can be
-used for various use-cases of OAM and PM.
+Several IOAM Options have been defined:
+
+* Pre-allocated and Incremental
+* Edge-to-Edge
+* Proof-of-Transit
 
 {{?I-D.gandhi-mpls-ioam-sr}} defines how IOAM data fields are transported using
 the MPLS data plane encapsulations, including Segment Routing (SR) with MPLS
 data plane (SR-MPLS).
-
-IOAM uses the user data packet to trigger the collection of operational state and telemetry
-information on network nodes within a limited domain. Several IOAM Options have been
-defined:
-
-- Pre-allocated and Incremental
-- Edge-to-Edge
-- Proof-of-Transit
-
-Operational state and telemetry information collected in the data packet into a
-space allocated by the IOAM encapsulating node or with each IOAM node adding to
-the IOAM section of the data packet – IOAM Pre-allocated or Incremental Option
-types
-
-
-
 
 The IOAM data may be added after the bottom of the MPLS label stack. The IOAM
 data fields can be of fixed or incremental size as defined in

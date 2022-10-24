@@ -178,9 +178,9 @@ Internet-Draft                MNA Usecases                  October 2022
 
 2.2.  In-situ OAM
 
-   In-situ Operations, Administration, and Maintenance (IOAM) may record
-   operational and telemetry information within the packet while the
-   packet traverses a particular path in a network domain.
+   In-situ Operations, Administration, and Maintenance (IOAM) is used to
+   collect operational and telemetry information while packets traverses
+   a particular path in a network domain.
 
    The term "in-situ" refers to the fact that the IOAM data fields are
    added to the data packets rather than being sent within the probe
@@ -191,18 +191,11 @@ Internet-Draft                MNA Usecases                  October 2022
    In E2E mode, only the encapsulating and decapsulating nodes will
    process IOAM data fields.  In HbH mode, the encapsulating and
    decapsulating nodes as well as intermediate IOAM-capable nodes
-   process IOAM data fields.
+   process IOAM data fields.  The IOAM data fields are defined in
+   [I-D.ietf-ippm-ioam-data], and can be used for various use-cases of
+   OAM and PM.
 
-   The IOAM data fields are defined in [I-D.ietf-ippm-ioam-data], and
-   can be used for various use-cases of OAM and PM.
-
-   [I-D.gandhi-mpls-ioam-sr] defines how IOAM data fields are
-   transported using the MPLS data plane encapsulations, including
-   Segment Routing (SR) with MPLS data plane (SR-MPLS).
-
-   IOAM uses the user data packet to trigger the collection of
-   operational state and telemetry information on network nodes within a
-   limited domain.  Several IOAM Options have been defined:
+   Several IOAM Options have been defined:
 
    *  Pre-allocated and Incremental
 
@@ -210,22 +203,13 @@ Internet-Draft                MNA Usecases                  October 2022
 
    *  Proof-of-Transit
 
-   Operational state and telemetry information collected in the data
-   packet into a space allocated by the IOAM encapsulating node or with
-   each IOAM node adding to the IOAM section of the data packet - IOAM
-   Pre-allocated or Incremental Option types
+   [I-D.gandhi-mpls-ioam-sr] defines how IOAM data fields are
+   transported using the MPLS data plane encapsulations, including
+   Segment Routing (SR) with MPLS data plane (SR-MPLS).
 
    The IOAM data may be added after the bottom of the MPLS label stack.
    The IOAM data fields can be of fixed or incremental size as defined
    in [I-D.ietf-ippm-ioam-data].  [I-D.gandhi-mpls-ioam] describes the
-
-
-
-Saad, et al.              Expires 27 April 2023                 [Page 4]
-
-Internet-Draft                MNA Usecases                  October 2022
-
-
    applicability of IOAM to MPLS dataplane.  The encapsulating MPLS node
    needs to know if the decapsulating MPLS node can process the IOAM
    data before adding it in the packet.  In HbH IOAM mode, nodes that
@@ -233,6 +217,14 @@ Internet-Draft                MNA Usecases                  October 2022
    data accordingly.  The presence of IOAM header and optional IOAM data
    will betransparent to nodes that do not support or do not participate
    in the IOAM process.
+
+
+
+
+Saad, et al.              Expires 27 April 2023                 [Page 4]
+
+Internet-Draft                MNA Usecases                  October 2022
+
 
 2.2.1.  In-situ OAM Direct Export
 
@@ -274,6 +266,14 @@ Internet-Draft                MNA Usecases                  October 2022
    MNA can be used to indicate the action and carry ancillary data for
    packets traversing Label Switched Paths (LSPs).  An MNA network
    action can be used to carry the FAS in MPLS packets.
+
+
+
+
+
+
+
+
 
 
 
