@@ -192,8 +192,7 @@ Internet-Draft                MNA Usecases                  October 2022
    process IOAM data fields.  In HbH mode, the encapsulating and
    decapsulating nodes as well as intermediate IOAM-capable nodes
    process IOAM data fields.  The IOAM data fields are defined in
-   [I-D.ietf-ippm-ioam-data], and can be used for various use-cases of
-   OAM and PM.
+   [I-D.ietf-ippm-ioam-data], and can be used for various OAM use-cases.
 
    Several IOAM Options have been defined:
 
@@ -202,6 +201,8 @@ Internet-Draft                MNA Usecases                  October 2022
    *  Edge-to-Edge
 
    *  Proof-of-Transit
+
+   *  Direct Export (see Section 2.2.1)
 
    [I-D.gandhi-mpls-ioam-sr] defines how IOAM data fields are
    transported using the MPLS data plane encapsulations, including
@@ -217,7 +218,6 @@ Internet-Draft                MNA Usecases                  October 2022
    data accordingly.  The presence of IOAM header and optional IOAM data
    will betransparent to nodes that do not support or do not participate
    in the IOAM process.
-
 
 
 

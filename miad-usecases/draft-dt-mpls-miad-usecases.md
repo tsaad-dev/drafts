@@ -136,13 +136,14 @@ mode, only the encapsulating and decapsulating nodes will process IOAM data
 fields.  In HbH mode, the encapsulating and decapsulating nodes as well as
 intermediate IOAM-capable nodes process IOAM data fields. The IOAM data fields
 are defined in {{?I-D.ietf-ippm-ioam-data}}, and can be used for various
-use-cases of OAM and PM.
+OAM use-cases.
 
 Several IOAM Options have been defined:
 
 * Pre-allocated and Incremental
 * Edge-to-Edge
 * Proof-of-Transit
+* Direct Export (see {{IOAM-DEX}})
 
 {{?I-D.gandhi-mpls-ioam-sr}} defines how IOAM data fields are transported using
 the MPLS data plane encapsulations, including Segment Routing (SR) with MPLS
@@ -158,7 +159,7 @@ intercept and process the IOAM data accordingly. The presence of IOAM header and
 data will betransparent to nodes that do not support or do not participate in the IOAM
 process.
 
-### In-situ OAM Direct Export
+### In-situ OAM Direct Export {#IOAM-DEX}
 
 
 IOAM Direct Export (DEX) {{?I-D.ietf-ippm-ioam-direct-export}} is an IOAM
