@@ -600,7 +600,8 @@ src-tunnel-tp-id/dst-tunnel-tp-id:
 
 bidirectional:
 
-> A YANG leaf that when present indicates the LSPs of a TE Tunnel are bidirectional and co-routed.
+> A YANG leaf that when present indicates the LSP of a TE Tunnel is bidirectional
+and co-routed as defined in {{?rfc3473}}.
 
 controller:
 
