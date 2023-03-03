@@ -221,18 +221,18 @@ YANG model augmentation of the TE model is covered in a separate document.
                         |       o                 \
                         |     /                    \
                         |   /                       \
-                 +--------------+           +---------------+
-  RSVP-TE module | ietf-rsvp-te |o .        | ietf-te-mpls^ |
-                 +--------------+   \       +---------------+
+                 +---------------+           +---------------+
+  RSVP-TE module | ietf-rsvp-te^ |o .       | ietf-te-mpls^ |
+                 +---------------+  \       +---------------+
                     |                \
                     |                 \
                     |                  \
                     |                   \
                     |                    \
                     o                 +-------------------+
-                 +-----------+        | ietf-rsvp-otn-te^ |
-  RSVP module    | ietf-rsvp |        +-------------------+
-                 +-----------+           RSVP-TE with OTN
+                 +------------+       | ietf-rsvp-otn-te^ |
+  RSVP module    | ietf-rsvp^ |       +-------------------+
+                 +------------+          RSVP-TE with OTN
                                          extensions
 
                 X---oY indicates that module X augments module Y
@@ -709,7 +709,7 @@ path-computation-server:
 
 compute-only:
 
-> A path of a TE Tunnel is, by default, provisioned so that it can instantiated
+> A path of a TE Tunnel is, by default, provisioned so that it can be instantiated
   in the forwarding plane so that it can carry traffic as soon as a valid path
   is computed. In some cases, a TE path may be configured only for the
   purpose of computing a path and reporting it without the need to instantiate
@@ -827,6 +827,7 @@ path-out-segment:
 those provided in the referenced named-path-constraint.
 
 computed-paths-properties:
+
 > A YANG container that holds properties for the list of computed paths.
 
 computed-path-error-infos:
