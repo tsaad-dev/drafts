@@ -64,7 +64,7 @@ author:
  -
    ins: X. Liu
    name: Xufeng Liu
-   organization: Volta Networks
+   organization: IBM Corporation
    email: xufeng.liu.ietf@gmail.com
 
  -
@@ -142,14 +142,17 @@ requirements of network slicing in packet networks.
 In a Diffserv (DS) domain {{?RFC2475}}, packets requiring the same forwarding
 treatment (scheduling and drop policy) are classified and marked with the
 respective Class Selector (CS) Codepoint (or the Traffic Class (TC) field for
-MPLS packets {{?RFC5462}}) at the DS domain ingress nodes.  Such packets are said
-to belong to a Behavior Aggregate (BA) that has a common set of behavioral
+MPLS packets {{?RFC5462}}) at the DS domain ingress nodes.  Such packets are
+said to belong to a Behavior Aggregate (BA) that has a common set of behavioral
 characteristics or a common set of delivery requirements.  At transit nodes,
 the CS is inspected to determine the specific forwarding treatment to be
 applied before the packet is forwarded.  A similar approach is adopted in this
 document to realize network slicing. The solution proposed in this document
 does not mandate Diffserv to be enabled in the network to provide a specific
-forwarding treatment.
+forwarding treatment. If Diffserv is enabled within the network, the Slice-Flow
+Aggregate traffic can further carry a Diffserv CS to enable differentiation of
+forwarding treatments for packets within a Slice-Flow Aggregate.
+
 
 When logical networks associated with an NRP are realized on top of a shared
 physical network infrastructure, it is important to steer traffic on the
@@ -162,16 +165,6 @@ mapped to a Slice-Flow Aggregate in order to allow interior NRP nodes to
 identify and apply the specific Per NRP Hop Behavior (NRP-PHB) associated with the
 Slice-Flow Aggregate. The NRP-PHB defines the scheduling treatment and, in some
 cases, the packet drop probability.
-
-If Diffserv is enabled within the network, the Slice-Flow Aggregate traffic can
-further carry a Diffserv CS to enable differentiation of forwarding treatments
-for packets within a Slice-Flow Aggregate.
-
-For example, when using MPLS as a dataplane, it is possible to identify packets
-belonging to the same Slice-Flow Aggregate by carrying an identifier in an MPLS Label Stack Entry (LSE).
-Additional Diffserv classification may be indicated in the Traffic
-Class (TC) bits of the global MPLS label to allow further differentiation of forwarding
-treatments for traffic traversing the same NRP.
 
 This document covers different modes of NRPs and discusses how
 each mode can ensure proper placement of Slice-Flow Aggregate paths
@@ -196,7 +189,7 @@ Network Resource Partition:
 : refer to the definition in {{?I-D.ietf-teas-ietf-network-slices}}.
 
 Slice-Flow Aggregate:
-: a collection of packets that are mapped to an NRP Policy and are given the same
+: a collection of packets that are mapped to an NRP and are given the same
 forwarding treatment; a Slice-Flow Aggregate comprises of one or more IETF
 network slice traffic streams from one or more connectivity constructs
 (belonging to one or more IETF network slices); the mapping of one or more IETF
@@ -420,18 +413,29 @@ selected to support the Slice-Flow Aggregate.
 Note that this step may indicate the need to increase the capacity of the
 underlying Filter Topology or to create a new Filter Topology.
 
+## NRP Policy
 
+The NRP Policy is a construct that enables the instantiation of control and
+data plane behaviors on select topological elements in support of the IETF
+network slice service. The NRP Policy encompasses policies (see {{SliceDefinition}}) that
+manage the specific resources in the network associatiated with a specific
+NRP.
 
 ## NRP Policy Installation
 
-A Controller function programs the physical network with policies for handling
-the traffic flows belonging to the Slice-Flow Aggregate.  These policies instruct
-underlying routers how to handle traffic for a specific Slice-Flow Aggregate: the
-routers correlate markers present in the packets that belong to the Slice-Flow
-Aggregate.  The way in which the NRP Policy is
-installed in the routers and the way that the traffic is marked is
-implementation specific. The NRP Policy instantiation in the network is
-further described in {{SlicePolicyInstantiation}}.
+A Controller function programs the physical network with the NRP policies to define specific handling
+for traffic flows belonging to the Slice-Flow Aggregate.  These NRP policies may
+be consumed on select topological elements in the network and as a result
+define how routers handle traffic for the Slice-Flow Aggregate associated with
+the NRP.
+
+For example, the routers that instantiate the NRP Policy can correlate markers
+that are present in packets that belong to the Slice-Flow Aggregate and apply
+specific treatments to them.
+
+The way in which the NRP Policy is installed in the routers and the way that
+the traffic is marked is implementation specific.  The NRP Policy instantiation
+in the network is further described in {{SlicePolicyInstantiation}}.
 
 ## Path Instantiation
 
@@ -466,9 +470,7 @@ of the shared network resources among multiple Slice-Flow Aggregates can be achi
 
 The physical network resources can be partitioned on network devices
 by applying a Per Hop forwarding Behavior (PHB) onto packets that traverse the
-network devices. In the Diffserv model, a Class Selector (CS) codepoint is carried in the
-packet and is used by transit nodes to apply the PHB that
-determines the scheduling treatment and drop probability for packets.
+network devices.
 
 When data plane NRP mode is applied, packets need to be forwarded on the
 specific NRP that supports the Slice-Flow Aggregate to ensure the proper
@@ -482,7 +484,7 @@ present in each Slice-Flow Aggregate packet. In the data plane NRP mode, the
 transit nodes within an NRP domain use the FAS to associate packets with a
 Slice-Flow Aggregate and to determine the Network Resource Partition Per Hop
 Behavior (NRP-PHB) that is applied to the packet (refer to {{SlicePHB}} for
-further details). The CS is used to apply a Diffserv PHB on to the packet to
+further details). The CS MAY be used to apply a Diffserv PHB on to the packet to
 allow differentiation of traffic treatment within the same Slice-Flow
 Aggregate.
 
@@ -656,7 +658,7 @@ A router should be able to identify a packet belonging to a Slice-Flow Aggregate
 before it can apply the associated dataplane forwarding treatment or NRP-PHB.
 One or more fields within the packet are used as an FAS to do this.
 
-Forwarding Based FAS:
+Overloaded forwarding identifier as FAS:
 
 >  It is possible to assign a different forwarding address (or MPLS forwarding
 >  label in case of MPLS network) for each Slice-Flow Aggregate on a specific node
@@ -682,25 +684,9 @@ need to be stored and programmed in a router's forwarding is (N+K)\*M states.
 Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
 in both the control and data planes.
 
-Identifier Based FAS:
+Overloaded service identifier as FAS:
 
-> An NRP Policy may include an identifier FAS field that is carried
-in each packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
-independent of the forwarding address or MPLS forwarding label that is bound to
-the destination. Routers within the NRP domain can use the forwarding
-address (or MPLS forwarding label) to determine the forwarding next-hop(s),
-and use the FAS field in the packet to infer the specific forwarding treatment that needs to be applied on
-the packet. 
-
-> The FAS can be carried in one of multiple fields within the packet, depending on
-the dataplane used. For example, in MPLS networks, the FAS can be
-encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same Slice-Flow Aggregate may carry the same FAS in the
-MPLS label stack. It is also possible to have multiple FAS's map
-to the same Slice-Flow Aggregate.
-
-> The FAS can be encoded in an MPLS label and may appear in several positions in the MPLS label stack.
-For example, the VPN service label may act as a FAS to allow VPN packets
+> The VPN service label can be overloaded to act as a FAS to allow VPN packets
 to be mapped to the Slice-Flow Aggregate. In this case, a single VPN service label
 acting as a FAS may be allocated by all Egress PEs of a VPN.
 Alternatively, multiple VPN service labels may act as FAS's that map a single VPN to the same Slice-Flow Aggregate to
@@ -734,12 +720,30 @@ packet:
 ~~~~
 {: #bottom-stack title="FAS or VPN label at bottom of label stack."}
 
+
+Dedicated identifier as FAS:
+
+> An NRP Policy may include an identifier FAS field that is carried
+in a field in the packet in order to associate it to the NRP supporting a Slice-Flow Aggregate,
+independent of the forwarding address or MPLS forwarding label that is bound to
+the destination. Routers within the NRP domain can use the forwarding
+address (or MPLS forwarding label) to determine the forwarding next-hop(s),
+and use the FAS field in the packet to infer the specific forwarding treatment that needs to be applied on
+the packet.
+
+> The FAS, in this case, can be carried in one of multiple fields in the packet, depending on
+the dataplane used. For example, in MPLS networks, the FAS can be
+encoded within an MPLS label that is carried in the packet's MPLS label stack.
+All packets that belong to the same Slice-Flow Aggregate may carry the same FAS in the
+MPLS label stack. It is also possible to have multiple FAS's map
+to the same Slice-Flow Aggregate.
+
+
 > In some cases, the position of the FAS may not be at a fixed position
 in the MPLS label header. In this case, the FAS label can show up in any
 position in the MPLS label stack. To enable a transit router to identify
-the position of the FAS label, a special purpose label 
-can be used to indicate the presence of a FAS
-in the MPLS label stack as shown in {{sli-sl}}.
+the position of the FAS label, a Forwarding Actions Indicator (FAI) special purpose label
+can be used to indicate the presence of a FAS in the MPLS label stack as shown in {{sli-sl}}.
 
 ~~~~
      SR Adj-SID:          FAS: 1001
@@ -800,11 +804,6 @@ based on the current state of the NRP network resources.
 
 ### Network Resource Partition Per Hop Behavior {#SlicePHB}
 
-In Diffserv terminology, the forwarding behavior that is assigned to a specific
-class is called a Per Hop Behavior (PHB). The PHB defines the forwarding
-precedence that a marked packet with a specific CS receives in relation to
-other traffic on the Diffserv-aware network.
-
 The NRP Per Hop Behavior (NRP-PHB) is the externally
 observable forwarding behavior applied to a specific packet belonging to a
 Slice-Flow Aggregate. The goal of an NRP-PHB is to provide a specified amount
@@ -816,14 +815,10 @@ The Slice-Flow Aggregate traffic may be identified at NRP ingress boundary
 nodes by carrying a FAS to allow routers to apply a specific forwarding
 treatment that guarantee the SLA(s). 
 
-With Differentiated Services (Diffserv) it is possible to carry  multiple
-services over a single converged network. Packets requiring the same forwarding
-treatment are marked with a CS at domain ingress nodes. Up to
-eight classes or Behavior Aggregates (BAs) may be supported for a given
-Forwarding Equivalence Class (FEC) {{?RFC2475}}.  To support multiple
-forwarding treatments over the same Slice-Flow Aggregate, a Slice-Flow Aggregate packet may
-also carry a Diffserv CS to identify the specific Diffserv forwarding treatment
-to be applied on the traffic belonging to the same NRP.
+To support multiple forwarding treatments over the same Slice-Flow Aggregate, a
+Slice-Flow Aggregate packet may also carry a Diffserv CS to identify the
+specific Diffserv forwarding treatment to be applied on the traffic belonging
+to the same NRP.
 
 At transit nodes, the CS field carried inside the packets are used to determine the
 specific PHB that determines the forwarding and scheduling
@@ -880,9 +875,9 @@ mechanisms which are outside the scope of this document.
 
 When data plane NRP mode is employed, the NRP
 ingress nodes are responsible for adding a suitable FAS onto
-packets that belong to specific Slice-Flow Aggregate.  In addition, edge nodes
-may mark the corresponding Diffserv CS to differentiate between different types
-of traffic carried over the same Slice-Flow Aggregate.
+packets that belong to specific Slice-Flow Aggregate, and
+the corresponding Diffserv CS for differentiating between different types
+of traffic carried within the same Slice-Flow Aggregate.
 
 ### Network Resource Partition Interior Nodes
 
@@ -892,11 +887,7 @@ field carried inside each packet, or by inspecting other fields
 within the packet that may identify the traffic streams that belong to a specific
 Slice-Flow Aggregate. For example, when data plane NRP mode is applied, interior
 nodes can use the FAS carried within the packet to apply the corresponding NRP-PHB
-forwarding behavior. Nodes within the network slice provider network may also
-inspect the Diffserv CS within each packet to apply a per Diffserv class PHB
-within the NRP Policy, and allow differentiation of forwarding treatments
-for packets forwarded over the same NRP that supports the
-Slice-Flow Aggregate.
+forwarding behavior.
 
 ### Network Resource Partition Incapable Nodes {#NRPIncapbale}
 
@@ -1121,15 +1112,8 @@ addressed before progressing the document to publication in IESG.
 1. Add new Appendix section with examples for the NRP modes described in
    {{SliceModes}}.
 
-2. Add text to clarify the relationship between Slice-Flow Aggregates, the NRP
-   Policy, and the NRP.
-
-3. Remove redundant references to Diffserv behaviors.
-
 4. Elaborate on the SFA packet treatment when no rules to associate the packet
    to an NRP are defined in the NRP Policy.
-
-5. Clarify the NRP instantiation through the NRP Policy enforcement.
 
 6. Clarify how the solution caters to the different IETF Network Slice Service
    Demarcation Point locations described in Section 4.2 of
