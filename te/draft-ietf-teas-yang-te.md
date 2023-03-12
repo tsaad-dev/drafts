@@ -56,6 +56,12 @@ normative:
   RFC6991:
   RFC6107:
   RFC8040:
+  ITU_G.808.1:
+    title: Generic protection switching - Linear trail and subnetwork protection
+    author:
+      org: ITU-T Recommendation G.808.1
+    date: May 2014
+    seriesinfo: ITU-T G.808.1
 
 informative:
 
@@ -552,7 +558,10 @@ name:
 TE Tunnel uniquely identifies the tunnel within the TE tunnel list.  The name
 of the TE Tunnel can be formatted as a Uniform Resource Indicator (URI) by
 including the namespace to ensure uniqueness of the name amongst all the TE
-Tunnels present on devices and controllers.
+Tunnels present on devices and controllers. The configured TE Tunnels can
+be reported with the name of the device embedded within the TE Tunnel name.
+For initiated TE Tunnels from the controller, the controller is responsible
+to ensures that TE Tunnel names are unique.
 
 alias:
 
@@ -886,10 +895,10 @@ This module references the following documents:
 {{!RFC4206}}, {{!RFC4427}},
 {{!RFC4872}}, {{!RFC3209}}, {{!RFC6780}},
 {{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
-{{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, and {{!RFC7308}}.
+{{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC7308}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2022-10-12.yang"
+<CODE BEGINS> file "ietf-te@2023-03-11.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -964,7 +973,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2022-10-12.yang"
+<CODE BEGINS> file "ietf-te-device@2023-03-11.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~

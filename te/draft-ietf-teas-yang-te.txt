@@ -5,7 +5,7 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 R. Gandhi
 Intended status: Standards Track                       Cisco Systems Inc
-Expires: 4 September 2023                                         X. Liu
+Expires: 12 September 2023                                        X. Liu
                                                          IBM Corporation
                                                             V. P. Beeram
                                                         Juniper Networks
@@ -13,7 +13,7 @@ Expires: 4 September 2023                                         X. Liu
                                                               Individual
                                                      O. Gonzalez de Dios
                                                               Telefonica
-                                                            3 March 2023
+                                                           11 March 2023
 
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2023.
+   This Internet-Draft will expire on 12 September 2023.
 
 
 
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 1]
+Saad, et al.            Expires 12 September 2023               [Page 1]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -90,18 +90,18 @@ Table of Contents
        5.1.2.  TE Tunnels  . . . . . . . . . . . . . . . . . . . . .  12
        5.1.3.  TE LSPs . . . . . . . . . . . . . . . . . . . . . . .  22
      5.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  22
-     5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  24
+     5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  25
    6.  TE Device YANG Model  . . . . . . . . . . . . . . . . . . . .  55
      6.1.  Module Structure  . . . . . . . . . . . . . . . . . . . .  55
-       6.1.1.  TE Interfaces . . . . . . . . . . . . . . . . . . . .  55
-     6.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  56
+       6.1.1.  TE Interfaces . . . . . . . . . . . . . . . . . . . .  56
+     6.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .  57
      6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  59
-   7.  Notifications . . . . . . . . . . . . . . . . . . . . . . . .  71
+   7.  Notifications . . . . . . . . . . . . . . . . . . . . . . . .  72
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  72
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  72
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  73
    10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  74
    11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  74
-   12. Appendix A: Data Tree Examples  . . . . . . . . . . . . . . .  74
+   12. Appendix A: Data Tree Examples  . . . . . . . . . . . . . . .  75
      12.1.  Basic Tunnel Setup . . . . . . . . . . . . . . . . . . .  75
      12.2.  Global Named Path Constraints  . . . . . . . . . . . . .  76
      12.3.  Tunnel with Global Path Constraint . . . . . . . . . . .  76
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 2]
+Saad, et al.            Expires 12 September 2023               [Page 2]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -165,7 +165,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 3]
+Saad, et al.            Expires 12 September 2023               [Page 3]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -221,7 +221,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 4]
+Saad, et al.            Expires 12 September 2023               [Page 4]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -277,7 +277,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 5]
+Saad, et al.            Expires 12 September 2023               [Page 5]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -333,7 +333,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 6]
+Saad, et al.            Expires 12 September 2023               [Page 6]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -389,7 +389,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 7]
+Saad, et al.            Expires 12 September 2023               [Page 7]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -445,7 +445,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 8]
+Saad, et al.            Expires 12 September 2023               [Page 8]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -501,7 +501,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023                [Page 9]
+Saad, et al.            Expires 12 September 2023               [Page 9]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -557,7 +557,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 10]
+Saad, et al.            Expires 12 September 2023              [Page 10]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -613,7 +613,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 11]
+Saad, et al.            Expires 12 September 2023              [Page 11]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -669,7 +669,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 12]
+Saad, et al.            Expires 12 September 2023              [Page 12]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -725,7 +725,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 13]
+Saad, et al.            Expires 12 September 2023              [Page 13]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -781,7 +781,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 14]
+Saad, et al.            Expires 12 September 2023              [Page 14]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -812,7 +812,11 @@ Internet-Draft             TE YANG Data Model                 March 2023
       list.  The name of the TE Tunnel can be formatted as a Uniform
       Resource Indicator (URI) by including the namespace to ensure
       uniqueness of the name amongst all the TE Tunnels present on
-      devices and controllers.
+      devices and controllers.  The configured TE Tunnels can be
+      reported with the name of the device embedded within the TE Tunnel
+      name.  For initiated TE Tunnels from the controller, the
+      controller is responsible to ensures that TE Tunnel names are
+      unique.
 
    alias:
 
@@ -828,19 +832,21 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    color:
 
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 15]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
       A YANG leaf that holds the color associated with the TE tunnel.
       The color is used to map or steer services that carry matching
       color on to the TE tunnel as described in [RFC9012].
 
    admin-state:
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 15]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
       A YANG leaf that holds the tunnel administrative state.  The
       administrative status in state datastore transitions to 'tunnel-
@@ -884,19 +890,17 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    reoptimize-timer:
 
-      A YANG leaf to set the interval period for tunnel reoptimization.
-
-   association-objects:
 
 
 
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 16]
+Saad, et al.            Expires 12 September 2023              [Page 16]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
+
+      A YANG leaf to set the interval period for tunnel reoptimization.
+
+   association-objects:
 
       A YANG container that holds the set of associations of the TE
       Tunnel to other TE Tunnels.  Associations at the TE Tunnel level
@@ -942,17 +946,17 @@ Internet-Draft             TE YANG Data Model                 March 2023
             of the hierarchical link (in the client layer) that is
             supported by this TE Tunnel.  The endpoints of the
             hierarchical link are defined by TE tunnel source and
-            destination node endpoints.  The hierarchical link can be
-            identified by its source and destination link termination
-            point identifiers.
 
 
 
-
-Saad, et al.            Expires 4 September 2023               [Page 17]
+Saad, et al.            Expires 12 September 2023              [Page 17]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
+
+            destination node endpoints.  The hierarchical link can be
+            identified by its source and destination link termination
+            point identifiers.
 
    primary-paths:
 
@@ -997,18 +1001,19 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    path-computation-method:
 
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 18]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
       A YANG leaf that specifies the method used for computing the TE
       path.
 
    path-computation-server:
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 18]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
       A YANG container that holds the path computation server properties
       when the path is externally queried.
@@ -1052,19 +1057,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    k-requested-paths:
 
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 19]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
       A YANG leaf that specifies the number of k-shortest-paths
       requested from the path computation server and returned sorted by
       its optimization objective.
 
    association-objects:
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 19]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
       A YANG container that holds a list of tunnel association
       properties.
@@ -1108,19 +1114,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
       see description provided in Section 5.1.1.  These values override
       those provided in the referenced named-path-constraint.
 
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 20]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    path-affinity-names:
 
       see description provided in Section 5.1.1.  These values override
       those provided in the referenced named-path-constraint.
 
    path-srlgs-lists:
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 20]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
       see description provided in Section 5.1.1.  These values override
       those provided in the referenced named-path-constraint.
@@ -1164,19 +1171,17 @@ Internet-Draft             TE YANG Data Model                 March 2023
       A YANG container that holds the list of LSP provisioning error
       information.
 
+
+
+Saad, et al.            Expires 12 September 2023              [Page 21]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    lsps:
 
       A YANG container that holds a list of LSPs that have been
       instantiated for this specific path.
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 21]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
    In addition to the path common attributes, the primary path has the
    following attributes that are not present in the secondary path:
@@ -1221,19 +1226,19 @@ Internet-Draft             TE YANG Data Model                 March 2023
         |  +--rw named-srlgs
         |  |  +--rw named-srlg* [name] {te-types:named-srlg-groups}?
         |  |        ...
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 22]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
         |  +--rw named-path-constraints
         |     +--rw named-path-constraint* [name]
         |             {te-types:named-path-constraints}?
         |           ...
         +--rw tunnels
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 22]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
         |  +--rw tunnel* [name]
         |     +--rw name                            string
         |     +--rw alias?                          string
@@ -1277,19 +1282,19 @@ Internet-Draft             TE YANG Data Model                 March 2023
         |     +---x tunnel-action
         |     |     ...
         |     +---x protection-external-commands
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 23]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
         |           ...
         +--ro lsps
            +--ro lsp* [tunnel-name lsp-id node]
               +--ro tunnel-name                         string
               +--ro lsp-id                              uint16
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 23]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
               +--ro node
               |       te-types:te-node-id
               +--ro source?
@@ -1333,26 +1338,27 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
        Figure 6: Tree diagram of depth-4 of TE Tunnel YANG data model
 
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 24]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
 5.3.  YANG Module
 
    The generic TE YANG module 'ietf-te' imports the following modules:
 
    *  ietf-yang-types and ietf-inet-types defined in [RFC6991]
 
-
-
-Saad, et al.            Expires 4 September 2023               [Page 24]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
    *  ietf-te-types defined in [RFC8776]
 
    This module references the following documents: [RFC4206], [RFC4427],
    [RFC4872], [RFC3209], [RFC6780], [RFC7471], [RFC9012], [RFC8570],
-   [RFC8232], [RFC7271], [RFC8234], and [RFC7308].
+   [RFC8232], [RFC7271], [RFC8234], [RFC7308], and [ITU_G.808.1].
 
-   <CODE BEGINS> file "ietf-te@2022-10-12.yang"
+   <CODE BEGINS> file "ietf-te@2023-03-11.yang"
    module ietf-te {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te";
@@ -1389,18 +1395,18 @@ Internet-Draft             TE YANG Data Model                 March 2023
         Editor:   Tarek Saad
                   <mailto:tsaad.net@gmail.com>
 
+
+
+Saad, et al.            Expires 12 September 2023              [Page 25]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
         Editor:   Rakesh Gandhi
                   <mailto:rgandhi@cisco.com>
 
         Editor:   Vishnu Pavan Beeram
                   <mailto:vbeeram@juniper.net>
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 25]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
         Editor:   Himanshu Shah
                   <mailto:hshah@ciena.com>
@@ -1415,7 +1421,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
         The model fully conforms to the Network Management
         Datastore Architecture (NMDA).
 
-        Copyright (c) 2022 IETF Trust and the persons identified as
+        Copyright (c) 2023 IETF Trust and the persons identified as
         authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
@@ -1434,7 +1440,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2022-10-12 {
+     revision 2023-03-11 {
        description
          "Initial revision for the TE generic YANG module.";
        reference
@@ -1444,19 +1450,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
      typedef tunnel-ref {
        type leafref {
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 26]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
          path "/te:te/te:tunnels/te:tunnel/te:name";
        }
        description
          "This type is used by data models that need to reference
           configured TE tunnel.";
      }
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 26]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
      typedef te-gen-node-id {
        type union {
@@ -1499,6 +1506,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
      grouping path-common-properties {
        description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 27]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
          "Common path attributes.";
        leaf name {
          type string;
@@ -1506,14 +1521,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
            "TE path name.";
        }
        leaf path-computation-method {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 27]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
          type identityref {
            base te-types:path-computation-method;
          }
@@ -1555,6 +1562,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
        }
        leaf lockdown {
          type empty;
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 28]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
          description
            "When present, indicates no reoptimization to be attempted
             for this path.";
@@ -1562,14 +1577,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
        leaf path-scope {
          type identityref {
            base te-types:path-scope-type;
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 28]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
          }
          default "te-types:path-scope-end-to-end";
          config false;
@@ -1611,6 +1618,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
            "Specifies a preference for this path. The lower the number
             higher the preference.";
        }
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 29]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
        leaf co-routed {
          when "/te:te/te:tunnels/te:tunnel/te:bidirectional = 'true'" {
            description
@@ -1618,14 +1633,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
          }
          type boolean;
          default "false";
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 29]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
          description
            "Indicates whether the reverse path must to be co-routed
             with the primary.";
@@ -1667,6 +1674,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
            leaf error-description {
              type string;
              description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 30]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                "The textual representation of the error occurred during
                 path computation.";
            }
@@ -1674,14 +1689,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
              type yang:date-and-time;
              description
                "Timestamp of when the reported error occurred.";
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 30]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
            }
            leaf error-node-id {
              type te-types:te-node-id;
@@ -1723,6 +1730,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
              description "The node where the LSP state resides on.";
            }
            leaf lsp-id {
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 31]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
              type leafref {
                path "/te:te/te:lsps/te:lsp[tunnel-name="
                               + "current()/../tunnel-name]/te:lsp-id";
@@ -1730,14 +1745,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
              description "The TE LSP identifier.";
            }
          }
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 31]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
        }
      }
 
@@ -1779,6 +1786,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
              }
            }
          }
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 32]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
        }
        container computed-path-error-infos {
          config false;
@@ -1786,14 +1801,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
            "Path computation information container.";
          list computed-path-error-info {
            description
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 32]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
              "List of path computation info entries.";
            leaf error-description {
              type string;
@@ -1823,13 +1830,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
        container protection {
          description
            "Protection parameters.";
-         leaf enable {
-           type boolean;
-           description
-             "A flag to specify if LSP protection is enabled.";
-           reference
-             "RFC4427";
-         }
          leaf protection-type {
            type identityref {
              base te-types:lsp-protection-type;
@@ -1845,7 +1845,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 33]
+Saad, et al.            Expires 12 September 2023              [Page 33]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -1893,7 +1893,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
            type identityref {
              base te-types:lsp-restoration-type;
            }
-           default "te-types:lsp-restoration-restore-any";
+           default "te-types:lsp-restoration-restore-none";
            description
              "LSP restoration type.";
          }
@@ -1901,7 +1901,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 34]
+Saad, et al.            Expires 12 September 2023              [Page 34]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -1957,7 +1957,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 35]
+Saad, et al.            Expires 12 September 2023              [Page 35]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -2013,7 +2013,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 36]
+Saad, et al.            Expires 12 September 2023              [Page 36]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -2069,7 +2069,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 37]
+Saad, et al.            Expires 12 September 2023              [Page 37]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -2125,7 +2125,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 38]
+Saad, et al.            Expires 12 September 2023              [Page 38]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -2149,7 +2149,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
              "RFC4206";
            leaf enable {
              type boolean;
-             default "false";
              description
                "Enables the hierarchical link properties supported by
                 this tunnel";
@@ -2178,15 +2177,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
        }
      }
 
+     grouping path-constraints-common {
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 39]
+Saad, et al.            Expires 12 September 2023              [Page 39]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     grouping path-constraints-common {
        description
          "Global named path constraints configuration
           grouping.";
@@ -2234,15 +2233,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      }
 
      /**
+      * TE container
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 40]
+Saad, et al.            Expires 12 September 2023              [Page 40]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-      * TE container
       */
 
      container te {
@@ -2290,15 +2289,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
              "TE named SRLGs container.";
            list named-srlg {
              if-feature "te-types:named-srlg-groups";
+             key "name";
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 41]
+Saad, et al.            Expires 12 September 2023              [Page 41]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-             key "name";
              description
                "A list of named SRLG groups.";
              leaf name {
@@ -2346,15 +2345,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
          list tunnel {
            key "name";
            description
+             "The list of TE tunnels.";
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 42]
+Saad, et al.            Expires 12 September 2023              [Page 42]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-             "The list of TE tunnels.";
            leaf name {
              type string;
              description
@@ -2402,15 +2401,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
            }
            uses te-types:encoding-and-switching-type;
            uses tunnel-common-attributes;
+           container controller {
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 43]
+Saad, et al.            Expires 12 September 2023              [Page 43]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-           container controller {
              description
                "Contains tunnel data relevant to external controller(s).
                 This target node may be augmented by external module(s),
@@ -2458,15 +2457,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
                uses path-state;
                container primary-reverse-path {
                  when "../../../te:bidirectional = 'false'";
+                 description
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 44]
+Saad, et al.            Expires 12 September 2023              [Page 44]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-                 description
                    "The reverse primary path properties.";
                  uses path-common-properties;
                  uses path-compute-info;
@@ -2514,15 +2513,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
                    ordered-by user;
                    description
                      "List of candidate secondary paths for this
+                      tunnel.";
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 45]
+Saad, et al.            Expires 12 September 2023              [Page 45]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-                      tunnel.";
                    leaf secondary-path {
                      type leafref {
                        path "../../../../../te:secondary-paths/"
@@ -2570,21 +2569,31 @@ Internet-Draft             TE YANG Data Model                 March 2023
              }
            }
            container secondary-reverse-paths {
+             description
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 46]
+Saad, et al.            Expires 12 September 2023              [Page 46]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-             description
                "The set of secondary reverse paths.";
              list secondary-reverse-path {
                key "name";
                description
                  "List of secondary paths for this tunnel.";
                uses path-common-properties;
+               leaf preference {
+                 type uint8 {
+                   range "1..255";
+                 }
+                 default "1";
+                 description
+                   "Specifies a preference for this path. The lower the number
+                    higher the preference. Paths that have the same preference
+                    will be activated together.";
+               }
                uses path-compute-info;
                uses protection-restoration-properties;
                uses path-state;
@@ -2596,7 +2605,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
              input {
                leaf action-type {
                  type identityref {
-                   base te-types:tunnel-actions-type;
+                   base te-types:tunnel-action-type;
                  }
                  description
                    "Tunnel action type.";
@@ -2617,6 +2626,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                leaf protection-external-command {
                  type identityref {
                    base te-types:protection-external-commands;
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 47]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                  }
                  description
                    "Protection external command.";
@@ -2626,14 +2643,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                  default "true";
                  description
                    "When 'true', indicates that the action is
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 47]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                     applied on ingress node.
                     By default, the action applies to the ingress node
                     only.";
@@ -2653,6 +2662,12 @@ Internet-Draft             TE YANG Data Model                 March 2023
                    "The name of the path that the external command
                    applies to.";
                }
+               leaf path-type {
+                 type te-types:path-type;
+                 description
+                   "The type of the path that the external command
+                   applies to.";
+               }
                leaf traffic-type {
                  type enumeration {
                    enum normal-traffic {
@@ -2667,6 +2682,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                    }
                    enum extra-traffic {
                      description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 48]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                        "The manual-switch or forced-switch command
                         applies to the extra traffic (the extra-traffic
                         Tunnel sharing protection bandwidth with this
@@ -2682,14 +2705,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                }
                leaf extra-traffic-tunnel-ref {
                  type tunnel-ref;
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 48]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                  description
                    "In case there are multiple extra-traffic tunnels
                     sharing protection bandwidth with this Tunnel
@@ -2723,6 +2738,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                "Identifier used in the SENDER_TEMPLATE and the
                 FILTER_SPEC that can be changed to allow a sender to
                 share resources with itself.";
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 49]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
              reference
                "RFC3209";
            }
@@ -2738,14 +2761,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                 SENDER_TEMPLATE  object.";
              reference
                "RFC3209";
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 49]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
            }
            leaf destination {
              type te-types:te-node-id;
@@ -2779,6 +2794,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
            leaf signaling-type {
              type identityref {
                base te-types:path-signaling-type;
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 50]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
              }
              description
                "The signaling protocol used to set up this LSP.";
@@ -2794,14 +2817,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                    "Origin egress.";
                }
                enum transit {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 50]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                  description
                    "Origin transit.";
                }
@@ -2835,6 +2850,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
              description
                "When set to 'true', it represents a lockout of normal
                 traffic external command. When set to 'false', it
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 51]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                 represents a clear lockout of normal traffic external
                 command. The lockout of normal traffic command applies
                 to this Tunnel.";
@@ -2850,14 +2873,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                 all the Tunnels which are sharing the protection
                 resources with this Tunnel.";
              reference
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 51]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                "RFC4427";
            }
            leaf lsp-protection-role {
@@ -2889,8 +2904,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
                "The APS state machine controlling which
                 tunnels are using the resources of the protecting LSP.";
              reference
-               "RFC7271 and RFC8234";
+               "ITU_G.808.1, RFC7271, and RFC8234";
            }
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 52]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
            leaf protection-group-ingress-node-id {
              type te-types:te-node-id;
              description
@@ -2906,14 +2929,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
            }
            leaf protection-group-egress-node-id {
              type te-types:te-node-id;
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 52]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
              description
                "Indicates the te-node-id of the protection group egress
                 node when the APS state represents an external command
@@ -2947,6 +2962,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
      rpc tunnels-path-compute {
        description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 53]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
          "TE tunnels RPC nodes.";
        input {
          container path-compute-info {
@@ -2962,14 +2985,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
          container path-compute-result {
            /*
             * An external path compute module may augment this
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 53]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
             * target.
             */
            description
@@ -3003,6 +3018,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                  type tunnel-ref;
                  description
                    "Apply action on the specific TE tunnel.";
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 54]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                }
              }
            }
@@ -3012,22 +3035,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
              "TE tunnel action information.";
            leaf action {
              type identityref {
-               base te-types:tunnel-actions-type;
+               base te-types:tunnel-action-type;
              }
              description
                "The action type.";
            }
            leaf disruptive {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 54]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
              when "derived-from-or-self(../action, "
-                + "'te:tunnel-action-reoptimize')";
+                + "'te-types:tunnel-action-reoptimize')";
              type empty;
              description
                "When present, specifies whether or not the
@@ -3059,6 +3074,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 6.1.  Module Structure
 
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 55]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
 6.1.1.  TE Interfaces
 
    This branch of the model manages TE interfaces that are present on a
@@ -3073,14 +3096,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
    *  Interface attributes
 
       -  (Extended) administrative groups
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 55]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
       -  SRLG values
 
@@ -3109,6 +3124,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
       -  Metric value
 
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 56]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    module: ietf-te-device
      augment /te:te:
          +--rw interfaces
@@ -3126,84 +3155,71 @@ Internet-Draft             TE YANG Data Model                 March 2023
    Figure 9 shows the tree diagram of the device TE YANG model defined
    in modules 'ietf-te-device.yang'.
 
-
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 56]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
    module: ietf-te-device
+
      augment /te:te:
        +--rw interfaces
-       |  +--rw threshold-type?            enumeration
-       |  +--rw delta-percentage?          rt-types:percentage
-       |  +--rw threshold-specification?   enumeration
-       |  +--rw up-thresholds*             rt-types:percentage
-       |  +--rw down-thresholds*           rt-types:percentage
-       |  +--rw up-down-thresholds*        rt-types:percentage
-       |  +--rw interface* [interface]
-       |     +--rw interface                           if:interface-ref
-       |     +--rw te-metric?
-       |     |       te-types:te-metric
-       |     +--rw (admin-group-type)?
-       |     |  +--:(value-admin-groups)
-       |     |  |  +--rw (value-admin-group-type)?
-       |     |  |     +--:(admin-groups)
-       |     |  |     |  +--rw admin-group?
-       |     |  |     |          te-types:admin-group
-       |     |  |     +--:(extended-admin-groups)
-       |     |  |              {te-types:extended-admin-groups}?
-       |     |  |        +--rw extended-admin-group?
-       |     |  |                te-types:extended-admin-group
-       |     |  +--:(named-admin-groups)
-       |     |     +--rw named-admin-groups* [named-admin-group]
-       |     |           {te-types:extended-admin-groups,
-       |     |            te-types:named- extended-admin-groups}?
-       |     |        +--rw named-admin-group    leafref
-       |     +--rw (srlg-type)?
-       |     |  +--:(value-srlgs)
-       |     |  |  +--rw values* [value]
-       |     |  |     +--rw value    uint32
-       |     |  +--:(named-srlgs)
-       |     |     +--rw named-srlgs* [named-srlg]
-       |     |             {te-types:named-srlg-groups}?
-       |     |        +--rw named-srlg    leafref
-       |     +--rw threshold-type?                     enumeration
-       |     +--rw delta-percentage?
-       |     |       rt-types:percentage
-       |     +--rw threshold-specification?            enumeration
-       |     +--rw up-thresholds*
-       |     |       rt-types:percentage
-       |     +--rw down-thresholds*
-       |     |       rt-types:percentage
-       |     +--rw up-down-thresholds*
-       |     |       rt-types:percentage
-       |     +--rw switching-capabilities* [switching-capability]
-       |     |  +--rw switching-capability    identityref
+          +--rw threshold-type?            enumeration
+          +--rw delta-percentage?          rt-types:percentage
+          +--rw threshold-specification?   enumeration
+          +--rw up-thresholds*             rt-types:percentage
+          +--rw down-thresholds*           rt-types:percentage
+          +--rw up-down-thresholds*        rt-types:percentage
+          +--rw interface* [interface]
+             +--rw interface                           if:interface-ref
+             +--rw te-metric?
+             |       te-types:te-metric
+             +--rw (admin-group-type)?
+             |  +--:(value-admin-groups)
+             |  |  +--rw (value-admin-group-type)?
+             |  |     +--:(admin-groups)
+             |  |     |  +--rw admin-group?
+             |  |     |          te-types:admin-group
+             |  |     +--:(extended-admin-groups)
+             |  |              {te-types:extended-admin-groups}?
+             |  |        +--rw extended-admin-group?
+             |  |                te-types:extended-admin-group
+             |  +--:(named-admin-groups)
+             |     +--rw named-admin-groups* [named-admin-group]
+             |             {te-types:extended-admin-groups,
+             |              te-types:named-extended-admin-groups}?
+             |        +--rw named-admin-group    leafref
+             +--rw (srlg-type)?
+             |  +--:(value-srlgs)
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 57]
+Saad, et al.            Expires 12 September 2023              [Page 57]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-       |     |  +--rw encoding?               identityref
-       |     +--ro state
-       |        +--ro te-advertisements-state
-       |           +--ro flood-interval?           uint32
-       |           +--ro last-flooded-time?        uint32
-       |           +--ro next-flooded-time?        uint32
-       |           +--ro last-flooded-trigger?     enumeration
-       |           +--ro advertised-level-areas* [level-area]
-       |              +--ro level-area    uint32
-       +--rw performance-thresholds
+             |  |  +--rw values* [value]
+             |  |     +--rw value    uint32
+             |  +--:(named-srlgs)
+             |     +--rw named-srlgs* [named-srlg]
+             |             {te-types:named-srlg-groups}?
+             |        +--rw named-srlg    leafref
+             +--rw threshold-type?                     enumeration
+             +--rw delta-percentage?
+             |       rt-types:percentage
+             +--rw threshold-specification?            enumeration
+             +--rw up-thresholds*
+             |       rt-types:percentage
+             +--rw down-thresholds*
+             |       rt-types:percentage
+             +--rw up-down-thresholds*
+             |       rt-types:percentage
+             +--rw switching-capabilities* [switching-capability]
+             |  +--rw switching-capability    identityref
+             |  +--rw encoding?               identityref
+             +--ro te-advertisements-state
+                +--ro flood-interval?           uint32
+                +--ro last-flooded-time?        uint32
+                +--ro next-flooded-time?        uint32
+                +--ro last-flooded-trigger?     enumeration
+                +--ro advertised-level-areas* [level-area]
+                   +--ro level-area    uint32
      augment /te:te/te:globals:
        +--rw lsp-install-interval?        uint32
        +--rw lsp-cleanup-interval?        uint32
@@ -3215,7 +3231,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
        +--rw lsp-invalidation-interval?   uint32
      augment /te:te/te:lsps/te:lsp:
        +--ro lsp-timers
-       |  +--ro life-time?         uint32
+       |  +--ro uptime?            uint32
        |  +--ro time-to-install?   uint32
        |  +--ro time-to-destroy?   uint32
        +--ro downstream-info
@@ -3226,6 +3242,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
        |  |  +--ro type?   enumeration
        |  +--ro label?                rt-types:generalized-label
        +--ro upstream-info
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 58]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
           +--ro phop?       te-types:te-tp-id
           +--ro neighbor
           |  +--ro id?     te-gen-node-id
@@ -3243,13 +3267,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
              Figure 9: TE Tunnel device model YANG tree diagram
 
-
-
-Saad, et al.            Expires 4 September 2023               [Page 58]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
 6.3.  YANG Module
 
    The device TE YANG module 'ietf-te-device' imports the following
@@ -3263,7 +3280,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    *  ietf-te defined in this document
 
-   <CODE BEGINS> file "ietf-te-device@2022-10-12.yang"
+   <CODE BEGINS> file "ietf-te-device@2023-03-11.yang"
    module ietf-te-device {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-device";
@@ -3280,6 +3297,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
          "RFCXXXX: A YANG Data Model for Traffic Engineering
           Tunnels and Interfaces";
      }
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 59]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
 
      /* Import TE types */
 
@@ -3298,13 +3323,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
        reference
          "RFC8294: Common YANG Data Types for the Routing Area";
      }
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 59]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
      organization
        "IETF Traffic Engineering Architecture and Signaling (TEAS)
@@ -3336,6 +3354,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
         Network Management Datastore Architecture (NMDA).
 
         Copyright (c) 2022 IETF Trust and the persons identified as
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 60]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
         authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
@@ -3354,15 +3380,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 60]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
-     revision 2022-10-12 {
+     revision 2023-03-11 {
        description
          "Initial revision for the TE device YANG module.";
        reference
@@ -3393,6 +3411,13 @@ Internet-Draft             TE YANG Data Model                 March 2023
        }
      }
 
+
+
+Saad, et al.            Expires 12 September 2023              [Page 61]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
      grouping te-igp-flooding-bandwidth-config {
        description
          "Configurable items for igp flooding bandwidth
@@ -3410,14 +3435,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
              description
                "THRESHOLD-CROSSED indicates that
                 the local system should trigger an update (and
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 61]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                 hence flood) the reserved bandwidth when the
                 reserved bandwidth changes such that it crosses,
                 or becomes equal to one of the threshold values.";
@@ -3449,6 +3466,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
        }
        leaf threshold-specification {
          when "../threshold-type = 'threshold-crossed'" {
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 62]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
            description
              "The selection of whether mirrored or separate threshold
               values are to be used requires user specified thresholds
@@ -3466,14 +3491,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
            enum separate-up-down {
              description
                "separate-up-down indicates that a separate
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 62]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                 threshold values should be used for the increasing
                 and decreasing bandwidth when determining whether
                 to trigger updated bandwidth values to be flooded
@@ -3505,6 +3522,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
            "The thresholds (expressed as a percentage of the maximum
             reservable bandwidth) at which bandwidth updates are to be
             triggered when the bandwidth is increasing.";
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 63]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
        }
        leaf-list down-thresholds {
          when "../threshold-type = 'threshold-crossed'"
@@ -3522,14 +3547,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
             triggered when the bandwidth is decreasing.";
        }
        leaf-list up-down-thresholds {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 63]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
          when "../threshold-type = 'threshold-crossed'"
             + "and ../threshold-specification = 'mirrored-up-down'" {
            description
@@ -3561,6 +3578,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
          list interface {
            key "interface";
            description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 64]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
              "TE interfaces.";
            leaf interface {
              type if:interface-ref;
@@ -3578,14 +3603,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
                "TE interface administrative groups
                 representation type.";
              case value-admin-groups {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 64]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                choice value-admin-group-type {
                  description
                    "choice of admin-groups.";
@@ -3617,6 +3634,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                  if-feature "te-types:extended-admin-groups";
                  if-feature "te-types:named-extended-admin-groups";
                  key "named-admin-group";
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 65]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
                  description
                    "A list of named admin-group entries.";
                  leaf named-admin-group {
@@ -3634,14 +3659,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
            choice srlg-type {
              description
                "Choice of SRLG configuration.";
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 65]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
              case value-srlgs {
                list values {
                  key "value";
@@ -3673,6 +3690,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
                  }
                }
              }
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 66]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
            }
            uses te-igp-flooding-bandwidth-config;
            list switching-capabilities {
@@ -3690,105 +3715,101 @@ Internet-Draft             TE YANG Data Model                 March 2023
                type identityref {
                  base te-types:lsp-encoding-types;
                }
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 66]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
                description
                  "Encoding supported by this interface.";
              }
            }
-           container state {
+           container te-advertisements-state {
              config false;
              description
-               "State parameters for interface TE metric.";
-             container te-advertisements-state {
+               "TE interface advertisements state container.";
+             leaf flood-interval {
+               type uint32;
                description
-                 "TE interface advertisements state container.";
-               leaf flood-interval {
-                 type uint32;
-                 description
-                   "The periodic flooding interval.";
-               }
-               leaf last-flooded-time {
-                 type uint32;
-                 units "seconds";
-                 description
-                   "Time elapsed since last flooding in seconds.";
-               }
-               leaf next-flooded-time {
-                 type uint32;
-                 units "seconds";
-                 description
-                   "Time remained for next flooding in seconds.";
-               }
-               leaf last-flooded-trigger {
-                 type enumeration {
-                   enum link-up {
-                     description
-                       "Link-up flooding trigger.";
-                   }
-                   enum link-down {
-                     description
-                       "Link-down flooding trigger.";
-                   }
-                   enum threshold-up {
-                     description
-                       "Bandwidth reservation up threshold.";
-                   }
-                   enum threshold-down {
-                     description
-                       "Bandwidth reservation down threshold.";
-                   }
-                   enum bandwidth-change {
-                     description
+                 "The periodic flooding interval.";
+             }
+             leaf last-flooded-time {
+               type uint32;
+               units "seconds";
+               description
+                 "Time elapsed since last flooding in seconds.";
+             }
+             leaf next-flooded-time {
+               type uint32;
+               units "seconds";
+               description
+                 "Time remained for next flooding in seconds.";
+             }
+             leaf last-flooded-trigger {
+               type enumeration {
+                 enum link-up {
+                   description
+                     "Link-up flooding trigger.";
+                 }
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 67]
+Saad, et al.            Expires 12 September 2023              [Page 67]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-                       "Bandwidth capacity change.";
-                   }
-                   enum user-initiated {
-                     description
-                       "Initiated by user.";
-                   }
-                   enum srlg-change {
-                     description
-                       "SRLG property change.";
-                   }
-                   enum periodic-timer {
-                     description
-                       "Periodic timer expired.";
-                   }
-                 }
-                 default "periodic-timer";
-                 description
-                   "Trigger for the last flood.";
-               }
-               list advertised-level-areas {
-                 key "level-area";
-                 description
-                   "List of level-areas that the TE interface is
-                    advertised in.";
-                 leaf level-area {
-                   type uint32;
+                 enum link-down {
                    description
-                     "The IGP area or level where the TE interface link
-                      state is advertised in.";
+                     "Link-down flooding trigger.";
                  }
+                 enum threshold-up {
+                   description
+                     "Bandwidth reservation up threshold.";
+                 }
+                 enum threshold-down {
+                   description
+                     "Bandwidth reservation down threshold.";
+                 }
+                 enum bandwidth-change {
+                   description
+                     "Bandwidth capacity change.";
+                 }
+                 enum user-initiated {
+                   description
+                     "Initiated by user.";
+                 }
+                 enum srlg-change {
+                   description
+                     "SRLG property change.";
+                 }
+                 enum periodic-timer {
+                   description
+                     "Periodic timer expired.";
+                 }
+               }
+               default "periodic-timer";
+               description
+                 "Trigger for the last flood.";
+             }
+             list advertised-level-areas {
+               key "level-area";
+               description
+                 "List of level-areas that the TE interface is
+                  advertised in.";
+               leaf level-area {
+                 type uint32;
+                 description
+                   "The IGP area or level where the TE interface link
+                    state is advertised in.";
                }
              }
            }
          }
        }
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 68]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
      }
 
      /* TE globals device augmentation */
@@ -3802,14 +3823,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
      /* TE tunnels device configuration augmentation */
 
      augment "/te:te/te:tunnels/te:tunnel" {
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 68]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
        description
          "Tunnel device dependent augmentation.";
        leaf path-invalidation-action {
@@ -3845,6 +3858,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
            units "seconds";
            description
              "The time remaining for a new LSP to be instantiated
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 69]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
               in forwarding to carry traffic.";
          }
          leaf time-to-destroy {
@@ -3858,14 +3879,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
        container downstream-info {
          when "../te:origin-type != 'egress'" {
            description
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 69]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
              "Downstream information of the LSP.";
          }
          description
@@ -3901,6 +3914,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
          leaf phop {
            type te-types:te-tp-id;
            description
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 70]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
              "upstream next-hop or previous-hop address.";
          }
          container neighbor {
@@ -3914,14 +3935,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
              "upstream label.";
          }
        }
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 70]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
      }
 
      /* TE interfaces RPCs/execution Data */
@@ -3957,6 +3970,14 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
                 Figure 10: TE device data model YANG module
 
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 71]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
 7.  Notifications
 
    Notifications are a key component of any topology data model.
@@ -3969,14 +3990,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    *  Specify subtree filters or XML Path Language (XPath) filters so
       that only contents of interest will be sent.
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 71]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
    *  Specify either periodic or on-demand notifications.
 
@@ -4007,6 +4020,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
       Prefix:     te-device
       Reference:  RFCXXXX
 
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 72]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
 9.  Security Considerations
 
    The YANG module specified in this document defines a schema for data
@@ -4026,14 +4053,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
    writable/creatable/deletable (i.e., config true, which is the
    default).  These data nodes may be considered sensitive or vulnerable
    in some network environments.  Write operations (e.g., edit-config)
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 72]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
-
    to these data nodes without proper protection can have a negative
    effect on network operations.  These are the subtrees and data nodes
    and their sensitivity/vulnerability:
@@ -4064,6 +4083,13 @@ Internet-Draft             TE YANG Data Model                 March 2023
    information about the network topology, and subsequently orchestrate
    further attacks.
 
+
+
+Saad, et al.            Expires 12 September 2023              [Page 73]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    Some of the RPC operations in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
    important to control access to these operations.  These are the
@@ -4079,16 +4105,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
    The security considerations spelled out in the YANG 1.1 specification
    [RFC7950] apply for this document as well.
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 73]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
 10.  Acknowledgement
 
@@ -4120,6 +4136,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
       Email: Bin_Wen@cable.comcast.com
 
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 74]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
 12.  Appendix A: Data Tree Examples
 
    This section contains examples of use of the model with RESTCONF
@@ -4129,22 +4155,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
    Tunnels can be setup.  The loopbacks of each router are shown.  The
    network in Figure 11 will be used in the examples described in the
    following sections.
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 74]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
     192.0.2.1        192.0.2.2      192.0.2.4
     +-------+        +-------+      +-------+
@@ -4172,6 +4182,26 @@ Internet-Draft             TE YANG Data Model                 March 2023
    In this case, the TE Tunnel is created without specifying additional
    information about the primary paths.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023              [Page 75]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
        Host: example.com
        Accept: application/yang-data+json
@@ -4190,17 +4220,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
        }
      ]
    }
-
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 75]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
 12.2.  Global Named Path Constraints
 
@@ -4234,26 +4253,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023               [Page 76]
+Saad, et al.            Expires 12 September 2023              [Page 76]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4309,7 +4309,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 77]
+Saad, et al.            Expires 12 September 2023              [Page 77]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4365,7 +4365,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 78]
+Saad, et al.            Expires 12 September 2023              [Page 78]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4421,7 +4421,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 79]
+Saad, et al.            Expires 12 September 2023              [Page 79]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4477,7 +4477,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 80]
+Saad, et al.            Expires 12 September 2023              [Page 80]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4533,7 +4533,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 81]
+Saad, et al.            Expires 12 September 2023              [Page 81]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4589,7 +4589,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 82]
+Saad, et al.            Expires 12 September 2023              [Page 82]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4645,7 +4645,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 83]
+Saad, et al.            Expires 12 September 2023              [Page 83]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4701,7 +4701,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 84]
+Saad, et al.            Expires 12 September 2023              [Page 84]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4757,7 +4757,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 85]
+Saad, et al.            Expires 12 September 2023              [Page 85]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4813,7 +4813,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 86]
+Saad, et al.            Expires 12 September 2023              [Page 86]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4869,7 +4869,7 @@ module: ietf-te
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 87]
+Saad, et al.            Expires 12 September 2023              [Page 87]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4925,7 +4925,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 88]
+Saad, et al.            Expires 12 September 2023              [Page 88]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -4981,7 +4981,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 89]
+Saad, et al.            Expires 12 September 2023              [Page 89]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -5037,7 +5037,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 90]
+Saad, et al.            Expires 12 September 2023              [Page 90]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -5093,14 +5093,13 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 91]
+Saad, et al.            Expires 12 September 2023              [Page 91]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
      |     |     +--rw extended-id?       yang:hex-string
      |     +--rw protection
-     |     |  +--rw enable?                         boolean
      |     |  +--rw protection-type?                identityref
      |     |  +--rw protection-reversion-disable?   boolean
      |     |  +--rw hold-off-time?                  uint32
@@ -5146,15 +5145,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     +--rw name                             string
      |     |     +--rw path-computation-method?         identityref
      |     |     +--rw path-computation-server
+     |     |     |  +--rw id?     te-gen-node-id
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 92]
+Saad, et al.            Expires 12 September 2023              [Page 92]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  +--rw id?     te-gen-node-id
      |     |     |  +--rw type?   enumeration
      |     |     +--rw compute-only?                    empty
      |     |     +--rw use-path-computation?            boolean
@@ -5202,15 +5201,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |  |        |     +--rw hop-type?
      |     |     |     |  |  |        |             te-hop-type
      |     |     |     |  |  |        +--:(numbered-link-hop)
+     |     |     |     |  |  |        |  +--rw numbered-link-hop
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 93]
+Saad, et al.            Expires 12 September 2023              [Page 93]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |  |        |  +--rw numbered-link-hop
      |     |     |     |  |  |        |     +--rw link-tp-id
      |     |     |     |  |  |        |     |       te-tp-id
      |     |     |     |  |  |        |     +--rw hop-type?
@@ -5258,15 +5257,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |           |     +--rw hop-type?
      |     |     |     |  |           |             te-hop-type
      |     |     |     |  |           +--:(numbered-link-hop)
+     |     |     |     |  |           |  +--rw numbered-link-hop
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 94]
+Saad, et al.            Expires 12 September 2023              [Page 94]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |           |  +--rw numbered-link-hop
      |     |     |     |  |           |     +--rw link-tp-id
      |     |     |     |  |           |     |       te-tp-id
      |     |     |     |  |           |     +--rw hop-type?
@@ -5314,15 +5313,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        +--rw generic?   te-bandwidth
      |     |     +--rw link-protection?                 identityref
      |     |     +--rw setup-priority?                  uint8
+     |     |     +--rw hold-priority?                   uint8
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 95]
+Saad, et al.            Expires 12 September 2023              [Page 95]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     +--rw hold-priority?                   uint8
      |     |     +--rw signaling-type?                  identityref
      |     |     +--rw path-metric-bounds
      |     |     |  +--rw path-metric-bound* [metric-type]
@@ -5370,15 +5369,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |     |  +--rw as-number-hop
      |     |     |  |     |     +--rw as-number    inet:as-number
      |     |     |  |     |     +--rw hop-type?    te-hop-type
+     |     |     |  |     +--:(label)
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 96]
+Saad, et al.            Expires 12 September 2023              [Page 96]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |     +--:(label)
      |     |     |  |        +--rw label-hop
      |     |     |  |           +--rw te-label
      |     |     |  |              +--rw (technology)?
@@ -5426,15 +5425,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  +--rw label-restrictions
      |     |     |     +--rw label-restriction* [index]
      |     |     |        +--rw restriction?    enumeration
+     |     |     |        +--rw index           uint32
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 97]
+Saad, et al.            Expires 12 September 2023              [Page 97]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        +--rw index           uint32
      |     |     |        +--rw label-start
      |     |     |        |  +--rw te-label
      |     |     |        |     +--rw (technology)?
@@ -5482,15 +5481,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |     +--:(generic)
      |     |     |        |        +--rw generic?   int32
      |     |     |        +--rw range-bitmap?   yang:hex-string
+     |     |     +--ro computed-paths-properties
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 98]
+Saad, et al.            Expires 12 September 2023              [Page 98]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     +--ro computed-paths-properties
      |     |     |  +--ro computed-path-properties* [k-index]
      |     |     |     +--ro k-index            uint8
      |     |     |     +--ro path-properties
@@ -5538,15 +5537,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |        |     |       te-node-id
      |     |     |        |        |     +--ro hop-type?
      |     |     |        |        |     |       te-hop-type
+     |     |     |        |        |     +--ro direction?
 
 
 
-Saad, et al.            Expires 4 September 2023               [Page 99]
+Saad, et al.            Expires 12 September 2023              [Page 99]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |        |     +--ro direction?
      |     |     |        |        |             te-link-direction
      |     |     |        |        +--:(as-number)
      |     |     |        |        |  +--ro as-number-hop
@@ -5594,15 +5593,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |       identityref
      |     |     |  +--rw path-computation-server
      |     |     |  |  +--rw id?     te-gen-node-id
+     |     |     |  |  +--rw type?   enumeration
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 100]
+Saad, et al.            Expires 12 September 2023             [Page 100]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |  +--rw type?   enumeration
      |     |     |  +--rw compute-only?                        empty
      |     |     |  +--rw use-path-computation?
      |     |     |  |       boolean
@@ -5650,15 +5649,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |     |  |  |        +--:(numbered-link-hop)
      |     |     |  |     |  |  |        |  +--rw numbered-link-hop
      |     |     |  |     |  |  |        |     +--rw link-tp-id
+     |     |     |  |     |  |  |        |     |       te-tp-id
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 101]
+Saad, et al.            Expires 12 September 2023             [Page 101]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |     |  |  |        |     |       te-tp-id
      |     |     |  |     |  |  |        |     +--rw hop-type?
      |     |     |  |     |  |  |        |     |       te-hop-type
      |     |     |  |     |  |  |        |     +--rw direction?
@@ -5706,15 +5705,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |     |  |           +--:(numbered-link-hop)
      |     |     |  |     |  |           |  +--rw numbered-link-hop
      |     |     |  |     |  |           |     +--rw link-tp-id
+     |     |     |  |     |  |           |     |       te-tp-id
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 102]
+Saad, et al.            Expires 12 September 2023             [Page 102]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |     |  |           |     |       te-tp-id
      |     |     |  |     |  |           |     +--rw hop-type?
      |     |     |  |     |  |           |     |       te-hop-type
      |     |     |  |     |  |           |     +--rw direction?
@@ -5762,15 +5761,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  +--rw link-protection?
      |     |     |  |       identityref
      |     |     |  +--rw setup-priority?                      uint8
+     |     |     |  +--rw hold-priority?                       uint8
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 103]
+Saad, et al.            Expires 12 September 2023             [Page 103]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  +--rw hold-priority?                       uint8
      |     |     |  +--rw signaling-type?
      |     |     |  |       identityref
      |     |     |  +--rw path-metric-bounds
@@ -5818,15 +5817,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |  |     |     +--rw direction?
      |     |     |  |  |     |             te-link-direction
      |     |     |  |  |     +--:(as-number)
+     |     |     |  |  |     |  +--rw as-number-hop
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 104]
+Saad, et al.            Expires 12 September 2023             [Page 104]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |  |     |  +--rw as-number-hop
      |     |     |  |  |     |     +--rw as-number    inet:as-number
      |     |     |  |  |     |     +--rw hop-type?    te-hop-type
      |     |     |  |  |     +--:(label)
@@ -5874,15 +5873,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |        |        +--rw direction?
      |     |     |  |        |                te-label-direction
      |     |     |  |        +--:(srlg)
+     |     |     |  |           +--rw srlg
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 105]
+Saad, et al.            Expires 12 September 2023             [Page 105]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |           +--rw srlg
      |     |     |  |              +--rw srlg?   uint32
      |     |     |  +--rw path-in-segment!
      |     |     |  |  +--rw label-restrictions
@@ -5930,15 +5929,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |        |     |     +--rw generic?
      |     |     |  |        |     |             rt-types:generalized-label
      |     |     |  |        |     +--rw direction?
+     |     |     |  |        |             te-label-direction
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 106]
+Saad, et al.            Expires 12 September 2023             [Page 106]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |        |             te-label-direction
      |     |     |  |        +--rw label-step
      |     |     |  |        |  +--rw (technology)?
      |     |     |  |        |     +--:(generic)
@@ -5986,15 +5985,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |        |        |     |       te-tp-id
      |     |     |  |        |        |     +--ro hop-type?
      |     |     |  |        |        |     |       te-hop-type
+     |     |     |  |        |        |     +--ro direction?
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 107]
+Saad, et al.            Expires 12 September 2023             [Page 107]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |        |        |     +--ro direction?
      |     |     |  |        |        |             te-link-direction
      |     |     |  |        |        +--:(unnumbered-link-hop)
      |     |     |  |        |        |  +--ro unnumbered-link-hop
@@ -6042,15 +6041,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |     +--ro error-node-id?
      |     |     |  |     |       te-types:te-node-id
      |     |     |  |     +--ro error-link-id?
+     |     |     |  |     |       te-types:te-tp-id
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 108]
+Saad, et al.            Expires 12 September 2023             [Page 108]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |     |       te-types:te-tp-id
      |     |     |  |     +--ro lsp-id?              uint16
      |     |     |  +--ro lsps
      |     |     |  |  +--ro lsp* [node lsp-id]
@@ -6098,15 +6097,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     +--rw extended-id?       yang:hex-string
      |     |     +--rw optimizations
      |     |     |  +--rw (algorithm)?
+     |     |     |     +--:(metric) {path-optimization-metric}?
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 109]
+Saad, et al.            Expires 12 September 2023             [Page 109]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     +--:(metric) {path-optimization-metric}?
      |     |     |     |  +--rw optimization-metric* [metric-type]
      |     |     |     |  |  +--rw metric-type
      |     |     |     |  |  |       identityref
@@ -6154,15 +6153,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |  |        |        +--rw (technology)?
      |     |     |     |  |  |        |        |  +--:(generic)
      |     |     |     |  |  |        |        |     +--rw generic?
+     |     |     |     |  |  |        |        |             rt-types:generalized-label
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 110]
+Saad, et al.            Expires 12 September 2023             [Page 110]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |  |        |        |             rt-types:generalized-label
      |     |     |     |  |  |        |        +--rw direction?
      |     |     |     |  |  |        |                te-label-direction
      |     |     |     |  |  |        +--:(srlg)
@@ -6210,15 +6209,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |                    +--rw (technology)?
      |     |     |     |  |                    |  +--:(generic)
      |     |     |     |  |                    |     +--rw generic?
+     |     |     |     |  |                    |             rt-types:generalized-label
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 111]
+Saad, et al.            Expires 12 September 2023             [Page 111]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |                    |             rt-types:generalized-label
      |     |     |     |  |                    +--rw direction?
      |     |     |     |  |                            te-label-direction
      |     |     |     |  +--rw tiebreakers
@@ -6266,15 +6265,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  +--rw route-object-exclude-always* [index]
      |     |     |  |  +--rw index                        uint32
      |     |     |  |  +--rw (type)?
+     |     |     |  |     +--:(numbered-node-hop)
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 112]
+Saad, et al.            Expires 12 September 2023             [Page 112]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  |     +--:(numbered-node-hop)
      |     |     |  |     |  +--rw numbered-node-hop
      |     |     |  |     |     +--rw node-id     te-node-id
      |     |     |  |     |     +--rw hop-type?   te-hop-type
@@ -6322,15 +6321,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |     +--rw hop-type?     te-hop-type
      |     |     |        |     +--rw direction?    te-link-direction
      |     |     |        +--:(as-number)
+     |     |     |        |  +--rw as-number-hop
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 113]
+Saad, et al.            Expires 12 September 2023             [Page 113]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |  +--rw as-number-hop
      |     |     |        |     +--rw as-number    inet:as-number
      |     |     |        |     +--rw hop-type?    te-hop-type
      |     |     |        +--:(label)
@@ -6378,15 +6377,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        +--rw index           uint32
      |     |     |        +--rw label-start
      |     |     |        |  +--rw te-label
+     |     |     |        |     +--rw (technology)?
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 114]
+Saad, et al.            Expires 12 September 2023             [Page 114]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |     +--rw (technology)?
      |     |     |        |     |  +--:(generic)
      |     |     |        |     |     +--rw generic?
      |     |     |        |     |             rt-types:generalized-label
@@ -6406,7 +6405,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |        +--rw generic?   int32
      |     |     |        +--rw range-bitmap?   yang:hex-string
      |     |     +--rw protection
-     |     |     |  +--rw enable?                         boolean
      |     |     |  +--rw protection-type?                identityref
      |     |     |  +--rw protection-reversion-disable?   boolean
      |     |     |  +--rw hold-off-time?                  uint32
@@ -6434,16 +6432,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |     +--ro value?   admin-groups
      |     |     |        +--ro path-affinity-names
      |     |     |        |  +--ro path-affinity-name* [usage]
+     |     |     |        |     +--ro usage            identityref
+     |     |     |        |     +--ro affinity-name* [name]
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 115]
+Saad, et al.            Expires 12 September 2023             [Page 115]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |     +--ro usage            identityref
-     |     |     |        |     +--ro affinity-name* [name]
      |     |     |        |        +--ro name    string
      |     |     |        +--ro path-srlgs-lists
      |     |     |        |  +--ro path-srlgs-list* [usage]
@@ -6490,16 +6488,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |              +--ro te-label
      |     |     |        |                 +--ro (technology)?
      |     |     |        |                 |  +--:(generic)
+     |     |     |        |                 |     +--ro generic?
+     |     |     |        |                 |             rt-types:generalized-label
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 116]
+Saad, et al.            Expires 12 September 2023             [Page 116]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |                 |     +--ro generic?
-     |     |     |        |                 |             rt-types:generalized-label
      |     |     |        |                 +--ro direction?
      |     |     |        |                         te-label-direction
      |     |     |        +--ro te-bandwidth
@@ -6538,6 +6536,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     +--rw use-path-computation?            boolean
      |     |     +--rw lockdown?                        empty
      |     |     +--ro path-scope?                      identityref
+     |     |     +--rw preference?                      uint8
      |     |     +--rw association-objects
      |     |     |  +--rw association-object* [association-key]
      |     |     |  |  +--rw association-key    string
@@ -6546,15 +6545,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  |  +--rw source
      |     |     |  |     +--rw id?     te-gen-node-id
      |     |     |  |     +--rw type?   enumeration
+     |     |     |  +--rw association-object-extended*
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 117]
+Saad, et al.            Expires 12 September 2023             [Page 117]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  +--rw association-object-extended*
      |     |     |          [association-key]
      |     |     |     +--rw association-key    string
      |     |     |     +--rw type?              identityref
@@ -6602,15 +6601,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |  |        |     |       te-hop-type
      |     |     |     |  |  |        |     +--rw direction?
      |     |     |     |  |  |        |             te-link-direction
+     |     |     |     |  |  |        +--:(as-number)
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 118]
+Saad, et al.            Expires 12 September 2023             [Page 118]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |  |        +--:(as-number)
      |     |     |     |  |  |        |  +--rw as-number-hop
      |     |     |     |  |  |        |     +--rw as-number
      |     |     |     |  |  |        |     |       inet:as-number
@@ -6658,15 +6657,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |     |  |           |     |       te-hop-type
      |     |     |     |  |           |     +--rw direction?
      |     |     |     |  |           |             te-link-direction
+     |     |     |     |  |           +--:(as-number)
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 119]
+Saad, et al.            Expires 12 September 2023             [Page 119]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     |  |           +--:(as-number)
      |     |     |     |  |           |  +--rw as-number-hop
      |     |     |     |  |           |     +--rw as-number
      |     |     |     |  |           |     |       inet:as-number
@@ -6714,15 +6713,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        +--rw name    string
      |     |     +--rw path-srlgs-lists
      |     |     |  +--rw path-srlgs-list* [usage]
+     |     |     |     +--rw usage     identityref
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 120]
+Saad, et al.            Expires 12 September 2023             [Page 120]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |     +--rw usage     identityref
      |     |     |     +--rw values*   srlg
      |     |     +--rw path-srlgs-names
      |     |     |  +--rw path-srlgs-name* [usage]
@@ -6770,15 +6769,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |  +--rw numbered-node-hop
      |     |     |        |     +--rw node-id     te-node-id
      |     |     |        |     +--rw hop-type?   te-hop-type
+     |     |     |        +--:(numbered-link-hop)
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 121]
+Saad, et al.            Expires 12 September 2023             [Page 121]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        +--:(numbered-link-hop)
      |     |     |        |  +--rw numbered-link-hop
      |     |     |        |     +--rw link-tp-id    te-tp-id
      |     |     |        |     +--rw hop-type?     te-hop-type
@@ -6826,15 +6825,15 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |     |             rt-types:generalized-label
      |     |     |        |     +--rw direction?
      |     |     |        |             te-label-direction
+     |     |     |        +--rw label-step
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 122]
+Saad, et al.            Expires 12 September 2023             [Page 122]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        +--rw label-step
      |     |     |        |  +--rw (technology)?
      |     |     |        |     +--:(generic)
      |     |     |        |        +--rw generic?   int32
@@ -6866,7 +6865,6 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |        +--rw generic?   int32
      |     |     |        +--rw range-bitmap?   yang:hex-string
      |     |     +--rw protection
-     |     |     |  +--rw enable?                         boolean
      |     |     |  +--rw protection-type?                identityref
      |     |     |  +--rw protection-reversion-disable?   boolean
      |     |     |  +--rw hold-off-time?                  uint32
@@ -6882,16 +6880,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |  +--rw wait-to-restore?                 uint16
      |     |     |  +--rw wait-to-revert?                  uint16
      |     |     +--ro computed-paths-properties
+     |     |     |  +--ro computed-path-properties* [k-index]
+     |     |     |     +--ro k-index            uint8
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 123]
+Saad, et al.            Expires 12 September 2023             [Page 123]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |  +--ro computed-path-properties* [k-index]
-     |     |     |     +--ro k-index            uint8
      |     |     |     +--ro path-properties
      |     |     |        +--ro path-metric* [metric-type]
      |     |     |        |  +--ro metric-type           identityref
@@ -6938,16 +6936,16 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     |        |        |     +--ro hop-type?
      |     |     |        |        |     |       te-hop-type
      |     |     |        |        |     +--ro direction?
+     |     |     |        |        |             te-link-direction
+     |     |     |        |        +--:(as-number)
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 124]
+Saad, et al.            Expires 12 September 2023             [Page 124]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |     |     |        |        |             te-link-direction
-     |     |     |        |        +--:(as-number)
      |     |     |        |        |  +--ro as-number-hop
      |     |     |        |        |     +--ro as-number
      |     |     |        |        |     |       inet:as-number
@@ -6994,18 +6992,20 @@ Internet-Draft             TE YANG Data Model                 March 2023
      |     |     +--ro action-result?   identityref
      |     +---x protection-external-commands
      |        +---w input
+     |           +---w protection-external-command?     identityref
+     |           +---w protection-group-ingress-node?   boolean
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 125]
+Saad, et al.            Expires 12 September 2023             [Page 125]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
 
-     |           +---w protection-external-command?     identityref
-     |           +---w protection-group-ingress-node?   boolean
      |           +---w protection-group-egress-node?    boolean
      |           +---w path-name?                       string
+     |           +---w path-type?
+     |           |       te-types:path-type
      |           +---w traffic-type?                    enumeration
      |           +---w extra-traffic-tunnel-ref?        tunnel-ref
      +--ro lsps
@@ -7053,7 +7053,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 126]
+Saad, et al.            Expires 12 September 2023             [Page 126]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -7094,25 +7094,30 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 14.1.  Normative References
 
+   [ITU_G.808.1]
+              ITU-T Recommendation G.808.1, "Generic protection
+              switching - Linear trail and subnetwork protection", ITU-T
+              G.808.1 , May 2014.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+
+
+Saad, et al.            Expires 12 September 2023             [Page 127]
+
+Internet-Draft             TE YANG Data Model                 March 2023
+
+
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
               <https://www.rfc-editor.org/info/rfc3209>.
-
-
-
-
-
-
-Saad, et al.            Expires 4 September 2023              [Page 127]
-
-Internet-Draft             TE YANG Data Model                 March 2023
-
 
    [RFC3473]  Berger, L., Ed., "Generalized Multi-Protocol Label
               Switching (GMPLS) Signaling Resource ReserVation Protocol-
@@ -7157,18 +7162,17 @@ Internet-Draft             TE YANG Data Model                 March 2023
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/info/rfc6241>.
 
-   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
-              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/info/rfc6242>.
 
 
 
-
-
-Saad, et al.            Expires 4 September 2023              [Page 128]
+Saad, et al.            Expires 12 September 2023             [Page 128]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
+
+   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
+              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
+              <https://www.rfc-editor.org/info/rfc6242>.
 
    [RFC6780]  Berger, L., Le Faucheur, F., and A. Narayanan, "RSVP
               ASSOCIATION Object Extensions", RFC 6780,
@@ -7217,11 +7221,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-
-
-
-
-Saad, et al.            Expires 4 September 2023              [Page 129]
+Saad, et al.            Expires 12 September 2023             [Page 129]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -7277,7 +7277,7 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 130]
+Saad, et al.            Expires 12 September 2023             [Page 130]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -7333,7 +7333,7 @@ Authors' Addresses
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 131]
+Saad, et al.            Expires 12 September 2023             [Page 131]
 
 Internet-Draft             TE YANG Data Model                 March 2023
 
@@ -7389,4 +7389,4 @@ Internet-Draft             TE YANG Data Model                 March 2023
 
 
 
-Saad, et al.            Expires 4 September 2023              [Page 132]
+Saad, et al.            Expires 12 September 2023             [Page 132]
