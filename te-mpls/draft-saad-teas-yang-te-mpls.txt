@@ -3,20 +3,19 @@
 
 
 TEAS Working Group                                               T. Saad
-Internet-Draft                                          Juniper Networks
-Intended status: Standards Track                               R. Gandhi
-Expires: September 10, 2020                            Cisco Systems Inc
-                                                                  X. Liu
-                                                          Volta Networks
-                                                               V. Beeram
+Internet-Draft                                                 R. Gandhi
+Intended status: Standards Track                       Cisco Systems Inc
+Expires: 27 November 2023                                         X. Liu
+                                                         IBM Corporation
+                                                            V. P. Beeram
                                                         Juniper Networks
                                                               I. Bryskin
                                                               Individual
-                                                          March 09, 2020
+                                                             26 May 2023
 
 
          A YANG Data Model for MPLS Traffic Engineering Tunnels
-                    draft-ietf-teas-yang-te-mpls-03
+                    draft-ietf-teas-yang-te-mpls-04
 
 Abstract
 
@@ -44,34 +43,29 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 10, 2020.
-
-
-
-
-
-
-
-
-Saad, et al.           Expires September 10, 2020               [Page 1]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
+   This Internet-Draft will expire on 27 November 2023.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
+
+
+
+Saad, et al.            Expires 27 November 2023                [Page 1]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -109,17 +103,23 @@ Table of Contents
 
 
 
-Saad, et al.           Expires September 10, 2020               [Page 2]
+
+
+
+
+
+
+Saad, et al.            Expires 27 November 2023                [Page 2]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
 1.1.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
    The terminology for describing YANG data models is found in
@@ -131,20 +131,23 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
    are prefixed using the standard prefix associated with the
    corresponding YANG imported modules, as shown in Table 1.
 
-  +---------------+--------------------+-------------------------------+
-  | Prefix        | YANG module        | Reference                     |
-  +---------------+--------------------+-------------------------------+
-  | yang          | ietf-yang-types    | [RFC6991]                     |
-  | inet          | ietf-inet-types    | [RFC6991]                     |
-  | rt-types      | ietf-routing-types | [RFC8294]                     |
-  | te            | ietf-te            | [I-D.ietf-teas-yang-te]       |
-  | te-dev        | ietf-te-device     | [I-D.ietf-teas-yang-te]       |
-  | te-mpls       | ietf-te-mpls       | This document                 |
-  | te-types      | ietf-te-types      | [I-D.ietf-teas-yang-te-types] |
-  | te-mpls-types | ietf-te-mpls-types | [I-D.ietf-teas-yang-te-types] |
-  +---------------+--------------------+-------------------------------+
+        +==========+====================+=========================+
+        | Prefix   | YANG module        | Reference               |
+        +==========+====================+=========================+
+        | yang     | ietf-yang-types    | [RFC6991]               |
+        +----------+--------------------+-------------------------+
+        | inet     | ietf-inet-types    | [RFC6991]               |
+        +----------+--------------------+-------------------------+
+        | rt-types | ietf-routing-types | [RFC8294]               |
+        +----------+--------------------+-------------------------+
+        | te       | ietf-te            | [I-D.ietf-teas-yang-te] |
+        +----------+--------------------+-------------------------+
+        | te-mpls  | ietf-te-mpls       | This document           |
+        +----------+--------------------+-------------------------+
+        | te-types | ietf-te-types      | [RFC8776]               |
+        +----------+--------------------+-------------------------+
 
-             Table 1: Prefixes and corresponding YANG modules
+              Table 1: Prefixes and corresponding YANG modules
 
 1.3.  Acronyms and Abbreviations
 
@@ -158,45 +161,46 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
    notifications data pertaining to MPLS TE interfaces, tunnels and LSPs
    parameters.  The data specific to the signaling protocol used to
    establish MPLS LSP(s) is outside the scope of this document and is
-   covered in other documents, e.g. in [I-D.ietf-teas-yang-rsvp] and
-   [I-D.ietf-teas-yang-rsvp-te].
+   covered in other documents.
 
 
 
-
-
-Saad, et al.           Expires September 10, 2020               [Page 3]
+Saad, et al.            Expires 27 November 2023                [Page 3]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
 2.1.  Module(s) Relationship
 
    The MPLS TE YANG module "ietf-te-mpls" imports the following modules:
 
-   o  ietf-te and ietf-te-device defined in [I-D.ietf-teas-yang-te]
+   *  ietf-te defined in [I-D.ietf-teas-yang-te]
 
-   o  ietf-te-types and ietf-te-packet-types defined in
-      [I-D.ietf-teas-yang-te-types]
+   *  ietf-te-types and ietf-te-packet-types defined in [RFC8776]
 
-   o  ietf-routing-types defined in [RFC8294]
+   *  ietf-routing-types defined in [RFC8294]
 
-   o  ietf-mpls-static defined in [I-D.ietf-mpls-static-yang]
+   *  ietf-mpls-static defined in [I-D.ietf-mpls-static-yang]
 
-     TE generic       +---------+         o: augment
-     module           | ietf-te |
+   This module references the following documents: [RFC8233], [RFC4710],
+   [RFC8570], and [RFC4124].
+
+                      +---------+         o: augment
+                      | ietf-te |
                       +---------+
                          o  o
                          |  |
                    +-----+  +-----+
                    |              |
-             +--------------+   +--------------+
-     RSVP-TE | ietf-rsvp-te |   | ietf-te-mpls |
-             +--------------+   +--------------+
+             +---------------+   +--------------+
+             | ietf-rsvp-te^ |--o| ietf-te-mpls |
+             +---------------+   +--------------+
 
+                   X---oY indicates that module X augments module Y
+                   ^ indicates a module defined in other documents
 
-   Figure 1: Relationship of MPLS TE module with TE generic and RSVP-TE
-                               YANG modules
+        Figure 1: Relationship of MPLS TE module with TE generic and
+                            RSVP-TE YANG modules
 
    The MPLS TE YANG module "ietf-te-mpls" augments the "ietf-te" TE
    generic YANG module as shown in Figure 1.
@@ -214,18 +218,18 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
         +--rw advertisement-interval?                uint32
         +--rw suppression-interval?                  uint32
         +--rw threshold-out
+
+
+
+Saad, et al.            Expires 27 November 2023                [Page 4]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
         |  +--rw one-way-delay?                 uint32
         |  +--rw one-way-residual-bandwidth?
         |  |       rt-types:bandwidth-ieee-float32
         |  +--rw one-way-available-bandwidth?
-
-
-
-Saad, et al.           Expires September 10, 2020               [Page 4]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
         |  |       rt-types:bandwidth-ieee-float32
         |  +--rw one-way-utilized-bandwidth?
         |  |       rt-types:bandwidth-ieee-float32
@@ -270,18 +274,18 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
            +--rw one-way-packet-loss?           decimal64
            +--rw two-way-min-delay?             uint32
            +--rw two-way-max-delay?             uint32
+
+
+
+Saad, et al.            Expires 27 November 2023                [Page 5]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
            +--rw two-way-delay-variation?       uint32
            +--rw two-way-packet-loss?           decimal64
    augment /te:te/te:tunnels/te:tunnel:
      +--rw tunnel-igp-shortcut
-
-
-
-Saad, et al.           Expires September 10, 2020               [Page 5]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
      |  +--rw shortcut-eligible?   boolean
      |  +--rw metric-type?         identityref
      |  +--rw metric?              int32
@@ -326,18 +330,18 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
         +--ro state
            +--ro signaled-bandwidth?   te-packet-types:bandwidth-kbps
    augment /te:te/te:tunnels/te:tunnel/te:primary-paths/te:primary-path
+
+
+
+Saad, et al.            Expires 27 November 2023                [Page 6]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
              /te:lsps/te:lsp:
      +--ro performance-metrics-one-way
      |  +--ro one-way-delay?                           uint32
      |  +--ro one-way-delay-normality?
-
-
-
-Saad, et al.           Expires September 10, 2020               [Page 6]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
      |  |       te-types:performance-metrics-normality
      |  +--ro one-way-residual-bandwidth?
      |  |       rt-types:bandwidth-ieee-float32
@@ -380,579 +384,584 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
         +--ro two-way-packet-loss-normality?
                 te-types:performance-metrics-normality
 
-           Figure 2: MPLS TE model configuration and state tree
+          Figure 2: MPLS TE model configuration and state tree
 
 
 
 
-
-
-
-
-Saad, et al.           Expires September 10, 2020               [Page 7]
+Saad, et al.            Expires 27 November 2023                [Page 7]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
 2.3.  MPLS TE YANG Module
 
-<CODE BEGINS> file "ietf-te-mpls@2020-03-09.yang"
-module ietf-te-mpls {
-  yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-te-mpls";
+   <CODE BEGINS> file "ietf-te-mpls@2023-05-25.yang"
+   module ietf-te-mpls {
+     yang-version 1.1;
+     namespace "urn:ietf:params:xml:ns:yang:ietf-te-mpls";
 
-  /* Replace with IANA when assigned */
-  prefix "te-mpls";
+     /* Replace with IANA when assigned */
+     prefix "te-mpls";
 
-  /* Import TE base model */
-  import ietf-te {
-    prefix te;
-    reference "draft-ietf-teas-yang-te: A YANG Data Model for Traffic
-               Engineering Tunnels and Interfaces";
-  }
+     /* Import TE base model */
+     import ietf-te {
+       prefix te;
+       reference "draft-ietf-teas-yang-te: A YANG Data Model for Traffic
+                  Engineering Tunnels and Interfaces";
+     }
 
-  import ietf-te-device {
-    prefix te-dev;
-    reference "draft-ietf-teas-yang-te: A YANG Data Model for Traffic
-               Engineering Tunnels and Interfaces";
-  }
+     /* Import TE MPLS types */
+     import ietf-te-packet-types {
+       prefix "te-packet-types";
+       reference "RFC8776: A YANG Data Model for
+                  Common Traffic Engineering Types";
+     }
 
-  /* Import TE MPLS types */
-  import ietf-te-packet-types {
-    prefix "te-packet-types";
-    reference "draft-ietf-teas-yang-te-types: A YANG Data Model for
-               Common Traffic Engineering Types";
-  }
+     /* Import TE generic types */
+     import ietf-te-types {
+       prefix te-types;
+       reference "RFC8776: A YANG Data Model for
+                  Common Traffic Engineering Types";
+     }
 
-  /* Import TE generic types */
-  import ietf-te-types {
-    prefix te-types;
-    reference "draft-ietf-teas-yang-te-types: A YANG Data Model for
-               Common Traffic Engineering Types";
-  }
+     /* Import routing types */
+     import ietf-routing-types {
+       prefix rt-types;
+       reference "RFC8294: Common YANG Data Types for the Routing Area";
+     }
 
-  /* Import routing types */
-  import ietf-routing-types {
-    prefix rt-types;
-    reference "RFC8294: Common YANG Data Types for the Routing Area";
-  }
+     import ietf-mpls-static {
+       prefix mpls-static;
+       reference "draft-ietf-mpls-static-yang: A YANG Data Model
+                  for MPLS Static LSPs";
+     }
 
-  import ietf-mpls-static {
-    prefix mpls-static;
-    reference "draft-ietf-mpls-static-yang: A YANG Data Model
-               for MPLS Static LSPs";
-  }
-
+     import ietf-inet-types {
+       prefix inet;
+       reference "RFC6991: Common YANG Data Types";
+     }
 
 
-Saad, et al.           Expires September 10, 2020               [Page 8]
+
+
+Saad, et al.            Expires 27 November 2023                [Page 8]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
-  import ietf-inet-types {
-    prefix inet;
-    reference "RFC6991: Common YANG Data Types";
-  }
+     organization
+       "IETF Traffic Engineering Architecture and Signaling (TEAS)
+        Working Group";
 
-  organization
-    "IETF Traffic Engineering Architecture and Signaling (TEAS)
-     Working Group";
+     contact
+       "WG Web:   <http://tools.ietf.org/wg/teas/>
+        WG List:  <mailto:teas@ietf.org>
 
-  contact
-    "WG Web:   <http://tools.ietf.org/wg/teas/>
-     WG List:  <mailto:teas@ietf.org>
+        Editor:   Tarek Saad
+                  <mailto:tsaad@cisco.com>
 
-     Editor:   Tarek Saad
-               <mailto:tsaad@cisco.com>
+        Editor:   Rakesh Gandhi
+                  <mailto:rgandhi@cisco.com>
 
-     Editor:   Rakesh Gandhi
-               <mailto:rgandhi@cisco.com>
+        Editor:   Vishnu Pavan Beeram
+                  <mailto:vbeeram@juniper.net>
 
-     Editor:   Vishnu Pavan Beeram
-               <mailto:vbeeram@juniper.net>
+        Editor:   Xufeng Liu
+                  <mailto: xufeng.liu.ietf@gmail.com>
 
-     Editor:   Xufeng Liu
-               <mailto: xufeng.liu.ietf@gmail.com>
+        Editor:   Igor Bryskin
+                  <mailto:i_bryskin@yahoo.com>";
 
-     Editor:   Igor Bryskin
-               <mailto:i_bryskin@yahoo.com>";
+     description
+       "YANG data module for MPLS TE configurations,
+        state, RPC and notifications. The model fully conforms to
+        the Network Management Datastore Architecture (NMDA).
 
-  description
-    "YANG data module for MPLS TE configurations,
-     state, RPC and notifications. The model fully conforms to
-     the Network Management Datastore Architecture (NMDA).
+        Copyright (c) 2018 IETF Trust and the persons
+        identified as authors of the code.  All rights reserved.
 
-     Copyright (c) 2018 IETF Trust and the persons
-     identified as authors of the code.  All rights reserved.
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject
+        to the license terms contained in, the Simplified BSD License
+        set forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+        This version of this YANG module is part of RFC XXXX; see
+        the RFC itself for full legal notices.";
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
-     set forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
-     This version of this YANG module is part of RFC XXXX; see
-     the RFC itself for full legal notices.";
+     // RFC Ed.: replace XXXX with actual RFC number and remove this
+     // note.
 
-  // RFC Ed.: replace XXXX with actual RFC number and remove this
-  // note.
+     // RFC Ed.: update the date below with the date of RFC publication
+     // and remove this note.
+
+     revision "2023-05-25" {
+       description "Latest update to MPLS TE YANG module.";
 
 
 
-
-Saad, et al.           Expires September 10, 2020               [Page 9]
+Saad, et al.            Expires 27 November 2023                [Page 9]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
-  // RFC Ed.: update the date below with the date of RFC publication
-  // and remove this note.
+       reference
+         "RFCXXXX: A YANG Data Model for MPLS-TE Tunnels and LSP(s)";
+     }
 
-  revision "2020-03-09" {
-    description "Latest update to MPLS TE YANG module.";
-    reference
-      "RFCXXXX: A YANG Data Model for MPLS-TE Tunnels and LSP(s)";
-  }
+     /* MPLS TE Identities */
+     identity tunnel-action-resetup {
+       base te-types:tunnel-action-type;
+       description "Resetup tunnel action type";
+     }
 
-  /* MPLS TE Identities */
-  identity tunnel-action-resetup {
-    base te:tunnel-actions-type;
-    description "Resetup tunnel action type";
-  }
-
-  /* MPLS TE tunnel properties*/
-  grouping tunnel-igp-shortcut-config {
-    description "TE tunnel IGP shortcut configs";
-    leaf shortcut-eligible {
-      type boolean;
-      default "true";
-      description
-        "Whether this LSP is considered to be eligible for us as a
-        shortcut in the IGP. In the case that this leaf is set to
-        true, the IGP SPF calculation uses the metric specified to
-        determine whether traffic should be carried over this LSP";
-    }
-    leaf metric-type {
-      type identityref {
-        base te-types:lsp-metric-type;
-      }
-      default te-types:lsp-metric-inherited;
-      description
-        "The type of metric specification that should be used to set
-        the LSP(s) metric";
-    }
-    leaf metric {
-      type int32;
-      description
-        "The value of the metric that should be specified. The value
-        supplied in this leaf is used in conjunction with the metric
-        type to determine the value of the metric used by the system.
-        Where the metric-type is set to lsp-metric-absolute - the
-        value of this leaf is used directly; where it is set to
-        lsp-metric-relative, the relevant (positive or negative)
-        offset is used to formulate the metric; where metric-type
-        is lsp-metric-inherited, the value of this leaf is not
-        utilized";
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 10]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
-    }
-    leaf-list routing-afs {
-      type inet:ip-version;
-      description
-        "Address families";
-    }
-  }
-
-  grouping tunnel-igp-shortcuts {
-    description
-      "TE tunnel IGP shortcut grouping";
-    container tunnel-igp-shortcut {
-      description
-        "Tunnel IGP shortcut properties";
-      uses tunnel-igp-shortcut-config;
-    }
-  }
-
-  grouping tunnel-forwarding-adjacency-configs {
-    description "Tunnel forwarding adjacency grouping";
-    leaf binding-label {
-      type rt-types:mpls-label;
-      description "MPLS tunnel binding label";
-    }
-    leaf load-share {
-      type uint32 {
-        range "1..4294967295";
-      }
-      description "ECMP tunnel forwarding
-        load-share factor.";
-    }
-    leaf policy-class {
-      type uint8 {
-        range "1..7";
-      }
-      description
-        "The class associated with this tunnel";
-    }
-  }
-
-  grouping tunnel-forwarding-adjacency {
-    description "Properties for using tunnel in forwarding.";
-    container forwarding {
-      description
-        "Tunnel forwarding properties container";
-      uses tunnel-forwarding-adjacency-configs;
-    }
-  }
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 11]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
-  /*** End of MPLS TE tunnel configuration/state */
-  grouping te-lsp-auto-bandwidth-config {
-    description
-      "Configuration parameters related to autobandwidth";
-
-    leaf enabled {
-      type boolean;
-      default false;
-      description
-        "Enables MPLS auto-bandwidth on the
-         LSP";
-    }
-
-    leaf min-bw {
-      type te-packet-types:bandwidth-kbps;
-      description
-        "set the minimum bandwidth in Kbps for an
-         auto-bandwidth LSP";
-    }
-
-    leaf max-bw {
-      type te-packet-types:bandwidth-kbps;
-      description
-        "set the maximum bandwidth in Kbps for an
-         auto-bandwidth LSP";
-    }
-
-    leaf adjust-interval {
-      type uint32;
-      description
-        "time in seconds between adjustments to
-         LSP bandwidth";
-    }
-
-    leaf adjust-threshold {
-      type rt-types:percentage;
-      description
-        "percentage difference between the LSP's
-         specified bandwidth and its current bandwidth
-         allocation -- if the difference is greater than the
-         specified percentage, auto-bandwidth adjustment is
-         triggered";
-    }
-  }
-
-  grouping te-lsp-overflow-config {
-    description
-     "configuration for MPLS LSP bandwidth
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 12]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
-      overflow adjustment";
-
-    leaf enabled {
-      type boolean;
-      default false;
-      description
-       "Enables MPLS LSP bandwidth overflow
-        adjustment on the LSP";
-    }
-
-    leaf overflow-threshold {
-      type rt-types:percentage;
-      description
-       "bandwidth percentage change to trigger
-        an overflow event";
-
-    }
-
-    leaf trigger-event-count {
-      type uint16;
-      description
-       "number of consecutive overflow sample
-        events needed to trigger an overflow adjustment";
-    }
-  }
-
-  grouping te-lsp-underflow-config {
-    description
-      "configuration for MPLS LSP bandwidth
-      underflow adjustment";
-
-    leaf enabled {
-      type boolean;
-      default false;
-      description
-       "enables bandwidth underflow
-        adjustment on the LSP";
-    }
-
-    leaf underflow-threshold {
-      type rt-types:percentage;
-      description
-       "bandwidth percentage change to trigger
-        and underflow event";
-    }
-
-    leaf trigger-event-count {
-      type uint16;
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 13]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
-      description
-       "number of consecutive underflow sample
-        events needed to trigger an underflow adjustment";
-    }
-  }
-  grouping te-tunnel-bandwidth-config {
-    description
-      "Configuration parameters related to bandwidth for a tunnel";
-
-    leaf specification-type {
-      type te-packet-types:te-bandwidth-requested-type;
-      default specified;
-      description
-        "The method used for setting the bandwidth, either explicitly
-        specified or configured";
-    }
-
-    leaf set-bandwidth {
-      when "../specification-type = 'specified'" {
+     identity path-metric-loss {
+       base te-types:path-metric-type;
        description
-         "The bandwidth value when bandwidth is explicitly
-          specified";
-      }
-      type te-packet-types:bandwidth-kbps;
-      description
-       "set bandwidth explicitly, e.g., using
-        offline calculation";
-    }
-    leaf class-type {
-      type te-types:te-ds-class;
-      description
-        "The Class-Type of traffic transported by the LSP.";
-      reference "RFC4124: section-4.3.1";
-    }
-  }
+         "The path loss metric type (as a packet percentage) that
+          encodes a function of the unidirectional loss metrics of all
+          links traversed by a P2P path. The basic unit is 0.000003%,
+          where (2^24 - 2) or 50.331642% is the highest packet-loss
+          percentage that can be expressed.";
+       reference "RFC8233, RFC4710, and RFC8570";
+     }
 
-  grouping te-tunnel-bandwidth-state {
-    description
-      "Operational state parameters relating to bandwidth for a tunnel";
+     /* MPLS TE tunnel properties*/
+     grouping tunnel-igp-shortcut-config {
+       description "TE tunnel IGP shortcut configs";
+       leaf shortcut-eligible {
+         type boolean;
+         default "true";
+         description
+           "Whether this LSP is considered to be eligible for us as a
+           shortcut in the IGP. In the case that this leaf is set to
+           true, the IGP SPF calculation uses the metric specified to
+           determine whether traffic should be carried over this LSP";
+       }
+       leaf metric-type {
+         type identityref {
+           base te-types:lsp-metric-type;
+         }
+         default te-types:lsp-metric-inherited;
+         description
+           "The type of metric specification that should be used to set
+           the LSP(s) metric";
+       }
+       leaf metric {
+         type int32;
+         description
+           "The value of the metric that should be specified. The value
+           supplied in this leaf is used in conjunction with the metric
+           type to determine the value of the metric used by the system.
 
-    leaf signaled-bandwidth {
-      type te-packet-types:bandwidth-kbps;
-      description
-        "The currently signaled bandwidth of the LSP. In the case where
-        the bandwidth is specified explicitly, then this will match the
-        value of the set-bandwidth leaf; in cases where the bandwidth is
-        dynamically computed by the system, the current value of the
-        bandwidth should be reflected.";
 
 
-
-Saad, et al.           Expires September 10, 2020              [Page 14]
+Saad, et al.            Expires 27 November 2023               [Page 10]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
-    }
-  }
+           Where the metric-type is set to lsp-metric-absolute - the
+           value of this leaf is used directly; where it is set to
+           lsp-metric-relative, the relevant (positive or negative)
+           offset is used to formulate the metric; where metric-type
+           is lsp-metric-inherited, the value of this leaf is not
+           utilized";
+       }
+       leaf-list routing-afs {
+         type inet:ip-version;
+         description
+           "Address families";
+       }
+     }
 
-  grouping tunnel-bandwidth_top {
-    description
-      "Top level grouping for specifying bandwidth for a tunnel";
+     grouping tunnel-igp-shortcuts {
+       description
+         "TE tunnel IGP shortcut grouping";
+       container tunnel-igp-shortcut {
+         description
+           "Tunnel IGP shortcut properties";
+         uses tunnel-igp-shortcut-config;
+       }
+     }
 
-    container bandwidth-mpls {
-      description
-        "Bandwidth configuration for TE LSPs";
+     grouping tunnel-forwarding-adjacency-configs {
+       description "Tunnel forwarding adjacency grouping";
+       leaf binding-label {
+         type rt-types:mpls-label;
+         description "MPLS tunnel binding label";
+       }
+       leaf load-share {
+         type uint32 {
+           range "1..4294967295";
+         }
+         description "ECMP tunnel forwarding
+           load-share factor.";
+       }
+       leaf policy-class {
+         type uint8 {
+           range "1..7";
+         }
+         description
+           "The class associated with this tunnel";
+       }
+     }
 
-      uses te-tunnel-bandwidth-config;
+     grouping tunnel-forwarding-adjacency {
+       description "Properties for using tunnel in forwarding.";
 
-      container state {
-        config false;
-        description
-          "State parameters related to bandwidth
-          configuration of TE tunnels";
-        uses te-tunnel-bandwidth-state;
-      }
 
-      container auto-bandwidth {
-        when "../specification-type = 'auto'" {
+
+Saad, et al.            Expires 27 November 2023               [Page 11]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
+       container forwarding {
+         description
+           "Tunnel forwarding properties container";
+         uses tunnel-forwarding-adjacency-configs;
+       }
+     }
+
+     /*** End of MPLS TE tunnel configuration/state */
+     grouping te-lsp-auto-bandwidth-config {
+       description
+         "Configuration parameters related to autobandwidth";
+
+       leaf enabled {
+         type boolean;
+         default false;
+         description
+           "Enables MPLS auto-bandwidth on the
+            LSP";
+       }
+
+       leaf min-bw {
+         type te-packet-types:bandwidth-kbps;
+         description
+           "set the minimum bandwidth in Kbps for an
+            auto-bandwidth LSP";
+       }
+
+       leaf max-bw {
+         type te-packet-types:bandwidth-kbps;
+         description
+           "set the maximum bandwidth in Kbps for an
+            auto-bandwidth LSP";
+       }
+
+       leaf adjust-interval {
+         type uint32;
+         description
+           "time in seconds between adjustments to
+            LSP bandwidth";
+       }
+
+       leaf adjust-threshold {
+         type rt-types:percentage;
+         description
+           "percentage difference between the LSP's
+            specified bandwidth and its current bandwidth
+            allocation -- if the difference is greater than the
+            specified percentage, auto-bandwidth adjustment is
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 12]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
+            triggered";
+       }
+     }
+
+     grouping te-lsp-overflow-config {
+       description
+        "configuration for MPLS LSP bandwidth
+         overflow adjustment";
+
+       leaf enabled {
+         type boolean;
+         default false;
+         description
+          "Enables MPLS LSP bandwidth overflow
+           adjustment on the LSP";
+       }
+
+       leaf overflow-threshold {
+         type rt-types:percentage;
+         description
+          "bandwidth percentage change to trigger
+           an overflow event";
+
+       }
+
+       leaf trigger-event-count {
+         type uint16;
+         description
+          "number of consecutive overflow sample
+           events needed to trigger an overflow adjustment";
+       }
+     }
+
+     grouping te-lsp-underflow-config {
+       description
+         "configuration for MPLS LSP bandwidth
+         underflow adjustment";
+
+       leaf enabled {
+         type boolean;
+         default false;
+         description
+          "enables bandwidth underflow
+           adjustment on the LSP";
+       }
+
+       leaf underflow-threshold {
+         type rt-types:percentage;
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 13]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
+         description
+          "bandwidth percentage change to trigger
+           and underflow event";
+       }
+
+       leaf trigger-event-count {
+         type uint16;
+         description
+          "number of consecutive underflow sample
+           events needed to trigger an underflow adjustment";
+       }
+     }
+     grouping te-tunnel-bandwidth-config {
+       description
+         "Configuration parameters related to bandwidth for a tunnel";
+
+       leaf specification-type {
+         type te-packet-types:te-bandwidth-requested-type;
+         default specified;
+         description
+           "The method used for setting the bandwidth, either explicitly
+            specified or configured";
+       }
+
+       leaf set-bandwidth {
+         when "../specification-type = 'specified'" {
           description
-            "Include this container for auto bandwidth
-            specific configuration";
-        }
-        description
-          "Parameters related to auto-bandwidth";
+            "The bandwidth value when bandwidth is explicitly
+             specified";
+         }
+         type te-packet-types:bandwidth-kbps;
+         description
+          "set bandwidth explicitly, e.g., using
+           offline calculation";
+       }
+       leaf class-type {
+         type te-types:te-ds-class;
+         description
+           "The Class-Type of traffic transported by the LSP.";
+         reference "RFC4124: section-4.3.1";
+       }
+     }
 
-        uses te-lsp-auto-bandwidth-config;
-
-        container overflow {
-          description
-            "configuration of MPLS overflow bandwidth
-            adjustment for the LSP";
-
-          uses te-lsp-overflow-config;
-        }
-
-        container underflow {
-          description
-            "configuration of MPLS underflow bandwidth
-            adjustment for the LSP";
-
-          uses te-lsp-underflow-config;
-        }
-      }
+     grouping te-tunnel-bandwidth-state {
+       description
+         "Operational state parameters relating to bandwidth for
+          a tunnel";
 
 
 
-Saad, et al.           Expires September 10, 2020              [Page 15]
+
+Saad, et al.            Expires 27 November 2023               [Page 14]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
-    }
-  }
+       leaf signaled-bandwidth {
+         type te-packet-types:bandwidth-kbps;
+         description
+           "The currently signaled bandwidth of the LSP. In the case
+            where the bandwidth is specified explicitly, then this will
+            match the value of the set-bandwidth leaf; in cases where
+            the bandwidth is dynamically computed by the system, the
+            current value of the bandwidth should be reflected.";
+       }
+     }
 
-  grouping te-path-bandwidth_top {
-    description
-      "Top level grouping for specifying bandwidth for a TE path";
+     grouping tunnel-bandwidth_top {
+       description
+         "Top level grouping for specifying bandwidth for a tunnel";
 
-    container bandwidth {
-      description
-        "Bandwidth configuration for TE LSPs";
+       container bandwidth-mpls {
+         description
+           "Bandwidth configuration for TE LSPs";
 
-      uses te-tunnel-bandwidth-config;
-      container state {
-        config false;
-        description
-          "State parameters related to bandwidth
-          configuration of TE tunnels";
-        uses te-tunnel-bandwidth-state;
-      }
-    }
-  }
+         uses te-tunnel-bandwidth-config;
 
+         container state {
+           config false;
+           description
+             "State parameters related to bandwidth
+             configuration of TE tunnels";
+           uses te-tunnel-bandwidth-state;
+         }
 
+         container auto-bandwidth {
+           when "../specification-type = 'auto'" {
+             description
+               "Include this container for auto bandwidth
+               specific configuration";
+           }
+           description
+             "Parameters related to auto-bandwidth";
 
-  /**
-   * MPLS TE augmentations
-   */
-  augment "/te:te/te-dev:performance-thresholds" {
-    uses te-packet-types:performance-metrics-throttle-container-packet;
-    description
-      "Performance parameters configurable thresholds";
-  }
+           uses te-lsp-auto-bandwidth-config;
 
-  /* MPLS TE interface augmentations */
+           container overflow {
+             description
+               "configuration of MPLS overflow bandwidth
+               adjustment for the LSP";
 
-
-  /* MPLS TE tunnel augmentations */
-  augment "/te:te/te:tunnels/te:tunnel" {
-    description "MPLS TE tunnel config augmentations";
-    uses tunnel-igp-shortcuts;
-    uses tunnel-forwarding-adjacency;
-    uses tunnel-bandwidth_top;
-  }
-
-  /* MPLS TE LSPs augmentations */
-  augment "/te:te/te:tunnels/te:tunnel/" +
-          "te:primary-paths/te:primary-path" {
-    when "/te:te/te:tunnels/te:tunnel" +
-
+             uses te-lsp-overflow-config;
+           }
 
 
-Saad, et al.           Expires September 10, 2020              [Page 16]
+
+
+Saad, et al.            Expires 27 November 2023               [Page 15]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
 
-      "/te:primary-paths/te:primary-path" +
-      "/te:signaling-type = 'te-types:path-setup-static'" {
-      description
-      "When the path is statically provisioned";
-    }
-    description "MPLS TE LSP augmentation";
-    leaf static-lsp-name {
-      type mpls-static:static-lsp-ref;
-      description "Static LSP name";
-    }
-  }
+           container underflow {
+             description
+               "configuration of MPLS underflow bandwidth
+               adjustment for the LSP";
 
-  augment "/te:te/te:tunnels/te:tunnel/" +
-          "te:secondary-paths/te:secondary-path" {
-    when "/te:te/te:tunnels/te:tunnel" +
-      "/te:secondary-paths/te:secondary-path/" +
-      "te:signaling-type = 'te-types:path-setup-static'" {
-      description
-      "When the path is statically provisioned";
-    }
-    description "MPLS TE LSP augmentation";
-    leaf static-lsp-name {
-      type mpls-static:static-lsp-ref;
-      description "Static LSP name";
-    }
-  }
+             uses te-lsp-underflow-config;
+           }
+         }
+       }
+     }
 
-  augment "/te:te/te:globals/te:named-path-constraints/" +
-          "te:named-path-constraint" {
-    description "foo";
-    uses te-path-bandwidth_top;
-  }
+     grouping te-path-bandwidth_top {
+       description
+         "Top level grouping for specifying bandwidth for a TE path";
 
-  augment "/te:te/te:tunnels/te:tunnel/te:primary-paths" +
-          "/te:primary-path/te:lsps/te:lsp" {
-    description
-      "MPLS TE generic data augmentation pertaining to specific TE
-       LSP";
-    uses te-packet-types:performance-metrics-attributes-packet;
-  }
-}
-<CODE ENDS>
+       container bandwidth {
+         description
+           "Bandwidth configuration for TE LSPs";
 
-                     Figure 3: TE generic YANG module
+         uses te-tunnel-bandwidth-config;
+         container state {
+           config false;
+           description
+             "State parameters related to bandwidth
+             configuration of TE tunnels";
+           uses te-tunnel-bandwidth-state;
+         }
+       }
+     }
 
 
 
+     /**
+      * MPLS TE augmentations
+      */
+     augment "/te:te" {
+       container performance-thresholds {
+         uses "te-packet-types:" +
+           "performance-metrics-throttle-container-packet";
+           description
+             "Performance parameters configurable thresholds";
+       }
+       description
+         "Performance parameters configurable thresholds";
+     }
+
+     /* MPLS TE interface augmentations */
 
 
 
 
-Saad, et al.           Expires September 10, 2020              [Page 17]
+Saad, et al.            Expires 27 November 2023               [Page 16]
 
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
 
+
+     /* MPLS TE tunnel augmentations */
+     augment "/te:te/te:tunnels/te:tunnel" {
+       description "MPLS TE tunnel config augmentations";
+       uses tunnel-igp-shortcuts;
+       uses tunnel-forwarding-adjacency;
+       uses tunnel-bandwidth_top;
+     }
+
+     /* MPLS TE LSPs augmentations */
+     augment "/te:te/te:tunnels/te:tunnel/" +
+             "te:primary-paths/te:primary-path" {
+       when "/te:te/te:tunnels/te:tunnel" +
+         "/te:primary-paths/te:primary-path" +
+         "/te:signaling-type = 'te-types:path-setup-static'" {
+         description
+         "When the path is statically provisioned";
+       }
+       description "MPLS TE LSP augmentation";
+       leaf static-lsp-name {
+         type mpls-static:static-lsp-ref;
+         description "Static LSP name";
+       }
+     }
+
+     augment "/te:te/te:tunnels/te:tunnel/" +
+             "te:secondary-paths/te:secondary-path" {
+       when "/te:te/te:tunnels/te:tunnel" +
+         "/te:secondary-paths/te:secondary-path/" +
+         "te:signaling-type = 'te-types:path-setup-static'" {
+         description
+         "When the path is statically provisioned";
+       }
+       description "MPLS TE LSP augmentation";
+       leaf static-lsp-name {
+         type mpls-static:static-lsp-ref;
+         description "Static LSP name";
+       }
+     }
+
+     augment "/te:te/te:globals/te:named-path-constraints/" +
+             "te:named-path-constraint" {
+       description "foo";
+       uses te-path-bandwidth_top;
+     }
+
+     augment "/te:te/te:tunnels/te:tunnel/te:primary-paths" +
+             "/te:primary-path/te:lsps/te:lsp" {
+       description
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 17]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
+         "MPLS TE generic data augmentation pertaining to specific TE
+          LSP";
+       uses te-packet-types:performance-metrics-attributes-packet;
+     }
+   }
+   <CODE ENDS>
+
+                      Figure 3: TE generic YANG module
 
 3.  IANA Considerations
 
@@ -993,22 +1002,18 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
    to TE tunnels on a device.  Unauthorized access to this list could
    cause the device to ignore packets it should receive and process.
 
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 18]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
    "/te/globals": The augmentation to this target specifies
    configuration applicable to the to all or one TE device.
    Unauthorized access to this list could cause the device to ignore
    packets it should receive and process.
-
-
-
-
-
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 18]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
 
 5.  Contributors
 
@@ -1016,36 +1021,22 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
       Ciena
       Email: hshah@ciena.com
 
-
 6.  Normative References
 
    [I-D.ietf-mpls-static-yang]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "A YANG Data Model for MPLS Static LSPs", draft-ietf-mpls-
-              static-yang-10 (work in progress), September 2019.
-
-   [I-D.ietf-teas-yang-rsvp]
-              Beeram, V., Saad, T., Gandhi, R., Liu, X., and I. Bryskin,
-              "A YANG Data Model for Resource Reservation Protocol
-              (RSVP)", draft-ietf-teas-yang-rsvp-12 (work in progress),
-              January 2020.
-
-   [I-D.ietf-teas-yang-rsvp-te]
-              Beeram, V., Saad, T., Gandhi, R., Liu, X., Bryskin, I.,
-              and H. Shah, "A YANG Data Model for RSVP-TE Protocol",
-              draft-ietf-teas-yang-rsvp-te-07 (work in progress), July
-              2019.
+              Saad, T., Gandhi, R., Liu, X., Beeram, V. P., and I.
+              Bryskin, "A YANG Data Model for MPLS Static LSPs", Work in
+              Progress, Internet-Draft, draft-ietf-mpls-static-yang-13,
+              27 July 2021, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-mpls-static-yang-13>.
 
    [I-D.ietf-teas-yang-te]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "A YANG Data Model for Traffic Engineering Tunnels and
-              Interfaces", draft-ietf-teas-yang-te-22 (work in
-              progress), November 2019.
-
-   [I-D.ietf-teas-yang-te-types]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "Traffic Engineering Common YANG Types", draft-ietf-teas-
-              yang-te-types-13 (work in progress), November 2019.
+              Saad, T., Gandhi, R., Liu, X., Beeram, V. P., Bryskin, I.,
+              and O. G. de Dios, "A YANG Data Model for Traffic
+              Engineering Tunnels, Label Switched Paths and Interfaces",
+              Work in Progress, Internet-Draft, draft-ietf-teas-yang-te-
+              32, 12 March 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-yang-te-32>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1057,15 +1048,6 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
               <https://www.rfc-editor.org/info/rfc3209>.
 
-
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 19]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
-
    [RFC3473]  Berger, L., Ed., "Generalized Multi-Protocol Label
               Switching (GMPLS) Signaling Resource ReserVation Protocol-
               Traffic Engineering (RSVP-TE) Extensions", RFC 3473,
@@ -1075,6 +1057,24 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
+
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 19]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
+   [RFC4124]  Le Faucheur, F., Ed., "Protocol Extensions for Support of
+              Diffserv-aware MPLS Traffic Engineering", RFC 4124,
+              DOI 10.17487/RFC4124, June 2005,
+              <https://www.rfc-editor.org/info/rfc4124>.
+
+   [RFC4710]  Siddiqui, A., Romascanu, D., and E. Golovinsky, "Real-time
+              Application Quality-of-Service Monitoring (RAQMON)
+              Framework", RFC 4710, DOI 10.17487/RFC4710, October 2006,
+              <https://www.rfc-editor.org/info/rfc4710>.
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
@@ -1106,56 +1106,66 @@ Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+   [RFC8233]  Dhody, D., Wu, Q., Manral, V., Ali, Z., and K. Kumaki,
+              "Extensions to the Path Computation Element Communication
+              Protocol (PCEP) to Compute Service-Aware Label Switched
+              Paths (LSPs)", RFC 8233, DOI 10.17487/RFC8233, September
+              2017, <https://www.rfc-editor.org/info/rfc8233>.
+
+
+
+
+
+
+Saad, et al.            Expires 27 November 2023               [Page 20]
+
+Internet-Draft       MPLS TE Tunnels YANG Data Model            May 2023
+
+
    [RFC8294]  Liu, X., Qu, Y., Lindem, A., Hopps, C., and L. Berger,
               "Common YANG Data Types for the Routing Area", RFC 8294,
               DOI 10.17487/RFC8294, December 2017,
               <https://www.rfc-editor.org/info/rfc8294>.
-
-
-
-
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 20]
-
-Internet-Draft       MPLS TE Tunnels YANG Data Model          March 2020
-
 
    [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
               Access Control Model", STD 91, RFC 8341,
               DOI 10.17487/RFC8341, March 2018,
               <https://www.rfc-editor.org/info/rfc8341>.
 
+   [RFC8570]  Ginsberg, L., Ed., Previdi, S., Ed., Giacalone, S., Ward,
+              D., Drake, J., and Q. Wu, "IS-IS Traffic Engineering (TE)
+              Metric Extensions", RFC 8570, DOI 10.17487/RFC8570, March
+              2019, <https://www.rfc-editor.org/info/rfc8570>.
+
+   [RFC8776]  Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
+              "Common YANG Data Types for Traffic Engineering",
+              RFC 8776, DOI 10.17487/RFC8776, June 2020,
+              <https://www.rfc-editor.org/info/rfc8776>.
+
 Authors' Addresses
 
    Tarek Saad
-   Juniper Networks
-
-   Email: tsaad@juniper.net
+   Cisco Systems Inc
+   Email: tsaad@cisco.com
 
 
    Rakesh Gandhi
    Cisco Systems Inc
-
    Email: rgandhi@cisco.com
 
 
    Xufeng Liu
-   Volta Networks
-
+   IBM Corporation
    Email: xufeng.liu.ietf@gmail.com
 
 
    Vishnu Pavan Beeram
    Juniper Networks
-
    Email: vbeeram@juniper.net
 
 
    Igor Bryskin
    Individual
-
    Email: i_bryskin@yahoo.com
 
 
@@ -1163,14 +1173,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-Saad, et al.           Expires September 10, 2020              [Page 21]
+Saad, et al.            Expires 27 November 2023               [Page 21]

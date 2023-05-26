@@ -1,13 +1,14 @@
 ---
 title: A YANG Data Model for MPLS Traffic Engineering Tunnels
 abbrev: MPLS TE Tunnels YANG Data Model
-docname: draft-ietf-teas-yang-te-mpls-03
+docname: draft-ietf-teas-yang-te-mpls-04
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
 keyword: Internet-Draft
 
 stand_alone: yes
+submissiontype: IETF
 pi: [toc, sortrefs, symrefs]
 
 author:
@@ -15,8 +16,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems Inc
+    email: tsaad@cisco.com
  -
    ins: R. Gandhi
    name: Rakesh Gandhi
@@ -26,7 +27,7 @@ author:
  -
    ins: X. Liu
    name: Xufeng Liu
-   organization: Volta Networks
+   organization: IBM Corporation
    email: xufeng.liu.ietf@gmail.com
 
  -
@@ -48,7 +49,6 @@ normative:
   RFC6241:
   RFC6991:
   RFC8040:
-  I-D.ietf-teas-yang-rsvp:
 
 informative:
 
@@ -81,10 +81,7 @@ in separate document(s).
 
 ## Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
+{::boilerplate bcp14}
 
 The terminology for describing YANG data models is found in {{!RFC7950}}.
 
@@ -94,22 +91,15 @@ In this document, names of data nodes and other data model objects are prefixed
 using the standard prefix associated with the corresponding YANG imported
 modules, as shown in Table 1.
 
-~~~~~~~~~~
- +---------------+--------------------+-------------------------------+
  | Prefix        | YANG module        | Reference                     |
- +---------------+--------------------+-------------------------------+
- | yang          | ietf-yang-types    | [RFC6991]                     |
- | inet          | ietf-inet-types    | [RFC6991]                     |
- | rt-types      | ietf-routing-types | [RFC8294]                     |
- | te            | ietf-te            | [I-D.ietf-teas-yang-te]       |
- | te-dev        | ietf-te-device     | [I-D.ietf-teas-yang-te]       |
+ |---------------|--------------------|-------------------------------|
+ | yang          | ietf-yang-types    | {{!RFC6991}}                  |
+ | inet          | ietf-inet-types    | {{!RFC6991}}                  |
+ | rt-types      | ietf-routing-types | {{!RFC8294}}                  |
+ | te            | ietf-te            | {{!I-D.ietf-teas-yang-te}}    |
  | te-mpls       | ietf-te-mpls       | This document                 |
- | te-types      | ietf-te-types      | [I-D.ietf-teas-yang-te-types] |
- | te-mpls-types | ietf-te-mpls-types | [I-D.ietf-teas-yang-te-types] |
- +---------------+--------------------+-------------------------------+
-
-            Table 1: Prefixes and corresponding YANG modules
-~~~~~~~~~~
+ | te-types      | ietf-te-types      | {{!RFC8776}}                  |
+{: #tab1 title="Prefixes and corresponding YANG modules"}
 
 ## Acronyms and Abbreviations
 
@@ -125,32 +115,35 @@ modules, as shown in Table 1.
 The MPLS TE YANG model covers the configuration, state, RPC and notifications
 data pertaining to MPLS TE interfaces, tunnels and LSPs parameters. The data
 specific to the signaling protocol used to establish MPLS LSP(s) is outside the
-scope of this document and is covered in other documents, e.g. in
-{{!I-D.ietf-teas-yang-rsvp}} and {{!I-D.ietf-teas-yang-rsvp-te}}.
+scope of this document and is covered in other documents.
 
 ## Module(s) Relationship
 
 The MPLS TE YANG module "ietf-te-mpls" imports the following modules:
 
-- ietf-te and ietf-te-device defined in {{!I-D.ietf-teas-yang-te}}
-- ietf-te-types and ietf-te-packet-types defined in
-  {{!I-D.ietf-teas-yang-te-types}}
+- ietf-te defined in {{!I-D.ietf-teas-yang-te}}
+- ietf-te-types and ietf-te-packet-types defined in {{!RFC8776}}
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-mpls-static defined in {{!I-D.ietf-mpls-static-yang}}
 
+This module references the following documents:
+{{!RFC8233}}, {{!RFC4710}}, {{!RFC8570}}, and {{!RFC4124}}.
+
 ~~~
 
-  TE generic       +---------+         o: augment
-  module           | ietf-te |
+                   +---------+         o: augment
+                   | ietf-te |
                    +---------+
                       o  o
                       |  |
                 +-----+  +-----+
                 |              |
-          +--------------+   +--------------+ 
-  RSVP-TE | ietf-rsvp-te |   | ietf-te-mpls |
-          +--------------+   +--------------+
+          +---------------+   +--------------+
+          | ietf-rsvp-te^ |--o| ietf-te-mpls |
+          +---------------+   +--------------+
 
+                X---oY indicates that module X augments module Y
+                ^ indicates a module defined in other documents
 ~~~
 {: #figctrl title="Relationship of MPLS TE module with TE generic and RSVP-TE
 YANG modules"}
@@ -172,7 +165,7 @@ defined in ietf-te-mpls.yang.
 ## MPLS TE YANG Module
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-mpls@2020-03-09.yang"
+<CODE BEGINS> file "ietf-te-mpls@2023-05-25.yang"
 {::include ../../te/ietf-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
