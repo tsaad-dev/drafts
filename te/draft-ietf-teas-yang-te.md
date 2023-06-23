@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-32
+docname: draft-ietf-teas-yang-te-33
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -274,8 +274,8 @@ applicable to TE Tunnels and interfaces.
 
 tunnels:
 
-> The 'tunnels' container includes the list of TE Tunnels that are instantiated. Refer to
-{{TE_TUNNELS}} for further details on the properties of a TE Tunnel.
+> The 'tunnels' container includes the list of TE Tunnels that are instantiated.
+Refer to {{TE_TUNNELS}} for further details on the properties of a TE Tunnel.
 
 lsps:
 
@@ -436,7 +436,7 @@ of a TE tunnel has to adhere to.
 ### TE Tunnels {#TE_TUNNELS}
 
 The 'tunnels' container holds the list of TE Tunnels that are provisioned on
-devices in the network as shown in {{fig-te-tunnel}}.
+ingress LER devices in the network as shown in {{fig-te-tunnel}}.
 
 ~~~~~~~~~~~
 
@@ -869,9 +869,9 @@ A TE LSP is identified by a 3-tuple ('tunnel-name', 'lsp-id', 'node').
 When the model is used to manage a specific device, the 'lsps' list contains all TE
 LSP(s) that traverse the device (including ingressing, transiting and egressing the device).
 
-When the model is used to manage a TE controller, the 'lsps' list contains all
-TE LSP(s) that traverse all network devices (including ingressing, transiting and
-egressing the device) that the TE controller manages.
+When the model is used to manage a TE controller, the 'lsps' list
+contains the TE LSP(s) on devices managed by the controller that act as ingress, and may optionally include
+TE LSPs on devices managed by the controller that act as transit or egress role.
 
 ## Tree Diagram
 
@@ -888,8 +888,9 @@ modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixB}}.
 
 The generic TE YANG module 'ietf-te' imports the following modules:
 
-- ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
 - ietf-te-types defined in {{!RFC8776}}
+- ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
+- ietf-network and ietf-network-topology defined in {{!RFC8345}}
 
 This module references the following documents:
 {{!RFC4206}}, {{!RFC4427}},
@@ -898,7 +899,7 @@ This module references the following documents:
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC7308}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2023-03-11.yang"
+<CODE BEGINS> file "ietf-te@2023-06-16.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -973,7 +974,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2023-03-11.yang"
+<CODE BEGINS> file "ietf-te-device@2023-06-16.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
