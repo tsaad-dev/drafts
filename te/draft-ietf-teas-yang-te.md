@@ -597,20 +597,24 @@ technology in which the tunnel operates in as described in {{?RFC3945}}.
 
 source/destination:
 
-> YANG leafs that define the tunnel source and destination node endpoints.
+> YANG containers that hold the tunnel source and destination node endpoints identities, including:
 
-src-tunnel-tp-id/dst-tunnel-tp-id:
+>  * te-node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
+>    TE node identifiers as defined in {{!RFC8776}}.
+>
+>  * node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
+>    node identifiers as defined in {{!RFC8345}}.
+>
+>  * tunnel-tp-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
+>    Termination Points (TTPs) as defined in {{!RFC8795}}. The TTP identifiers are optional
+>    on nodes that have a single TTP per node. For example, TTP identifiers are optional for packet
+>    (IP/MPLS) routers.
 
->  YANG leafs that hold the identifiers of source and destination TE Tunnel
->  Termination Points (TTPs) {{!RFC8795}} residing on the source and
->  destination nodes. The TTP identifiers are optional on nodes that have a
->  single TTP per node. For example, TTP identifiers are optional for packet
->  (IP/MPLS) routers.
 
 bidirectional:
 
 > A YANG leaf that when present indicates the LSP of a TE Tunnel is bidirectional
-and co-routed as defined in {{?rfc3473}}.
+as defined in {{?rfc3473}}.
 
 controller:
 
@@ -640,7 +644,11 @@ restoration:
 
 te-topology-identifier:
 
-> A YANG container that holds the topology identifier associated with the topology where paths for the TE tunnel are computed.
+> A YANG container that holds the topology identifier associated with the topology where paths for the TE tunnel are computed as defined in {{!RFC8795}}.
+
+networkd-id:
+
+> A YANG leaf that can optionally be used to identify the network topology where paths for the TE tunnel are computed as defined in {{!RFC8345}}.
 
 hierarchy:
 
