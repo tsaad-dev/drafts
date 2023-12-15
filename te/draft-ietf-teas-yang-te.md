@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-33
+docname: draft-ietf-teas-yang-te-34
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -27,7 +27,7 @@ author:
  -
    ins: X. Liu
    name: Xufeng Liu
-   organization: IBM Corporation
+   organization: Alef Edge
    email: xufeng.liu.ietf@gmail.com
 
  -
@@ -41,12 +41,6 @@ author:
     name: Igor Bryskin
     organization: Individual
     email: i_bryskin@yahoo.com
-
- -
-    ins: O. Gonzalez de Dios
-    name: Oscar Gonzalez de Dios
-    organization: Telefonica
-    email: oscar.gonzalezdedios@telefonica.com
 
 normative:
   RFC3209:
@@ -136,8 +130,8 @@ modules, as shown in {{tab1}}.
  | yang            | ietf-yang-types      | {{!RFC6991}}       |
  | inet            | ietf-inet-types      | {{!RFC6991}}       |
  | rt-types        | ietf-routing-types   | {{!RFC8294}}       |
- | te-types        | ietf-te-types        | {{!RFC8776}}       |
- | te-packet-types | ietf-te-packet-types | {{!RFC8776}}       |
+ | te-types        | ietf-te-types        | {{!I-D.draft-ietf-teas-rfc8776-update}}       |
+ | te-packet-types | ietf-te-packet-types | {{!I-D.draft-ietf-teas-rfc8776-update}}       |
  | te              | ietf-te              | this document      |
  | te-dev          | ietf-te-device       | this document      |
 {: #tab1 title="Prefixes and corresponding YANG modules"}
@@ -170,7 +164,7 @@ organization:
   can be used to model data off a device (e.g. on a TE controller). When the
   model is used to manage a specific device, the model contains the TE Tunnels
   originating from the specific device.  When the model is used to manage a TE
-  controller, the 'tunnels' list contains all TE Tunnels and TE tunnel segments
+  controller, the 'tunnel' list contains all TE Tunnels and TE tunnel segments
   originating from device(s) that the TE controller manages.
 
 
@@ -440,86 +434,62 @@ ingress LER devices in the network as shown in {{fig-te-tunnel}}.
 
 ~~~~~~~~~~~
 
+module: ietf-te
+  +--rw te
      +--rw tunnels
-     |  +--rw tunnel* [name]
-     |     +--rw name                            string
-     |     +--rw alias?                          string
-     |     +--rw identifier?                     uint32
-     |     +--rw color?                          uint32
-     |     +--rw description?                    string
-     |     +--rw admin-state?                    identityref
-     |     +--ro operational-state?              identityref
-     |     +--rw encoding?                       identityref
-     |     +--rw switching-type?                 identityref
-     |     +--rw source?                         te-types:te-node-id
-     |     +--rw destination?                    te-types:te-node-id
-     |     +--rw src-tunnel-tp-id?               binary
-     |     +--rw dst-tunnel-tp-id?               binary
-     |     +--rw bidirectional?                  boolean
-     |     +--rw controller
-     |     |  +--rw protocol-origin?        identityref
-     |     |  +--rw controller-entity-id?   string
-     |     +--rw reoptimize-timer?               uint16
-     |     +--rw association-objects
-     |     |  +--rw association-object* [association-key]
-     |     |  |     ...
-     |     |  +--rw association-object-extended* [association-key]
-     |     |        ...
-     |     +--rw protection
-     |     |  +--rw enable?                         boolean
-     |     |  +--rw protection-type?                identityref
-     |     |  +--rw protection-reversion-disable?   boolean
-     |     |  +--rw hold-off-time?                  uint32
-     |     |  +--rw wait-to-revert?                 uint16
-     |     |  +--rw aps-signal-id?                  uint8
-     |     +--rw restoration
-     |     |  +--rw enable?                          boolean
-     |     |  +--rw restoration-type?                identityref
-     |     |  +--rw restoration-scheme?              identityref
-     |     |  +--rw restoration-reversion-disable?   boolean
-     |     |  +--rw hold-off-time?                   uint32
-     |     |  +--rw wait-to-restore?                 uint16
-     |     |  +--rw wait-to-revert?                  uint16
-     |     +--rw te-topology-identifier
-     |     |  +--rw provider-id?   te-global-id
-     |     |  +--rw client-id?     te-global-id
-     |     |  +--rw topology-id?   te-topology-id
-     |     +--rw te-bandwidth
-     |     |  +--rw (technology)?
-     |     |        ...
-     |     +--rw link-protection?                identityref
-     |     +--rw setup-priority?                 uint8
-     |     +--rw hold-priority?                  uint8
-     |     +--rw signaling-type?                 identityref
-     |     +--rw hierarchy
-     |     |  +--rw dependency-tunnels
-     |     |  |     ...
-     |     |  +--rw hierarchical-link
-     |     |        ...
-     |     +--rw primary-paths
-     |     |  +--rw primary-path* [name]
-     |     |        ...
-     |     +--rw secondary-paths
-     |     |  +--rw secondary-path* [name]
-     |     |        ...
-     |     +--rw secondary-reverse-paths
-     |     |  +--rw secondary-reverse-path* [name]
-     |     |        ...
-     |     +---x tunnel-action
-     |     |  +---w input
-     |     |  |     ...
-     |     |  +--ro output
-     |     |        ...
-     |     +---x protection-external-commands
-     |        +---w input
-     |              ...
+        +--rw tunnel* [name]
+           +--rw name                            string
+           +--rw alias?                          string
+           +--rw identifier?                     uint32
+           +--rw color?                          uint32
+           +--rw description?                    string
+           +--rw admin-state?                    identityref
+           +--ro operational-state?              identityref
+           +--rw encoding?                       identityref
+           +--rw switching-type?                 identityref
+           +--rw source
+           |     ...
+           +--rw destination
+           |     ...
+           +--rw bidirectional?                  boolean
+           +--rw controller
+           |     ...
+           +--rw reoptimize-timer?               uint16
+           +--rw association-objects
+           |     ...
+           +--rw protection
+           |     ...
+           +--rw restoration
+           |     ...
+           +--rw network-id?                     nw:network-id
+           +--rw te-topology-identifier
+           |     ...
+           +--rw te-bandwidth
+           |     ...
+           +--rw link-protection?                identityref
+           +--rw setup-priority?                 uint8
+           +--rw hold-priority?                  uint8
+           +--rw signaling-type?                 identityref
+           +--rw hierarchy
+           |     ...
+           +--rw primary-paths
+           |     ...
+           +--rw secondary-paths
+           |     ...
+           +--rw secondary-reverse-paths
+           |     ...
+           +---x tunnel-action
+           |     ...
+           +---x protection-external-commands
+                 ...
+
 ~~~~~~~~~~~
-{: #fig-te-tunnel title="TE Tunnel list YANG subtree structure"}
+{: #fig-te-tunnel title="TE Tunnel YANG subtree structure"}
 
 
-When the model is used to manage a specific device, the 'tunnels' list contains
+When the model is used to manage a specific device, the 'tunnel' list contains
 the TE Tunnels originating from the specific device. When the model is used to
-manage a TE controller, the 'tunnels' list contains all TE Tunnels and TE
+manage a TE controller, the 'tunnel' list contains all TE Tunnels and TE
 tunnel segments originating from device(s) that the TE controller manages.
 
 The TE Tunnel model allows the configuration and management of the following TE
@@ -600,7 +570,7 @@ source/destination:
 > YANG containers that hold the tunnel source and destination node endpoints identities, including:
 
 >  * te-node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
->    TE node identifiers as defined in {{!RFC8776}}.
+>    TE node identifiers as defined in {{!I-D.draft-ietf-teas-rfc8776-update}}.
 >
 >  * node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
 >    node identifiers as defined in {{!RFC8345}}.
@@ -646,7 +616,7 @@ te-topology-identifier:
 
 > A YANG container that holds the topology identifier associated with the topology where paths for the TE tunnel are computed as defined in {{!RFC8795}}.
 
-networkd-id:
+network-id:
 
 > A YANG leaf that can optionally be used to identify the network topology where paths for the TE tunnel are computed as defined in {{!RFC8345}}.
 
@@ -781,12 +751,12 @@ named-path-constraint:
 
 te-bandwidth:
 
-> A YANG container that holds the path bandwidth (see {{RFC8776}}).
+> A YANG container that holds the path bandwidth (see {{I-D.draft-ietf-teas-rfc8776-update}}).
 
 link-protection:
 
 > A YANG leaf that specifies the link protection type required for the links to
-be included the computed path (see {{RFC8776}}).
+be included the computed path (see {{I-D.draft-ietf-teas-rfc8776-update}}).
 
 setup/hold-priority:
 
@@ -896,7 +866,7 @@ modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixB}}.
 
 The generic TE YANG module 'ietf-te' imports the following modules:
 
-- ietf-te-types defined in {{!RFC8776}}
+- ietf-te-types defined in {{!I-D.draft-ietf-teas-rfc8776-update}}
 - ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
 - ietf-network and ietf-network-topology defined in {{!RFC8345}}
 
@@ -978,7 +948,7 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 
 - ietf-interfaces defined in {{!RFC8343}}
 - ietf-routing-types defined in {{!RFC8294}}
-- ietf-te-types defined in {{!RFC8776}}
+- ietf-te-types defined in {{!I-D.draft-ietf-teas-rfc8776-update}}
 - ietf-te defined in this document
 
 ~~~~~~~~~~
@@ -1110,6 +1080,11 @@ feedback on this document.
 # Contributors
 
 ~~~~
+
+   Oscar Gonzalez de Dios
+   Telefonica
+
+   Email: oscar.gonzalezdedios@telefonica.com
 
    Himanshu Shah
    Ciena
