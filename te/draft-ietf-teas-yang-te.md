@@ -363,7 +363,7 @@ formed of the path constraints shown in {{fig-named-constraints}}:
      |        |     ...
      |        +--rw disjointness?
      |        |       te-path-disjointness
-     |        +--rw explicit-route-objects-always
+     |        +--rw explicit-route-objects
      |        |     ...
      |        +--rw path-in-segment!
      |        |     ...
@@ -404,9 +404,12 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
 >>
-- explicit-route-objects-always: A YANG container that contains two route objects lists:
-    * 'route-object-exclude-always': a list of route entries to always exclude from the path computation.
-    * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation.
+- explicit-route-objects: A YANG container that contains two route objects lists:
+    * 'route-object-exclude-always': a list of route entries to always exclude from the path computation. The exclusion of a route entry in the list
+during path computation is not order sensitive.
+    * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation. The constraint type (include or exclude)
+is specified with each route entry. The path computation considers route entry constraints in the order they appear in the list. Once a route entry
+constraint is consumed, it is not considered in further computation of the path.
 
 
 >>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
@@ -798,7 +801,7 @@ disjointness:
 > see description provided in {{TeGlobals}}. These values override
 those provided in the referenced named-path-constraint.
 
-explicit-route-objects-always:
+explicit-route-objects:
 
 > see description provided in {{TeGlobals}}. These values override
 those provided in the referenced named-path-constraint.
@@ -1363,7 +1366,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "primary-path": [
               {
                 "name": "primary-1 (fwd)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1376,7 +1379,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                 },
                 "primary-reverse-path": {
                   "name": "primary-2 (rev)",
-                  "explicit-route-objects-always": {
+                  "explicit-route-objects": {
                     "route-object-include-exclude": [
                       {
                         "index": 1,
@@ -1408,7 +1411,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-path": [
               {
                 "name": "secondary-1 (fwd)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1428,7 +1431,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-2 (fwd)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1452,7 +1455,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-reverse-path": [
               {
                 "name": "secondary-3 (rev)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1472,7 +1475,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-4 (rev)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1492,7 +1495,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-5 (rev)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1523,7 +1526,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "primary-path": [
               {
                 "name": "primary-1 (bidir)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1547,7 +1550,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-path": [
               {
                 "name": "secondary-1 (bidir)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1567,7 +1570,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-2 (bidir)",
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1599,7 +1602,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               {
                 "name": "primary-1 (fwd)",
                 "co-routed": [null],
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1633,7 +1636,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               {
                 "name": "secondary-1 (fwd)",
                 "co-routed": [null],
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
@@ -1654,7 +1657,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               {
                 "name": "secondary-2 (fwd)",
                 "co-routed": [null],
-                "explicit-route-objects-always": {
+                "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
