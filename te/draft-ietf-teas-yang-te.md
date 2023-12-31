@@ -404,12 +404,12 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
 >>
-- explicit-route-objects: A YANG container that contains two route objects lists:
-    * 'route-object-exclude-always': a list of route entries to always exclude from the path computation. The exclusion of a route entry in the list
+- explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in following two lists:
+    * 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list
 during path computation is not order sensitive.
     * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation. The constraint type (include or exclude)
-is specified with each route entry. The path computation considers route entry constraints in the order they appear in the list. Once a route entry
-constraint is consumed, it is not considered in further computation of the path.
+is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry
+constraint is consumed from this list, it is not considered any further in the computation of the path.
 
 
 >>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
@@ -1110,7 +1110,7 @@ feedback on this document.
 
 # Appendix A: Data Tree Examples {#AppendixA}
 
-This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding. 
+This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
 
 For the example we will use a 4 node MPLS network were RSVP-TE MPLS Tunnels can be setup. The
 loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
@@ -1138,7 +1138,7 @@ described in the following sections.
 
 This example uses the TE Tunnel YANG data model defined in this document to create an
 RSVP-TE signaled Tunnel of packet LSP encoding type. First, the TE Tunnel is created with no specific restrictions or constraints (e.g., protection or restoration).
-The TE Tunnel ingresses on router A and egresses on router D. 
+The TE Tunnel ingresses on router A and egresses on router D.
 
 In this case, the TE Tunnel is created without specifying additional information about the primary paths.
 
@@ -1246,7 +1246,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
           {
             "name": "path1",
             "path-metric-bounds": {
-              "path-metric-bound": [ 
+              "path-metric-bound": [
                 {
                   "metric-type": "te-types:path-metric-hop",
                   "upper-bound": "3"
@@ -1370,6 +1370,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1383,6 +1384,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     "route-object-include-exclude": [
                       {
                         "index": 1,
+                        "explicit-route-usage" : "route-include-object",
                         "numbered-node-hop": {
                           "node-id": "192.0.2.3",
                           "hop-type": "loose"
@@ -1415,6 +1417,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1435,6 +1438,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1459,6 +1463,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.5"
                       }
@@ -1479,6 +1484,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.4"
                       }
@@ -1499,6 +1505,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.3"
                       }
@@ -1530,6 +1537,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1554,6 +1562,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1574,6 +1583,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1606,6 +1616,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1640,6 +1651,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1661,6 +1673,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   "route-object-include-exclude": [
                     {
                       "index": 1,
+                      "explicit-route-usage" : "route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
