@@ -842,6 +842,7 @@ path-compute-info:
 >  - path constraints,
 >  - path optimization objectives, and
 >  - path assocociations
+>
 > Note, unless overriden under a specific path of a tunnel, the tunnel's primary path optimization objectives are inherited by the primary reverse apth, secondary path and secondary reverse path.
 
 lsps:
