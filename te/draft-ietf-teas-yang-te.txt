@@ -16,7 +16,7 @@ Expires: 15 July 2024                                             X. Liu
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths
                              and Interfaces
-                       draft-ietf-teas-yang-te-34
+                       draft-ietf-teas-yang-te-35
 
 Abstract
 
