@@ -1473,6 +1473,7 @@ Internet-Draft             TE YANG Data Model               January 2024
      typedef tunnel-ref {
        type leafref {
          path "/te:te/te:tunnels/te:tunnel/te:name";
+         require-instance false;
        }
        description
          "This type is used by data models that need to reference
@@ -1505,7 +1506,6 @@ Internet-Draft             TE YANG Data Model               January 2024
        leaf type {
          type enumeration {
            enum ip {
-             description
 
 
 
@@ -1514,6 +1514,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 27]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+             description
                "IP address representation of the node identifier.";
            }
            enum dotted-quad {
@@ -1561,7 +1562,6 @@ Internet-Draft             TE YANG Data Model               January 2024
            "Address of the external path computation
             server.";
        }
-       leaf compute-only {
 
 
 
@@ -1570,6 +1570,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 28]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+       leaf compute-only {
          type empty;
          description
            "When present, the path is computed and updated whenever
@@ -1617,7 +1618,6 @@ Internet-Draft             TE YANG Data Model               January 2024
          type leafref {
            path "/te:te/te:globals/te:named-path-constraints/"
               + "te:named-path-constraint/te:name";
-         }
 
 
 
@@ -1626,6 +1626,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 29]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+         }
          description
            "Reference to a globally defined named path constraint set.";
        }
@@ -1673,7 +1674,6 @@ Internet-Draft             TE YANG Data Model               January 2024
      }
 
      grouping path-state {
-       description
 
 
 
@@ -1682,6 +1682,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 30]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+       description
          "TE per path state parameters.";
        uses path-computation-response;
        container lsp-provisioning-error-infos {
@@ -1729,7 +1730,6 @@ Internet-Draft             TE YANG Data Model               January 2024
        container lsps {
          config false;
          description
-           "The TE LSPs container.";
 
 
 
@@ -1738,6 +1738,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 31]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+           "The TE LSPs container.";
          list lsp {
            key "node lsp-id";
            description
@@ -1785,7 +1786,6 @@ Internet-Draft             TE YANG Data Model               January 2024
                "The k-th path returned from the computation server.
                 A lower k value path is more optimal than higher k
                 value path(s)";
-           }
 
 
 
@@ -1794,6 +1794,7 @@ Saad, et al.              Expires 15 July 2024                 [Page 32]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+           }
            uses te-types:generic-path-properties {
              augment "path-properties" {
                description
@@ -1841,7 +1842,6 @@ Internet-Draft             TE YANG Data Model               January 2024
            }
          }
        }
-     }
 
 
 
@@ -1849,6 +1849,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 33]
 
 Internet-Draft             TE YANG Data Model               January 2024
 
+
+     }
 
      grouping protection-restoration-properties {
        description
@@ -1896,8 +1898,6 @@ Internet-Draft             TE YANG Data Model               January 2024
            description
              "The APS signal number used to reference the traffic of
               this tunnel. The default value for normal traffic is 1.
-              The default value for extra-traffic is 255. If not
-              specified, non-default values can be assigned by the
 
 
 
@@ -1906,6 +1906,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 34]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+              The default value for extra-traffic is 255. If not
+              specified, non-default values can be assigned by the
               server, if and only if, the server controls both
                endpoints.";
            reference
@@ -1952,8 +1954,6 @@ Internet-Draft             TE YANG Data Model               January 2024
            description
              "Time to wait before attempting LSP restoration.";
            reference
-             "RFC4427";
-         }
 
 
 
@@ -1962,6 +1962,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 35]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+             "RFC4427";
+         }
          leaf wait-to-revert {
            type uint16;
            units "seconds";
@@ -2008,8 +2010,6 @@ Internet-Draft             TE YANG Data Model               January 2024
              reference
                "RFC4872";
            }
-           container source {
-             uses te-generic-node-id;
 
 
 
@@ -2018,6 +2018,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 36]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+           container source {
+             uses te-generic-node-id;
              description
                "Association source.";
              reference
@@ -2064,8 +2066,6 @@ Internet-Draft             TE YANG Data Model               January 2024
            leaf global-source {
              type uint32;
              description
-               "Association global source.";
-             reference
 
 
 
@@ -2074,6 +2074,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 37]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+               "Association global source.";
+             reference
                "RFC6780";
            }
            leaf extended-id {
@@ -2120,8 +2122,6 @@ Internet-Draft             TE YANG Data Model               January 2024
          "Common grouping to define the TE tunnel parameters";
        container source {
          description
-           "TE tunnel source end-point.";
-         uses tunnel-end-point;
 
 
 
@@ -2130,6 +2130,8 @@ Saad, et al.              Expires 15 July 2024                 [Page 38]
 Internet-Draft             TE YANG Data Model               January 2024
 
 
+           "TE tunnel source end-point.";
+         uses tunnel-end-point;
        }
        container destination {
          description
@@ -2161,9 +2163,7 @@ Internet-Draft             TE YANG Data Model               January 2024
                "A tunnel entry that this tunnel can potentially depend
                 on.";
              leaf name {
-               type tunnel-ref {
-                 require-instance false;
-               }
+               type tunnel-ref;
                description
                  "Dependency tunnel name. The tunnel may not have been
                   instantiated yet.";
