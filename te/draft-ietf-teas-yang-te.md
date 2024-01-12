@@ -407,10 +407,9 @@ of a TE tunnel has to adhere to.
 - explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in following two lists:
     * 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list
 during path computation is not order sensitive.
-    * 'route-object-include-exclude': a list of route entries to include or exclude in the path computation. The constraint type (include or exclude)
+    * 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude)
 is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry
 constraint is consumed from this list, it is not considered any further in the computation of the path.
-
 
 >>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
 
@@ -1268,7 +1267,7 @@ In this example, the 'GET' query is sent to return the state stored about the tu
 ~~~
 GET  /restconf/data/ietf-te:te/tunnels +
      /tunnel="Example_LSP_Tunnel_A_4_1"
-     /p2p-primary-paths/ HTTP/1.1
+     /primary-paths/ HTTP/1.1
     Host: example.com
     Accept: application/yang-data+json
 ~~~~
