@@ -825,7 +825,22 @@ computed-path-error-infos:
 
 lsp-provisioning-error-infos:
 
-> A YANG container that holds the list of LSP provisioning error information.
+> A YANG container that holds the list of LSP provisioning error information. The
+> TE system populates entries in this list whenever an error is encountered during the LSP provisioning.
+
+computed-path-error-infos:
+
+> A YANG container that holds the list of path computation error information. The
+> TE system populates entries in this list whenever an error is encountered during the compuation of the TE path.
+
+path-compute-info:
+
+> A YANG grouping that contains leafs representing the path attributes that are passed to the TE path computation engine
+> to be considered during the path computation. This includes:
+>  - path constraints,
+>  - path optimization objectives, and
+>  - path assocociations
+> Note, unless overriden under a specific path of a tunnel, the tunnel's primary path optimization objectives are inherited by the primary reverse apth, secondary path and secondary reverse path.
 
 lsps:
 
