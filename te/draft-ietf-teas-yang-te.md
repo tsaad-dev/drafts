@@ -838,6 +838,7 @@ path-compute-info:
 
 > A YANG grouping that contains leafs representing the path attributes that are passed to the TE path computation engine
 > to be considered during the path computation. This includes:
+>
 >  - path constraints,
 >  - path optimization objectives, and
 >  - path assocociations
