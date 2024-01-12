@@ -1356,7 +1356,7 @@ Internet-Draft             TE YANG Data Model               January 2024
    [RFC4872], [RFC3209], [RFC6780], [RFC7471], [RFC9012], [RFC8570],
    [RFC8232], [RFC7271], [RFC8234], [RFC7308], and [ITU_G.808.1].
 
-   <CODE BEGINS> file "ietf-te@2023-06-16.yang"
+   <CODE BEGINS> file "ietf-te@2024-01-10.yang"
    module ietf-te {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te";
@@ -3366,7 +3366,7 @@ Internet-Draft             TE YANG Data Model               January 2024
 
    *  ietf-te defined in this document
 
-   <CODE BEGINS> file "ietf-te-device@2023-06-16.yang"
+   <CODE BEGINS> file "ietf-te-device@2024-01-10.yang"
    module ietf-te-device {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-device";
