@@ -1462,7 +1462,7 @@ Internet-Draft             TE YANG Data Model               January 2024
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2023-06-16 {
+     revision 2024-01-10 {
        description
          "Initial revision for the TE generic YANG module.";
        reference
@@ -3463,7 +3463,7 @@ Internet-Draft             TE YANG Data Model               January 2024
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2023-06-16 {
+     revision 2024-01-10 {
        description
          "Initial revision for the TE device YANG module.";
 
