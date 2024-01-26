@@ -16,7 +16,7 @@ Expires: 29 July 2024                                             X. Liu
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths
                              and Interfaces
-                       draft-ietf-teas-yang-te-35
+                       draft-ietf-teas-yang-te-36
 
 Abstract
 
@@ -1484,7 +1484,7 @@ Internet-Draft             TE YANG Data Model               January 2024
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2024-01-11 {
+     revision 2024-01-26 {
        description
          "Initial revision for the TE generic YANG module.";
        reference
