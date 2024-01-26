@@ -843,7 +843,7 @@ path-compute-info:
 >  - path optimization objectives, and
 >  - path assocociations
 >
-> Note, unless overriden under a specific path of a tunnel, the tunnel's primary path optimization objectives are inherited by the primary reverse apth, secondary path and secondary reverse path.
+> Note, unless overriden under a specific path of the TE tunnel, the TE tunnel's primary path constraints, optimization objectives, and associations are inherited by the primary reverse path, secondary path and secondary reverse path.
 
 lsps:
 
