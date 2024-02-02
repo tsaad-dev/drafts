@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-35
+docname: draft-ietf-teas-yang-te-36
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
