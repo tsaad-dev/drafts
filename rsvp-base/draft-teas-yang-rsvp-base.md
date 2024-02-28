@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-18
+docname: draft-ietf-teas-yang-rsvp-19
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -329,7 +329,7 @@ This module also references the following documents:
 {{?RFC2205}}, {{?RFC5495}}, {{?RFC3473}}, {{RFC5063}}, {{?RFC2747}}, {{?RFC3209}}, and {{?RFC2961}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp@2021-12-02.yang"
+<CODE BEGINS> file "ietf-rsvp@2023-10-06.yang"
 {::include ../../te/ietf-rsvp.yang}
 <CODE ENDS>
 ~~~~~~~~~~
