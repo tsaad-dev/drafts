@@ -8,7 +8,8 @@ workgroup: TEAS Working Group
 keyword: Internet-Draft
 
 stand_alone: yes
-pi: [toc, sortrefs, symrefs]
+submissiontype: IETF
+pi: [toc, sortrefs, symrefs, comments]
 
 author:
  -
@@ -20,8 +21,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems Inc
+    email: tsaad.net@gmail.com
 
  -
     ins: R. Gandhi
@@ -329,10 +330,11 @@ This module also references the following documents:
 {{?RFC2205}}, {{?RFC5495}}, {{?RFC3473}}, {{RFC5063}}, {{?RFC2747}}, {{?RFC3209}}, and {{?RFC2961}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp@2023-10-06.yang"
+<CODE BEGINS> file "ietf-rsvp@2024-02-28.yang"
 {::include ../../te/ietf-rsvp.yang}
 <CODE ENDS>
 ~~~~~~~~~~
+{: #fig-rsvp-mod title="RSVP YANG module"}
 
 # RSVP Extended YANG Model
 
@@ -365,7 +367,7 @@ This module also references the following documents:
 {{?RFC3473}}, {{?RFC2747}}, {{?RFC3209}}, {{?RFC2205}}, {{?RFC2961}}, and {{?RFC5495}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-extended@2021-12-02.yang"
+<CODE BEGINS> file "ietf-rsvp-extended@2024-02-28.yang"
 {::include ../../te/ietf-rsvp-extended.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -465,8 +467,8 @@ The security considerations spelled out in the YANG 1.1 specification
 # Acknowledgement
 
 The authors would like to thank Tom Petch for reviewing and providing useful
-feedback about the document. The authors would also like to thank Lou Berger
-for reviewing and providing valuable feedback on this document.
+feedback about the document. The authors would also like to thank Lou Berger,
+Xia Chen, Bin Wen, and Raqib Jones for reviewing and providing valuable feedback on this document.
 
 # Appendix A
 
@@ -513,29 +515,10 @@ The instance data tree could then be as follows:
 
 ~~~~
 
-
    Himanshu Shah
    Ciena
 
    Email: hshah@ciena.com
-
-
-   Xia Chen
-   Huawei Technologies
-
-   Email: jescia.chenxia@huawei.com
-
-
-   Raqib Jones
-   Brocade
-
-   Email: raqib@Brocade.com
-
-
-   Bin Wen
-   Comcast
-
-   Email: Bin_Wen@cable.comcast.com
 
 ~~~~
 

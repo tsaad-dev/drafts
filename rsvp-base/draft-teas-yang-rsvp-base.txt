@@ -3,9 +3,10 @@
 
 
 TEAS Working Group                                          V. P. Beeram
-Internet-Draft                                                   T. Saad
-Intended status: Standards Track                        Juniper Networks
-Expires: 31 August 2024                                        R. Gandhi
+Internet-Draft                                          Juniper Networks
+Intended status: Standards Track                                 T. Saad
+Expires: 31 August 2024                                Cisco Systems Inc
+                                                               R. Gandhi
                                                      Cisco Systems, Inc.
                                                                   X. Liu
                                                           Volta Networks
@@ -47,9 +48,8 @@ Copyright Notice
    Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (https://trustee.ietf.org/
-   license-info) in effect on the date of publication of this document.
+
+
 
 
 
@@ -58,6 +58,9 @@ Beeram, et al.           Expires 31 August 2024                 [Page 1]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
    extracted from this document must include Revised BSD License text as
@@ -87,10 +90,10 @@ Table of Contents
    8.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  45
    9.  Appendix A  . . . . . . . . . . . . . . . . . . . . . . . . .  45
    10. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  51
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  52
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  52
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  54
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  55
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  51
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  51
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  53
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  54
 
 1.  Introduction
 
@@ -103,9 +106,6 @@ Table of Contents
    used as the basis of implementation for other interfaces, such as CLI
    and programmatic APIs.
 
-   This document defines a YANG data model for the configuration and
-   management of the RSVP protocol [RFC2205].  The data model is divided
-   into two modules: a base and extended RSVP YANG modules.  The RSVP
 
 
 
@@ -114,6 +114,9 @@ Beeram, et al.           Expires 31 August 2024                 [Page 2]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+   This document defines a YANG data model for the configuration and
+   management of the RSVP protocol [RFC2205].  The data model is divided
+   into two modules: a base and extended RSVP YANG modules.  The RSVP
    base YANG 'ietf-rsvp' module covers the data that is core to the
    function of the RSVP protocol and MUST be supported by vendors that
    support RSVP protocol [RFC2205].  The RSVP extended 'ietf-rsvp-
@@ -145,9 +148,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
    In this document, names of data nodes and other data model objects
    are prefixed using the standard prefix associated with the
    corresponding YANG imported modules, as shown in Table 1.
-
-
-
 
 
 
@@ -716,7 +716,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
    This module also references the following documents: [RFC2205],
    [RFC5495], [RFC3473], [RFC5063], [RFC2747], [RFC3209], and [RFC2961].
 
-   <CODE BEGINS> file "ietf-rsvp@2023-10-06.yang"
+   <CODE BEGINS> file "ietf-rsvp@2024-02-28.yang"
    module ietf-rsvp {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-rsvp";
@@ -813,7 +813,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2023-10-06 {
+     revision 2024-02-28 {
        description
          "Initial version.";
        reference
@@ -1150,8 +1150,8 @@ Internet-Draft            RSVP YANG Data Model             February 2024
            leaf checksum {
              type yang:counter64;
              description
-               "The total number of RSVP packets received with an invalid
-                checksum value.";
+               "The total number of RSVP packets received with an
+                invalid checksum value.";
            }
            leaf packet-length {
              type yang:counter64;
@@ -1371,12 +1371,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                  units "seconds";
                  config false;
                  description
-                   "Time it takes the neighbor node to restart its RSVP-TE
-                    component (to the point where it can exchange RSVP
-                    Hello with its neighbors). A value of 0xffffffff
-                    indicates that the restart of the neighbor's control plane
-                    may occur over an indeterminate interval and that the
-                    operation of its data plane is unaffected by control plane
+                   "Time it takes the neighbor node to restart its
+                    RSVP-TE component (to the point where it can
+                    exchange RSVP Hello with its neighbors). A value of
+                    0xffffffff indicates that the restart of the
+                    neighbor's control plane may occur over an
+                    indeterminate interval and that the operation of its
+                    data plane is unaffected by control plane
                     failures.";
                  reference "RFC3473";
                }
@@ -1385,15 +1386,14 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                  units "seconds";
                  config false;
                  description
-                   "The period of time, in milliseconds, that the neighbor
-                    node requires to re-synchronize RSVP and MPLS
-                    forwarding state with its neighbor. A value of zero (0)
-                    indicates that MPLS forwarding state was not preserved
-                    across a particular reboot.";
+                   "The period of time, in milliseconds, that the
+                    neighbor node requires to re-synchronize RSVP and
+                    MPLS forwarding state with its neighbor. A value of
+                    zero (0) indicates that MPLS forwarding state was
+                    not preserved across a particular reboot.";
                  reference "RFC3473";
                }
                container helper-mode {
-                 config false;
 
 
 
@@ -1402,21 +1402,23 @@ Beeram, et al.           Expires 31 August 2024                [Page 25]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+                 config false;
                  description
                    "Helper mode information.";
                  leaf neighbor-restart-time-remaining {
                    type uint32;
                    units "seconds";
                    description
-                     "Number of seconds remaining for neighbor to send Hello
-                      message after restart.";
+                     "Number of seconds remaining for neighbor to send
+                      Hello message after restart.";
                    reference "RFC5063";
                  }
                  leaf neighbor-recovery-time-remaining {
                    type uint32;
                    units "seconds";
                    description
-                     "Number of seconds remaining for neighbor to refresh.";
+                     "Number of seconds remaining for neighbor to
+                      refresh.";
                    reference "RFC5063";
                  }
                }
@@ -1448,8 +1450,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
              }
              leaf neighbor-status {
                type enumeration {
-                 enum up {
-                   description
 
 
 
@@ -1458,6 +1458,8 @@ Beeram, et al.           Expires 31 August 2024                [Page 26]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+                 enum up {
+                   description
                      "Neighbor state up.";
                  }
                  enum down {
@@ -1481,9 +1483,9 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                type boolean;
                default "true";
                description
-                 "Enables all RSVP refresh reduction message bundling, RSVP
-                  message ID, reliable message delivery and Srefresh
-                  messages.";
+                 "Enables all RSVP refresh reduction message bundling,
+                  RSVP message ID, reliable message delivery and
+                  Srefresh messages.";
                reference
                  "RFC2961 RSVP Refresh Overhead Reduction Extensions";
              }
@@ -1504,8 +1506,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          }
          container graceful-restart {
            description
-             "Graceful restart local information.";
-           leaf enabled {
 
 
 
@@ -1514,6 +1514,8 @@ Beeram, et al.           Expires 31 August 2024                [Page 27]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+             "Graceful restart local information.";
+           leaf enabled {
              type boolean;
              description
                "'true' if RSVP Graceful Restart is enabled.
@@ -1527,10 +1529,10 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                "Time it takes the local node to restart its RSVP-TE
                 component (to the point where it can exchange RSVP
                 Hello with its neighbors). A value of 0xffffffff
-                indicates that the restart of the neighbor's control plane
-                may occur over an indeterminate interval and that the
-                operation of its data plane is unaffected by control plane
-                failures.";
+                indicates that the restart of the neighbor's control
+                plane may occur over an indeterminate interval and that
+                the operation of its data plane is unaffected by control
+                plane failures.";
              reference "RFC3473";
            }
            leaf local-recovery-time {
@@ -1550,7 +1552,8 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                 resynchronizes its stored states with a neighbor whose
                 control plane has restarted. The helper mode term is
                 borrowed from RFC3623 and adopted by several vendors
-                vendors in their implementation of RSVP graceful restart.";
+                vendors in their implementation of RSVP graceful
+                restart.";
              leaf enabled {
                type boolean;
                description
@@ -1559,9 +1562,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
              leaf max-helper-restart-time {
                type uint32;
                units "seconds";
-               default "20";
-               description
-                 "The maximum time the router or switch waits after it
 
 
 
@@ -1570,6 +1570,9 @@ Beeram, et al.           Expires 31 August 2024                [Page 28]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+               default "20";
+               description
+                 "The maximum time the router or switch waits after it
                   discovers that the neighboring router has gone down
                   before it declares the neighbor down.";
                reference "RFC5063";
@@ -1579,9 +1582,9 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                units "seconds";
                default "180";
                description
-                 "The maximum amount of time the router retains the state
-                  of its RSVP neighbors while they undergo a graceful
-                  restart.";
+                 "The maximum amount of time the router retains the
+                  state of its RSVP neighbors while they undergo a
+                  graceful restart.";
                reference "RFC5063";
              }
            }
@@ -1616,9 +1619,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        }
      }
 
-     rpc clear-session {
-       nacm:default-deny-all;
-
 
 
 Beeram, et al.           Expires 31 August 2024                [Page 29]
@@ -1626,6 +1626,8 @@ Beeram, et al.           Expires 31 August 2024                [Page 29]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+     rpc clear-session {
+       nacm:default-deny-all;
        description
          "Clears RSVP sessions RPC";
        input {
@@ -1672,8 +1674,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
              }
            }
          }
-       }
-     }
 
 
 
@@ -1681,6 +1681,9 @@ Beeram, et al.           Expires 31 August 2024                [Page 30]
 
 Internet-Draft            RSVP YANG Data Model             February 2024
 
+
+       }
+     }
 
      rpc clear-neighbor {
        nacm:default-deny-all;
@@ -1727,9 +1730,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
              }
            }
          }
-       }
-     }
-
 
 
 
@@ -1737,6 +1737,9 @@ Beeram, et al.           Expires 31 August 2024                [Page 31]
 
 Internet-Draft            RSVP YANG Data Model             February 2024
 
+
+       }
+     }
 
      rpc clear-authentication {
        nacm:default-deny-all;
@@ -1783,9 +1786,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        }
      }
    }
-   <CODE ENDS>
-
-
 
 
 
@@ -1794,6 +1794,10 @@ Beeram, et al.           Expires 31 August 2024                [Page 32]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+   <CODE ENDS>
+
+                         Figure 4: RSVP YANG module
+
 5.  RSVP Extended YANG Model
 
    The RSVP extended module augments the RSVP base module with optional
@@ -1801,14 +1805,11 @@ Internet-Draft            RSVP YANG Data Model             February 2024
 
 5.1.  Tree Diagram
 
-   Figure 4 shows the YANG tree representation for configuration and
+   Figure 5 shows the YANG tree representation for configuration and
    state data that are covered in 'ietf-rsvp-extended' YANG module:
 
    module: ietf-rsvp-extended
 
-     augment /rt:routing/rt:control-plane-protocols
-               /rt:control-plane-protocol/rsvp:rsvp
-               /rsvp:graceful-restart:
      augment /rt:routing/rt:control-plane-protocols
                /rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces:
        +--rw refresh-interval?        uint32
@@ -1841,7 +1842,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        +--rw hello-misses?      uint32
      augment /rt:routing/rt:control-plane-protocols
                /rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces
-               /rsvp:authentication:
 
 
 
@@ -1850,6 +1850,7 @@ Beeram, et al.           Expires 31 August 2024                [Page 33]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
+               /rsvp:authentication:
        +--rw lifetime?      uint32
        +--rw window-size?   uint32
        +--rw challenge?     empty
@@ -1895,8 +1896,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        +--rw retransmits?   uint32
        +--rw key-chain?     key-chain:key-chain-ref
 
-                Figure 4: RSVP extended module tree diagram
-
+                Figure 5: RSVP extended module tree diagram
 
 
 
@@ -1918,12 +1918,12 @@ Internet-Draft            RSVP YANG Data Model             February 2024
 
    *  ietf-key-chain defined in [RFC8177]
 
-   Figure 5 shows the RSVP extended YANG module:
+   Figure 6 shows the RSVP extended YANG module:
 
    This module also references the following documents: [RFC3473],
    [RFC2747], [RFC3209], [RFC2205], [RFC2961], and [RFC5495].
 
-   <CODE BEGINS> file "ietf-rsvp-extended@2021-12-02.yang"
+   <CODE BEGINS> file "ietf-rsvp-extended@2024-02-28.yang"
    module ietf-rsvp-extended {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-rsvp-extended";
@@ -1971,7 +1971,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                   <mailto:vbeeram@juniper.net>
 
         Editor:   Tarek Saad
-                  <mailto:tsaad@juniper.net>
+                  <mailto:tsaad.net@gmail.com>
 
         Editor:   Rakesh Gandhi
                   <mailto:rgandhi@cisco.com>
@@ -2003,7 +2003,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2021-12-02 {
+     revision 2024-02-28 {
        description
          "Initial version.";
        reference
@@ -2026,7 +2026,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
            range "30..86400";
          }
          units "seconds";
-         default "30";
          description
            "Life time for each security association.";
          reference
@@ -2036,7 +2035,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          type uint32 {
            range "1..64";
          }
-         default "2";
          description
            "Window-size to limit number of out-of-order messages.";
          reference
@@ -2053,7 +2051,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          type uint32 {
            range "1..10000";
          }
-         default "1";
          description
            "Number of retransmits when messages are dropped.";
          reference
@@ -2066,6 +2063,9 @@ Internet-Draft            RSVP YANG Data Model             February 2024
             signaling messages.";
          reference
            "RFC2747: RSVP Cryptographic Authentication";
+       }
+     }
+
 
 
 
@@ -2073,9 +2073,6 @@ Beeram, et al.           Expires 31 August 2024                [Page 37]
 
 Internet-Draft            RSVP YANG Data Model             February 2024
 
-
-       }
-     }
 
      grouping hellos-extended {
        description
@@ -2088,7 +2085,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        leaf hello-interval {
          type uint32;
          units "milliseconds";
-         default "9000";
          description
            "Configure interval between successive Hello messages in
             milliseconds.";
@@ -2101,7 +2097,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          type uint32 {
            range "1..10";
          }
-         default "3";
          description
            "Configure max number of consecutive missed Hello messages.";
          reference
@@ -2117,11 +2112,16 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        leaf refresh-interval {
          type uint32;
          units "seconds";
-         default "30";
          description
            "Set interval between successive refreshes";
          reference "RFC2205";
        }
+       leaf refresh-misses {
+         type uint32;
+         description
+           "Set max number of consecutive missed messages for state
+            expiry";
+         reference "RFC2205";
 
 
 
@@ -2130,13 +2130,6 @@ Beeram, et al.           Expires 31 August 2024                [Page 38]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
-       leaf refresh-misses {
-         type uint32;
-         default "9";
-         description
-           "Set max number of consecutive missed messages for state
-            expiry";
-         reference "RFC2205";
        }
        leaf checksum-enable {
          type empty;
@@ -2159,7 +2152,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          type uint32 {
            range "512..65000";
          }
-         default "1500";
          description
            "Configure maximum size (bytes) of a single RSVP Bundle
             message.";
@@ -2168,7 +2160,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        leaf ack-hold-time {
          type uint32;
          units "milliseconds";
-         default "9000";
          description
            "Configure hold time in milliseconds for sending RSVP ACK
             message(s).";
@@ -2176,8 +2167,17 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        }
        leaf ack-max-size {
          type uint32;
-         default "1500";
          description
+           "Configure max size of a single RSVP ACK message.";
+         reference "RFC2961";
+       }
+       leaf ack-retransmit-time {
+         type uint32;
+         units "milliseconds";
+         description
+           "Configure min delay in milliseconds to wait for an
+            acknowledgment before being retransmitted.";
+         reference "RFC2961";
 
 
 
@@ -2186,17 +2186,6 @@ Beeram, et al.           Expires 31 August 2024                [Page 39]
 Internet-Draft            RSVP YANG Data Model             February 2024
 
 
-           "Configure max size of a single RSVP ACK message.";
-         reference "RFC2961";
-       }
-       leaf ack-retransmit-time {
-         type uint32;
-         units "milliseconds";
-         default "500";
-         description
-           "Configure min delay in milliseconds to wait for an
-            acknowledgment before being retransmitted.";
-         reference "RFC2961";
        }
        leaf srefresh-ack-desired {
          type empty;
@@ -2209,7 +2198,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          type uint32 {
            range "20..65000";
          }
-         default "1500";
          description
            "Configure max size (bytes) of a single RSVP Srefresh
             message.";
@@ -2234,14 +2222,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
            "The time on the most recent occasion at which any one or
             more of the statistic counters suffered a discontinuity.
             If no such discontinuities have occurred since the last
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 40]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
-
             re-initialization of the local management subsystem, then
             this node contains the time the local management subsystem
             re-initialized itself.";
@@ -2254,6 +2234,14 @@ Internet-Draft            RSVP YANG Data Model             February 2024
        leaf in-dropped {
          type yang:counter64;
          description
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 40]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
+
            "In RSVP packet drop count.";
        }
        leaf out-errors {
@@ -2290,14 +2278,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
            + "rsvp:statistics/rsvp:packets" {
        description
          "RSVP packets all interfaces configuration extensions";
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 41]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
-
        uses packets-extended-statistics;
      }
 
@@ -2310,6 +2290,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
           extensions";
        uses refresh-reduction-extended;
      }
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 41]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
 
      /* RSVP hellos extension */
      augment "/rt:routing/rt:control-plane-protocols/"
@@ -2346,14 +2333,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
      augment "/rt:routing/rt:control-plane-protocols/"
            + "rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces/"
            + "rsvp:interface/rsvp:statistics/rsvp:packets" {
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 42]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
-
        description
          "RSVP packet stats extensions";
        uses packets-extended-statistics;
@@ -2367,6 +2346,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
          "RSVP refresh-reduction interface configuration extensions";
        uses refresh-reduction-extended;
      }
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 42]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
 
      /* RSVP hellos extension */
      augment "/rt:routing/rt:control-plane-protocols/"
@@ -2388,27 +2374,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
    }
    <CODE ENDS>
 
-                    Figure 5: RSVP extended YANG module
+                    Figure 6: RSVP extended YANG module
 
 6.  IANA Considerations
 
    This document registers the following URIs in the IETF XML registry
    [RFC3688].  Following the format in [RFC3688], the following
    registration is requested to be made.
-
-
-
-
-
-
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 43]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
 
       URI: urn:ietf:params:xml:ns:yang:ietf-rsvp
       Registrant Contact:  The IESG.
@@ -2430,6 +2402,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
       namespace:  urn:ietf:params:xml:ns:yang:ietf-rsvp-extended
       prefix:     rsvp-extended
       reference:  RFCXXXX
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 43]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
 
 7.  Security Considerations
 
@@ -2458,14 +2437,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
    /rt:routing/rt:control-plane-protocols/rt:control-plane-protocol/
    rsvp:rsvp/ /rsvp:globals /rsvp:interfaces /rsvp:sessions
 
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 44]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
-
       All of which are considered sensitive and if access to either of
       these is compromised, it can result in temporary network outages
       or be employed to mount DoS attacks.
@@ -2482,6 +2453,18 @@ Internet-Draft            RSVP YANG Data Model             February 2024
       Additional information from these state data nodes can be inferred
       with respect to the network topology, and device location and
       subsequently be used to mount other attacks in the network.
+
+
+
+
+
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 44]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
 
    For RSVP authentication, the configuration supported is via the
    specification of key-chains [RFC8177] or the direct specification of
@@ -2503,14 +2486,31 @@ Internet-Draft            RSVP YANG Data Model             February 2024
 
    The authors would like to thank Tom Petch for reviewing and providing
    useful feedback about the document.  The authors would also like to
-   thank Lou Berger for reviewing and providing valuable feedback on
-   this document.
+   thank Lou Berger, Xia Chen, Bin Wen, and Raqib Jones for reviewing
+   and providing valuable feedback on this document.
 
 9.  Appendix A
 
    A simple network setup is shown in {fig-example title}.  R1 runs the
    RSVP routing protocol on both interfaces 'ge0/0/0/1', and
    'ge0/0/0/2'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2546,7 +2546,7 @@ Internet-Draft            RSVP YANG Data Model             February 2024
                                  ge0/0/0/2
                                   192.0.2.13/30
 
-                Figure 6: Example of network configuration.
+                Figure 7: Example of network configuration.
 
    The instance data tree could then be as follows:
 
@@ -2826,60 +2826,14 @@ Internet-Draft            RSVP YANG Data Model             February 2024
      }
    }
 
-          Figure 7: Example RSVP JSON encoded data instance tree.
+          Figure 8: Example RSVP JSON encoded data instance tree.
 
 10.  Contributors
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 51]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
 
       Himanshu Shah
       Ciena
 
       Email: hshah@ciena.com
-
-
-      Xia Chen
-      Huawei Technologies
-
-      Email: jescia.chenxia@huawei.com
-
-
-      Raqib Jones
-      Brocade
-
-      Email: raqib@Brocade.com
-
-
-      Bin Wen
-      Comcast
-
-      Email: Bin_Wen@cable.comcast.com
 
 11.  References
 
@@ -2894,6 +2848,16 @@ Internet-Draft            RSVP YANG Data Model             February 2024
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
 
+
+
+
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 51]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
+
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
@@ -2903,16 +2867,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/info/rfc6241>.
-
-
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 52]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
 
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
@@ -2953,6 +2907,13 @@ Internet-Draft            RSVP YANG Data Model             February 2024
               DOI 10.17487/RFC8341, March 2018,
               <https://www.rfc-editor.org/info/rfc8341>.
 
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 52]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
+
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
               <https://www.rfc-editor.org/info/rfc8343>.
@@ -2961,14 +2922,6 @@ Internet-Draft            RSVP YANG Data Model             February 2024
               Routing Management (NMDA Version)", RFC 8349,
               DOI 10.17487/RFC8349, March 2018,
               <https://www.rfc-editor.org/info/rfc8349>.
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 53]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
@@ -3010,21 +2963,18 @@ Internet-Draft            RSVP YANG Data Model             February 2024
               DOI 10.17487/RFC3473, January 2003,
               <https://www.rfc-editor.org/info/rfc3473>.
 
+
+
+Beeram, et al.           Expires 31 August 2024                [Page 53]
+
+Internet-Draft            RSVP YANG Data Model             February 2024
+
+
    [rfc4558]  Ali, Z., Rahman, R., Prairie, D., and D. Papadimitriou,
               "Node-ID Based Resource Reservation Protocol (RSVP) Hello:
               A Clarification Statement", RFC 4558,
               DOI 10.17487/RFC4558, June 2006,
               <https://www.rfc-editor.org/info/rfc4558>.
-
-
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 54]
-
-Internet-Draft            RSVP YANG Data Model             February 2024
-
 
    [RFC5063]  Satyanarayana, A., Ed. and R. Rahman, Ed., "Extensions to
               GMPLS Resource Reservation Protocol (RSVP) Graceful
@@ -3045,8 +2995,8 @@ Authors' Addresses
 
 
    Tarek Saad
-   Juniper Networks
-   Email: tsaad@juniper.net
+   Cisco Systems Inc
+   Email: tsaad.net@gmail.com
 
 
    Rakesh Gandhi
@@ -3071,10 +3021,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-Beeram, et al.           Expires 31 August 2024                [Page 55]
+Beeram, et al.           Expires 31 August 2024                [Page 54]
