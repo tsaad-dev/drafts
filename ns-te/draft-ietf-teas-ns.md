@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-01
+docname: draft-ietf-teas-ns-ip-mpls-02
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -40,8 +40,8 @@ author:
  -
    ins: D. Ceccarelli
    name: Daniele Ceccarelli
-   organization: Ericsson
-   email: daniele.ceccarelli@ericsson.com
+   organization: Cisco Systems Inc.
+   email: daniele.ietf@gmail.com
 
  -
    ins: J. Halpern
@@ -117,7 +117,7 @@ infrastructure. The solution discussed in this document works with any path
 control technology (such as RSVP-TE, or SR) that can be used by a Service Provider
 to realize network slicing in IP/MPLS networks. 
 
-{{?I-D.ietf-teas-ietf-network-slices}} provides the definition of a network
+{{?RFC9543}} provides the definition of a network
 slice for use within the IETF and discusses the general framework for
 requesting and operating IETF Network Slices, their characteristics, and the
 necessary system components and interfaces. It also  discusses the function of
@@ -173,20 +173,20 @@ and respective treatment of Slice-Flow Aggregate traffic.
 ## Terminology
 
 The reader is expected to be familiar with the terminology specified in
-{{?I-D.ietf-teas-ietf-network-slices}}.
+{{?RFC9543}}.
 
 The following terminology is used in the document:
 
 {: vspace="0"}
 IETF Network Slice:
 : refer to the definition of 'IETF network slice' in 
-{{?I-D.ietf-teas-ietf-network-slices}}.
+{{?RFC9543}}.
 
 IETF Network Slice Controller (NSC):
-: refer to the definition in {{?I-D.ietf-teas-ietf-network-slices}}.
+: refer to the definition in {{?RFC9543}}.
 
 Network Resource Partition:
-: refer to the definition in {{?I-D.ietf-teas-ietf-network-slices}}.
+: refer to the definition in {{?RFC9543}}.
 
 Slice-Flow Aggregate:
 : a collection of packets that are mapped to an NRP and are given the same
@@ -293,7 +293,7 @@ available to it.
 
 {{ns-workflow}} describes the steps required to realize an IETF network slice
 service in a provider network  using the solution proposed in this document.
-While Figure 4 of {{?I-D.ietf-teas-ietf-network-slices}} provides an abstract
+While Figure 4 of {{?RFC9543}} provides an abstract
 architecture of an IETF Network Slice, this section intends to offer a
 realization of that architecture specific for IP/MPLS packet networks.
 
@@ -370,7 +370,7 @@ associated with the NRP instantiated by the NRP Policy.
 
 The customer requests an IETF Network Slice Service specifying the
 CE-AC-PE points of attachment, the connectivity matrix, and the
-SLOs/SLEs as described in {{?I-D.ietf-teas-ietf-network-slices}}.
+SLOs/SLEs as described in {{?RFC9543}}.
 These capabilities are always provided based on a Service Level Agreement (SLA)
 between the network slice costumer and the provider.
 
@@ -652,7 +652,7 @@ devices participate in (such as IGP(s) or BGP). The extensions to enable
 specific protocols to carry an NRP Policy definition will
 be described in separate documents.
 
-### Network Resource Partition - Flow-Aggregate Selector {#SliceSelector}
+### Network Resource Partition Selector {#SliceSelector}
 
 A router should be able to identify a packet belonging to a Slice-Flow Aggregate
 before it can apply the associated dataplane forwarding treatment or NRP-PHB.
@@ -1114,7 +1114,7 @@ addressed before progressing the document to publication in IESG.
 
 6. Clarify how the solution caters to the different IETF Network Slice Service
    Demarcation Point locations described in Section 4.2 of
-   {{?I-D.ietf-teas-ietf-network-slices}}.
+   {{?RFC9543}}.
 
 7. Clarify the relationship the underlay physical network, the filter topology
    and the NRP resources.

@@ -5,12 +5,13 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                        Cisco Systems Inc.
 Intended status: Informational                                 V. Beeram
-Expires: 9 September 2023                               Juniper Networks
+Expires: 29 November 2024                               Juniper Networks
                                                                  J. Dong
                                                      Huawei Technologies
                                                                   B. Wen
                                                                  Comcast
                                                            D. Ceccarelli
+                                                      Cisco Systems Inc.
                                                               J. Halpern
                                                                 Ericsson
                                                                  S. Peng
@@ -24,11 +25,11 @@ Expires: 9 September 2023                               Juniper Networks
                                                                    Ciena
                                                                 L. Jalil
                                                                  Verizon
-                                                            8 March 2023
+                                                             28 May 2024
 
 
               Realizing Network Slices in IP/MPLS Networks
-                     draft-ietf-teas-ns-ip-mpls-01
+                     draft-ietf-teas-ns-ip-mpls-02
 
 Abstract
 
@@ -52,10 +53,9 @@ Status of This Memo
 
 
 
-
-Saad, et al.            Expires 9 September 2023                [Page 1]
+Saad, et al.            Expires 29 November 2024                [Page 1]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    Internet-Drafts are working documents of the Internet Engineering
@@ -68,11 +68,11 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 September 2023.
+   This Internet-Draft will expire on 29 November 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -105,17 +105,15 @@ Table of Contents
      4.3.  Data and Control Plane Network Resource Partition Mode  .  14
    5.  Network Resource Partition Instantiation  . . . . . . . . . .  15
      5.1.  NRP Policy Definition . . . . . . . . . . . . . . . . . .  15
+       5.1.1.  Network Resource Partition Selector . . . . . . . . .  16
 
 
 
-
-Saad, et al.            Expires 9 September 2023                [Page 2]
+Saad, et al.            Expires 29 November 2024                [Page 2]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
-       5.1.1.  Network Resource Partition - Flow-Aggregate
-               Selector  . . . . . . . . . . . . . . . . . . . . . .  16
        5.1.2.  Network Resource Partition Resource Reservation . . .  19
        5.1.3.  Network Resource Partition Per Hop Behavior . . . . .  20
        5.1.4.  Network Resource Partition Topology . . . . . . . . .  20
@@ -156,18 +154,20 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
    technology (such as RSVP-TE, or SR) that can be used by a Service
    Provider to realize network slicing in IP/MPLS networks.
 
-   [I-D.ietf-teas-ietf-network-slices] provides the definition of a
-   network slice for use within the IETF and discusses the general
-   framework for requesting and operating IETF Network Slices, their
-   characteristics, and the necessary system components and interfaces.
-   It also discusses the function of an IETF Network Slice Controller
-   and the requirements on its northbound and southbound interfaces.
+   [RFC9543] provides the definition of a network slice for use within
+   the IETF and discusses the general framework for requesting and
+   operating IETF Network Slices, their characteristics, and the
+   necessary system components and interfaces.  It also discusses the
+   function of an IETF Network Slice Controller and the requirements on
+   its northbound and southbound interfaces.
 
 
 
-Saad, et al.            Expires 9 September 2023                [Page 3]
+
+
+Saad, et al.            Expires 29 November 2024                [Page 3]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    This document introduces the notion of a Slice-Flow Aggregate which
@@ -221,27 +221,26 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023                [Page 4]
+Saad, et al.            Expires 29 November 2024                [Page 4]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 1.1.  Terminology
 
    The reader is expected to be familiar with the terminology specified
-   in [I-D.ietf-teas-ietf-network-slices].
+   in [RFC9543].
 
    The following terminology is used in the document:
 
    IETF Network Slice:
-      refer to the definition of 'IETF network slice' in
-      [I-D.ietf-teas-ietf-network-slices].
+      refer to the definition of 'IETF network slice' in [RFC9543].
 
    IETF Network Slice Controller (NSC):
-      refer to the definition in [I-D.ietf-teas-ietf-network-slices].
+      refer to the definition in [RFC9543].
 
    Network Resource Partition:
-      refer to the definition in [I-D.ietf-teas-ietf-network-slices].
+      refer to the definition in [RFC9543].
 
    Slice-Flow Aggregate:
       a collection of packets that are mapped to an NRP and are given
@@ -273,17 +272,15 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
       this document.
 
    Slice-Flow Aggregate Path:
-
-
-
-
-Saad, et al.            Expires 9 September 2023                [Page 5]
-
-Internet-Draft           IP/MPLS Network Slicing              March 2023
-
-
       a path that is setup over the NRP that is associated with a
       specific Slice-Flow Aggregate.
+
+
+
+Saad, et al.            Expires 29 November 2024                [Page 5]
+
+Internet-Draft           IP/MPLS Network Slicing                May 2024
+
 
    Slice-Flow Aggregate Packet:
       a packet that traverses over the NRP that is associated with a
@@ -331,14 +328,15 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
       PE: Provider Edge
 
-
-
-Saad, et al.            Expires 9 September 2023                [Page 6]
-
-Internet-Draft           IP/MPLS Network Slicing              March 2023
-
-
       PCEP: Path Computation Element (PCE) Communication Protocol (PCEP)
+
+
+
+
+Saad, et al.            Expires 29 November 2024                [Page 6]
+
+Internet-Draft           IP/MPLS Network Slicing                May 2024
+
 
 2.  Network Resource Slicing Membership
 
@@ -372,10 +370,10 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
    Figure 1 describes the steps required to realize an IETF network
    slice service in a provider network using the solution proposed in
-   this document.  While Figure 4 of [I-D.ietf-teas-ietf-network-slices]
-   provides an abstract architecture of an IETF Network Slice, this
-   section intends to offer a realization of that architecture specific
-   for IP/MPLS packet networks.
+   this document.  While Figure 4 of [RFC9543] provides an abstract
+   architecture of an IETF Network Slice, this section intends to offer
+   a realization of that architecture specific for IP/MPLS packet
+   networks.
 
    Each of the steps is further elaborated on in a subsequent section.
 
@@ -386,16 +384,16 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
                          ----------------------       -------
                         ( |PE|....|PE|....|PE| )     ( IETF  )
        IETF Network    (   --:     --     :--   )   ( Network )
-
-
-
-Saad, et al.            Expires 9 September 2023                [Page 7]
-
-Internet-Draft           IP/MPLS Network Slicing              March 2023
-
-
        Slice Service   (     :............:     )   (  Slice  )
        Request          (  IETF Network Slice  )     (       )  Customer
+
+
+
+Saad, et al.            Expires 29 November 2024                [Page 7]
+
+Internet-Draft           IP/MPLS Network Slicing                May 2024
+
+
          v               ----------------------       -------     View
          v        ............................\........./...............
          v                                     \       /        Provider
@@ -445,9 +443,11 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023                [Page 8]
+
+
+Saad, et al.            Expires 29 November 2024                [Page 8]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 3.1.  Network Topology Filters
@@ -468,9 +468,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
    The customer requests an IETF Network Slice Service specifying the
    CE-AC-PE points of attachment, the connectivity matrix, and the SLOs/
-   SLEs as described in [I-D.ietf-teas-ietf-network-slices].  These
-   capabilities are always provided based on a Service Level Agreement
-   (SLA) between the network slice costumer and the provider.
+   SLEs as described in [RFC9543].  These capabilities are always
+   provided based on a Service Level Agreement (SLA) between the network
+   slice costumer and the provider.
 
    This defines the traffic flows that need to be supported when the
    slice is realized.  Depending on the mechanism and encoding of the
@@ -501,9 +501,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023                [Page 9]
+Saad, et al.            Expires 29 November 2024                [Page 9]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 3.4.  Path Placement over NRP Filtered Topology
@@ -557,9 +557,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 10]
+Saad, et al.            Expires 29 November 2024               [Page 10]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 3.7.  Path Instantiation
@@ -613,9 +613,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 11]
+Saad, et al.            Expires 29 November 2024               [Page 11]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    that is applied to the packet (refer to Section 5.1.3 for further
@@ -669,9 +669,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 12]
+Saad, et al.            Expires 29 November 2024               [Page 12]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    Multiple NRPs that support Slice-Flow Aggregates can form a group and
@@ -725,9 +725,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 13]
+Saad, et al.            Expires 29 November 2024               [Page 13]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
      I-----------------------------I     I-----------------------------I
@@ -781,9 +781,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 14]
+Saad, et al.            Expires 29 November 2024               [Page 14]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    The control plane partitioning allows the creation of customized
@@ -837,9 +837,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 15]
+Saad, et al.            Expires 29 November 2024               [Page 15]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    *  Topology membership policies: This defines the topology filter
@@ -862,7 +862,7 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
    extensions to enable specific protocols to carry an NRP Policy
    definition will be described in separate documents.
 
-5.1.1.  Network Resource Partition - Flow-Aggregate Selector
+5.1.1.  Network Resource Partition Selector
 
    A router should be able to identify a packet belonging to a Slice-
    Flow Aggregate before it can apply the associated dataplane
@@ -893,9 +893,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 16]
+Saad, et al.            Expires 29 November 2024               [Page 16]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
       assigns a unique forwarding address (or MPLS forwarding label) for
@@ -949,9 +949,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 17]
+Saad, et al.            Expires 29 November 2024               [Page 17]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
       An NRP Policy may define a dedicated identifier as NRP Selector
@@ -1005,9 +1005,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 18]
+Saad, et al.            Expires 29 November 2024               [Page 18]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
         SR Adj-SID:          NRP Selector: 1001
@@ -1061,9 +1061,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 19]
+Saad, et al.            Expires 29 November 2024               [Page 19]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    Congestion on shared network resources may result from sub-optimal
@@ -1117,9 +1117,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 20]
+Saad, et al.            Expires 29 November 2024               [Page 20]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    An NRP topology can overlap or share a subset of links with another
@@ -1173,9 +1173,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 21]
+Saad, et al.            Expires 29 November 2024               [Page 21]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 5.2.2.  Network Resource Partition Interior Nodes
@@ -1229,9 +1229,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 22]
+Saad, et al.            Expires 29 November 2024               [Page 22]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
      SR Node-SID:           NRP Selector: 1001     @@@: NRP Policy
@@ -1285,9 +1285,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 23]
+Saad, et al.            Expires 29 November 2024               [Page 23]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 6.  Mapping Traffic on Slice-Flow Aggregates
@@ -1341,9 +1341,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 24]
+Saad, et al.            Expires 29 November 2024               [Page 24]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    o The physical network may be filtered to multiple Filter Topologies.
@@ -1397,9 +1397,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 25]
+Saad, et al.            Expires 29 November 2024               [Page 25]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 7.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths
@@ -1453,9 +1453,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 26]
+Saad, et al.            Expires 29 November 2024               [Page 26]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    the scope of this document.
@@ -1488,7 +1488,7 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
    3.  Clarify how the solution caters to the different IETF Network
        Slice Service Demarcation Point locations described in
-       Section 4.2 of [I-D.ietf-teas-ietf-network-slices].
+       Section 4.2 of [RFC9543].
 
    4.  Clarify the relationship the underlay physical network, the
        filter topology and the NRP resources.
@@ -1509,9 +1509,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 27]
+Saad, et al.            Expires 29 November 2024               [Page 27]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
 10.  IANA Considerations
@@ -1565,9 +1565,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 28]
+Saad, et al.            Expires 29 November 2024               [Page 28]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
       Colby Barth
@@ -1621,9 +1621,9 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 29]
+Saad, et al.            Expires 29 November 2024               [Page 29]
 
-Internet-Draft           IP/MPLS Network Slicing              March 2023
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    [I-D.ietf-lsr-flex-algo]
@@ -1633,20 +1633,12 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
               2022, <https://datatracker.ietf.org/doc/html/draft-ietf-
               lsr-flex-algo-26>.
 
-   [I-D.ietf-teas-ietf-network-slices]
-              Farrel, A., Drake, J., Rokui, R., Homma, S., Makhijani,
-              K., Contreras, L. M., and J. Tantsura, "A Framework for
-              IETF Network Slices", Work in Progress, Internet-Draft,
-              draft-ietf-teas-ietf-network-slices-19, 21 January 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              ietf-network-slices-19>.
-
    [I-D.ietf-teas-rfc3272bis]
               Farrel, A., "Overview and Principles of Internet Traffic
               Engineering", Work in Progress, Internet-Draft, draft-
-              ietf-teas-rfc3272bis-22, 27 October 2022,
+              ietf-teas-rfc3272bis-27, 12 August 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              rfc3272bis-22>.
+              rfc3272bis-27>.
 
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
@@ -1673,15 +1665,6 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
               Class" Field", RFC 5462, DOI 10.17487/RFC5462, February
               2009, <https://www.rfc-editor.org/info/rfc5462>.
 
-
-
-
-
-Saad, et al.            Expires 9 September 2023               [Page 30]
-
-Internet-Draft           IP/MPLS Network Slicing              March 2023
-
-
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -1691,10 +1674,24 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
 
+
+
+
+Saad, et al.            Expires 29 November 2024               [Page 30]
+
+Internet-Draft           IP/MPLS Network Slicing                May 2024
+
+
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
+
+   [RFC9543]  Farrel, A., Ed., Drake, J., Ed., Rokui, R., Homma, S.,
+              Makhijani, K., Contreras, L., and J. Tantsura, "A
+              Framework for Network Slices in Networks Built from IETF
+              Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
+              <https://www.rfc-editor.org/info/rfc9543>.
 
 Authors' Addresses
 
@@ -1719,8 +1716,8 @@ Authors' Addresses
 
 
    Daniele Ceccarelli
-   Ericsson
-   Email: daniele.ceccarelli@ericsson.com
+   Cisco Systems Inc.
+   Email: daniele.ietf@gmail.com
 
 
    Joel Halpern
@@ -1730,15 +1727,15 @@ Authors' Addresses
 
    Shaofu Peng
    ZTE Corporation
-
-
-
-Saad, et al.            Expires 9 September 2023               [Page 31]
-
-Internet-Draft           IP/MPLS Network Slicing              March 2023
-
-
    Email: peng.shaofu@zte.com.cn
+
+
+
+
+
+Saad, et al.            Expires 29 November 2024               [Page 31]
+
+Internet-Draft           IP/MPLS Network Slicing                May 2024
 
 
    Ran Chen
@@ -1789,4 +1786,7 @@ Internet-Draft           IP/MPLS Network Slicing              March 2023
 
 
 
-Saad, et al.            Expires 9 September 2023               [Page 32]
+
+
+
+Saad, et al.            Expires 29 November 2024               [Page 32]
