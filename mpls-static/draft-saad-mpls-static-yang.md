@@ -1,17 +1,17 @@
 ---
 title: A YANG Data Model for MPLS Static LSPs
 abbrev: MPLS Static LSPs YANG Data Model
-docname: draft-ietf-mpls-static-yang-13
+docname: draft-ietf-mpls-static-yang-14
 category: std
 ipr: trust200902
 workgroup: MPLS Working Group
 keyword: Internet-Draft
 
 stand_alone: yes
+submissiontype: IETF
 pi: [toc, sortrefs, symrefs]
 
 normative:
-  I-D.ietf-teas-yang-te:
 
 informative:
 
@@ -20,7 +20,7 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
+    organization: Cisco Systems Inc
     email: tsaad.net@gmail.com
 
  -
@@ -44,8 +44,8 @@ author:
  -
     ins: I. Bryskin
     name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
+    organization: Individual
+    email: i_bryskin@yahoo.com
 
 
 normative:
@@ -85,15 +85,12 @@ used to create a binding that decapsulates the incoming MPLS label and performs
 forwarding based on the inner MPLS label (if present) or IP forwarding in the
 packet.
 
-The MPLS Static LSP YANG model is broken into two modules "ietf-mpls-static"
-and "ietf-mpls-static-extended".  The "ietf-mpls-static" module covers basic
-features for the configuration and management of unidirectional Static LSP(s),
-while "ietf-mpls-static-extended" covers extended features like the
-configuration and management of bidirectional Static LSP(s) and LSP admission
-control.
+The MPLS Static LSP YANG model is contained in the module "ietf-mpls-static"
+and covers the basic
+features for the configuration and management of unidirectional MPLS Static LSP(s),
 
 The module "ietf-mpls-static" augments the MPLS Base YANG model defined in
-module "ietf-mpls" in {{!I-D.ietf-mpls-base-yang}}.
+module "ietf-mpls" in {{!RFC8960}}.
 
 ## Terminology
 
@@ -127,10 +124,6 @@ The terminology for describing YANG data models is found in {{!RFC7950}}.
 The base MPLS Static LSP model covers the core features with the minimal set of
 configuration parameters needed to manage and operate MPLS Static LSPs.
 
-Additional MPLS Static LSP parameters as well as optional feature(s) are
-grouped in a separate MPLS Static LSP extended model. The relationship between
-the MPLS base and other MPLS modules are shown in {{fig-mpls-relation}}.
- 
 ~~~~~~~~~~~
 
   Routing module   +---------------+    v: import
@@ -142,26 +135,19 @@ the MPLS base and other MPLS modules are shown in {{fig-mpls-relation}}.
   MPLS base        +-----------+    v: import
   module           | ietf-mpls |    o: augment
                    +-----------+
-                      o          o
-                      |           \
-                      v            v
-              +------------------+ +--------------------+
-  MPLS Static | ietf-mpls-static | | ietf-mpls-ldp.yang | . . .
-  LSP module  +------------------+ +--------------------+
-                          o
-                          |
-                          v
-                 +---------------------------+
- Extended MPLS   | ietf-mpls-static-extended |
- Static LSP      +---------------------------+
- module
+                      o
+                      |
+                      v
+              +------------------+
+  MPLS Static | ietf-mpls-static |
+  LSP module  +------------------+
 
 ~~~~~~~~~~~
 {: #fig-mpls-relation title="Relationship between MPLS modules"}
 
 ## Model Tree Diagram
 
-The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in
+The MPLS Static tree diagram as per {{?RFC8340}} is shown in
 {{fig-mpls-static-tree}}.
 
 ~~~~~~~~~~
@@ -171,10 +157,10 @@ The MPLS Static and extended LSP tree diagram as per {{?RFC8340}} is shown in
 
 ## Model Overview
 
-This document defines two YANG modules for MPLS Static LSP(s) configuration and
-management: ietf-mpls-static.yang and ietf-mpls-static-extended.yang.
+This document describes a YANG data model for the configuration and
+management of MPLS Static LSP(s) contained in a the YANG module 'ietf-mpls-static'.
 
-The ietf-mpls-static module contains the following high-level types and groupings:
+The 'ietf-mpls-static' module contains the following high-level types and groupings:
 
 static-lsp-ref:
 
@@ -186,41 +172,33 @@ in-segment:
 > A YANG grouping that describes parameters of an incoming class of FEC associated with a specific LSP as described in the MPLS architecture document {{!RFC3031}}.
 The model allows the following types of traffic to be mapped onto the static LSP on an ingress LER:
 
-            o   Unlabeled traffic destined to a specific prefix
-            o   Labeled traffic arriving with a specific label
+~~~~~~~~~~~
+    o Unlabeled traffic destined to a specific prefix
+    o Labeled traffic arriving with a specific label
+~~~~~~~~~~~
 
 out-segment:
 
 > A YANG grouping that describes parameters for the forwarding path(s) and their associated attributes for an LSP.
 The model allows for the following cases:
 
-            o   single forwarding path or NHLFE
-            o   multiple forwarding path(s) or NHLFE(s), each of which can
-                serve a primary, backup or both role(s).
+~~~~~~~~~~~
+    o single forwarding path or NHLFE
+    o multiple forwarding path(s) or NHLFE(s), each of which can
+      serve a primary, backup or both role(s).
+~~~~~~~~~~~
 
-The ietf-mpls-static-extended module contains the following high-level types and groupings:
-
-bidir-static-lsp:
-
-> A YANG grouping that describes list of static bidirectional LSPs
-
-The ietf-mpls-static-extended augments the ietf-mpls-static model with
-additional parameters to configure and manage:
-
- * Bidirectional Static LSP(s)
- * Defining Static LSP bandwidth allocation
- * Defining Static LSP preemption priorities
 
 ## Model YANG Module(s)
 
 Configuring LSPs through an LSR/LER involves the following steps:
 
--  Enabling MPLS on MPLS capable interfaces.
--  Configuring in-segments and out-segments on LER(s) and LSR(s) traversed by the LSP.
--  Setting up the cross-connect per LSP to associate segments and/or to
+ * Enabling MPLS on MPLS capable interfaces.
+ * Configuring in-segments and out-segments on LER(s) and LSR(s) traversed by the LSP.
+ * Setting up the cross-connect per LSP to associate segments and/or to
    indicate connection origination and termination.
--  Optionally specifying label stack actions.
--  Optionally specifying segment traffic parameters.
+ * Optionally specifying label stack actions.
+ * Optionally specifying segment traffic parameters.
 
 The objects covered by this model are derived from the Incoming Label Map (ILM)
 and Next Hop Label Forwarding Entry (NHLFE) as specified in the MPLS
@@ -232,30 +210,15 @@ The ietf-mpls-static module imports the followinig modules:
 - ietf-routing defined in {{!RFC8349}}
 - ietf-routing-types defined in {{!RFC8294}}
 - ietf-interfaces defined in {{!RFC8343}}
-- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
-- ietf-te defined in {{!I-D.ietf-teas-yang-te}}
+- ietf-mpls defined in {{!RFC8960}}
 
 The ietf-mpls-static module is shown below:
 
 ~~~
-<CODE BEGINS> file "ietf-mpls-static@2019-09-12.yang"
+<CODE BEGINS> file "ietf-mpls-static@2024-03-01.yang"
 {::include ../../te/ietf-mpls-static.yang}
 <CODE ENDS>
 ~~~
-
-The ietf-mpls-static-extended module imports the followinig modules:
-
-- ietf-mpls defined in {{!I-D.ietf-mpls-base-yang}}
-- ietf-mpls-static defined in this document
-- ietf-routing defined in {{!RFC8349}}
-
-The ietf-mpls-static-extended module is shown below:
-
-~~~~~~~~~~
-<CODE BEGINS> file "ietf-mpls-static-extended@2019-09-12.yang"
-{::include ../../te/ietf-mpls-static-extended.yang}
-<CODE ENDS>
-~~~~~~~~~~
 
 # IANA Considerations
 
@@ -266,10 +229,6 @@ requested to be made.
 
 ~~~
    URI: urn:ietf:params:xml:ns:yang:ietf-mpls-static
-   Registrant Contact: The MPLS WG of the IETF.
-   XML: N/A, the requested URI is an XML namespace.
-
-   URI: urn:ietf:params:xml:ns:yang:ietf-mpls-static-extended
    Registrant Contact: The MPLS WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
 
@@ -285,11 +244,6 @@ registry {{!RFC6020}}.
    // RFC Ed.: replace XXXX with RFC number and remove this note
    reference:  RFCXXXX
 
-   name:       ietf-mpls-static-extended
-   namespace:  urn:ietf:params:xml:ns:yang:ietf-mpls-static-extended
-   prefix:     ietf-mpls-static-extended
-   // RFC Ed.: replace XXXX with RFC number and remove this note
-   reference:  RFCXXXX
 ~~~
 
 # Security Considerations
