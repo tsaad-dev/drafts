@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-02
+docname: draft-ietf-teas-ns-ip-mpls-04
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group

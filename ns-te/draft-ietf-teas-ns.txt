@@ -29,7 +29,7 @@ Expires: 29 November 2024                               Juniper Networks
 
 
               Realizing Network Slices in IP/MPLS Networks
-                     draft-ietf-teas-ns-ip-mpls-02
+                     draft-ietf-teas-ns-ip-mpls-04
 
 Abstract
 
