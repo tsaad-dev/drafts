@@ -1125,7 +1125,9 @@ feedback on this document.
 
 ~~~~
 
-# Appendix A: Data Tree Examples {#AppendixA}
+--- back
+
+# Data Tree Examples {#AppendixA}
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
 
@@ -1725,7 +1727,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
 ~~~
 
 
-# Appendix B: Full Model Tree Diagram {#AppendixB}
+# Full Model Tree Diagram {#AppendixB}
 
 {{fig-te-tree-full}} shows the full tree diagram of the TE YANG model defined in
 module 'ietf-te.yang'.
