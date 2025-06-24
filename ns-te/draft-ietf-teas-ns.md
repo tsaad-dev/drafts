@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-04
+docname: draft-ietf-teas-ns-ip-mpls-06
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -32,18 +32,6 @@ author:
     email: jie.dong@huawei.com
 
  -
-    ins: B. Wen
-    name: Bin Wen
-    organization: Comcast
-    email: Bin_Wen@cable.comcast.com
-
- -
-   ins: D. Ceccarelli
-   name: Daniele Ceccarelli
-   organization: Cisco Systems Inc.
-   email: daniele.ietf@gmail.com
-
- -
    ins: J. Halpern
    name: Joel Halpern
    organization: Ericsson
@@ -54,36 +42,6 @@ author:
    name: Shaofu Peng
    organization: ZTE Corporation
    email: peng.shaofu@zte.com.cn
-
- -
-   ins: R. Chen
-   name: Ran Chen
-   organization: ZTE Corporation
-   email: chen.ran@zte.com.cn
-
- -
-   ins: X. Liu
-   name: Xufeng Liu
-   organization: IBM Corporation
-   email: xufeng.liu.ietf@gmail.com
-
- -
-   ins: L. Contreras
-   name: Luis M. Contreras
-   organization: Telefonica
-   email: luismiguel.contrerasmurillo@telefonica.com
-
- -
-   ins: R. Rokui
-   name: Reza Rokui
-   organization: Ciena
-   email: rrokui@ciena.com
-
- -
-   ins: L. Jalil
-   name: Luay Jalil
-   organization: Verizon
-   email: luay.jalil@verizon.com
 
 normative:
 
@@ -207,6 +165,13 @@ results in the creation of an NRP.
 NRP Identifier (NRP-ID):
 : an identifier that is globally unique within an NRP domain and that can
 be used in the control or management plane to identify the resources associated with the NRP.
+
+NRP Selector:
+: one or more fields (markings) in a packet's network layer header
+that are used to map the packet to an NRP.
+
+NRP Selector Identifier (NRP Selector ID):
+: a dedicated identifier that acts as an NRP Selector.
 
 NRP Capable Node:
 : a node that supports one of the NRP modes described in this document.
@@ -654,44 +619,38 @@ be described in separate documents.
 
 ### Network Resource Partition Selector {#SliceSelector}
 
-A router should be able to identify a packet belonging to a Slice-Flow Aggregate
-before it can apply the associated dataplane forwarding treatment or NRP-PHB.
-One or more fields within the packet are used as an NRP Selector to do this.
+A router needs to be able to identify a packet belonging to a Slice-
+Flow Aggregate before it can apply the associated data plane
+forwarding treatment or NRP-PHB.  One or more fields within the
+packet are used as an NRP Selector to do this. There are several
+possible approaches as follows.
 
 Overloaded forwarding identifier as NRP Selector:
 
->  It is possible to assign a different forwarding address (or MPLS forwarding
->  label in case of MPLS network) for each Slice-Flow Aggregate on a specific node
->  in the network. {{?RFC3031}} states in Section 2.1 that: 'Some routers
->  analyze a packet's network layer header not merely to choose the packet's
->  next hop, but also to determine a packet's "precedence" or "class of
->  service"'. Assigning a unique forwarding address (or MPLS forwarding label)
->  to each Slice-Flow Aggregate allows Slice-Flow Aggregate packets destined to a node
->  to be distinguished by the destination address (or
->  MPLS forwarding label) that is carried in the packet.
-
-> This approach requires maintaining per Slice-Flow Aggregate state
-for each destination in the network in both the control and data plane and on
-each router in the network. For example, consider a network slicing provider
-with a network composed of 'N' nodes, each with 'K' adjacencies to its
-neighbors.  Assuming a node can be reached over 'M' different Slice-Flow Aggregates,
-the node assigns and advertises reachability to 'N' unique
-forwarding addresses, or MPLS forwarding labels.
-Similarly, each node assigns a unique forwarding address
-(or MPLS forwarding label) for each of its 'K' adjacencies to enable strict
-steering over the adjacency for each slice.  The total number of control and data plane states that
-need to be stored and programmed in a router's forwarding is (N+K)\*M states.
-Hence, as 'N', 'K', and 'M' parameters increase, this approach suffers from scalability challenges
-in both the control and data planes.
+>  It is possible to assign a different forwarding address or MPLS forwarding
+>  label for each Slice-Flow Aggregate on a specific node
+>  in the network. This allows Slice-Flow Aggregate packets
+>  destined to a node to be distinguished by the destination address
+>  or the MPLS forwarding label that is carried in the packet.
+>
+>  This approach requires maintaining per Slice-Flow Aggregate state
+>  for each destination in the network in both the control and data
+>  plane and on each router in the network. Hence this approach
+>  scales as the multiple of the number of Slice-Flow Aggregates
+>  and the number of adjacencies each node has which is a
+>  scalability challenge in both the control and data planes.
 
 Overloaded service identifier as NRP Selector:
 
-> The VPN service label can be overloaded to act as an NRP Selector to allow VPN packets
-to be mapped to the Slice-Flow Aggregate. In this case, a single VPN service label
-acting as an NRP Selector needs to be allocated by all Egress PEs of a VPN.
+>  VPN identifiers can be carried in the IP/MPLS forwarding plane
+>  using a variety of techniques (including MPLS VPN service labels).
+>  These identifiers can be overloaded to act as NRP Selectors
+>  to allow VPN packets to be mapped to the Slice-Flow Aggregate.  In
+>  this case, a single VPN identifier acting as an NRP Selector needs
+>  to be allocated by all Egress PEs of a VPN.
 
-In other cases, a range of VPN service labels can act as an NRP Selector to map VPN traffic to
-a Slice-Flow Aggregate. An example of such deployment is shown in {{bottom-stack}}.
+>  In other cases, a range of VPN identifiers can map to a single NRP
+>  Selector to map traffic from multiple VPNs to a Slice-Flow Aggregate.
 
 ~~~~
   SR Adj-SID:          NRP Selector (VPN service label) on PE2: 1001
@@ -722,58 +681,32 @@ packet:
 
 Dedicated identifier as NRP Selector:
 
-> An NRP Policy may define a dedicated identifier as NRP Selector that is carried
-in packets associated with the Slice-Flow Aggregate,
-independent of the forwarding address or MPLS forwarding label bound to
-the destination. Routers within the NRP domain can use the forwarding
-address (or MPLS forwarding label) to determine the forwarding next-hop(s),
-and use the NRP Selector field in the packet to infer the specific forwarding treatment that needs to be applied on
-the packet.
+> A dedicated identifier may be defined as to act as the NRP Selector
+> ID to be carried in packets of Slice-Flow Aggregate, independent of
+> the forwarding address or MPLS forwarding label bound to the
+> destination and independent of any VPN identifiers.  Routers within
+> the NRP domain can use the forwarding address or MPLS forwarding
+> label to determine the forwarding next-hops, and use the NRP
+> Selector in the packet to infer the specific forwarding treatment
+> that needs to be applied on the packet.
 
-> The NRP Selector, in this case, can be carried in one of multiple fields in the packet, depending on
-the dataplane used. For example, in MPLS networks, the NRP Selector can be
-encoded within an MPLS label that is carried in the packet's MPLS label stack.
-All packets that belong to the same Slice-Flow Aggregate may carry the same NRP Selector in the
-MPLS label stack. It is also possible to have multiple NRP Selector's map
-to the same Slice-Flow Aggregate.
+> The NRP Selector, in this case, can be carried in one of multiple
+> fields in the packet, depending on the data plane in use. All packets
+> that belong to the same Slice-Flow Aggregate may carry the same
+> NRP Selector, but it is also possible to have multiple NRP Selector's
+> map to the same Slice-Flow Aggregate.
 
 
-> In some cases, the position of the NRP Selector may not be at a fixed position
-in the MPLS label header. In this case, the NRP Selector label can show up in any
-position in the MPLS label stack. To enable a transit router to identify
-the position of the NRP Selector label, a Network Action Indicator (NAI) special purpose label
-can be used to indicate the presence of a NRP Selector in the MPLS label stack as shown in {{sli-sl}}.
+Fallback treatment for unclassified packets:
 
-~~~~
-     SR Adj-SID:          NRP Selector: 1001
-        9012: P1-P2
-        9023: P2-PE2
-
-            /-----\        /-----\        /-----\       /-----\
-            | PE1 | -----  | P1  | ------ | P2  |------ | PE2 |
-            \-----/        \-----/        \-----/       \-----/
-
-   In
-   packet:
-   +------+       +------+         +------+        +------+
-   | IP   |       | 9012 |         | 9023 |        | NAI  |
-   +------+       +------+         +------+        +------+
-   | Pay- |       | 9023 |         | NAI  |        | 1001 |
-   | Load |       +------+         +------+        +------+
-   +------+       | NAI  |         | 1001 |        | IP   |
-                  +------+         +------+        +------+
-                  | 1001 |         | IP   |        | Pay- |
-                  +------+         +------+        | Load |
-                  | IP   |         | Pay- |        +------+
-                  +------+         | Load |
-                  | Pay- |         +------+
-                  | Load |
-                  +------+
-~~~~
-{:#sli-sl title="NAI and NRP Selector label in the label stack."}
-
-> When the slice is realized over an IP dataplane, the NRP Selector can be encoded in
-the IP header (e.g. as an  IPv6 option header).
+> When a dedicated identifier is used as the NRP Selector, it is
+> beneficial to specify a fallback action for situations where an
+> NRP packet cannot be mapped to an NRP on an NRP-capable node.  In
+> such cases, a field within the NRP Selector ID can be used to
+> indicate whether to apply the default drop action or permit a
+> fallback treatment.  The fallback treatment can be specified by a
+> local policy.
+>
 
 ### Network Resource Partition Resource Reservation
 
@@ -1080,12 +1013,12 @@ same SR Flex-Algorithm computed paths and SIDs.
 
 # Network Resource Partition Protocol Extensions
 
-Routing protocols may need to be extended to carry additional per NRP link
-state. For example, {{!RFC5305}}, {{!RFC3630}}, and {{!RFC7752}} are ISIS, OSPF, and BGP
-protocol extensions to exchange network link state information to allow
-ingress TE routers and PCE(s) to do proper path placement in the network.  The
-extensions required to support network slicing may be defined in other
-documents, and are outside the scope of this document.
+Some protocols may need to be extended to carry additional NRP state.
+
+It is essential, however, that routing protocols, like IGPs or BGP, remain uninvolved in
+these areas to ensure they are isolated and maintain their scalability and
+stability. Furthermore, the complexity of routing protocols path selection
+should not be impacted by the increasing number of network slices and/or NRPs.
 
 The instantiation of an NRP Policy may need to be automated. Multiple options
 are possible to facilitate automation of distribution of an NRP Policy to
@@ -1186,4 +1119,33 @@ The following individuals contributed to this document:
    Old Dog Consulting
    United Kingdom
    Email: adrian@olddog.co.uk
+
+   Bin Wen
+   Comcast
+   Email: Bin_Wen@cable.comcast.com
+
+   Daniele Ceccarelli
+   Cisco Systems Inc.
+   Email: daniele.ietf@gmail.com
+
+   Xufeng Liu
+   IBM Corporation
+   Email: xufeng.liu.ietf@gmail.com
+
+   Luis M. Contreras
+   Telefonica
+   Email: luismiguel.contrerasmurillo@telefonica.com
+
+   Reza Rokui
+   Ciena
+   Email: rrokui@ciena.com
+
+   Ran Chen
+   ZTE Corporation
+   Email: chen.ran@zte.com.cn
+
+   Luay Jalil
+   Verizon
+   Email: luay.jalil@verizon.com
+
 ~~~
