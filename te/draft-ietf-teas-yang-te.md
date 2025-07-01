@@ -1,7 +1,7 @@
 ---
-title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces
+title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths, and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-37
+docname: draft-ietf-teas-yang-te-39
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -84,14 +84,14 @@ other interfaces, such as CLI and programmatic APIs.
 
 This document describes a YANG data model for Traffic Engineering (TE) tunnels,
 Label Switched Paths (LSPs), and interfaces. The data model is divided into two
-YANG modules. The module 'ietf-te.yang' includes data that is generic and
-device-independent, while the module 'ietf-te-device.yang' includes data that is
+YANG modules. The module 'ietf-te' includes data that is generic and
+device-independent, while the module 'ietf-te-device' includes data that is
 device-specific.
 
 The document describes a high-level relationship between the modules defined in
 this document, as well as other external protocol YANG modules.  The TE generic
 YANG data model does not include any data specific to a signaling protocol.  It
-is expected other data plane technology model(s) will augment the TE generic
+is expected other data plane technology models will augment the TE generic
 YANG data model. 
 
 Also, it is expected other YANG modules that model TE signaling protocols,
@@ -99,10 +99,6 @@ such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE)
 {{?RFC9256}} will augment the generic TE YANG  module.
 
 # Terms and Conventions
-
-## Requirements Language
-
-{::boilerplate bcp14}
 
 ## Terminology
 
@@ -138,7 +134,7 @@ modules, as shown in {{tab1}}.
 
 ## Model Tree Diagrams
 
-The tree diagrams extracted from the module(s) defined in this document are given in
+The tree diagrams extracted from the modules defined in this document are given in
 subsequent sections as per the syntax defined in {{!RFC8340}}.
 
 # Design Considerations
@@ -149,33 +145,30 @@ data plane technology models to reuse the TE generic data model and possibly
 augment it with technology specific data.
 
 The elements of the generic TE YANG data model, including TE Tunnels, LSPs, and
-interfaces have leaf(s) that identify the technology layer where they reside.
+interfaces have leafs that identify the technology layer where they reside.
 For example, the LSP encoding type can identify the technology associated with a
 TE Tunnel or LSP.
 
 Also, the generic TE YANG data model does not cover signaling protocol data.
-The signaling protocol used to instantiate TE LSPs are outside the scope of this
-document and expected to be covered by augmentations defined in other document(s).
+The signaling protocols used to instantiate TE LSPs are outside the scope of this
+document and expected to be covered by augmentations defined in other documents.
 
 The following other design considerations are taken into account with respect to data
 organization:
 
-* The generic TE YANG data model 'ietf-te' contains device independent data and
-  can be used to model data off a device (e.g. on a TE controller). When the
+* The device independent TE data is defined in module 'ietf-te'. and
+  can be used to manage data off a device, such as a TE controller. When the
   model is used to manage a specific device, the model contains the TE Tunnels
   originating from the specific device.  When the model is used to manage a TE
   controller, the 'tunnel' list contains all TE Tunnels and TE tunnel segments
-  originating from device(s) that the TE controller manages.
-
-
-* The device-specific TE data is defined in module 'ietf-te-device' as
-  shown in {{figctrl}}.
-* In general, minimal elements in the model are designated as "mandatory" to
+  originating from devices that the TE controller manages.
+* The device-specific TE data is defined in module 'ietf-te-device'.
+* Minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
 * Suitable defaults are specified for all configurable elements.
-* The model declares a number of TE functions as features that can be
-  optionally supported.
+* Where TE functions or features might be optional within the
+  deployed TE network, the model declares them as optional.
 
 ## State Data Organization
 
@@ -188,57 +181,56 @@ IETF YANG models.
 
 The data models defined in this document cover the core TE features that are
 commonly supported by different vendor implementations. The support of extended
-or vendor specific TE feature(s) is expected to either be in augmentations, or
+or vendor specific TE features is expected to either be in augmentations, or
 deviations to this model that are defined in separate documents.
 
 
 ## Module Relationship
 
-The generic TE YANG data model that is defined in "ietf-te.yang" covers the
+The generic TE YANG module defined in 'ietf-te' covers the
 building blocks that are device independent and agnostic of any specific
-technology or control plane instances. The TE device model defined in
-"ietf-te-device.yang" augments the generic TE YANG data model and covers data
+technology or control plane instances. The TE device YANG module defined in
+'ietf-te-device' augments the generic TE YANG module and covers data
 that is specific to a device --  for example, attributes of TE interfaces, or
 TE timers that are local to a TE node.
 
-The TE data models for specific instances of data plane technology exist in
-separate YANG modules that augment the generic TE YANG data model.  The TE
-data models for specific instances of signaling protocols are outside the scope
-of this document and are defined in other documents. For example, the RSVP-TE
-YANG model augmentation of the TE model is covered in a separate document.
+The TE data models for specific instances of data plane technology and
+signaling protocols are outside the scope of this document.  They could be
+defined in separate YANG modules that augment the generic TE YANG data model.
 
 ~~~
 
-  TE generic     +---------+         o: augment
-  module         | ietf-te |o-------------+
-                 +---------+               \
-                        o                   \
-                        |\                   \
-                        | \ TE device module  \
-                        |  +----------------+  \
-                        |  | ietf-te-device |   \
-                        |  +----------------+    \
-                        |       o                 \
-                        |     /                    \
-                        |   /                       \
-                 +---------------+           +---------------+
-  RSVP-TE module | ietf-rsvp-te^ |o .       | ietf-te-mpls^ |
-                 +---------------+  \       +---------------+
-                    |                \
-                    |                 \
-                    |                  \
-                    |                   \
-                    |                    \
-                    o                 +-------------------+
-                 +------------+       | ietf-rsvp-otn-te^ |
-  RSVP module    | ietf-rsvp^ |       +-------------------+
-                 +------------+          RSVP-TE with OTN
-                                         extensions
+     TE generic     +---------+
+     module         | ietf-te |o-------------+
+                    +---------+               \
+                        o  o                   \
+                        |   \                   \
+                        |    \ TE device module  \
+                        |     +----------------+  \
+                        |     | ietf-te-device |   \
+                        |     +----------------+    \
+                        |        o                   \
+                        |        |                    \
+                        |        |                     \
+                    +---------------+          +---------------+
+     RSVP-TE module | ietf-rsvp-te^ |o         | ietf-te-mpls^ |
+                    +---------------+ \        +---------------+
+                        |              \
+                        |               \
+                        |                \
+                        |                 \
+                        |                  \
+                        o                +-------------------+
+                    +------------+       | ietf-rsvp-otn-te^ |
+     RSVP module    | ietf-rsvp^ |       +-------------------+
+                    +------------+         RSVP-TE with OTN
+                                              extensions
 
-                X---oY indicates that module X augments module Y
-                ^ indicates a module defined in other documents
+                   X---oY indicates that module X augments module Y
+                   ^ indicates a module defined in other documents
+
 ~~~
-{: #figctrl title="Relationship of TE module(s) with signaling protocol modules"}
+{: #figctrl title="Relationship of TE modules with signaling protocol modules"}
 
 # TE YANG Model
 
@@ -247,24 +239,22 @@ operation of a TE network. This includes creating, modifying and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups, SRLGs, etc.).
 
-A full tree diagram of the TE model is shown in the Appendix in
-{{fig-te-tree-full}}.
+A full tree diagram of the TE model is shown in {{AppendixB}}.
 
 ## Module Structure
 
 The 'te' container is the top level container in the 'ietf-te' module. The
-presence of the 'te' container enables TE function system wide.  Below provides
-further descriptions of containers that exist under the 'te' top level
-container.
+presence of the 'te' container enables TE function system wide.  Further
+descriptions of containers that exist under the 'te' top level container are
+provided in the following sections.
 
-There are three further containers grouped under the 'te'
+The three containers grouped under the 'te'
 container as shown in {{fig-highlevel}} and described below.
-
 
 globals:
 
 > The 'globals' container maintains the set of global TE attributes that can be
-applicable to TE Tunnels and interfaces.
+applicable to TE Tunnels and interfaces. Refer to {{TeGlobals}} for further details.
 
 tunnels:
 
@@ -273,15 +263,15 @@ Refer to {{TE_TUNNELS}} for further details on the properties of a TE Tunnel.
 
 lsps:
 
-> The 'lsps' container includes the list of TE LSP(s) that are instantiated for
+> The 'lsps' container includes the list of TE LSPs that are instantiated for
 > TE Tunnels. Refer to {{TE_LSPS}} for further details on the properties of a TE LSP.
 
 The model also contains two Remote Procedure Calls (RPCs) as shown
-in {{fig-te-tree-full}} and described below.
+in {{AppendixB}} and described below.
 
 tunnels-path-compute:
 
-> A RPC to request path computation for a specific TE Tunnel.
+> An RPC to request path computation for a specific TE Tunnel.
 The RPC allows requesting path computation using atomic and stateless operation.
 A tunnel may also be configured in 'compute-only' mode to provide stateful path updates
 - see {{TE_TUNNELS}} for further details.
@@ -290,9 +280,6 @@ tunnels-action:
 
 > An RPC to request a specific action (e.g. reoptimize, or tear-and-setup) to be taken
 on a specific tunnel or all tunnels.
-
-{{fig-te-tree-full}} shows the relationships of these containers and RPCs within
-the 'ietf-te' module.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-01.tree}
@@ -410,30 +397,33 @@ during path computation is not order sensitive.
     * 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude)
 is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry
 constraint is consumed from this list, it is not considered any further in the computation of the path.
+The 'route-object-include-exclude' is used to configure constraints on which
+route objects (e.g., nodes, links) are included or excluded in the path
+computation.  The interpretation of an empty 'route-object-include-exclude'
+list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the
+specific path, according to the following rules:
 
->>> The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
-
->>> The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
-
->>>
+>>>>
 1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
 2. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
 3. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
 4. An empty 'route-object-include-exclude' list for the secondary (forward) path indicates that the secondary path has the same endpoints as the primary path.
 >>
 - path-in-segment: A YANG container that contains a list of label restrictions
-  that have to be taken into considerations when crossing domains. This TE
-  tunnel segment in this case is being stitched to the upstream TE tunnel segment.
+  that have to be taken into considerations when stitching to another tunnel
+  segment such as at a domain boundary.  The TE tunnel segment in this case
+  is being stitched to the upstream TE tunnel segment.
 >>
 - path-out-segment: A YANG container that contains a list of label restrictions
-  that have to be taken into considerations when crossing domains. The TE
-  tunnel segment in this case is being stitched to the downstream TE tunnel segment.
+  that have to be taken into considerations when stitching to another tunnel
+  segment such as at a domain boundary.  The TE tunnel segment in this case
+  is being stitched to the downstream TE tunnel segment.
 
 
 ### TE Tunnels {#TE_TUNNELS}
 
 The 'tunnels' container holds the list of TE Tunnels that are provisioned on
-ingress LER devices in the network as shown in {{fig-te-tunnel}}.
+ingress Label Egress Router (LER) devices in the network as shown in {{fig-te-tunnel}}.
 
 ~~~~~~~~~~~
 
@@ -493,7 +483,7 @@ module: ietf-te
 When the model is used to manage a specific device, the 'tunnel' list contains
 the TE Tunnels originating from the specific device. When the model is used to
 manage a TE controller, the 'tunnel' list contains all TE Tunnels and TE
-tunnel segments originating from device(s) that the TE controller manages.
+tunnel segments originating from devices that the TE controller manages.
 
 The TE Tunnel model allows the configuration and management of the following TE
 tunnel objects:
@@ -516,14 +506,10 @@ destination termination points.
 
 TE Tunnel Segment:
 
-> A part of a multi-domain TE Tunnel that is within a specific network domain.
+> A segment of a TE Tunnel that is stitched with other segments in order to provision end-to-end tunnel.
 
 The TE Tunnel has a number of attributes that are set directly under the
 tunnel (as shown in {{fig-te-tunnel}}). The main attributes of a TE Tunnel are described below:
-
-operational-state:
-
-> A YANG leaf that holds the operational state of the tunnel.
 
 name:
 
@@ -533,8 +519,8 @@ of the TE Tunnel can be formatted as a Uniform Resource Indicator (URI) by
 including the namespace to ensure uniqueness of the name amongst all the TE
 Tunnels present on devices and controllers. The configured TE Tunnels can
 be reported with the name of the device embedded within the TE Tunnel name.
-For initiated TE Tunnels from the controller, the controller is responsible
-to ensures that TE Tunnel names are unique.
+For TE Tunnels initiated by the controller, the controller is responsible
+to ensure that TE Tunnel names are unique.
 
 alias:
 
@@ -554,10 +540,7 @@ to map or steer services that carry matching color on to the TE tunnel as descri
 
 admin-state:
 
-> A YANG leaf that holds the tunnel administrative state. The administrative
-status in state datastore transitions to 'tunnel-admin-up' when the tunnel used
-by the client layer, and to 'tunnel-admin-down' when it is not used by the
-client layer.
+> A YANG leaf that holds the tunnel administrative state.
 
 operational-state:
 
@@ -570,13 +553,13 @@ technology in which the tunnel operates in as described in {{?RFC3945}}.
 
 source/destination:
 
-> YANG containers that hold the tunnel source and destination node endpoints identities, including:
+> YANG containers that hold the tunnel source and destination node endpoint identities, including:
 
->  * te-node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
->    TE node identifiers as defined in {{!I-D.draft-ietf-teas-rfc8776-update}}.
+>  * te-node-id:  A YANG leaf that holds the TE node identifier (as defined in {{!I-D.draft-ietf-teas-rfc8776-update}}) of the source
+>  or destination of the TE Tunnel.
 >
->  * node-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
->    node identifiers as defined in {{!RFC8345}}.
+>  * node-id: A YANG leaf that holds the node identifier (as defined in {{!RFC8345}}) of the source or
+>  destination of the TE Tunnel.
 >
 >  * tunnel-tp-id: A YANG leaf that holds the identifier of the source or destination of the TE Tunnel
 >    Termination Points (TTPs) as defined in {{!RFC8795}}. The TTP identifiers are optional
@@ -592,7 +575,7 @@ as defined in {{?rfc3473}}.
 controller:
 
 > A YANG container that holds tunnel data relevant to an optional external TE controller that
-may initiate or control a tunnel. This target node may be augmented by external module(s), for example, to add data for PCEP initiated and/or
+may initiate or control a tunnel. This target node may be augmented by external modules, for example, to add data for Path Computation Element Protocol (PCEP) initiated and/or
 delegated tunnels.
 
 reoptimize-timer:
@@ -632,20 +615,21 @@ hierarchy:
   to identify the specific link in the client layer that the underlying TE Tunnel is
   associated with. The hierarchy container includes the following:
 
->>
-- dependency-tunnels: A set of hierarchical TE Tunnels provisioned or to be
-  provisioned in the immediate lower layer that this TE tunnel depends on for
-  multi-layer path computation. A dependency TE Tunnel is provisioned if and
-  only if it is used (selected by path computation) at least by one client
-  layer TE Tunnel. The TE link in the client layer network topology supported
-  by a dependent TE Tunnel is dynamically created only when the dependency TE
-  Tunnel is actually provisioned.
->>
-- hierarchical-link: A YANG container that holds the identity of the
-  hierarchical link (in the client layer) that is supported by this TE Tunnel.
-  The endpoints of the hierarchical link are defined by TE tunnel source and
-  destination node endpoints. The hierarchical link can be identified by its source
-  and destination link termination point identifiers.
+>
+* dependency-tunnels: A hierarchical set of TE Tunnels either provisioned or
+  to be provisioned in the immediate lower layer, upon which the
+  current TE Tunnel relies for multi-layer path computation. A dependency TE
+  Tunnel is provisioned if it has been selected by path computation to support
+  at least one client-layer TE Tunnel. When a dependency TE Tunnel is
+  provisioned, it makes TE link operational in the client layer's network
+  topology, enabling the provisioning of TE Tunnels in the client layer.
+
+>
+* hierarchical-link: A YANG container that holds the identity of the
+hierarchical link (in the client layer) that is supported by this TE Tunnel.
+The endpoints of the hierarchical link are defined by TE tunnel source and
+destination node endpoints. The hierarchical link can be identified by its source
+and destination link termination point identifiers.
 
 primary-paths:
 
@@ -663,7 +647,7 @@ attributes:
 >
 - candidate-secondary-paths: A YANG container that holds a list of candidate
   secondary paths which may be used for the primary path to support path
-  protection. The candidate secondary path(s) reference path(s)  from the
+  protection. The candidate secondary paths reference paths from the
   tunnel secondary paths list.  The preference of the secondary paths is
   specified within the list and dictates the order of visiting the secondary
   path from the list. The attributes of a secondary path can be defined
@@ -706,10 +690,10 @@ compute-only:
   the LSP or commit any resources. In such a case, the path is configured in
   'compute-only' mode to distinguish it from the default behavior. A
   'compute-only' path is configured as a usual with the associated per path
-  constraint(s) and properties on a device or TE controller. The device or TE
-  controller computes the feasible path(s) subject to configured constraints.
+  constraints and properties on a device or TE controller. The device or TE
+  controller computes the feasible paths subject to configured constraints.
   A client may query the 'compute-only' computed path properties 'on-demand',
-  or alternatively, can subscribe to be notified of computed path(s) and
+  or alternatively, can subscribe to be notified of computed paths and
   whenever the path properties change.
 
 
@@ -861,20 +845,20 @@ attributes that are not present in the secondary path:
 
 ### TE LSPs {#TE_LSPS}
 
-The 'lsps' container includes the set of TE LSP(s) that have been instantiated.
+The 'lsps' container includes the set of TE LSPs that have been instantiated.
 A TE LSP is identified by a 3-tuple ('tunnel-name', 'lsp-id', 'node').
 
 When the model is used to manage a specific device, the 'lsps' list contains all TE
-LSP(s) that traverse the device (including ingressing, transiting and egressing the device).
+LSPs that traverse the device (including ingressing, transiting and egressing the device).
 
 When the model is used to manage a TE controller, the 'lsps' list
-contains the TE LSP(s) on devices managed by the controller that act as ingress, and may optionally include
+contains the TE LSPs on devices managed by the controller that act as ingress, and may optionally include
 TE LSPs on devices managed by the controller that act as transit or egress role.
 
 ## Tree Diagram
 
 {{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG model defined in
-modules 'ietf-te.yang'. The full tree diagram is shown in {{AppendixB}}.
+modules 'ietf-te'. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-02.tree}
@@ -901,7 +885,6 @@ This module references the following documents:
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-basic-te title="TE Tunnel data model YANG module"}
 
 # TE Device YANG Model
 
@@ -954,7 +937,7 @@ module: ietf-te-device
 ## Tree Diagram
 
 {{fig-te-dev-tree}} shows the tree diagram of the device TE YANG model defined in
-modules 'ietf-te-device.yang'.
+modules 'ietf-te-device'.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
@@ -964,7 +947,7 @@ modules 'ietf-te-device.yang'.
 
 ## YANG Module
 
-The device TE YANG module 'ietf-te-device' imports the following module(s):
+The device TE YANG module 'ietf-te-device' imports the following modules:
 
 - ietf-interfaces defined in {{!RFC8343}}
 - ietf-routing-types defined in {{!RFC8294}}
@@ -976,8 +959,6 @@ The device TE YANG module 'ietf-te-device' imports the following module(s):
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
-{: #fig-te-device-types title="TE device data model YANG module"}
-
 
 # Notifications
 
@@ -1125,7 +1106,9 @@ feedback on this document.
 
 ~~~~
 
-# Appendix A: Data Tree Examples {#AppendixA}
+--- back
+
+# Data Tree Examples {#AppendixA}
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
 
@@ -1725,14 +1708,12 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
 ~~~
 
 
-# Appendix B: Full Model Tree Diagram {#AppendixB}
+# Full Model Tree Diagram {#AppendixB}
 
-{{fig-te-tree-full}} shows the full tree diagram of the TE YANG model defined in
-module 'ietf-te.yang'.
+The full tree diagram of the TE YANG model defined in
+module 'ietf-te' is shown below.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te.tree}
 ~~~~~~~~~~~
-{: #fig-te-tree-full title="Full tree diagram of TE Tunnel YANG data model"}
-
 
