@@ -2668,7 +2668,7 @@ Internet-Draft             TE YANG Data Model                  July 2025
                  description
                    "Protection external command.";
                }
-               leaf protection-group-ingress-node {
+               leaf ingress-node {
                  type boolean;
                  default "true";
                  description
@@ -2677,7 +2677,7 @@ Internet-Draft             TE YANG Data Model                  July 2025
                     By default, the action applies to the ingress
                     node";
                }
-               leaf protection-group-egress-node {
+               leaf egress-node {
                  type boolean;
                  default "false";
                  description
