@@ -84,8 +84,8 @@ other interfaces, such as CLI and programmatic APIs.
 
 This document describes a YANG data model for Traffic Engineering (TE) tunnels,
 Label Switched Paths (LSPs), and interfaces. The data model is divided into two
-YANG modules. The module 'ietf-te' includes data that is generic and
-device-independent, while the module 'ietf-te-device' includes data that is
+YANG modules. The 'ietf-te' module includes data that is generic and
+device-independent, while the 'ietf-te-device' module includes data that is
 device-specific.
 
 The document describes a high-level relationship between the modules defined in
@@ -156,13 +156,13 @@ document and expected to be covered by augmentations defined in other documents.
 The following other design considerations are taken into account with respect to data
 organization:
 
-* The device independent TE data is defined in module 'ietf-te'. and
+* The device independent TE data is defined in 'ietf-te' module. and
   can be used to manage data off a device, such as a TE controller. When the
   model is used to manage a specific device, the model contains the TE Tunnels
   originating from the specific device.  When the model is used to manage a TE
   controller, the 'tunnel' list contains all TE Tunnels and TE tunnel segments
   originating from devices that the TE controller manages.
-* The device-specific TE data is defined in module 'ietf-te-device'.
+* The device-specific TE data is defined in 'ietf-te-device' module.
 * Minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
@@ -175,7 +175,7 @@ organization:
 The Network Management Datastore Architecture (NMDA) {{!RFC8342}} addresses
 modeling state data for ephemeral objects.  This document adopts the NMDA model
 for configuration and state data representation as per IETF guidelines for new
-IETF YANG models.
+IETF YANG data models.
 
 # Model Overview
 
@@ -187,10 +187,10 @@ deviations to this model that are defined in separate documents.
 
 ## Module Relationship
 
-The generic TE YANG module defined in 'ietf-te' covers the
+The generic TE YANG data model defined in 'ietf-te' module covers the
 building blocks that are device independent and agnostic of any specific
-technology or control plane instances. The TE device YANG module defined in
-'ietf-te-device' augments the generic TE YANG module and covers data
+technology or control plane instances. The TE device YANG data model defined in
+'ietf-te-device' module augments the 'ietf-te' module and covers data
 that is specific to a device --  for example, attributes of TE interfaces, or
 TE timers that are local to a TE node.
 
@@ -234,12 +234,12 @@ defined in separate YANG modules that augment the generic TE YANG data model.
 
 # TE YANG Model
 
-The generic TE YANG module ('ietf-te') is meant for the management and
+The generic TE YANG data model defined in 'ietf-te' module supports the management and
 operation of a TE network. This includes creating, modifying and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups, SRLGs, etc.).
 
-A full tree diagram of the TE model is shown in {{AppendixB}}.
+A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
 
 ## Module Structure
 
@@ -667,8 +667,8 @@ secondary-reverse-paths:
 
 > A YANG container that holds the set of secondary reverse paths. A secondary reverse
 path is identified by 'name'. A secondary reverse path can be referenced from the
-TE Tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path contains
-attributes similar to a primary path.
+TE Tunnel's 'candidate-secondary-reverse-paths' list. A secondary reverse path is modeled with
+the same data attributes as those of the primary path.
 
 The following set of common path attributes are shared for primary (forward and reverse) and secondary paths:
 
@@ -689,7 +689,7 @@ compute-only:
   purpose of computing a path and reporting it without the need to instantiate
   the LSP or commit any resources. In such a case, the path is configured in
   'compute-only' mode to distinguish it from the default behavior. A
-  'compute-only' path is configured as a usual with the associated per path
+  'compute-only' path is configured as usual with the associated per path
   constraints and properties on a device or TE controller. The device or TE
   controller computes the feasible paths subject to configured constraints.
   A client may query the 'compute-only' computed path properties 'on-demand',
@@ -704,17 +704,19 @@ use-path-computation:
 
 lockdown:
 
-> A YANG leaf that when set indicates the existing path should not be reoptimized
-  after a failure on any of its traversed links.
+> A YANG leaf that when set indicates the existing path should not
+> be globally repaired or reoptimized.
 
 path-scope:
 
-> A YANG leaf that specifies the path scope if segment or an end-to-end path.
+> A YANG leaf that specifies whether the path is a segment or an end-to-end path.
 
 preference:
 
-> A YANG leaf that specifies the preference for the path. The lower the number
- higher the preference.
+> A YANG leaf that specifies the preference for the path, used to
+choose between paths in a list.  The lower the number, the higher the
+preference. Paths with the same preference are treated as equal
+and other methods are used to choose between them.
 
 k-requested-paths:
 
@@ -743,7 +745,7 @@ te-bandwidth:
 link-protection:
 
 > A YANG leaf that specifies the link protection type required for the links to
-be included the computed path (see {{I-D.draft-ietf-teas-rfc8776-update}}).
+be included in the computed path (see {{I-D.draft-ietf-teas-rfc8776-update}}).
 
 setup/hold-priority:
 
@@ -804,10 +806,6 @@ computed-paths-properties:
 
 > A YANG container that holds properties for the list of computed paths.
 
-computed-path-error-infos:
-
-> A YANG container that holds a list of errors related to the path.
-
 lsp-provisioning-error-infos:
 
 > A YANG container that holds the list of LSP provisioning error information. The
@@ -857,8 +855,8 @@ TE LSPs on devices managed by the controller that act as transit or egress role.
 
 ## Tree Diagram
 
-{{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG model defined in
-modules 'ietf-te'. The full tree diagram is shown in {{AppendixB}}.
+{{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG data model defined in
+'ietf-te' module. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-02.tree}
@@ -936,8 +934,8 @@ module: ietf-te-device
 
 ## Tree Diagram
 
-{{fig-te-dev-tree}} shows the tree diagram of the device TE YANG model defined in
-modules 'ietf-te-device'.
+{{fig-te-dev-tree}} shows the tree diagram of the device TE YANG data model defined in
+the 'ietf-te-device' module.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
@@ -947,7 +945,7 @@ modules 'ietf-te-device'.
 
 ## YANG Module
 
-The device TE YANG module 'ietf-te-device' imports the following modules:
+The 'ietf-te-device' module imports the following modules:
 
 - ietf-interfaces defined in {{!RFC8343}}
 - ietf-routing-types defined in {{!RFC8294}}
@@ -1710,7 +1708,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
 
 # Full Model Tree Diagram {#AppendixB}
 
-The full tree diagram of the TE YANG model defined in
+The full tree diagram of the TE YANG data model defined in
 module 'ietf-te' is shown below.
 
 ~~~~~~~~~~~
