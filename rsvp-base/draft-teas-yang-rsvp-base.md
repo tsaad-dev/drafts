@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-19
+docname: draft-ietf-teas-yang-rsvp-20
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -33,7 +33,7 @@ author:
  -
     ins: X. Liu
     name: Xufeng Liu
-    organization: Volta Networks
+    organization: Individual
     email: xufeng.liu.ietf@gmail.com
 
  -
