@@ -84,7 +84,7 @@ other interfaces, such as CLI and programmatic APIs.
 This document describes a YANG data model for Traffic Engineering (TE) tunnels,
 Label Switched Paths (LSPs), and interfaces. The data model is divided into two
 YANG modules. The 'ietf-te' module includes data that is generic and
-device-independent, while the 'ietf-te-device' module includes data that is
+device independent, while the 'ietf-te-device' module includes data that is
 device-specific.
 
 The document describes a high-level relationship between the modules defined in
@@ -93,7 +93,7 @@ YANG data model does not include any data specific to a signaling protocol.  It
 is expected other data plane technology models will augment the TE generic
 YANG data model. 
 
-Also, it is expected other YANG modules that model TE signaling protocols,
+Also, it is expected that other YANG modules that model TE signaling protocols,
 such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
 {{?RFC9256}} will augment the generic TE YANG  module.
 
@@ -155,13 +155,13 @@ document and expected to be covered by augmentations defined in other documents.
 The following other design considerations are taken into account with respect to data
 organization:
 
-* The device independent TE data is defined in 'ietf-te' module. and
+* The device independent TE data is defined in the 'ietf-te' module, and
   can be used to manage data off a device, such as a TE controller. When the
   model is used to manage a specific device, the model contains the TE Tunnels
   originating from the specific device.  When the model is used to manage a TE
   controller, the 'tunnel' list contains all TE Tunnels and TE tunnel segments
   originating from devices that the TE controller manages.
-* The device-specific TE data is defined in 'ietf-te-device' module.
+* The device-specific TE data is defined in the 'ietf-te-device' module.
 * Minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
@@ -186,10 +186,10 @@ deviations to this model that are defined in separate documents.
 
 ## Module Relationship
 
-The generic TE YANG data model defined in 'ietf-te' module covers the
+The generic TE YANG data model defined in the 'ietf-te' module covers the
 building blocks that are device independent and agnostic of any specific
 technology or control plane instances. The TE device YANG data model defined in
-'ietf-te-device' module augments the 'ietf-te' module and covers data
+the 'ietf-te-device' module augments the 'ietf-te' module and covers data
 that is specific to a device --  for example, attributes of TE interfaces, or
 TE timers that are local to a TE node.
 
@@ -233,8 +233,8 @@ defined in separate YANG modules that augment the generic TE YANG data model.
 
 # TE YANG Model
 
-The generic TE YANG data model defined in 'ietf-te' module supports the management and
-operation of a TE network. This includes creating, modifying and retrieving
+The generic TE YANG data model defined in the 'ietf-te' module supports the management and
+operation of a TE network. This includes creating, modifying, and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups, SRLGs, etc.).
 
@@ -243,7 +243,7 @@ A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
 ## Module Structure
 
 The 'te' container is the top level container in the 'ietf-te' module. The
-presence of the 'te' container enables TE function system wide.  Further
+presence of the 'te' container enables TE function system-wide.  Further
 descriptions of containers that exist under the 'te' top level container are
 provided in the following sections.
 
@@ -390,12 +390,12 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
 >>
-- explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in following two lists:
+- explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in the following two lists:
     * 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list
 during path computation is not order sensitive.
     * 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude)
 is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry
-constraint is consumed from this list, it is not considered any further in the computation of the path.
+constraint is consumed from this list, it is not considered any further in the computation of the TE path.
 The 'route-object-include-exclude' is used to configure constraints on which
 route objects (e.g., nodes, links) are included or excluded in the path
 computation.  The interpretation of an empty 'route-object-include-exclude'
@@ -505,7 +505,7 @@ destination termination points.
 
 TE Tunnel Segment:
 
-> A segment of a TE Tunnel that is stitched with other segments in order to provision end-to-end tunnel.
+> A segment of a TE Tunnel that is stitched with other segments in order to provision an end-to-end tunnel.
 
 The TE Tunnel has a number of attributes that are set directly under the
 tunnel (as shown in {{fig-te-tunnel}}). The main attributes of a TE Tunnel are described below:
@@ -515,7 +515,7 @@ name:
 > A YANG leaf that holds the name of a TE Tunnel.  The name of the
 TE Tunnel uniquely identifies the tunnel within the TE tunnel list.  The name
 of the TE Tunnel can be formatted as a Uniform Resource Indicator (URI) by
-including the namespace to ensure uniqueness of the name amongst all the TE
+including the namespace to ensure uniqueness of the name among all the TE
 Tunnels present on devices and controllers. The configured TE Tunnels can
 be reported with the name of the device embedded within the TE Tunnel name.
 For TE Tunnels initiated by the controller, the controller is responsible
@@ -528,13 +528,13 @@ name, the alias can be modified at any time during the lifetime of the TE tunnel
 
 identifier:
 
-> A YANG leaf that holds an identifier of the tunnel. This identifier is unique amongst tunnels
+> A YANG leaf that holds an identifier of the tunnel. This identifier is unique among tunnels
 originated from the same ingress device.
 
 color:
 
 > A YANG leaf that holds the color associated with the TE tunnel. The color is used
-to map or steer services that carry matching color on to the TE tunnel as described in
+to map or steer services that carry matching color onto the TE tunnel as described in
 {{?RFC9012}}.
 
 admin-state:
@@ -620,7 +620,7 @@ hierarchy:
   current TE Tunnel relies for multi-layer path computation. A dependency TE
   Tunnel is provisioned if it has been selected by path computation to support
   at least one client-layer TE Tunnel. When a dependency TE Tunnel is
-  provisioned, it makes TE link operational in the client layer's network
+  provisioned, it makes the TE link operational in the client layer's network
   topology, enabling the provisioning of TE Tunnels in the client layer.
 
 >
@@ -688,7 +688,7 @@ compute-only:
   purpose of computing a path and reporting it without the need to instantiate
   the LSP or commit any resources. In such a case, the path is configured in
   'compute-only' mode to distinguish it from the default behavior. A
-  'compute-only' path is configured as usual with the associated per path
+  'compute-only' path is configured as usual with the associated per-path
   constraints and properties on a device or TE controller. The device or TE
   controller computes the feasible paths subject to configured constraints.
   A client may query the 'compute-only' computed path properties 'on-demand',
@@ -808,7 +808,7 @@ computed-paths-properties:
 computed-path-error-infos:
 
 > A YANG container that holds the list of path computation error information. The
-> TE system populates entries in this list whenever an error is encountered during the compuation of the TE path.
+> TE system populates entries in this list whenever an error is encountered during the computation of the TE path.
 
 path-compute-info:
 
@@ -817,9 +817,9 @@ path-compute-info:
 >
 >  - path constraints,
 >  - path optimization objectives, and
->  - path assocociations
+>  - path associations
 >
-> Note, unless overriden under a specific path of the TE tunnel, the TE tunnel's primary path constraints, optimization objectives, and associations are inherited by the primary reverse path, secondary path and secondary reverse path.
+> Note, unless overridden under a specific path of the TE tunnel, the TE tunnel's primary path constraints, optimization objectives, and associations are inherited by the primary reverse path, secondary path and secondary reverse path.
 
 lsps:
 
@@ -855,7 +855,7 @@ TE LSPs on devices managed by the controller that act as transit or egress role.
 ## Tree Diagram
 
 {{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG data model defined in
-'ietf-te' module. The full tree diagram is shown in {{AppendixB}}.
+the 'ietf-te' module. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-02.tree}
@@ -878,58 +878,236 @@ This module references the following documents:
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC7308}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2024-01-10.yang"
+<CODE BEGINS> file "ietf-te@2025-10-06.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
 # TE Device YANG Model
 
-The device TE YANG module ('ietf-te-device') models data that is specific to
+The device TE YANG module 'ietf-te-device' models data that is specific to
 managing a TE device.  This module augments the generic TE YANG module.
 
 ## Module Structure
 
-### TE Interfaces
+The 'ietf-te-device' modufle defines the configuration and operational state data
+that is specific, including those related to the TE subsystem, tunnels, LSPs, and interfaces.
 
-This branch of the model manages TE interfaces that are present on a device. 
-Examples of TE interface properties are:
+### TE Device Globals, Tunnels and LSPs
 
-* Maximum reservable bandwidth, bandwidth constraints (BC)
-* Flooding parameters
-   * Flooding intervals and threshold values
-* Interface attributes
-   * (Extended) administrative groups
-   * SRLG values
-   * TE metric value
-* Fast reroute backup tunnel properties (such as static, auto-tunnel)
+The 'ietf-te-device' module augments the generic 'ietf-te' module at the
+'globals', 'tunnels', and 'lsps' levels to include the device-specific
+configurations and operational state.
 
-The derived state associated with interfaces is grouped under the interface
-"state" sub-container as shown in {{fig-if-te-state}}.  This covers state data
-such as:
-
-* Bandwidth information: maximum bandwidth, available bandwidth at different
-  priorities and for each class-type (CT)
-* List of admitted LSPs
-    * Name, bandwidth value and pool, time, priority
-* Statistics: state counters, flooding counters, admission counters
-  (accepted/rejected), preemption counters
-* Adjacency information
-    * Neighbor address
-    * Metric value
+{{fig-if-te-01}} shows the
+'ietf-te-device' subtree generated with depth=4 that describes those
+augmentations.
 
 ~~~~~~~~~~~
-module: ietf-te-device
-  augment /te:te:
-      +--rw interfaces
-         .
-         +-- rw te-dev:te-attributes
-                <<intended configuration>>
-             .
-             +-- ro state
-                <<derived state associated with the TE interface>>
+{::include ../../te/ietf-te-dev-01.tree}
 ~~~~~~~~~~~
-{: #fig-if-te-state title="TE interface state YANG subtree"}
+{: #fig-if-te-01 title="TE Device Augmentations to Globals, Tunnels, and LSPs YANG Subtree."}
+
+The following is the description of the augmented data at each level.
+
+Global Timers (Augmenting /te:te/te:globals):
+
+These are device-specific global configuration parameters related to LSP timers, applied system-wide.
+
+lsp-install-interval
+:
+: An optional leaf that specifies the delay time, in seconds, before a newly provisioned LSP is installed into the forwarding plane to carry traffic.
+
+lsp-cleanup-interval
+:
+: An optional leaf that specifies the delay time, in seconds, before an LSP is completely removed from the system after it is no longer in use.
+
+lsp-invalidation-interval
+:
+: An optional leaf that specifies the delay time, in seconds, during which a TE LSP's path is considered invalid before any corrective action is taken.
+
+Tunnel Device-Dependent Attributes (Augmenting /te:te/te:tunnels/te:tunnel).
+
+These are device-specific configuration parameters that apply to individual TE Tunnels:
+
+path-invalidation-action
+:
+: An optional identityref that specifies the action to be taken when a TE Tunnel's path is deemed invalid (e.g., tear down, recompute).
+
+lsp-install-interval
+:
+: An optional leaf that specifies the delay time, in seconds, for this specific TE Tunnel before its LSPs are installed into the forwarding plane. This value can override the global lsp-install-interval.
+
+lsp-cleanup-interval
+:
+: An optional leaf that specifies the delay time, in seconds, for this specific TE Tunnel before its LSPs are cleaned up. This value can override the global lsp-cleanup-interval.
+
+lsp-invalidation-interval
+:
+: An optional leaf that specifies the delay time, in seconds, for this specific TE Tunnel during which its path is considered invalid before action is taken. This value can override the global lsp-invalidation-interval.
+
+LSP Device-Dependent State (Augmenting /te:te/te:lsps/te:lsp).
+
+These are read-only operational state parameters providing device-specific details for individual LSPs:
+
+lsp-timers
+:
+: A container that holds various timer-related operational state for an LSP, applicable primarily to ingress LSPs.
+
+uptime
+:
+: An optional leaf that indicates the total time, in seconds, that the LSP has been operational.
+
+time-to-install
+:
+: An optional leaf that indicates the remaining time, in seconds, for a new LSP to be fully instantiated and ready to carry traffic.
+
+time-to-destroy
+:
+: An optional leaf that indicates the remaining time, in seconds, before an existing LSP is torn down.
+
+downstream-info
+:
+: A container that holds information about the downstream neighbor and label for the LSP, applicable when the LSP is not at its egress.
+
+upstream-info
+:
+: A container that holds information about the upstream neighbor and label for the LSP, applicable when the LSP is not at its ingress.
+
+### TE Device Interfaces
+
+{{fig-if-te-02}} shows the TE interface subtree from the TE device module 'ietf-te-device' with depth=4.
+The full tree diagram is shown in {{AppendixB}}.
+
+~~~~~~~~~~~
+{::include ../../te/ietf-te-dev-02.tree}
+~~~~~~~~~~~
+{: #fig-if-te-02 title="TE interfaces YANG subtree from the TE device YANG data model"}
+
+
+The main elements under the interfaces container are:
+
+threshold-type:
+
+> An optional enumeration that specifies the type of thresholding mechanism used for flooding bandwidth updates for all TE interfaces on the device. Options include 'delta' (flooding on a change greater than a specified delta) or 'threshold-crossed' (flooding when bandwidth crosses a defined threshold).
+
+delta-percentage:
+
+> An optional percentage value, used when threshold-type is 'delta', indicating the change in reservable bandwidth that triggers an IGP update for all TE interfaces.
+
+threshold-specification:
+
+> An optional enumeration, used when threshold-type is 'threshold-crossed', to define whether a single set of 'mirrored-up-down' thresholds or separate 'separate-up-down' thresholds are used for increasing and decreasing bandwidth. This applies globally to all TE interfaces.
+
+up-thresholds:
+
+> A list of percentage values, used with 'separate-up-down' thresholding, that define the points at which bandwidth updates are triggered when the reservable bandwidth is increasing across all TE interfaces.
+
+down-thresholds:
+
+>  A list of percentage values, used with 'separate-up-down' thresholding, that define the points at which bandwidth updates are triggered when the reservable bandwidth is decreasing across all TE interfaces.
+
+up-down-thresholds:
+
+> A list of percentage values, used with 'mirrored-up-down' thresholding, that define the points at which bandwidth updates are triggered for both increasing and decreasing reservable bandwidth across all TE interfaces.
+
+interface:
+
+> A list of individual TE interfaces configured on the device. Each entry represents a network interface enabled for Traffic Engineering and contains its specific attributes and state. A TE interface is identified by the 'name' leaf, which references an existing network interface on the device.
+
+
+> name:
+
+>> A leaf that uniquely identifies the TE interface, referencing an existing network interface.
+
+> te-metric:
+
+>> An optional leaf that holds the TE metric value associated with this specific interface, used during path computation.
+
+>admin-group-type:
+
+>> A choice node that allows configuring administrative groups for the interface using either direct values or named references.
+
+> value-admin-groups:
+
+>> A choice for defining administrative groups using direct bitmask values.
+
+> named-admin-groups:
+
+>> A list of named administrative groups applied to this TE interface, referencing globally defined named administrative groups.
+
+> srlg-type:
+
+>> A choice node that allows configuring Shared Risk Link Groups (SRLGs) for the interface using either direct values or named references.
+
+>> value-srlgs:
+
+>>> A list of direct SRLG values that this link is a part of.
+
+>> named-srlgs:
+
+>>> A list of named SRLGs applied to this interface, referencing globally defined named SRLGs.
+
+> threshold-type:
+
+>> An optional enumeration, similar to the global threshold-type, but specifically for this individual TE interface, allowing per-interface override of the global bandwidth flooding behavior.
+
+> delta-percentage:
+
+>> An optional percentage value, specific to this interface, used when its threshold-type is 'delta'.
+
+> threshold-specification:
+
+>> An optional enumeration, specific to this interface, used when its threshold-type is 'threshold-crossed'.
+
+> up-thresholds:
+
+>> A list of percentage values, specific to this interface, used with 'separate-up-down' thresholding for increasing bandwidth.
+
+> down-thresholds:
+
+>> A list of percentage values, specific to this interface, used with 'separate-up-down' thresholding for decreasing bandwidth.
+
+> up-down-thresholds:
+
+>> A list of percentage values, specific to this interface, used with 'mirrored-up-down' thresholding for both increasing and decreasing bandwidth.
+
+> switching-capabilities:
+
+>> A list of switching capabilities supported by this interface.
+
+>> switching-capability:
+
+>>> An identityref indicating a specific switching capability (e.g., Packet, Lambda, Fiber).
+
+>> encoding:
+
+>>> An optional identityref indicating the LSP encoding type supported by this capability on the interface.
+
+> te-advertisements-state:
+
+>> A read-only container that provides operational state information related to how this TE interface's attributes are advertised.
+
+>> flood-interval:
+
+>>> An optional leaf indicating the configured periodic flooding interval for this interface.
+
+>> last-flooded-time:
+
+>>> An optional leaf showing the time elapsed since the last advertisement flood for this interface.
+
+>> next-flooded-time:
+
+>>> An optional leaf showing the time remaining until the next scheduled advertisement flood for this interface.
+
+>> last-flooded-trigger:
+
+>>> An optional enumeration indicating the event that triggered the last advertisement flood (e.g., link-up, bandwidth-change, periodic-timer).
+
+>> advertised-level-areas:
+
+>>> A list of IGP level-areas in which this TE interface's link state information is advertised.
+
 
 ## Tree Diagram
 
@@ -952,7 +1130,7 @@ The 'ietf-te-device' module imports the following modules:
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2024-01-10.yang"
+<CODE BEGINS> file "ietf-te-device@2025-10-06.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1054,10 +1232,10 @@ to these operations. These are the operations and their
 sensitivity/vulnerability:
 
 "/te/tunnels-actions": using this RPC, an attacker can modify existing paths that
-may be carrying live traffic, and hence result to interruption to services
+may be carrying live traffic, and hence result in interruption to services
 carried over the network.
 
-"/te/tunnels-path-compute": using this RPC, an attacker can retrieve secured
+"/te/tunnels-path-compute": using this RPC, an attacker can retrieve sensitive
 information about the network provider which can be used to orchestrate further
 attacks.
 
@@ -1109,7 +1287,7 @@ feedback on this document.
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
 
-For the example we will use a 4 node MPLS network were RSVP-TE MPLS Tunnels can be setup. The
+For the example we will use a 4-node MPLS network were RSVP-TE MPLS Tunnels can be setup. The
 loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
 described in the following sections.
 
@@ -1162,7 +1340,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Global Named Path Constraints
 
-This example uses the YANG data model to create a 'named path constraint' that can be reference by TE Tunnels.
+This example uses the YANG data model to create a 'named path constraint' that can be referenced by TE Tunnels.
 The path constraint, in this case, limits the TE Tunnel hops for the computed path.
 
 ~~~
@@ -1221,7 +1399,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Tunnel with Per-tunnel Path Constraint
 
-In this example, the a per tunnel path constraint is explicitly indicated under the TE Tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
+In this example, the a per-tunnel path constraint is explicitly indicated under the TE Tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
 
 ~~~
 POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
