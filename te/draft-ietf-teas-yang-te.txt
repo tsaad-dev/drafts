@@ -5,13 +5,13 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 R. Gandhi
 Intended status: Standards Track                       Cisco Systems Inc
-Expires: 9 April 2026                                             X. Liu
+Expires: 12 April 2026                                            X. Liu
                                                                Alef Edge
                                                             V. P. Beeram
                                                         Juniper Networks
                                                               I. Bryskin
                                                               Individual
-                                                          6 October 2025
+                                                          9 October 2025
 
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths,
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 April 2026.
+   This Internet-Draft will expire on 12 April 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 1]
+Saad, et al.              Expires 12 April 2026                 [Page 1]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -102,20 +102,20 @@ Table of Contents
    Appendix A.  Data Tree Examples . . . . . . . . . . . . . . . . .  87
      A.1.  Basic Tunnel Setup  . . . . . . . . . . . . . . . . . . .  88
      A.2.  Global Named Path Constraints . . . . . . . . . . . . . .  89
-     A.3.  Tunnel with Global Path Constraint  . . . . . . . . . . .  89
-     A.4.  Tunnel with Per-tunnel Path Constraint  . . . . . . . . .  90
-     A.5.  Tunnel State  . . . . . . . . . . . . . . . . . . . . . .  91
-     A.6.  Example TE Tunnel with Primary and Secondary Paths  . . .  92
+     A.3.  Tunnel with Global Path Constraint  . . . . . . . . . . .  90
+     A.4.  Tunnel with Per-tunnel Path Constraint  . . . . . . . . .  91
+     A.5.  Tunnel State  . . . . . . . . . . . . . . . . . . . . . .  92
+     A.6.  Example TE Tunnel with Primary and Secondary Paths  . . .  93
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 2]
+Saad, et al.              Expires 12 April 2026                 [Page 2]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
 
-   Appendix B.  Full Model Tree Diagram  . . . . . . . . . . . . . . 100
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 106
+   Appendix B.  Full Model Tree Diagram  . . . . . . . . . . . . . . 101
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 107
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 3]
+Saad, et al.              Expires 12 April 2026                 [Page 3]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -221,7 +221,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 4]
+Saad, et al.              Expires 12 April 2026                 [Page 4]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -277,7 +277,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 5]
+Saad, et al.              Expires 12 April 2026                 [Page 5]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -333,7 +333,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 6]
+Saad, et al.              Expires 12 April 2026                 [Page 6]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -389,7 +389,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 7]
+Saad, et al.              Expires 12 April 2026                 [Page 7]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -445,7 +445,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 8]
+Saad, et al.              Expires 12 April 2026                 [Page 8]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -501,7 +501,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                  [Page 9]
+Saad, et al.              Expires 12 April 2026                 [Page 9]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -557,7 +557,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 10]
+Saad, et al.              Expires 12 April 2026                [Page 10]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -613,7 +613,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 11]
+Saad, et al.              Expires 12 April 2026                [Page 11]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -669,7 +669,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 12]
+Saad, et al.              Expires 12 April 2026                [Page 12]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -725,7 +725,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 13]
+Saad, et al.              Expires 12 April 2026                [Page 13]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -781,7 +781,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 14]
+Saad, et al.              Expires 12 April 2026                [Page 14]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -837,7 +837,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 15]
+Saad, et al.              Expires 12 April 2026                [Page 15]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -893,7 +893,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 16]
+Saad, et al.              Expires 12 April 2026                [Page 16]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -949,7 +949,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 17]
+Saad, et al.              Expires 12 April 2026                [Page 17]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 18]
+Saad, et al.              Expires 12 April 2026                [Page 18]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 19]
+Saad, et al.              Expires 12 April 2026                [Page 19]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1117,7 +1117,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 20]
+Saad, et al.              Expires 12 April 2026                [Page 20]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 21]
+Saad, et al.              Expires 12 April 2026                [Page 21]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 22]
+Saad, et al.              Expires 12 April 2026                [Page 22]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 23]
+Saad, et al.              Expires 12 April 2026                [Page 23]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 24]
+Saad, et al.              Expires 12 April 2026                [Page 24]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 25]
+Saad, et al.              Expires 12 April 2026                [Page 25]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1453,7 +1453,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 26]
+Saad, et al.              Expires 12 April 2026                [Page 26]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 27]
+Saad, et al.              Expires 12 April 2026                [Page 27]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1565,7 +1565,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 28]
+Saad, et al.              Expires 12 April 2026                [Page 28]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1621,7 +1621,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 29]
+Saad, et al.              Expires 12 April 2026                [Page 29]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1677,7 +1677,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 30]
+Saad, et al.              Expires 12 April 2026                [Page 30]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1733,7 +1733,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 31]
+Saad, et al.              Expires 12 April 2026                [Page 31]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1789,7 +1789,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 32]
+Saad, et al.              Expires 12 April 2026                [Page 32]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1845,7 +1845,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 33]
+Saad, et al.              Expires 12 April 2026                [Page 33]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1901,7 +1901,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 34]
+Saad, et al.              Expires 12 April 2026                [Page 34]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -1957,7 +1957,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 35]
+Saad, et al.              Expires 12 April 2026                [Page 35]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2013,7 +2013,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 36]
+Saad, et al.              Expires 12 April 2026                [Page 36]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2069,7 +2069,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 37]
+Saad, et al.              Expires 12 April 2026                [Page 37]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2125,7 +2125,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 38]
+Saad, et al.              Expires 12 April 2026                [Page 38]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2181,7 +2181,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 39]
+Saad, et al.              Expires 12 April 2026                [Page 39]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2237,7 +2237,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 40]
+Saad, et al.              Expires 12 April 2026                [Page 40]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2293,7 +2293,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 41]
+Saad, et al.              Expires 12 April 2026                [Page 41]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2349,7 +2349,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 42]
+Saad, et al.              Expires 12 April 2026                [Page 42]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2405,7 +2405,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 43]
+Saad, et al.              Expires 12 April 2026                [Page 43]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2461,7 +2461,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 44]
+Saad, et al.              Expires 12 April 2026                [Page 44]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2517,7 +2517,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 45]
+Saad, et al.              Expires 12 April 2026                [Page 45]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2573,7 +2573,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 46]
+Saad, et al.              Expires 12 April 2026                [Page 46]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2629,7 +2629,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 47]
+Saad, et al.              Expires 12 April 2026                [Page 47]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2685,7 +2685,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 48]
+Saad, et al.              Expires 12 April 2026                [Page 48]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2741,7 +2741,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 49]
+Saad, et al.              Expires 12 April 2026                [Page 49]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2797,7 +2797,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 50]
+Saad, et al.              Expires 12 April 2026                [Page 50]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2853,7 +2853,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 51]
+Saad, et al.              Expires 12 April 2026                [Page 51]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2909,7 +2909,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 52]
+Saad, et al.              Expires 12 April 2026                [Page 52]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -2965,7 +2965,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 53]
+Saad, et al.              Expires 12 April 2026                [Page 53]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3021,7 +3021,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 54]
+Saad, et al.              Expires 12 April 2026                [Page 54]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3077,7 +3077,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 55]
+Saad, et al.              Expires 12 April 2026                [Page 55]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3133,7 +3133,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 56]
+Saad, et al.              Expires 12 April 2026                [Page 56]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3189,7 +3189,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 57]
+Saad, et al.              Expires 12 April 2026                [Page 57]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3245,7 +3245,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 58]
+Saad, et al.              Expires 12 April 2026                [Page 58]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3301,7 +3301,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 59]
+Saad, et al.              Expires 12 April 2026                [Page 59]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3357,7 +3357,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 60]
+Saad, et al.              Expires 12 April 2026                [Page 60]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3413,7 +3413,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 61]
+Saad, et al.              Expires 12 April 2026                [Page 61]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3469,7 +3469,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 62]
+Saad, et al.              Expires 12 April 2026                [Page 62]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3525,7 +3525,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 63]
+Saad, et al.              Expires 12 April 2026                [Page 63]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3581,7 +3581,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 64]
+Saad, et al.              Expires 12 April 2026                [Page 64]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3637,7 +3637,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 65]
+Saad, et al.              Expires 12 April 2026                [Page 65]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3693,7 +3693,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 66]
+Saad, et al.              Expires 12 April 2026                [Page 66]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3749,7 +3749,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 67]
+Saad, et al.              Expires 12 April 2026                [Page 67]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3805,7 +3805,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 68]
+Saad, et al.              Expires 12 April 2026                [Page 68]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3861,7 +3861,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 69]
+Saad, et al.              Expires 12 April 2026                [Page 69]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3917,7 +3917,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 70]
+Saad, et al.              Expires 12 April 2026                [Page 70]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -3973,7 +3973,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 71]
+Saad, et al.              Expires 12 April 2026                [Page 71]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4029,7 +4029,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 72]
+Saad, et al.              Expires 12 April 2026                [Page 72]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4085,7 +4085,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 73]
+Saad, et al.              Expires 12 April 2026                [Page 73]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4141,7 +4141,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 74]
+Saad, et al.              Expires 12 April 2026                [Page 74]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4197,7 +4197,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 75]
+Saad, et al.              Expires 12 April 2026                [Page 75]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4253,7 +4253,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 76]
+Saad, et al.              Expires 12 April 2026                [Page 76]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4309,7 +4309,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 77]
+Saad, et al.              Expires 12 April 2026                [Page 77]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4365,7 +4365,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 78]
+Saad, et al.              Expires 12 April 2026                [Page 78]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4421,7 +4421,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 79]
+Saad, et al.              Expires 12 April 2026                [Page 79]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4477,7 +4477,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 80]
+Saad, et al.              Expires 12 April 2026                [Page 80]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4533,7 +4533,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 81]
+Saad, et al.              Expires 12 April 2026                [Page 81]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4589,7 +4589,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 82]
+Saad, et al.              Expires 12 April 2026                [Page 82]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4645,7 +4645,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 83]
+Saad, et al.              Expires 12 April 2026                [Page 83]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4701,7 +4701,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 84]
+Saad, et al.              Expires 12 April 2026                [Page 84]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4757,7 +4757,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 85]
+Saad, et al.              Expires 12 April 2026                [Page 85]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4813,7 +4813,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 86]
+Saad, et al.              Expires 12 April 2026                [Page 86]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4869,7 +4869,7 @@ Appendix A.  Data Tree Examples
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 87]
+Saad, et al.              Expires 12 April 2026                [Page 87]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -4900,6 +4900,36 @@ A.1.  Basic Tunnel Setup
    In this case, the TE Tunnel is created without specifying additional
    information about the primary paths.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 12 April 2026                [Page 88]
+
+Internet-Draft             TE YANG Data Model               October 2025
+
+
    POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
        Host: example.com
        Accept: application/yang-data+json
@@ -4919,16 +4949,19 @@ A.1.  Basic Tunnel Setup
      ]
    }
 
-
-
-
-
-
-
-Saad, et al.              Expires 9 April 2026                 [Page 88]
-
-Internet-Draft             TE YANG Data Model               October 2025
-
+   {
+     "ietf-te:tunnel": [
+       {
+         "name": "Example_LSP_Tunnel_A_2 (IPv6)",
+         "encoding": "te-types:lsp-encoding-packet",
+         "admin-state": "te-types:tunnel-state-up",
+         "source": "2001:db8::1",
+         "destination": "2001:db8::4",
+         "bidirectional": "false",
+         "signaling-type": "te-types:path-setup-rsvp"
+       }
+     ]
+   }
 
 A.2.  Global Named Path Constraints
 
@@ -4936,6 +4969,22 @@ A.2.  Global Named Path Constraints
    constraint' that can be referenced by TE Tunnels.  The path
    constraint, in this case, limits the TE Tunnel hops for the computed
    path.
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.              Expires 12 April 2026                [Page 89]
+
+Internet-Draft             TE YANG Data Model               October 2025
+
 
    POST /restconf/data/ietf-te:te/globals/named-path-constraints
         HTTP/1.1
@@ -4981,7 +5030,14 @@ A.3.  Tunnel with Global Path Constraint
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 89]
+
+
+
+
+
+
+
+Saad, et al.              Expires 12 April 2026                [Page 90]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5000,7 +5056,7 @@ Internet-Draft             TE YANG Data Model               October 2025
          "admin-state": "te-types:tunnel-state-up",
          "source": "192.0.2.1",
          "destination": "192.0.2.4",
-         "signaling-type": "path-setup-rsvp",
+         "signaling-type": "te-types:path-setup-rsvp",
          "primary-paths": [
            {
              "primary-path": {
@@ -5037,7 +5093,7 @@ A.4.  Tunnel with Per-tunnel Path Constraint
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 90]
+Saad, et al.              Expires 12 April 2026                [Page 91]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5093,7 +5149,7 @@ A.5.  Tunnel State
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 91]
+Saad, et al.              Expires 12 April 2026                [Page 92]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5149,7 +5205,7 @@ A.6.  Example TE Tunnel with Primary and Secondary Paths
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 92]
+Saad, et al.              Expires 12 April 2026                [Page 93]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5205,7 +5261,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 93]
+Saad, et al.              Expires 12 April 2026                [Page 94]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5261,7 +5317,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 94]
+Saad, et al.              Expires 12 April 2026                [Page 95]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5317,7 +5373,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 95]
+Saad, et al.              Expires 12 April 2026                [Page 96]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5373,7 +5429,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 96]
+Saad, et al.              Expires 12 April 2026                [Page 97]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5429,7 +5485,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 97]
+Saad, et al.              Expires 12 April 2026                [Page 98]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5485,7 +5541,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 98]
+Saad, et al.              Expires 12 April 2026                [Page 99]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5541,7 +5597,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                 [Page 99]
+Saad, et al.              Expires 12 April 2026               [Page 100]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5597,7 +5653,7 @@ Appendix B.  Full Model Tree Diagram
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 100]
+Saad, et al.              Expires 12 April 2026               [Page 101]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5653,7 +5709,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 101]
+Saad, et al.              Expires 12 April 2026               [Page 102]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5709,7 +5765,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 102]
+Saad, et al.              Expires 12 April 2026               [Page 103]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5765,7 +5821,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 103]
+Saad, et al.              Expires 12 April 2026               [Page 104]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5821,7 +5877,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 104]
+Saad, et al.              Expires 12 April 2026               [Page 105]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5877,7 +5933,7 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 105]
+Saad, et al.              Expires 12 April 2026               [Page 106]
 
 Internet-Draft             TE YANG Data Model               October 2025
 
@@ -5933,4 +5989,4 @@ Authors' Addresses
 
 
 
-Saad, et al.              Expires 9 April 2026                [Page 106]
+Saad, et al.              Expires 12 April 2026               [Page 107]

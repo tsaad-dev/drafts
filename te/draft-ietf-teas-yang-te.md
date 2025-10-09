@@ -1336,6 +1336,21 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
     }
   ]
 }
+
+{
+  "ietf-te:tunnel": [
+    {
+      "name": "Example_LSP_Tunnel_A_2 (IPv6)",
+      "encoding": "te-types:lsp-encoding-packet",
+      "admin-state": "te-types:tunnel-state-up",
+      "source": "2001:db8::1",
+      "destination": "2001:db8::4",
+      "bidirectional": "false",
+      "signaling-type": "te-types:path-setup-rsvp"
+    }
+  ]
+}
+
 ~~~
 
 ## Global Named Path Constraints
@@ -1382,7 +1397,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
       "admin-state": "te-types:tunnel-state-up",
       "source": "192.0.2.1",
       "destination": "192.0.2.4",
-      "signaling-type": "path-setup-rsvp",
+      "signaling-type": "te-types:path-setup-rsvp",
       "primary-paths": [
         {
           "primary-path": {
