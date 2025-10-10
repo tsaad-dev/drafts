@@ -359,60 +359,35 @@ formed of the path constraints shown in {{fig-named-constraints}}:
 ~~~~~
 {: #fig-named-constraints title="Named path constraints YANG subtree"}
 
-
->>
-- name: A YANG leaf that holds the named path constraint entry. This is unique in the list
-and used as a key.
->>
+>
+- name: A YANG leaf that holds the named path constraint entry. This is unique in the list and used as a key.
 - te-bandwidth: A YANG container that holds the technology agnostic TE bandwidth constraint.
->>
 - link-protection: A YANG leaf that holds the link protection type constraint required for the links to be included in the computed path.
->>
 - setup/hold priority: YANG leafs that hold the LSP setup and hold admission priority as defined in {{?RFC3209}}.
->>
 - signaling-type: A YANG leaf that holds the LSP setup type, such as RSVP-TE or SR.
->>
 - path-metric-bounds: A YANG container that holds the set of metric bounds applicable on the
 computed TE tunnel path.
->>
 - path-affinities-values: A YANG container that holds the set of affinity values and
 mask to be used during path computation.
->>
 - path-affinity-names: A YANG container that holds the set of named affinity constraints and
 corresponding inclusion or exclusion instructions for each to be used during path computation.
->>
 - path-srlgs-lists: A YANG container that holds the set of SRLG values and
 corresponding inclusion or exclusion instructions to be used during path computation.
->>
 - path-srlgs-names: A YANG container that holds the set of named SRLG constraints and
 corresponding inclusion or exclusion instructions for each to be used during path computation.
->>
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
->>
 - explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in the following two lists:
-    * 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list
-during path computation is not order sensitive.
-    * 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude)
-is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry
-constraint is consumed from this list, it is not considered any further in the computation of the TE path.
-The 'route-object-include-exclude' is used to configure constraints on which
-route objects (e.g., nodes, links) are included or excluded in the path
-computation.  The interpretation of an empty 'route-object-include-exclude'
-list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the
-specific path, according to the following rules:
-
->>>>
-1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
-2. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
-3. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
-4. An empty 'route-object-include-exclude' list for the secondary (forward) path of a TE Tunnel segment indicates that the secondary path has the same endpoints as the primary path.
->>
+    - 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list during path computation is not order sensitive.
+    - 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path. The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.  The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
+        1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
+        1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
+        1. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
+        1. An empty 'route-object-include-exclude' list for the secondary (forward) path of a TE Tunnel segment indicates that the secondary path has the same endpoints as the primary path.
 - path-in-segment: A YANG container that contains a list of label restrictions
   that have to be taken into considerations when stitching to another tunnel
   segment such as at a domain boundary.  The TE tunnel segment in this case
   is being stitched to the upstream TE tunnel segment.
->>
 - path-out-segment: A YANG container that contains a list of label restrictions
   that have to be taken into considerations when stitching to another tunnel
   segment such as at a domain boundary.  The TE tunnel segment in this case
@@ -891,7 +866,7 @@ managing a TE device.  This module augments the generic TE YANG module.
 ## Module Structure
 
 The 'ietf-te-device' modufle defines the configuration and operational state data
-that is specific, including those related to the TE subsystem, tunnels, LSPs, and interfaces.
+that is specific to the device, including those related to the TE subsystem, tunnels, LSPs, and interfaces.
 
 ### TE Device Globals, Tunnels and LSPs
 
@@ -906,7 +881,7 @@ augmentations.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev-01.tree}
 ~~~~~~~~~~~
-{: #fig-if-te-01 title="TE Device Augmentations to Globals, Tunnels, and LSPs YANG Subtree."}
+{: #fig-if-te-01 title="TE Device Augmentations to Globals, Tunnels, and LSPs YANG Subtree"}
 
 The following is the description of the augmented data at each level.
 
