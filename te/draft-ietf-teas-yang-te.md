@@ -379,9 +379,13 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 of a TE tunnel has to adhere to.
 - explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in the following two lists:
     - 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list during path computation is not order sensitive.
-    - 'route-object-include-exclude': a list of route entries to include or exclude route entry constraints for the path computation. The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path. The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.  The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
+    - 'route-object-include-exclude':
+    : a list of route entries to include or exclude for the path computation.
+    : The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path.
+    : The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
+    : The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
         1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
-        1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel.
+        1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel Segement.
         1. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
         1. An empty 'route-object-include-exclude' list for the secondary (forward) path of a TE Tunnel segment indicates that the secondary path has the same endpoints as the primary path.
 - path-in-segment: A YANG container that contains a list of label restrictions
@@ -1302,12 +1306,16 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
   "ietf-te:tunnel": [
     {
       "name": "Example_LSP_Tunnel_A_2",
-      "encoding": "te-types:lsp-encoding-packet",
-      "admin-state": "te-types:tunnel-state-up",
-      "source": "192.0.2.1",
-      "destination": "192.0.2.4",
-      "bidirectional": "false",
-      "signaling-type": "te-types:path-setup-rsvp"
+      "admin-state": "ietf-te-types:tunnel-admin-state-up",
+      "encoding": "ietf-te-types:lsp-encoding-packet",
+      "source": {
+        "te-node-id": "192.0.2.1"
+      },
+      "destination": {
+        "te-node-id": "192.0.2.4"
+      },
+      "bidirectional": false,
+      "signaling-type": "ietf-te-types:path-setup-rsvp"
     }
   ]
 }
@@ -1316,12 +1324,16 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
   "ietf-te:tunnel": [
     {
       "name": "Example_LSP_Tunnel_A_2 (IPv6)",
-      "encoding": "te-types:lsp-encoding-packet",
-      "admin-state": "te-types:tunnel-state-up",
-      "source": "2001:db8::1",
-      "destination": "2001:db8::4",
-      "bidirectional": "false",
-      "signaling-type": "te-types:path-setup-rsvp"
+      "admin-state": "ietf-te-types:tunnel-admin-state-up",
+      "encoding": "ietf-te-types:lsp-encoding-packet",
+      "source": {
+        "te-node-id": "2001:db8::1"
+      },
+      "destination": {
+        "te-node-id": "2001:db8::4"
+      },
+      "bidirectional": false,
+      "signaling-type": "ietf-te-types:path-setup-rsvp"
     }
   ]
 }
@@ -1340,16 +1352,20 @@ POST /restconf/data/ietf-te:te/globals/named-path-constraints
     Accept: application/yang-data+json
     Content-Type: application/yang-data+json
 
-
-  "ietf-te:named-path-constraint": {
-          "name": "max-hop-3",
-          "path-metric-bounds": {
-            "path-metric-bound": {
-              "metric-type": "te-types:path-metric-hop",
-              "upper-bound": "3"
+{
+  "ietf-te:named-path-constraint": [
+    {
+      "name": "max-hop-3",
+      "path-metric-bounds": {
+        "path-metric-bound": [
+          {
+            "metric-type": "ietf-te-types:path-metric-hop",
+            "upper-bound": "3"
+          }
+        ]
+      }
     }
-   }
-  }
+  ]
 }
 ~~~
 
@@ -1364,24 +1380,29 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
     Content-Type: application/yang-data+json
 
 {
-  "ietf-te:ietf-tunnel": [
+  "ietf-te:tunnel": [
     {
       "name": "Example_LSP_Tunnel_A_4_1",
-      "encoding": "te-types:lsp-encoding-packet",
       "description": "Simple_LSP_with_named_path",
-      "admin-state": "te-types:tunnel-state-up",
-      "source": "192.0.2.1",
-      "destination": "192.0.2.4",
-      "signaling-type": "te-types:path-setup-rsvp",
-      "primary-paths": [
-        {
-          "primary-path": {
+      "admin-state": "ietf-te-types:tunnel-admin-state-up",
+      "encoding": "ietf-te-types:lsp-encoding-packet",
+      "source": {
+        "te-node-id": "192.0.2.1"
+      },
+      "destination": {
+        "te-node-id": "192.0.2.4"
+      },
+      "signaling-type": "ietf-te-types:path-setup-rsvp",
+      "primary-paths": {
+        "primary-path": [
+          {
             "name": "Simple_LSP_1",
-            "use-path-computation": "true",
+            "use-path-computation": true,
+            "path-scope": "ietf-te-types:path-scope-end-to-end",
             "named-path-constraint": "max-hop-3"
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
@@ -1401,19 +1422,25 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
   "ietf-te:tunnel": [
     {
       "name": "Example_LSP_Tunnel_A_4_2",
-      "encoding": "te-types:lsp-encoding-packet",
-      "admin-state": "te-types:tunnel-state-up",
-      "source": "192.0.2.1",
-      "destination": "192.0.2.4",
-      "signaling-type": "te-types:path-setup-rsvp",
+      "admin-state": "ietf-te-types:tunnel-admin-state-up",
+      "encoding": "ietf-te-types:lsp-encoding-packet",
+      "source": {
+        "te-node-id": "192.0.2.1"
+      },
+      "destination": {
+        "te-node-id": "192.0.2.4"
+      },
+      "bidirectional": false,
+      "signaling-type": "ietf-te-types:path-setup-rsvp",
       "primary-paths": {
         "primary-path": [
           {
             "name": "path1",
+            "path-scope": "ietf-te-types:path-scope-end-to-end",
             "path-metric-bounds": {
               "path-metric-bound": [
                 {
-                  "metric-type": "te-types:path-metric-hop",
+                  "metric-type": "ietf-te-types:path-metric-hop",
                   "upper-bound": "3"
                 }
               ]
@@ -1442,48 +1469,49 @@ The request, with status code 200 would include, for example, the following json
 
 ~~~
 {
-  "ietf-te:primary-paths": {
-    "primary-path": [
-      {
-        "name": "path1",
-        "path-computation-method": "te-types:path-locally-computed",
-        "computed-paths-properties": {
-          "computed-path-properties": [
-            {
-              "k-index": "1",
-              "path-properties": {
-                "path-route-objects": {
-                  "path-route-object": [
-                    {
-                      "index": "1",
-                      "numbered-node-hop": {
-                        "node-id": "192.0.2.2"
-                      }
-                    },
-                    {
-                      "index": "2",
-                      "numbered-node-hop": {
-                        "node-id": "192.0.2.4"
-                      }
+  "ietf-te:primary-path": [
+    {
+      "name": "path1",
+      "path-computation-method": "ietf-te-types:path-locally-computed",
+      "path-scope": "ietf-te-types:path-scope-end-to-end",
+      "computed-paths-properties": {
+        "computed-path-properties": [
+          {
+            "k-index": 1,
+            "path-properties": {
+              "path-route-objects": {
+                "path-route-object": [
+                  {
+                    "index": 1,
+                    "numbered-node-hop": {
+                      "node-id": "192.0.2.2",
+                      "hop-type": "strict"
                     }
-                  ]
-                }
+                  },
+                  {
+                    "index": 2,
+                    "numbered-node-hop": {
+                      "node-id": "192.0.2.4",
+                      "hop-type": "strict"
+                    }
+                  }
+                ]
               }
             }
-          ]
-        },
-        "lsps": {
-          "lsp": [
-            {
-              "tunnel-name": "Example_LSP_Tunnel_A_4_1",
-              "node": "192.0.2.1 ",
-              "lsp-id": "25356"
-            }
-          ]
-        }
+          }
+        ]
+      },
+      "lsps": {
+        "lsp": [
+          {
+            "node": "192.0.2.1",
+            "lsp-id": 25356,
+            "tunnel-name": "Example_LSP_Tunnel_A_4_1"
+          }
+        ]
       }
-    ]
-  }
+    }
+  ]
 }
 ~~~
 
@@ -1524,18 +1552,25 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
         {
           "name": "example-1",
           "description": "Example in slide 1",
-          "source": "192.0.2.1",
-          "destination": "192.0.2.5",
-          "bidirectional": false,
+          "source": {
+            "te-node-id": "192.0.2.1"
+          },
+          "destination": {
+            "te-node-id": "192.0.2.5"
+          },
+          "bidirectional": true,
           "primary-paths": {
             "primary-path": [
               {
                 "name": "primary-1 (fwd)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": false,
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1545,11 +1580,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                 },
                 "primary-reverse-path": {
                   "name": "primary-2 (rev)",
+                  "path-scope": "ietf-te-types:path-scope-end-to-end",
                   "explicit-route-objects": {
                     "route-object-include-exclude": [
                       {
                         "index": 1,
-                        "explicit-route-usage" : "route-include-object",
+                        "explicit-route-usage":
+                          "ietf-te-types:route-include-object",
                         "numbered-node-hop": {
                           "node-id": "192.0.2.3",
                           "hop-type": "loose"
@@ -1559,16 +1596,26 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                   },
                   "candidate-secondary-reverse-paths": {
                     "candidate-secondary-reverse-path": [
-                      "secondary-3 (rev)",
-                      "secondary-4 (rev)",
-                      "secondary-5 (rev)"
+                      {
+                        "secondary-reverse-path": "secondary-3 (rev)"
+                      },
+                      {
+                        "secondary-reverse-path": "secondary-4 (rev)"
+                      },
+                      {
+                        "secondary-reverse-path": "secondary-5 (rev)"
+                      }
                     ]
                   }
                 },
                 "candidate-secondary-paths": {
                   "candidate-secondary-path": [
-                    "secondary-1 (fwd)",
-                    "secondary-2 (fwd)"
+                    {
+                      "secondary-path": "secondary-1 (fwd)"
+                    },
+                    {
+                      "secondary-path": "secondary-2 (fwd)"
+                    }
                   ]
                 }
               }
@@ -1578,11 +1625,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-path": [
               {
                 "name": "secondary-1 (fwd)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1599,11 +1648,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-2 (fwd)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage": 
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1624,11 +1675,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-reverse-path": [
               {
                 "name": "secondary-3 (rev)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.5"
                       }
@@ -1645,11 +1698,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-4 (rev)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.4"
                       }
@@ -1666,11 +1721,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-5 (rev)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.3"
                       }
@@ -1679,7 +1736,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                       "index": 2,
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1",
-                        "hop-type":"loose"
+                        "hop-type": "loose"
                       }
                     }
                   ]
@@ -1691,18 +1748,25 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
         {
           "name": "example-3",
           "description": "Example in slide 3",
-          "source": "192.0.2.1",
-          "destination": "192.0.2.5",
+          "source": {
+            "te-node-id": "192.0.2.1"
+          },
+          "destination": {
+            "te-node-id": "192.0.2.5"
+          },
           "bidirectional": true,
           "primary-paths": {
             "primary-path": [
               {
                 "name": "primary-1 (bidir)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1710,10 +1774,17 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     }
                   ]
                 },
+                "primary-reverse-path": {
+                  "path-scope": "ietf-te-types:path-scope-end-to-end"
+                },
                 "candidate-secondary-paths": {
                   "candidate-secondary-path": [
-                    "secondary-1 (bidir)",
-                    "secondary-2 (bidir)"
+                    {
+                      "secondary-path": "secondary-1 (bidir)"
+                    },
+                    {
+                      "secondary-path": "secondary-2 (bidir)"
+                    }
                   ]
                 }
               }
@@ -1723,11 +1794,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-path": [
               {
                 "name": "secondary-1 (bidir)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1744,11 +1817,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-2 (bidir)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1769,19 +1844,25 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
         {
           "name": "example-4",
           "description": "Example in slide 4",
-          "source": "192.0.2.1",
-          "destination": "192.0.2.5",
-          "bidirectional": false,
+          "source": {
+            "te-node-id": "192.0.2.1"
+          },
+          "destination": {
+            "te-node-id": "192.0.2.5"
+          },
+          "bidirectional": true,
           "primary-paths": {
             "primary-path": [
               {
                 "name": "primary-1 (fwd)",
-                "co-routed": [null],
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1791,17 +1872,26 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                 },
                 "primary-reverse-path": {
                   "name": "primary-2 (rev)",
+                  "path-scope": "ietf-te-types:path-scope-end-to-end",
                   "candidate-secondary-reverse-paths": {
                     "candidate-secondary-reverse-path": [
-                      "secondary-3 (rev)",
-                      "secondary-4 (rev)"
+                      {
+                        "secondary-reverse-path": "secondary-3 (rev)"
+                      },
+                      {
+                        "secondary-reverse-path": "secondary-4 (rev)"
+                      }
                     ]
                   }
                 },
                 "candidate-secondary-paths": {
                   "candidate-secondary-path": [
-                    "secondary-1 (fwd)",
-                    "secondary-2 (fwd)"
+                    {
+                      "secondary-path": "secondary-1 (fwd)"
+                    },
+                    {
+                      "secondary-path": "secondary-2 (fwd)"
+                    }
                   ]
                 }
               }
@@ -1811,12 +1901,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
             "secondary-path": [
               {
                 "name": "secondary-1 (fwd)",
-                "co-routed": [null],
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1833,12 +1924,13 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
               },
               {
                 "name": "secondary-2 (fwd)",
-                "co-routed": [null],
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
                 "explicit-route-objects": {
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage" : "route-include-object",
+                      "explicit-route-usage":
+                        "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1858,10 +1950,250 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
           "secondary-reverse-paths": {
             "secondary-reverse-path": [
               {
-                "name": "secondary-3 (rev)"
+                "name": "secondary-3 (rev)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end"
               },
               {
-                "name": "secondary-4 (rev)"
+                "name": "secondary-4 (rev)",
+                "path-scope": "ietf-te-types:path-scope-end-to-end"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+~~~
+
+
+## Example Multi-domain TE Tunnel with Primary and Secondary Paths
+
+~~~
+                2  +------------+  3               
+                /--|  Domain 2  |--\               
+        1  /----   +------------+   ---\ 4         
++------------+                        +------------+
+|  Domain 1  |                        |  Domain 3  |
++------------+                        +------------+
+        5  \---    +------------+   ---/ 8         
+                \--|  Domain 4  |--/               
+                6  +------------+  7               
+~~~
+{: #AppFig-Topo3 title="TE network used in the multi-domain TE Tunnel example"}
+
+The following state is retrieved for a multi-domain TE tunnel, where both the
+primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-Topo3}}.
+ In each domain, a TE tunnel segment is established to form the complete end-to-end TE path.
+
+~~~
+{
+  "ietf-te:te": {
+    "tunnels": {
+      "tunnel": [
+        {
+          "name": "Example_Head_End_Tunnel_Segment",
+          "admin-state": "ietf-te-types:tunnel-admin-state-up",
+          "encoding": "ietf-te-types:lsp-encoding-packet",
+          "source": {
+            "te-node-id": "192.0.2.100"
+          },
+          "bidirectional": true,
+          "signaling-type": "ietf-te-types:path-setup-rsvp",
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-path-1",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.1"
+                      }
+                    }
+                  ]
+                },
+                "primary-reverse-path": {
+                  "path-scope": "ietf-te-types:path-scope-end-to-end"
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    {
+                      "secondary-path": "secondary-path-1"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-path-1",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.5"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Example_Primary_Transit_Tunnel_Segment",
+          "admin-state": "ietf-te-types:tunnel-admin-state-up",
+          "encoding": "ietf-te-types:lsp-encoding-packet",
+          "bidirectional": true,
+          "signaling-type": "ietf-te-types:path-setup-rsvp",
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-path-2",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.2"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.3"
+                      }
+                    }
+                  ]
+                },
+                "primary-reverse-path": {
+                  "path-scope": "ietf-te-types:path-scope-end-to-end"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Example_Secondary_Transit_Tunnel_Segment",
+          "admin-state": "ietf-te-types:tunnel-admin-state-up",
+          "encoding": "ietf-te-types:lsp-encoding-packet",
+          "bidirectional": true,
+          "signaling-type": "ietf-te-types:path-setup-rsvp",
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-path-4",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
+                "primary-reverse-path": {
+                  "path-scope": "ietf-te-types:path-scope-end-to-end"
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    {
+                      "secondary-path": "secondary-path-4"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-path-4",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.6"
+                      }
+                    },
+                    {
+                      "index": 2,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.7"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Example_Tail_End_Tunnel_Segment",
+          "admin-state": "ietf-te-types:tunnel-admin-state-up",
+          "encoding": "ietf-te-types:lsp-encoding-packet",
+          "destination": {
+            "te-node-id": "192.0.2.200"
+          },
+          "bidirectional": true,
+          "signaling-type": "ietf-te-types:path-setup-rsvp",
+          "primary-paths": {
+            "primary-path": [
+              {
+                "name": "primary-path-3",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "co-routed": true,
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.4"
+                      }
+                    }
+                  ]
+                },
+                "primary-reverse-path": {
+                  "path-scope": "ietf-te-types:path-scope-end-to-end"
+                },
+                "candidate-secondary-paths": {
+                  "candidate-secondary-path": [
+                    {
+                      "secondary-path": "secondary-path-3"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "secondary-paths": {
+            "secondary-path": [
+              {
+                "name": "secondary-path-3",
+                "path-scope": "ietf-te-types:path-scope-end-to-end",
+                "explicit-route-objects": {
+                  "route-object-include-exclude": [
+                    {
+                      "index": 1,
+                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "numbered-link-hop": {
+                        "link-tp-id": "192.0.2.8"
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
