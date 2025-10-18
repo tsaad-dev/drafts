@@ -379,11 +379,10 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 of a TE tunnel has to adhere to.
 - explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in the following two lists:
     - 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list during path computation is not order sensitive. The route entries in this list have a 'strict' hop-type as described in {{?RFC4874}} section 3.1.
-    - 'route-object-include-exclude':
-    : a list of route entries to include or exclude for the path computation. For route entries in this list that are to be excluded, the hop-type is only allowed to be 'strict' as described in {{?RFC4874}} section 3.1.
-    : The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path.
-    : The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
-    : The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
+    - 'route-object-include-exclude': a list of route entries to include or exclude for the path computation. For route entries in this list that are to be excluded, the hop-type is only allowed to be 'strict' as described in {{?RFC4874}} section 3.1.\\
+      The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path.\\
+      The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.\\
+      The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:\\
         1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
         1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel Segement.
         1. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.

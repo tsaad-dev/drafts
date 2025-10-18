@@ -608,7 +608,7 @@ Internet-Draft             TE YANG Data Model               October 2025
             this list have a 'strict' hop-type as described in [RFC4874]
             section 3.1.
 
-         o  'route-object-include-exclude':  a list of route entries to
+
 
 
 
@@ -618,26 +618,24 @@ Saad, et al.              Expires 20 April 2026                [Page 11]
 Internet-Draft             TE YANG Data Model               October 2025
 
 
-               include or exclude for the path computation.  For route
-               entries in this list that are to be excluded, the hop-
-               type is only allowed to be 'strict' as described in
-               [RFC4874] section 3.1.
-
-               The constraint type (include or exclude) is specified
-               with each route entry.  The path computation considers
-               route entry constraints in the order they appear in this
-               list.  Once a route entry constraint is consumed from
-               this list, it is not considered any further in the
-               computation of the TE path.
-
-               The 'route-object-include-exclude' is used to configure
-               constraints on which route objects (e.g., nodes, links)
-               are included or excluded in the path computation.
-
-               The interpretation of an empty 'route-object-include-
-               exclude' list depends on the TE Tunnel (end-to-end or
-               Tunnel Segment) and on the specific path, according to
-               the following rules:
+         o  'route-object-include-exclude': a list of route entries to
+            include or exclude for the path computation.  For route
+            entries in this list that are to be excluded, the hop-type
+            is only allowed to be 'strict' as described in [RFC4874]
+            section 3.1.
+            The constraint type (include or exclude) is specified with
+            each route entry.  The path computation considers route
+            entry constraints in the order they appear in this list.
+            Once a route entry constraint is consumed from this list, it
+            is not considered any further in the computation of the TE
+            path.
+            The 'route-object-include-exclude' is used to configure
+            constraints on which route objects (e.g., nodes, links) are
+            included or excluded in the path computation.
+            The interpretation of an empty 'route-object-include-
+            exclude' list depends on the TE Tunnel (end-to-end or Tunnel
+            Segment) and on the specific path, according to the
+            following rules:
 
             1.  An empty 'route-object-include-exclude' list for the
                 primary path of an end-to-end TE Tunnel indicates that
@@ -664,6 +662,8 @@ Internet-Draft             TE YANG Data Model               October 2025
          stitching to another tunnel segment such as at a domain
          boundary.  The TE tunnel segment in this case is being stitched
          to the upstream TE tunnel segment.
+
+
 
 
 
