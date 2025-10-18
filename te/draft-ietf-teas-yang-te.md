@@ -378,9 +378,9 @@ corresponding inclusion or exclusion instructions for each to be used during pat
 - disjointness: The level of resource disjointness constraint that the secondary path
 of a TE tunnel has to adhere to.
 - explicit-route-objects: A YANG container that holds path constraints in the form of route entries present in the following two lists:
-    - 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list during path computation is not order sensitive.
+    - 'route-object-exclude-always': a list of route entries that are always excluded from the path computation. The exclusion of a route entry in this list during path computation is not order sensitive. The route entries in this list have a 'strict' hop-type as described in {{?RFC4874}} section 3.1.
     - 'route-object-include-exclude':
-    : a list of route entries to include or exclude for the path computation.
+    : a list of route entries to include or exclude for the path computation. For route entries in this list that are to be excluded, the hop-type is only allowed to be 'strict' as described in {{?RFC4874}} section 3.1.
     : The constraint type (include or exclude) is specified with each route entry. The path computation considers route entry constraints in the order they appear in this list. Once a route entry constraint is consumed from this list, it is not considered any further in the computation of the TE path.
     : The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.
     : The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:
@@ -1570,7 +1570,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1586,7 +1586,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                       {
                         "index": 1,
                         "explicit-route-usage":
-                          "ietf-te-types:route-include-object",
+                        "ietf-te-types:route-include-object",
                         "numbered-node-hop": {
                           "node-id": "192.0.2.3",
                           "hop-type": "loose"
@@ -1631,7 +1631,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1654,7 +1654,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage": 
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1681,7 +1681,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.5"
                       }
@@ -1704,7 +1704,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.4"
                       }
@@ -1727,7 +1727,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.3"
                       }
@@ -1766,7 +1766,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1800,7 +1800,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1823,7 +1823,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1862,7 +1862,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2",
                         "hop-type": "loose"
@@ -1907,7 +1907,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.1"
                       }
@@ -1930,7 +1930,7 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
                     {
                       "index": 1,
                       "explicit-route-usage":
-                        "ietf-te-types:route-include-object",
+                      "ietf-te-types:route-include-object",
                       "numbered-node-hop": {
                         "node-id": "192.0.2.2"
                       }
@@ -1970,21 +1970,40 @@ with primary, secondary, reverse, and secondary reverse paths as shown in {{AppF
 ## Example Multi-domain TE Tunnel with Primary and Secondary Paths
 
 ~~~
-                2  +------------+  3               
-                /--|  Domain 2  |--\               
-        1  /----   +------------+   ---\ 4         
-+------------+                        +------------+
-|  Domain 1  |                        |  Domain 3  |
-+------------+                        +------------+
-        5  \---    +------------+   ---/ 8         
-                \--|  Domain 4  |--/               
-                6  +------------+  7               
+                            XXXXXXX
+                         XXX       XXX
+                       XX             XX
+                     X                  X
+                     X    Domain 2      X
+            XXXXXXX   X                X    XXXXXXXX
+         XXX    +-----------+    +-----------+      XXX
+       XX       | 192.0.2.1 |    | 192.0.2.2 |         XX
+      X         +-----------+    +-----------+           X
+      X                 X   XXXXXX    X                  X
++-----------+           X             X             +-----------+
+|192.0.2.100| Domain 1  X             X   Domain 3  |192.0.2.200|
++-----------+           X   XXXXXX    X             +-----------+
+      X         +-----------+    +-----------+           X
+      X         | 192.0.2.3 |    | 192.0.2.4 |          X
+       XX       +-----------+    +-----------+        XX
+         XXX       X  X                  XXX       XXX
+            XXXXXXX  X                    X  XXXXXXX
+                     X                    X
+                     X    Domain 4        X
+                       XX             XX
+                         XXX       XXX
+                            XXXXXXX
+
 ~~~
 {: #AppFig-Topo3 title="TE network used in the multi-domain TE Tunnel example"}
 
 The following state is retrieved for a multi-domain TE tunnel, where both the
 primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-Topo3}}.
- In each domain, a TE tunnel segment is established to form the complete end-to-end TE path.
+In each domain, a TE tunnel segment is established to form the complete end-to-end TE path.
+The nodes (192.0.2.100) and (192.0.2.200) form the multi-domain end-to-end source and destination
+respectively. The nodes (192.0.2.1), (192.0.2.2), (192.0.2.3), and (192.0.2.4) act as domain
+border nodes and transit nodes for the end-to-end TE tunnel LSPs.
+
 
 ~~~
 {
@@ -2010,7 +2029,8 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
                         "link-tp-id": "192.0.2.1"
                       }
@@ -2039,9 +2059,10 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.5"
+                        "link-tp-id": "192.0.2.3"
                       }
                     }
                   ]
@@ -2066,16 +2087,18 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.2"
+                        "link-tp-id": "192.0.2.1"
                       }
                     },
                     {
                       "index": 2,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.3"
+                        "link-tp-id": "192.0.2.2"
                       }
                     }
                   ]
@@ -2121,16 +2144,18 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.6"
+                        "link-tp-id": "192.0.2.3"
                       }
                     },
                     {
                       "index": 2,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.7"
+                        "link-tp-id": "192.0.2.4"
                       }
                     }
                   ]
@@ -2158,9 +2183,10 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.4"
+                        "link-tp-id": "192.0.2.2"
                       }
                     }
                   ]
@@ -2187,9 +2213,10 @@ primary and secondary paths consist of TE tunnel segments, as shown in {{AppFig-
                   "route-object-include-exclude": [
                     {
                       "index": 1,
-                      "explicit-route-usage": "ietf-te-types:route-include-object",
+                      "explicit-route-usage":
+                      "ietf-te-types:route-include-object",
                       "numbered-link-hop": {
-                        "link-tp-id": "192.0.2.8"
+                        "link-tp-id": "192.0.2.4"
                       }
                     }
                   ]
