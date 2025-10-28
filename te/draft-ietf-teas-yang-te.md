@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths, and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-39
+docname: draft-ietf-teas-yang-te-40
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -178,7 +178,7 @@ IETF YANG data models.
 
 # Model Overview
 
-The data models defined in this document cover the core TE features that are
+The data model defined in this document cover the core TE features that are
 commonly supported by different vendor implementations. The support of extended
 or vendor specific TE features is expected to either be in augmentations, or
 deviations to this model that are defined in separate documents.
@@ -186,12 +186,12 @@ deviations to this model that are defined in separate documents.
 
 ## Module Relationship
 
-The generic TE YANG data model defined in the 'ietf-te' module covers the
-building blocks that are device independent and agnostic of any specific
-technology or control plane instances. The TE device YANG data model defined in
-the 'ietf-te-device' module augments the 'ietf-te' module and covers data
-that is specific to a device --  for example, attributes of TE interfaces, or
-TE timers that are local to a TE node.
+The generic TE YANG data model, defined in the 'ietf-te' YANG module, provides
+device-independent building blocks that are agnostic of specific technologies
+or control plane instances. The TE device YANG data model, defined in the
+'ietf-te-device' YANG module, augments the 'ietf-te' YANG module as illustrated in
+{{figctrl}} by including device-specific data such as TE interface attributes and
+local TE node timers.
 
 The TE data models for specific instances of data plane technology and
 signaling protocols are outside the scope of this document.  They could be
@@ -400,7 +400,7 @@ of a TE tunnel has to adhere to.
 ### TE Tunnels {#TE_TUNNELS}
 
 The 'tunnels' container holds the list of TE Tunnels that are provisioned on
-ingress Label Egress Router (LER) devices in the network as shown in {{fig-te-tunnel}}.
+ingress router devices in the network as shown in {{fig-te-tunnel}}.
 
 ~~~~~~~~~~~
 
@@ -697,9 +697,9 @@ and other methods are used to choose between them.
 
 k-requested-paths:
 
-> A YANG leaf that specifies the number of k-shortest-paths requested from the path
-computation server and returned sorted by its optimization
-objective.
+> A YANG leaf that specifies the number of k-shortest paths requested from the path
+  computation server, which are returned in order based on their computed optimization
+  objective costs.
 
 association-objects:
 
@@ -850,13 +850,13 @@ The generic TE YANG module 'ietf-te' imports the following modules:
 - ietf-network and ietf-network-topology defined in {{!RFC8345}}
 
 This module references the following documents:
-{{!RFC4206}}, {{!RFC4427}},
+{{!RFC4206}}, {{?RFC4427}},
 {{!RFC4872}}, {{!RFC3209}}, {{!RFC6780}},
 {{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC7308}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2025-10-06.yang"
+<CODE BEGINS> file "ietf-te@2025-10-27.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1108,7 +1108,7 @@ The 'ietf-te-device' module imports the following modules:
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2025-10-06.yang"
+<CODE BEGINS> file "ietf-te-device@2025-10-27.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
