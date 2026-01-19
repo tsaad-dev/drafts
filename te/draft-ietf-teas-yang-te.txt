@@ -5,18 +5,18 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                                 R. Gandhi
 Intended status: Standards Track                       Cisco Systems Inc
-Expires: 30 April 2026                                            X. Liu
+Expires: 22 July 2026                                             X. Liu
                                                                Alef Edge
                                                             V. P. Beeram
                                                         Juniper Networks
                                                               I. Bryskin
                                                               Individual
-                                                         27 October 2025
+                                                         18 January 2026
 
 
 A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths,
                              and Interfaces
-                       draft-ietf-teas-yang-te-40
+                       draft-ietf-teas-yang-te-41
 
 Abstract
 
@@ -44,18 +44,18 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 April 2026.
+   This Internet-Draft will expire on 22 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 1]
+Saad, et al.              Expires 22 July 2026                  [Page 1]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 2]
+Saad, et al.              Expires 22 July 2026                  [Page 2]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      A.7.  Example Multi-domain TE Tunnel with Primary and Secondary
@@ -130,21 +130,23 @@ Internet-Draft             TE YANG Data Model               October 2025
    used as the basis of implementation for other interfaces, such as CLI
    and programmatic APIs.
 
-   This document describes a YANG data model for Traffic Engineering
-   (TE) tunnels, Label Switched Paths (LSPs), and interfaces.  The data
-   model is divided into two YANG modules.  The 'ietf-te' module
-   includes data that is generic and device independent, while the
-   'ietf-te-device' module includes data that is device-specific.
+   This document defines a YANG data model intended for the provisioning
+   and management point-to-point Traffic Engineering (TE) tunnels, Label
+   Switched Paths (LSPs), and interfaces.  The modelling of point-to-
+   multipoint TE Tunnels [RFC4875] and Segment-Routing (SR) Policies
+   [RFC9256] falls outside the scope of this document.
 
-   The document describes a high-level relationship between the modules
-   defined in this document, as well as other external protocol YANG
-   modules.  The TE generic YANG data model does not include any data
-   specific to a signaling protocol.  It is expected other data plane
-   technology models will augment the TE generic YANG data model.
+   The data model described herein is divided into two YANG modules.
+   The 'ietf-te' module contains generic, device-independent data, while
+   the 'ietf-te-device' module addresses device-specific data.
 
-   Also, it is expected that other YANG modules that model TE signaling
-   protocols, such as RSVP-TE ([RFC3209], [RFC3473]), or Segment-Routing
-   TE (SR-TE) [RFC9256] will augment the generic TE YANG module.
+   This document outlines the high-level relationships between the YANG
+   modules it defines and other external protocol YANG modules.  The TE
+   YANG data model intentionally excludes data specific to any signaling
+   protocol, such as RSVP-TE ([RFC3209], [RFC3473]), or Segment-Routing
+   TE (SR-TE) [RFC9256] with the expectation that such technology models
+   will be defined in separate documents and will augment the generic TE
+   model as needed.
 
 2.  Terms and Conventions
 
@@ -159,16 +161,17 @@ Internet-Draft             TE YANG Data Model               October 2025
 
    *  state data
 
+
+
+
+
+Saad, et al.              Expires 22 July 2026                  [Page 3]
+
+Internet-Draft             TE YANG Data Model               January 2026
+
+
    This document also makes use of the following terminology introduced
    in the YANG Data Modeling Language [RFC7950]:
-
-
-
-
-Saad, et al.              Expires 30 April 2026                 [Page 3]
-
-Internet-Draft             TE YANG Data Model               October 2025
-
 
    *  augment
 
@@ -218,12 +221,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-
-
-
-Saad, et al.              Expires 30 April 2026                 [Page 4]
+Saad, et al.              Expires 22 July 2026                  [Page 4]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
 3.  Design Considerations
@@ -277,9 +277,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 5]
+Saad, et al.              Expires 22 July 2026                  [Page 5]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
 4.  Model Overview
@@ -333,9 +333,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 6]
+Saad, et al.              Expires 22 July 2026                  [Page 6]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
         TE generic     +---------+
@@ -389,9 +389,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 7]
+Saad, et al.              Expires 22 July 2026                  [Page 7]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    The three containers grouped under the 'te' container as shown in
@@ -445,9 +445,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 8]
+Saad, et al.              Expires 22 July 2026                  [Page 8]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    module: ietf-te
@@ -501,9 +501,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                 [Page 9]
+Saad, et al.              Expires 22 July 2026                  [Page 9]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A YANG container for the list of named Shared Risk Link Groups
@@ -557,9 +557,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 10]
+Saad, et al.              Expires 22 July 2026                 [Page 10]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       -  te-bandwidth: A YANG container that holds the technology
@@ -613,9 +613,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 11]
+Saad, et al.              Expires 22 July 2026                 [Page 11]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
          o  'route-object-include-exclude': a list of route entries to
@@ -669,9 +669,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 12]
+Saad, et al.              Expires 22 July 2026                 [Page 12]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       -  path-out-segment: A YANG container that contains a list of
@@ -725,9 +725,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 13]
+Saad, et al.              Expires 22 July 2026                 [Page 13]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
               +--rw hierarchy
@@ -781,9 +781,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 14]
+Saad, et al.              Expires 22 July 2026                 [Page 14]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    The TE Tunnel has a number of attributes that are set directly under
@@ -837,9 +837,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 15]
+Saad, et al.              Expires 22 July 2026                 [Page 15]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    source/destination:
@@ -893,9 +893,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 16]
+Saad, et al.              Expires 22 July 2026                 [Page 16]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    restoration:
@@ -949,9 +949,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 17]
+Saad, et al.              Expires 22 July 2026                 [Page 17]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A YANG container that holds the list of primary paths.  A primary
@@ -1005,9 +1005,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 18]
+Saad, et al.              Expires 22 July 2026                 [Page 18]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A YANG container that holds the path computation server properties
@@ -1061,9 +1061,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 19]
+Saad, et al.              Expires 22 July 2026                 [Page 19]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A YANG container that holds a list of tunnel association
@@ -1117,9 +1117,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 20]
+Saad, et al.              Expires 22 July 2026                 [Page 20]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    path-srlgs-lists:
@@ -1173,9 +1173,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 21]
+Saad, et al.              Expires 22 July 2026                 [Page 21]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       -  path constraints,
@@ -1229,9 +1229,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 22]
+Saad, et al.              Expires 22 July 2026                 [Page 22]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
 5.2.  Tree Diagram
@@ -1285,9 +1285,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 23]
+Saad, et al.              Expires 22 July 2026                 [Page 23]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
         |     +--rw te-topology-identifier
@@ -1341,9 +1341,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 24]
+Saad, et al.              Expires 22 July 2026                 [Page 24]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      rpcs:
@@ -1397,9 +1397,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 25]
+Saad, et al.              Expires 22 July 2026                 [Page 25]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
        reference
@@ -1453,9 +1453,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 26]
+Saad, et al.              Expires 22 July 2026                 [Page 26]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
         authors of the code.  All rights reserved.
@@ -1509,9 +1509,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 27]
+Saad, et al.              Expires 22 July 2026                 [Page 27]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
        leaf symbolic-name {
@@ -1519,7 +1519,7 @@ Internet-Draft             TE YANG Data Model               October 2025
          description
            "The symbolic path name is a human-readable string that
             identifies an LSP in the network.  The symbolic path name
-            MUST remain constant throughout an LSP's lifetime.";
+            must remain constant throughout an LSP's lifetime.";
          reference
            "RFC8231, section-7.3.2";
        }
@@ -1565,9 +1565,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 28]
+Saad, et al.              Expires 22 July 2026                 [Page 28]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            "When 'true' indicates the path is dynamically computed
@@ -1621,9 +1621,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 29]
+Saad, et al.              Expires 22 July 2026                 [Page 29]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
        leaf preference {
@@ -1677,9 +1677,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 30]
+Saad, et al.              Expires 22 July 2026                 [Page 30]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            leaf error-reason {
@@ -1733,9 +1733,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 31]
+Saad, et al.              Expires 22 July 2026                 [Page 31]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              description "TE tunnel name.";
@@ -1789,9 +1789,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 32]
+Saad, et al.              Expires 22 July 2026                 [Page 32]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              augment "path-properties" {
@@ -1845,9 +1845,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 33]
+Saad, et al.              Expires 22 July 2026                 [Page 33]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                "Reason for the path computation error.";
@@ -1901,9 +1901,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 34]
+Saad, et al.              Expires 22 July 2026                 [Page 34]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            default "1";
@@ -1957,9 +1957,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 35]
+Saad, et al.              Expires 22 July 2026                 [Page 35]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            units "seconds";
@@ -2013,9 +2013,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 36]
+Saad, et al.              Expires 22 July 2026                 [Page 36]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                "Association identifier.";
@@ -2069,9 +2069,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 37]
+Saad, et al.              Expires 22 July 2026                 [Page 37]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            }
@@ -2125,9 +2125,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 38]
+Saad, et al.              Expires 22 July 2026                 [Page 38]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      grouping tunnel-common-attributes {
@@ -2181,9 +2181,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 39]
+Saad, et al.              Expires 22 July 2026                 [Page 39]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            description
@@ -2237,9 +2237,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 40]
+Saad, et al.              Expires 22 July 2026                 [Page 40]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            leaf remote-te-link-tp-id {
@@ -2293,9 +2293,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 41]
+Saad, et al.              Expires 22 July 2026                 [Page 41]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
             segment.";
@@ -2349,9 +2349,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 42]
+Saad, et al.              Expires 22 July 2026                 [Page 42]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              }
@@ -2405,9 +2405,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 43]
+Saad, et al.              Expires 22 July 2026                 [Page 43]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              leaf name {
@@ -2461,9 +2461,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 44]
+Saad, et al.              Expires 22 July 2026                 [Page 44]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                "Textual description for this TE tunnel.";
@@ -2517,9 +2517,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 45]
+Saad, et al.              Expires 22 July 2026                 [Page 45]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              type uint16;
@@ -2573,9 +2573,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 46]
+Saad, et al.              Expires 22 July 2026                 [Page 46]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      leaf secondary-reverse-path {
@@ -2629,9 +2629,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 47]
+Saad, et al.              Expires 22 July 2026                 [Page 47]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                         utilised when the containing primary path is
@@ -2685,9 +2685,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 48]
+Saad, et al.              Expires 22 July 2026                 [Page 48]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              description
@@ -2741,9 +2741,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 49]
+Saad, et al.              Expires 22 July 2026                 [Page 49]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              description
@@ -2797,9 +2797,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 50]
+Saad, et al.              Expires 22 July 2026                 [Page 50]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      description
@@ -2853,9 +2853,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 51]
+Saad, et al.              Expires 22 July 2026                 [Page 51]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              "List of LSPs associated with the tunnel.";
@@ -2909,9 +2909,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 52]
+Saad, et al.              Expires 22 July 2026                 [Page 52]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            leaf extended-tunnel-id {
@@ -2965,9 +2965,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 53]
+Saad, et al.              Expires 22 July 2026                 [Page 53]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                    "A primary LSP is a fully established LSP for which
@@ -3021,9 +3021,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 54]
+Saad, et al.              Expires 22 July 2026                 [Page 54]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                  description
@@ -3077,9 +3077,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 55]
+Saad, et al.              Expires 22 July 2026                 [Page 55]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                description
@@ -3133,9 +3133,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 56]
+Saad, et al.              Expires 22 July 2026                 [Page 56]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
          container tunnel-info {
@@ -3189,9 +3189,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 57]
+Saad, et al.              Expires 22 July 2026                 [Page 57]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
          leaf action-result {
@@ -3245,9 +3245,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 58]
+Saad, et al.              Expires 22 July 2026                 [Page 58]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    module: ietf-te-device
@@ -3301,9 +3301,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 59]
+Saad, et al.              Expires 22 July 2026                 [Page 59]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    Tunnel Device-Dependent Attributes (Augmenting /te:te/te:tunnels/
@@ -3357,9 +3357,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 60]
+Saad, et al.              Expires 22 July 2026                 [Page 60]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    :  An optional leaf that indicates the remaining time, in seconds,
@@ -3413,9 +3413,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 61]
+Saad, et al.              Expires 22 July 2026                 [Page 61]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    module: ietf-te-device
@@ -3469,9 +3469,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 62]
+Saad, et al.              Expires 22 July 2026                 [Page 62]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    The main elements under the interfaces container are:
@@ -3525,9 +3525,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 63]
+Saad, et al.              Expires 22 July 2026                 [Page 63]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A list of individual TE interfaces configured on the device.  Each
@@ -3581,9 +3581,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 64]
+Saad, et al.              Expires 22 July 2026                 [Page 64]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       An optional enumeration, similar to the global threshold-type,
@@ -3637,9 +3637,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 65]
+Saad, et al.              Expires 22 July 2026                 [Page 65]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       A read-only container that provides operational state
@@ -3693,9 +3693,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 66]
+Saad, et al.              Expires 22 July 2026                 [Page 66]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
              |       te-types:te-metric
@@ -3749,9 +3749,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 67]
+Saad, et al.              Expires 22 July 2026                 [Page 67]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      augment /te:te/te:tunnels/te:tunnel:
@@ -3805,9 +3805,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 68]
+Saad, et al.              Expires 22 July 2026                 [Page 68]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    <CODE BEGINS> file "ietf-te-device@2025-10-27.yang"
@@ -3861,9 +3861,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 69]
+Saad, et al.              Expires 22 July 2026                 [Page 69]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
         Editor:   Rakesh Gandhi
@@ -3917,9 +3917,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 70]
+Saad, et al.              Expires 22 July 2026                 [Page 70]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
        description
@@ -3973,9 +3973,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 71]
+Saad, et al.              Expires 22 July 2026                 [Page 71]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
             reserved bandwidth >= the specified delta occurs on the
@@ -4029,9 +4029,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 72]
+Saad, et al.              Expires 22 July 2026                 [Page 72]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
             bandwidth when determining whether to trigger updated
@@ -4085,9 +4085,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 73]
+Saad, et al.              Expires 22 July 2026                 [Page 73]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
          description
@@ -4141,9 +4141,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 74]
+Saad, et al.              Expires 22 July 2026                 [Page 74]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      description
@@ -4197,9 +4197,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 75]
+Saad, et al.              Expires 22 July 2026                 [Page 75]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                    }
@@ -4253,9 +4253,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 76]
+Saad, et al.              Expires 22 July 2026                 [Page 76]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                type uint32;
@@ -4309,9 +4309,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 77]
+Saad, et al.              Expires 22 July 2026                 [Page 77]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      "Periodic timer expired.";
@@ -4365,9 +4365,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 78]
+Saad, et al.              Expires 22 July 2026                 [Page 78]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      augment "/te:te/te:lsps/te:lsp" {
@@ -4421,9 +4421,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 79]
+Saad, et al.              Expires 22 July 2026                 [Page 79]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
            uses te-types:te-generic-node-id;
@@ -4477,9 +4477,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 80]
+Saad, et al.              Expires 22 July 2026                 [Page 80]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                mandatory true;
@@ -4533,9 +4533,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 81]
+Saad, et al.              Expires 22 July 2026                 [Page 81]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    This document registers two YANG modules in the YANG Module Names
@@ -4589,9 +4589,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 82]
+Saad, et al.              Expires 22 July 2026                 [Page 82]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    "/te/interfaces": This list specifies the configuration and state TE
@@ -4645,9 +4645,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 83]
+Saad, et al.              Expires 22 July 2026                 [Page 83]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
       Oscar Gonzalez de Dios
@@ -4680,14 +4680,14 @@ Internet-Draft             TE YANG Data Model               October 2025
               Busi, I., Guo, A., Liu, X., Saad, T., and I. Bryskin,
               "Common YANG Data Types for Traffic Engineering", Work in
               Progress, Internet-Draft, draft-ietf-teas-rfc8776-update-
-              19, 20 October 2025,
+              20, 19 December 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              rfc8776-update-19>.
+              rfc8776-update-20>.
 
    [ITU_G.808.1]
               ITU-T Recommendation G.808.1, "Generic protection
-              switching - Linear trail and subnetwork protection", ITU-T
-              G.808.1 , May 2014.
+              switching - Linear trail and subnetwork protection",
+              https://www.itu.int/rec/T-REC-G.808.1-201405-I , May 2014.
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
@@ -4701,9 +4701,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 84]
+Saad, et al.              Expires 22 July 2026                 [Page 84]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    [RFC3473]  Berger, L., Ed., "Generalized Multi-Protocol Label
@@ -4757,9 +4757,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 85]
+Saad, et al.              Expires 22 July 2026                 [Page 85]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
@@ -4813,9 +4813,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 86]
+Saad, et al.              Expires 22 July 2026                 [Page 86]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
@@ -4869,9 +4869,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 87]
+Saad, et al.              Expires 22 July 2026                 [Page 87]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    [RFC9012]  Patel, K., Van de Velde, G., Sangli, S., and J. Scudder,
@@ -4903,6 +4903,13 @@ Internet-Draft             TE YANG Data Model               October 2025
               Engineering (RSVP-TE)", RFC 4874, DOI 10.17487/RFC4874,
               April 2007, <https://www.rfc-editor.org/rfc/rfc4874>.
 
+   [RFC4875]  Aggarwal, R., Ed., Papadimitriou, D., Ed., and S.
+              Yasukawa, Ed., "Extensions to Resource Reservation
+              Protocol - Traffic Engineering (RSVP-TE) for Point-to-
+              Multipoint TE Label Switched Paths (LSPs)", RFC 4875,
+              DOI 10.17487/RFC4875, May 2007,
+              <https://www.rfc-editor.org/rfc/rfc4875>.
+
    [RFC9256]  Filsfils, C., Talaulikar, K., Ed., Voyer, D., Bogdanov,
               A., and P. Mattes, "Segment Routing Policy Architecture",
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
@@ -4913,22 +4920,20 @@ Appendix A.  Data Tree Examples
    This section contains examples of use of the model with RESTCONF
    [RFC8040] and JSON encoding.
 
+
+
+
+
+
+Saad, et al.              Expires 22 July 2026                 [Page 88]
+
+Internet-Draft             TE YANG Data Model               January 2026
+
+
    For the example we will use a 4-node MPLS network were RSVP-TE MPLS
    Tunnels can be setup.  The loopbacks of each router are shown.  The
    network in Figure 10 will be used in the examples described in the
    following sections.
-
-
-
-
-
-
-
-
-Saad, et al.              Expires 30 April 2026                [Page 88]
-
-Internet-Draft             TE YANG Data Model               October 2025
-
 
     192.0.2.1        192.0.2.2      192.0.2.4
     +-------+        +-------+      +-------+
@@ -4976,14 +4981,9 @@ A.1.  Basic Tunnel Setup
 
 
 
-
-
-
-
-
-Saad, et al.              Expires 30 April 2026                [Page 89]
+Saad, et al.              Expires 22 July 2026                 [Page 89]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
@@ -5037,9 +5037,9 @@ A.2.  Global Named Path Constraints
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 90]
+Saad, et al.              Expires 22 July 2026                 [Page 90]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    POST /restconf/data/ietf-te:te/globals/named-path-constraints
@@ -5093,9 +5093,9 @@ A.3.  Tunnel with Global Path Constraint
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 91]
+Saad, et al.              Expires 22 July 2026                 [Page 91]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
@@ -5149,9 +5149,9 @@ A.4.  Tunnel with Per-tunnel Path Constraint
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 92]
+Saad, et al.              Expires 22 July 2026                 [Page 92]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
@@ -5205,9 +5205,9 @@ A.5.  Tunnel State
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 93]
+Saad, et al.              Expires 22 July 2026                 [Page 93]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    GET  /restconf/data/ietf-te:te/tunnels +
@@ -5261,9 +5261,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 94]
+Saad, et al.              Expires 22 July 2026                 [Page 94]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
  {
@@ -5317,9 +5317,9 @@ A.6.  Example TE Tunnel with Primary and Secondary Paths
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 95]
+Saad, et al.              Expires 22 July 2026                 [Page 95]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                           +----------+          +----------+
@@ -5373,9 +5373,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 96]
+Saad, et al.              Expires 22 July 2026                 [Page 96]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                       {
@@ -5429,9 +5429,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 97]
+Saad, et al.              Expires 22 July 2026                 [Page 97]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                       }
@@ -5485,9 +5485,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 98]
+Saad, et al.              Expires 22 July 2026                 [Page 98]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                           "hop-type": "loose"
@@ -5541,9 +5541,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026                [Page 99]
+Saad, et al.              Expires 22 July 2026                 [Page 99]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                         "numbered-node-hop": {
@@ -5597,9 +5597,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 100]
+Saad, et al.              Expires 22 July 2026                [Page 100]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                   "path-scope": "ietf-te-types:path-scope-end-to-end",
@@ -5653,9 +5653,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 101]
+Saad, et al.              Expires 22 July 2026                [Page 101]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                         "numbered-node-hop": {
@@ -5709,9 +5709,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 102]
+Saad, et al.              Expires 22 July 2026                [Page 102]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                   "path-scope": "ietf-te-types:path-scope-end-to-end",
@@ -5765,9 +5765,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 103]
+Saad, et al.              Expires 22 July 2026                [Page 103]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                     "route-object-include-exclude": [
@@ -5821,9 +5821,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 104]
+Saad, et al.              Expires 22 July 2026                [Page 104]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                   "path-scope": "ietf-te-types:path-scope-end-to-end"
@@ -5877,9 +5877,9 @@ A.7.  Example Multi-domain TE Tunnel with Primary and Secondary Paths
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 105]
+Saad, et al.              Expires 22 July 2026                [Page 105]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    The following state is retrieved for a multi-domain TE tunnel, where
@@ -5933,9 +5933,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 106]
+Saad, et al.              Expires 22 July 2026                [Page 106]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      ]
@@ -5989,9 +5989,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 107]
+Saad, et al.              Expires 22 July 2026                [Page 107]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                        {
@@ -6045,9 +6045,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 108]
+Saad, et al.              Expires 22 July 2026                [Page 108]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      "route-object-include-exclude": [
@@ -6101,9 +6101,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 109]
+Saad, et al.              Expires 22 July 2026                [Page 109]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
                      ]
@@ -6157,9 +6157,9 @@ Appendix B.  Full Model Tree Diagram
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 110]
+Saad, et al.              Expires 22 July 2026                [Page 110]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
    module: ietf-te
@@ -6213,9 +6213,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 111]
+Saad, et al.              Expires 22 July 2026                [Page 111]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
         |     |     +---u path-state
@@ -6269,9 +6269,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 112]
+Saad, et al.              Expires 22 July 2026                [Page 112]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
               +--ro node                            te-types:te-node-id
@@ -6325,9 +6325,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 113]
+Saad, et al.              Expires 22 July 2026                [Page 113]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      grouping path-compute-info:
@@ -6381,9 +6381,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 114]
+Saad, et al.              Expires 22 July 2026                [Page 114]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
           +-- hold-off-time?                   uint32
@@ -6437,9 +6437,9 @@ Internet-Draft             TE YANG Data Model               October 2025
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 115]
+Saad, et al.              Expires 22 July 2026                [Page 115]
 
-Internet-Draft             TE YANG Data Model               October 2025
+Internet-Draft             TE YANG Data Model               January 2026
 
 
      grouping path-constraints-common:
@@ -6493,4 +6493,4 @@ Authors' Addresses
 
 
 
-Saad, et al.              Expires 30 April 2026               [Page 116]
+Saad, et al.              Expires 22 July 2026                [Page 116]

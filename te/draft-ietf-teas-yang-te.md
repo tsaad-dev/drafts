@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths, and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-40
+docname: draft-ietf-teas-yang-te-41
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -54,7 +54,8 @@ normative:
     author:
       org: ITU-T Recommendation G.808.1
     date: May 2014
-    seriesinfo: ITU-T G.808.1
+    seriesinfo:
+      https://www.itu.int/rec/T-REC-G.808.1-201405-I
 
 informative:
 
@@ -81,21 +82,23 @@ RESTCONF {{RFC8040}}) and encoding other than XML (e.g. JSON) are being defined.
 Furthermore, YANG data models can be used as the basis of implementation for
 other interfaces, such as CLI and programmatic APIs.
 
-This document describes a YANG data model for Traffic Engineering (TE) tunnels,
-Label Switched Paths (LSPs), and interfaces. The data model is divided into two
-YANG modules. The 'ietf-te' module includes data that is generic and
-device independent, while the 'ietf-te-device' module includes data that is
-device-specific.
+This document defines a YANG data model intended for the provisioning and management
+point-to-point Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs),
+and interfaces. The modelling of point-to-multipoint TE Tunnels {{?RFC4875}}
+and Segment-Routing (SR) Policies {{?RFC9256}} falls outside the scope of this
+document.
 
-The document describes a high-level relationship between the modules defined in
-this document, as well as other external protocol YANG modules.  The TE generic
-YANG data model does not include any data specific to a signaling protocol.  It
-is expected other data plane technology models will augment the TE generic
-YANG data model. 
+The data model described herein is divided into two YANG modules. The 'ietf-te'
+module contains generic, device-independent data, while the 'ietf-te-device'
+module addresses device-specific data.
 
-Also, it is expected that other YANG modules that model TE signaling protocols,
+This document outlines the high-level relationships between the YANG modules it
+defines and other external protocol YANG modules. The TE YANG data
+model intentionally excludes data specific to any signaling protocol, 
 such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
-{{?RFC9256}} will augment the generic TE YANG  module.
+{{?RFC9256}} with the
+expectation that such technology models will be defined in separate documents
+and will augment the generic TE model as needed.
 
 # Terms and Conventions
 
