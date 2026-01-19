@@ -83,13 +83,13 @@ Furthermore, YANG data models can be used as the basis of implementation for
 other interfaces, such as CLI and programmatic APIs.
 
 This document defines a YANG data model intended for the provisioning and management
-point-to-point Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs),
+of point-to-point Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs),
 and interfaces. The modelling of point-to-multipoint TE Tunnels {{?RFC4875}}
 and Segment-Routing (SR) Policies {{?RFC9256}} falls outside the scope of this
 document.
 
 The data model described herein is divided into two YANG modules. The 'ietf-te'
-module contains generic, device-independent data, while the 'ietf-te-device'
+module contains generic, device-independent data, and the 'ietf-te-device'
 module addresses device-specific data.
 
 This document outlines the high-level relationships between the YANG modules it
