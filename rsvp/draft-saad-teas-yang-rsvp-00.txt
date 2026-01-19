@@ -2,22 +2,22 @@
 
 
 
-TEAS Working Group                                             V. Beeram
-Internet-Draft                                                   T. Saad
-Intended status: Standards Track                        Juniper Networks
-Expires: August 26, 2021                                       R. Gandhi
+TEAS Working Group                                          V. P. Beeram
+Internet-Draft                                          Juniper Networks
+Intended status: Standards Track                                 T. Saad
+Expires: 23 July 2026                                          R. Gandhi
                                                      Cisco Systems, Inc.
                                                                   X. Liu
                                                           Volta Networks
                                                               I. Bryskin
-                                                     Huawei Technologies
+                                                              Individual
                                                                  H. Shah
                                                                    Ciena
-                                                       February 22, 2021
+                                                         19 January 2026
 
 
                  A YANG Data Model for RSVP-TE Protocol
-                    draft-ietf-teas-yang-rsvp-te-09
+                    draft-ietf-teas-yang-rsvp-te-10
 
 Abstract
 
@@ -53,27 +53,26 @@ Status of This Memo
 
 
 
-Beeram, et al.           Expires August 26, 2021                [Page 1]
+Beeram, et al.            Expires 23 July 2026                  [Page 1]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
-   This Internet-Draft will expire on August 26, 2021.
+   This Internet-Draft will expire on 23 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -103,19 +102,17 @@ Table of Contents
    define the contents of a conceptual data store that allows networked
    devices to be managed using NETCONF [RFC6241].  YANG has proved
    relevant beyond its initial confines, as bindings to other interfaces
-   (e.g.  RESTCONF [RFC8040]) and encoding other than XML (e.g.  JSON)
-   are being defined.  Furthermore, YANG data models can be used as the
-
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 2]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
+   (e.g. RESTCONF [RFC8040]) and encoding other than XML (e.g. JSON) are
+   being defined.  Furthermore, YANG data models can be used as the
    basis of implementation for other interfaces, such as CLI and
    programmatic APIs.
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 2]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
 
    This document defines a generic YANG data model for configuring and
    managing RSVP-TE LSP(s) [RFC3209].  The RSVP-TE generic model
@@ -149,27 +146,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    are prefixed using the standard prefix associated with the
    corresponding YANG imported modules, as shown in Table 1.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 3]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
   +---------------+--------------------+-------------------------------+
   | Prefix        | YANG module        | Reference                     |
   +---------------+--------------------+-------------------------------+
@@ -186,6 +162,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
              Table 1: Prefixes and corresponding YANG modules
 
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 3]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
 2.  Model Overview
 
    The RSVP-TE generic model augments the RSVP base and extended YANG
@@ -196,19 +180,19 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
    The RSVP-TE MPLS YANG model augments the RSVP-TE generic model with
    parameters to configure and manage signaling of MPLS RSVP-TE LSPs.
-   RSVP-TE model augmentation for other dataplane technologies (e.g.
-   OTN or WDM) are outside the scope of this document.
+   RSVP-TE model augmentation for other dataplane technologies (e.g. OTN
+   or WDM) are outside the scope of this document.
 
    There are three types of configuration and state data nodes in
    module(s) defined in this document:
 
-   o  those augmenting or extending the base RSVP module that is defined
+   *  those augmenting or extending the base RSVP module that is defined
       in [I-D.ietf-teas-yang-rsvp]
 
-   o  those augmenting or extending the base TE module defined in
+   *  those augmenting or extending the base TE module defined in
       [I-D.ietf-teas-yang-te]
 
-   o  those that are specific to the RSVP-TE and RSVP-TE MPLS modules
+   *  those that are specific to the RSVP-TE and RSVP-TE MPLS modules
       defined in this document.
 
 2.1.  Module Relationship
@@ -219,14 +203,28 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    technology specific RSVP-TE module that holds parameters specific to
    MPLS technology.
 
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 4]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
    The relationship between the different modules is shown in Figure 1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 4]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
 
      TE basic       +---------+
      module         | ietf-te |        o: augment
@@ -250,7 +248,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
                     +--------------------+
 
        Figure 1: Relationship of RSVP and RSVP-TE modules with other
-                             protocol modules
+                              protocol modules
 
 2.2.  Model Tree Diagrams
 
@@ -263,6 +261,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    model defined in module ietf-rsvp-te.yang.
 
    module: ietf-rsvp-te
+
      augment /rt:routing/rt:control-plane-protocols
                /rt:control-plane-protocol/rsvp:rsvp:
        +--rw global-soft-preemption!
@@ -274,31 +273,22 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
                /rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces
                /rsvp:interface:
        +--rw rsvp-te-interface-attributes
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 5]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
      augment /rt:routing/rt:control-plane-protocols
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 5]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
                /rt:control-plane-protocol/rsvp:rsvp/rsvp:sessions:
        +--ro session-te* [tunnel-endpoint tunnel-id extended-tunnel-id]
           +--ro tunnel-endpoint       inet:ip-address
           +--ro tunnel-id             uint16
           +--ro extended-tunnel-id    inet:ip-address
-          +--ro destination-port?     inet:port-number
-          +--ro protocol-id?          uint8
-          +--ro source?               inet:ip-address
-          +--ro destination?          inet:ip-address
-          +--ro session-name?         string
-          +--ro session-status?       enumeration
-          +--ro session-type          identityref
           +--ro psbs
           |  +--ro psb* []
-          |     +--ro source-port?          inet:port-number
-          |     +--ro expires-in?           uint32
           |     +--ro tspec-average-rate?
           |     |       rt-types:bandwidth-ieee-float32
           |     +--ro tspec-size?
@@ -309,9 +299,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
           |     +--ro max-packet-size?      uint32
           +--ro rsbs
              +--ro rsb* []
-                +--ro source-port?          inet:port-number
-                +--ro reservation-style     identityref
-                +--ro expires-in?           uint32
                 +--ro fspec-average-rate?
                 |       rt-types:bandwidth-ieee-float32
                 +--ro fspec-size?
@@ -330,14 +317,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      augment /te:te/te:lsps/te:lsp:
        +--ro associated-rsvp-session?            leafref
        +--ro lsp-signaled-name?                  string
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 6]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        +--ro session-attribute*                  identityref
        +--ro lsp-attribute*                      identityref
        +--ro rsvp-message-type?                  identityref
@@ -349,8 +328,17 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        |  |  +--ro (type)?
        |  |     +--:(numbered-node-hop)
        |  |     |  +--ro numbered-node-hop
-       |  |     |     +--ro node-id     te-node-id
-       |  |     |     +--ro hop-type?   te-hop-type
+       |  |     |     +--ro node-id-uri?   nw:node-id
+       |  |     |     +--ro node-id?       te-node-id
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 6]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
+       |  |     |     +--ro hop-type?      te-hop-type
        |  |     +--:(numbered-link-hop)
        |  |     |  +--ro numbered-link-hop
        |  |     |     +--ro link-tp-id    te-tp-id
@@ -358,10 +346,12 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        |  |     |     +--ro direction?    te-link-direction
        |  |     +--:(unnumbered-link-hop)
        |  |     |  +--ro unnumbered-link-hop
-       |  |     |     +--ro link-tp-id    te-tp-id
-       |  |     |     +--ro node-id       te-node-id
-       |  |     |     +--ro hop-type?     te-hop-type
-       |  |     |     +--ro direction?    te-link-direction
+       |  |     |     +--ro link-tp-id-uri?   nt:tp-id
+       |  |     |     +--ro link-tp-id?       te-tp-id
+       |  |     |     +--ro node-id-uri?      nw:node-id
+       |  |     |     +--ro node-id?          te-node-id
+       |  |     |     +--ro hop-type?         te-hop-type
+       |  |     |     +--ro direction?        te-link-direction
        |  |     +--:(as-number)
        |  |     |  +--ro as-number-hop
        |  |     |     +--ro as-number    inet:as-number
@@ -379,28 +369,31 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        |     +--ro (type)?
        |        +--:(numbered-node-hop)
        |        |  +--ro numbered-node-hop
-       |        |     +--ro node-id     te-node-id
-       |        |     +--ro hop-type?   te-hop-type
+       |        |     +--ro node-id-uri?   nw:node-id
+       |        |     +--ro node-id?       te-node-id
+       |        |     +--ro hop-type?      te-hop-type
        |        +--:(numbered-link-hop)
        |        |  +--ro numbered-link-hop
        |        |     +--ro link-tp-id    te-tp-id
        |        |     +--ro hop-type?     te-hop-type
        |        |     +--ro direction?    te-link-direction
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 7]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        |        +--:(unnumbered-link-hop)
        |        |  +--ro unnumbered-link-hop
-       |        |     +--ro link-tp-id    te-tp-id
-       |        |     +--ro node-id       te-node-id
-       |        |     +--ro hop-type?     te-hop-type
-       |        |     +--ro direction?    te-link-direction
+       |        |     +--ro link-tp-id-uri?   nt:tp-id
+       |        |     +--ro link-tp-id?       te-tp-id
+       |        |     +--ro node-id-uri?      nw:node-id
+       |        |     +--ro node-id?          te-node-id
+       |        |     +--ro hop-type?         te-hop-type
+       |        |     +--ro direction?        te-link-direction
        |        +--:(as-number)
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 7]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        |        |  +--ro as-number-hop
        |        |     +--ro as-number    inet:as-number
        |        |     +--ro hop-type?    te-hop-type
@@ -418,17 +411,20 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        |     +--ro (type)?
        |        +--:(numbered-node-hop)
        |        |  +--ro numbered-node-hop
-       |        |     +--ro node-id    te-node-id
-       |        |     +--ro flags*     path-attribute-flags
+       |        |     +--ro node-id-uri?   nw:node-id
+       |        |     +--ro node-id?       te-node-id
+       |        |     +--ro flags*         path-attribute-flags
        |        +--:(numbered-link-hop)
        |        |  +--ro numbered-link-hop
        |        |     +--ro link-tp-id    te-tp-id
        |        |     +--ro flags*        path-attribute-flags
        |        +--:(unnumbered-link-hop)
        |        |  +--ro unnumbered-link-hop
-       |        |     +--ro link-tp-id    te-tp-id
-       |        |     +--ro node-id?      te-node-id
-       |        |     +--ro flags*        path-attribute-flags
+       |        |     +--ro link-tp-id-uri?   nt:tp-id
+       |        |     +--ro link-tp-id?       te-tp-id
+       |        |     +--ro node-id-uri?      nw:node-id
+       |        |     +--ro node-id?          te-node-id
+       |        |     +--ro flags*            path-attribute-flags
        |        +--:(label)
        |           +--ro label-hop
        |              +--ro te-label
@@ -442,27 +438,30 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
           +--ro outgoing-record-route-subobject* [index]
              +--ro index                        uint32
              +--ro (type)?
-
-
-
-Beeram, et al.           Expires August 26, 2021                [Page 8]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
                 +--:(numbered-node-hop)
                 |  +--ro numbered-node-hop
-                |     +--ro node-id    te-node-id
-                |     +--ro flags*     path-attribute-flags
+                |     +--ro node-id-uri?   nw:node-id
+                |     +--ro node-id?       te-node-id
+
+
+
+Beeram, et al.            Expires 23 July 2026                  [Page 8]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
+                |     +--ro flags*         path-attribute-flags
                 +--:(numbered-link-hop)
                 |  +--ro numbered-link-hop
                 |     +--ro link-tp-id    te-tp-id
                 |     +--ro flags*        path-attribute-flags
                 +--:(unnumbered-link-hop)
                 |  +--ro unnumbered-link-hop
-                |     +--ro link-tp-id    te-tp-id
-                |     +--ro node-id?      te-node-id
-                |     +--ro flags*        path-attribute-flags
+                |     +--ro link-tp-id-uri?   nt:tp-id
+                |     +--ro link-tp-id?       te-tp-id
+                |     +--ro node-id-uri?      nw:node-id
+                |     +--ro node-id?          te-node-id
+                |     +--ro flags*            path-attribute-flags
                 +--:(label)
                    +--ro label-hop
                       +--ro te-label
@@ -474,7 +473,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
                       +--ro flags*      path-attribute-flags
      augment /te:te/te-dev:interfaces/te-dev:interface:
 
-                   Figure 2: RSVP-TE model Tree diagram
+                    Figure 2: RSVP-TE model Tree diagram
 
 2.2.2.  RSVP-TE MPLS Model Tree Diagram
 
@@ -483,6 +482,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    module as well as RSVP and TE YANG modules.
 
    module: ietf-rsvp-te-mpls
+
      augment /rt:routing/rt:control-plane-protocols
                /rt:control-plane-protocol/rsvp:rsvp:
        +--rw rsvp-frr-local-revert-delay?   uint32
@@ -501,9 +501,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021                [Page 9]
+Beeram, et al.            Expires 23 July 2026                  [Page 9]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
        +--ro session-attribute*   identityref
@@ -557,9 +557,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 10]
+Beeram, et al.            Expires 23 July 2026                 [Page 10]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
              +--:(static-tunnel)
@@ -581,20 +581,20 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    The RSVP-TE generic YANG module "ietf-rsvp-te" imports the following
    modules:
 
-   o  ietf-rsvp defined in [I-D.ietf-teas-yang-rsvp]
+   *  ietf-rsvp defined in [I-D.ietf-teas-yang-rsvp]
 
-   o  ietf-routing-types defined in [RFC8294]
+   *  ietf-routing-types defined in [RFC8294]
 
-   o  ietf-te-types defined in [I-D.ietf-teas-yang-te-types]
+   *  ietf-te-types defined in [I-D.ietf-teas-yang-te-types]
 
-   o  ietf-te and ietf-te-dev defined in [I-D.ietf-teas-yang-te]
+   *  ietf-te and ietf-te-dev defined in [I-D.ietf-teas-yang-te]
 
    This module references the following documents:
    [I-D.ietf-teas-yang-rsvp], [RFC8349], [I-D.ietf-teas-yang-te],
    [I-D.ietf-teas-yang-te-types], [RFC2210], [RFC4920], [RFC5420],
    [RFC7570], [RFC4859].
 
-   <CODE BEGINS> file "ietf-rsvp-te@2021-02-21.yang"
+   <CODE BEGINS> file "ietf-rsvp-te@2026-01-19.yang"
    module ietf-rsvp-te {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-rsvp-te";
@@ -613,9 +613,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 11]
+Beeram, et al.            Expires 23 July 2026                 [Page 11]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
      }
@@ -669,9 +669,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 12]
+Beeram, et al.            Expires 23 July 2026                 [Page 12]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
         Editor:   Xufeng Liu
@@ -704,7 +704,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2021-02-21 {
+     revision 2026-01-19 {
        description
          "A YANG Data Model for RSVP-TE";
        reference
@@ -725,9 +725,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 13]
+Beeram, et al.            Expires 23 July 2026                 [Page 13]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
      }
@@ -781,9 +781,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 14]
+Beeram, et al.            Expires 23 July 2026                 [Page 14]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
      }
@@ -837,9 +837,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 15]
+Beeram, et al.            Expires 23 July 2026                 [Page 15]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
        container outgoing-record-route-subobjects {
@@ -893,9 +893,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 16]
+Beeram, et al.            Expires 23 July 2026                 [Page 16]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
            description
@@ -934,26 +934,10 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        reference
          "RFC4859: Registry for RSVP-TE Session Flags";
        leaf-list session-attribute {
-         when "../session-attribute !=
-               'te-types:bandwidth-protection-desired' or
-               ../session-attribute !=
-               'te-types:soft-preemption-desired'" {
-           description
-             "Session attributes applicable to generic technologies
-              only.";
-         }
          type identityref {
            base te-types:session-attributes-flags;
          }
          description
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 17]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
            "RSVP session attributes flags";
          reference
            "RFC4859: Registry for RSVP-TE Session Flags";
@@ -962,6 +946,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      grouping lsp-properties {
        description
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 17]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
          "Configuration parameters relating to RSVP-TE LSP
           session attribute flags";
        leaf lsp-signaled-name {
@@ -1002,14 +994,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
            "Top level container for RSVP-TE soft-preemption";
          leaf soft-preemption-timeout {
            type uint16 {
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 18]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
              range "0..300";
            }
            units "seconds";
@@ -1018,6 +1002,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
              "Timeout value for soft preemption to revert
               to hard preemption";
          }
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 18]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        }
      }
 
@@ -1058,14 +1050,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      /* Linkage to per RSVP interface */
 
      augment "/rt:routing/rt:control-plane-protocols/"
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 19]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
            + "rt:control-plane-protocol/rsvp:rsvp/rsvp:interfaces/"
            + "rsvp:interface" {
        description
@@ -1073,6 +1057,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
           interface";
        uses rsvp-te-interface-attributes;
      }
+
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 19]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
 
      /* add augmentation for sessions and neighbors */
 
@@ -1089,23 +1081,47 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
          leaf tunnel-endpoint {
            type inet:ip-address;
            description
-             "XX";
+             "RFC3209";
          }
          leaf tunnel-id {
            type uint16;
            description
-             "XX";
+             "RFC3209";
          }
          leaf extended-tunnel-id {
            type inet:ip-address;
            description
-             "XX";
+             "RFC3209";
          }
-         uses rsvp:session-attributes;
+         /* uses rsvp:session-attributes; */
+         container psbs {
+           description
+             "Path State Block (PSB) container.";
+           list psb {
+             description
+               "List of Path State Blocks.";
+           }
+         }
+         container rsbs {
+           description
+             "Reservation State Block (RSB) container.";
+           list rsb {
+             description
+               "List of Reservation State Blocks.";
+           }
+         }
        }
      }
 
      augment "/rt:routing/rt:control-plane-protocols/"
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 20]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
            + "rt:control-plane-protocol/rsvp:rsvp/"
            + "rsvp:sessions/session-te/psbs/psb" {
        description
@@ -1114,14 +1130,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        leaf tspec-average-rate {
          type rt-types:bandwidth-ieee-float32;
          units "Bytes per second";
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 20]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
          description
            "Tspec Token Bucket Average Rate";
          reference
@@ -1162,6 +1170,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      augment "/rt:routing/rt:control-plane-protocols/"
            + "rt:control-plane-protocol/rsvp:rsvp/"
            + "rsvp:sessions/session-te/rsbs/rsb" {
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 21]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        description
          "RSVP-TE generic data augmentation pertaining to session";
        leaf fspec-average-rate {
@@ -1170,14 +1186,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
          description
            "Fspec Token Bucket Average Rate";
          reference
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 21]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
            "RFC2210";
        }
        leaf fspec-size {
@@ -1219,6 +1227,13 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        /* To be added */
      }
 
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 22]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
      /**
       * RSVP-TE generic augmentations of generic TE model.
       */
@@ -1226,14 +1241,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      augment "/te:te/te:tunnels/te:tunnel" {
        when "/te:te/te:tunnels/te:tunnel"
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 22]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
           + "/te:primary-paths/te:primary-path"
           + "/te:signaling-type = 'te-types:path-setup-rsvp'" {
          description
@@ -1275,6 +1282,14 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      augment "/te:te/te:lsps/te:lsp" {
        when "/te:te/te:lsps/te:lsp"
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 23]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
           + "/te:signaling-type = 'te-types:path-setup-rsvp'" {
          description
            "When the signaling protocol is RSVP-TE ";
@@ -1282,14 +1297,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        description
          "RSVP-TE generic data augmentation pertaining to specific TE
           LSP";
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 23]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        leaf associated-rsvp-session {
          type leafref {
            path "/rt:routing/rt:control-plane-protocols/"
@@ -1326,27 +1333,26 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    The RSVP-TE MPLS YANG module "ietf-rsvp-te-mpls" imports the
    following module(s):
 
-   o  ietf-rsvp defined in [I-D.ietf-teas-yang-rsvp]
+   *  ietf-rsvp defined in [I-D.ietf-teas-yang-rsvp]
 
-   o  ietf-routing-types defined in [RFC8294]
+   *  ietf-routing-types defined in [RFC8294]
 
-   o  ietf-te-mpls-types defined in [I-D.ietf-teas-yang-te-types]
+   *  ietf-te-mpls-types defined in [I-D.ietf-teas-yang-te-types]
 
-   o  ietf-te and ietf-te-dev defined in [I-D.ietf-teas-yang-te]
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 24]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
+   *  ietf-te and ietf-te-dev defined in [I-D.ietf-teas-yang-te]
 
    This module references the following documents:
    [I-D.ietf-teas-yang-rsvp], [RFC8349], [I-D.ietf-teas-yang-te-types],
    [I-D.ietf-teas-yang-te], [RFC3209].
 
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 24]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
-   <CODE BEGINS> file "ietf-rsvp-te-mpls@2021-02-21.yang"
+   <CODE BEGINS> file "ietf-rsvp-te-mpls@2026-01-19.yang"
    module ietf-rsvp-te-mpls {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-rsvp-te-mpls";
@@ -1388,20 +1394,20 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      organization
        "IETF Traffic Engineering Architecture and Signaling (TEAS)
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 25]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
         Working Group";
      contact
        "WG Web:   <http://tools.ietf.org/wg/teas/>
         WG List:  <mailto:teas@ietf.org>
 
         Editor:   Vishnu Pavan Beeram
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 25]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
                   <mailto:vbeeram@juniper.net>
 
         Editor:   Tarek Saad
@@ -1440,24 +1446,24 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2021-02-21 {
+     revision 2026-01-19 {
        description
          "Update to MPLS RSVP-TE YANG initial revision.";
        reference
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 26]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
          "RFCXXXX: A YANG Data Model for RSVP-TE Protocol";
      }
 
      /* RSVP-TE MPLS LSPs groupings */
 
      grouping lsp-attributes-flags-mpls {
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 26]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        description
          "Configuration parameters relating to RSVP-TE MPLS LSP
           attribute flags";
@@ -1470,13 +1476,6 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
        reference
          "RFC4859: Registry for RSVP-TE Session Flags";
        leaf-list session-attribute {
-         when "../session-attribute =
-               'te-types:bandwidth-protection-desired' or
-               ../session-attribute =
-               'te-types:soft-preemption-desired'" {
-           description
-             "Session attributes applicable to mpls technology";
-         }
          type identityref {
            base te-types:session-attributes-flags;
          }
@@ -1506,15 +1505,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      grouping rsvp-te-interface-state {
        description
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 27]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
          "The RSVP-TE interface state grouping";
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 27]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        leaf over-subscribed-bandwidth {
          type te-packet-types:bandwidth-kbps;
          description
@@ -1562,15 +1561,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
              reference
                "RFC3209";
            }
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 28]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
            leaf tunnel-id {
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 28]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
              type leafref {
                path "/te:te/te:lsps/te:lsp/"
                   + "te:tunnel-id";
@@ -1618,15 +1617,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      }
 
      grouping bandwidth-mpls-constraints {
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 29]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        description
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 29]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
          "Bandwidth constraints.";
        container bandwidth-mpls-constraints {
          description
@@ -1674,15 +1673,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
      grouping bandwidth-mpls-reservable {
        description
          "Interface bandwidth reservable configuration grouping";
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 30]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
        container bandwidth-mpls-reservable {
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 30]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
          description
            "Interface bandwidth reservable container";
          choice bandwidth-value {
@@ -1730,15 +1729,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
            case bc-model-mar {
              container bc-model-mar {
                uses bandwidth-mpls-constraints;
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 31]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
                description
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 31]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
                  "Maximum Allocation with Reservation Model
                   Bandwidth Constraints.";
              }
@@ -1786,15 +1785,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
                    "List of static backups";
                  list static-backup {
                    key "backup-tunnel-name";
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 32]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
                    description
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 32]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
                      "List of static backup tunnels that
                       protect the RSVP-TE interface.";
                    leaf backup-tunnel-name {
@@ -1842,15 +1841,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      grouping lsp-backup-info {
        description
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 33]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
          "Backup/bypass LSP related information";
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 33]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        container backup-info {
          description
            "backup information";
@@ -1898,15 +1897,15 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
      augment "/rt:routing/rt:control-plane-protocols/"
            + "rt:control-plane-protocol/rsvp:rsvp/"
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 34]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
-
            + "rsvp:sessions" {
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 34]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
+
        description
          "Augmentation for RSVP-TE MPLS sessions";
        /* To be added */
@@ -1957,9 +1956,10 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 35]
+
+Beeram, et al.            Expires 23 July 2026                 [Page 35]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
      augment "/te:te/te:tunnels/te:tunnel/te:secondary-paths"
@@ -1990,7 +1990,7 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
    }
    <CODE ENDS>
 
-                    Figure 5: RSVP TE MPLS YANG module
+                     Figure 5: RSVP TE MPLS YANG module
 
 3.  IANA Considerations
 
@@ -2013,9 +2013,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 36]
+Beeram, et al.            Expires 23 July 2026                 [Page 36]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
       name:       ietf-rsvp-te
@@ -2069,9 +2069,9 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 37]
+Beeram, et al.            Expires 23 July 2026                 [Page 37]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
 
 5.  Acknowledgement
@@ -2098,185 +2098,185 @@ Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
 
       Email: Bin_Wen@cable.comcast.com
 
-
 7.  References
 
 7.1.  Normative References
 
    [I-D.ietf-teas-yang-rsvp]
-              Beeram, V., Saad, T., Gandhi, R., Liu, X., and I. Bryskin,
-              "A YANG Data Model for Resource Reservation Protocol
-              (RSVP)", draft-ietf-teas-yang-rsvp-15 (work in progress),
-              September 2020.
+              Beeram, V. P., Saad, T., Gandhi, R., Liu, X., and I.
+              Bryskin, "A YANG Data Model for Resource Reservation
+              Protocol (RSVP)", Work in Progress, Internet-Draft, draft-
+              ietf-teas-yang-rsvp-20, 19 December 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
+              yang-rsvp-20>.
 
    [I-D.ietf-teas-yang-te]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "A YANG Data Model for Traffic Engineering Tunnels, Label
-              Switched Paths and Interfaces", draft-ietf-teas-yang-te-25
-              (work in progress), July 2020.
+              Saad, T., Gandhi, R., Liu, X., Beeram, V. P., and I.
+              Bryskin, "A YANG Data Model for Traffic Engineering
+              Tunnels, Label Switched Paths, and Interfaces", Work in
+              Progress, Internet-Draft, draft-ietf-teas-yang-te-40, 2
+              November 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-yang-te-40>.
 
    [I-D.ietf-teas-yang-te-types]
-              Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "Traffic Engineering Common YANG Types", draft-ietf-teas-
-              yang-te-types-13 (work in progress), November 2019.
+              Saad, T., Gandhi, R., Liu, X., Beeram, V. P., and I.
+              Bryskin, "Common YANG Data Types for Traffic Engineering",
+              Work in Progress, Internet-Draft, draft-ietf-teas-yang-te-
 
 
 
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 38]
+Beeram, et al.            Expires 23 July 2026                 [Page 38]
 
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
 
+
+              types-13, 17 November 2019,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
+              yang-te-types-13>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC2205]  Braden, R., Ed., Zhang, L., Berson, S., Herzog, S., and S.
               Jamin, "Resource ReSerVation Protocol (RSVP) -- Version 1
               Functional Specification", RFC 2205, DOI 10.17487/RFC2205,
-              September 1997, <https://www.rfc-editor.org/info/rfc2205>.
+              September 1997, <https://www.rfc-editor.org/rfc/rfc2205>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/info/rfc3688>.
+              <https://www.rfc-editor.org/rfc/rfc3688>.
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
-              <https://www.rfc-editor.org/info/rfc6020>.
+              <https://www.rfc-editor.org/rfc/rfc6020>.
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
-              <https://www.rfc-editor.org/info/rfc6241>.
+              <https://www.rfc-editor.org/rfc/rfc6241>.
 
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/info/rfc6242>.
+              <https://www.rfc-editor.org/rfc/rfc6242>.
 
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
-              <https://www.rfc-editor.org/info/rfc6991>.
+              <https://www.rfc-editor.org/rfc/rfc6991>.
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://www.rfc-editor.org/info/rfc7950>.
+              <https://www.rfc-editor.org/rfc/rfc7950>.
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
+              <https://www.rfc-editor.org/rfc/rfc8040>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 39]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
 
    [RFC8294]  Liu, X., Qu, Y., Lindem, A., Hopps, C., and L. Berger,
               "Common YANG Data Types for the Routing Area", RFC 8294,
               DOI 10.17487/RFC8294, December 2017,
-              <https://www.rfc-editor.org/info/rfc8294>.
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 39]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
+              <https://www.rfc-editor.org/rfc/rfc8294>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
-              <https://www.rfc-editor.org/info/rfc8340>.
+              <https://www.rfc-editor.org/rfc/rfc8340>.
 
    [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
               Access Control Model", STD 91, RFC 8341,
               DOI 10.17487/RFC8341, March 2018,
-              <https://www.rfc-editor.org/info/rfc8341>.
+              <https://www.rfc-editor.org/rfc/rfc8341>.
 
    [RFC8349]  Lhotka, L., Lindem, A., and Y. Qu, "A YANG Data Model for
               Routing Management (NMDA Version)", RFC 8349,
               DOI 10.17487/RFC8349, March 2018,
-              <https://www.rfc-editor.org/info/rfc8349>.
+              <https://www.rfc-editor.org/rfc/rfc8349>.
 
 7.2.  Informative References
 
    [RFC2210]  Wroclawski, J., "The Use of RSVP with IETF Integrated
               Services", RFC 2210, DOI 10.17487/RFC2210, September 1997,
-              <https://www.rfc-editor.org/info/rfc2210>.
+              <https://www.rfc-editor.org/rfc/rfc2210>.
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
-              <https://www.rfc-editor.org/info/rfc3209>.
+              <https://www.rfc-editor.org/rfc/rfc3209>.
 
    [RFC4859]  Farrel, A., "Codepoint Registry for the Flags Field in the
               Resource Reservation Protocol-Traffic Engineering (RSVP-
               TE) Session Attribute Object", RFC 4859,
               DOI 10.17487/RFC4859, April 2007,
-              <https://www.rfc-editor.org/info/rfc4859>.
+              <https://www.rfc-editor.org/rfc/rfc4859>.
 
    [RFC4920]  Farrel, A., Ed., Satyanarayana, A., Iwata, A., Fujita, N.,
               and G. Ash, "Crankback Signaling Extensions for MPLS and
               GMPLS RSVP-TE", RFC 4920, DOI 10.17487/RFC4920, July 2007,
-              <https://www.rfc-editor.org/info/rfc4920>.
+              <https://www.rfc-editor.org/rfc/rfc4920>.
 
    [RFC5420]  Farrel, A., Ed., Papadimitriou, D., Vasseur, JP., and A.
               Ayyangar, "Encoding of Attributes for MPLS LSP
               Establishment Using Resource Reservation Protocol Traffic
               Engineering (RSVP-TE)", RFC 5420, DOI 10.17487/RFC5420,
-              February 2009, <https://www.rfc-editor.org/info/rfc5420>.
+              February 2009, <https://www.rfc-editor.org/rfc/rfc5420>.
+
+
+
+
+
+Beeram, et al.            Expires 23 July 2026                 [Page 40]
+
+Internet-Draft      RSVP-TE Protocol YANG Data Model        January 2026
+
 
    [RFC7570]  Margaria, C., Ed., Martinelli, G., Balls, S., and B.
               Wright, "Label Switched Path (LSP) Attribute in the
               Explicit Route Object (ERO)", RFC 7570,
               DOI 10.17487/RFC7570, July 2015,
-              <https://www.rfc-editor.org/info/rfc7570>.
-
-
-
-
-Beeram, et al.           Expires August 26, 2021               [Page 40]
-
-Internet-Draft      RSVP-TE Protocol YANG Data Model       February 2021
-
+              <https://www.rfc-editor.org/rfc/rfc7570>.
 
 Authors' Addresses
 
    Vishnu Pavan Beeram
    Juniper Networks
-
    Email: vbeeram@juniper.net
 
 
    Tarek Saad
-   Juniper Networks
-
-   Email: tsaad@juniper.net
+   Cisco Systems, Inc.
+   Email: tsaad.net@gmail.com
 
 
    Rakesh Gandhi
    Cisco Systems, Inc.
-
    Email: rgandhi@cisco.com
 
 
    Xufeng Liu
    Volta Networks
-
    Email: xufeng.liu.ietf@gmail.com
 
 
    Igor Bryskin
-   Huawei Technologies
-
-   Email: Igor.Bryskin@huawei.com
+   Individual
+   Email: i_bryskin@yahoo.com
 
 
    Himanshu Shah
    Ciena
-
    Email: hshah@ciena.com
 
 
@@ -2293,4 +2293,4 @@ Authors' Addresses
 
 
 
-Beeram, et al.           Expires August 26, 2021               [Page 41]
+Beeram, et al.            Expires 23 July 2026                 [Page 41]

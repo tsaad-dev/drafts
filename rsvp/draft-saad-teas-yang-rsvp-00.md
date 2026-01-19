@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for RSVP-TE Protocol
 abbrev: RSVP-TE Protocol YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-te-09
+docname: draft-ietf-teas-yang-rsvp-te-10
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -20,8 +20,8 @@ author:
  -
     ins: T. Saad
     name: Tarek Saad
-    organization: Juniper Networks
-    email: tsaad@juniper.net
+    organization: Cisco Systems, Inc.
+    email: tsaad.net@gmail.com
 
  -
     ins: R. Gandhi
@@ -38,8 +38,8 @@ author:
  -
     ins: I. Bryskin
     name: Igor Bryskin
-    organization: Huawei Technologies
-    email: Igor.Bryskin@huawei.com
+    organization: Individual
+    email: i_bryskin@yahoo.com
 
  -
     ins: H. Shah
@@ -232,7 +232,7 @@ This module references the following documents:
 {{?RFC5420}}, {{?RFC7570}}, {{?RFC4859}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te@2021-02-21.yang"
+<CODE BEGINS> file "ietf-rsvp-te@2026-01-19.yang"
 {::include ../../te/ietf-rsvp-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -252,7 +252,7 @@ This module references the following documents:
 {{!I-D.ietf-teas-yang-te}}, {{?RFC3209}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-rsvp-te-mpls@2021-02-21.yang"
+<CODE BEGINS> file "ietf-rsvp-te-mpls@2026-01-19.yang"
 {::include ../../te/ietf-rsvp-te-mpls.yang}
 <CODE ENDS>
 ~~~~~~~~~~
