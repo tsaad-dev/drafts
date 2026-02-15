@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths, and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-41
+docname: draft-ietf-teas-yang-te-42
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -46,7 +46,7 @@ normative:
   RFC3209:
   RFC6020:
   RFC6241:
-  RFC6991:
+  RFC9911:
   RFC6107:
   RFC8040:
   ITU_G.808.1:
@@ -84,7 +84,7 @@ other interfaces, such as CLI and programmatic APIs.
 
 This document defines a YANG data model intended for the provisioning and management
 of point-to-point Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs),
-and interfaces. The modelling of point-to-multipoint TE Tunnels {{?RFC4875}}
+and interfaces. The modeling of point-to-multipoint TE Tunnels {{?RFC4875}}
 and Segment-Routing (SR) Policies {{?RFC9256}} falls outside the scope of this
 document.
 
@@ -125,8 +125,8 @@ modules, as shown in {{tab1}}.
 
  | Prefix          | YANG module          | Reference          |
  |-----------------|----------------------|--------------------|
- | yang            | ietf-yang-types      | {{!RFC6991}}       |
- | inet            | ietf-inet-types      | {{!RFC6991}}       |
+ | yang            | ietf-yang-types      | {{!RFC9911}}       |
+ | inet            | ietf-inet-types      | {{!RFC9911}}       |
  | rt-types        | ietf-routing-types   | {{!RFC8294}}       |
  | te-types        | ietf-te-types        | {{!I-D.draft-ietf-teas-rfc8776-update}}       |
  | te-packet-types | ietf-te-packet-types | {{!I-D.draft-ietf-teas-rfc8776-update}}       |
@@ -144,7 +144,7 @@ subsequent sections as per the syntax defined in {{!RFC8340}}.
 This document describes a generic TE YANG data model that is independent of
 any dataplane technology.  One of the design objectives is to allow specific
 data plane technology models to reuse the TE generic data model and possibly
-augment it with technology specific data.
+augment it with technology-specific data.
 
 The elements of the generic TE YANG data model, including TE Tunnels, LSPs, and
 interfaces have leafs that identify the technology layer where they reside.
@@ -239,7 +239,7 @@ defined in separate YANG modules that augment the generic TE YANG data model.
 The generic TE YANG data model defined in the 'ietf-te' module supports the management and
 operation of a TE network. This includes creating, modifying, and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
-attributes (e.g.  Administrative-Groups, SRLGs, etc.).
+attributes (e.g.  Administrative-Groups (AGs), Shared Risk Link Groups (SRLGs), etc.).
 
 A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
 
@@ -251,7 +251,7 @@ descriptions of containers that exist under the 'te' top level container are
 provided in the following sections.
 
 The three containers grouped under the 'te'
-container as shown in {{fig-highlevel}} and described below.
+container are shown in {{fig-highlevel}} and described below.
 
 globals:
 
@@ -316,7 +316,7 @@ to TE links.
 
 named-srlgs:
 
-> A YANG container for the list of named Shared Risk Link Groups (SRLGs) that may be
+> A YANG container for the list of named SRLGs that may be
 applied to TE links.
 
 named-path-constraints:
@@ -387,15 +387,15 @@ of a TE tunnel has to adhere to.
       The 'route-object-include-exclude' is used to configure constraints on which route objects (e.g., nodes, links) are included or excluded in the path computation.\\
       The interpretation of an empty 'route-object-include-exclude' list depends on the TE Tunnel (end-to-end or Tunnel Segment) and on the specific path, according to the following rules:\\
         1. An empty 'route-object-include-exclude' list for the primary path of an end-to-end TE Tunnel indicates that there are no route objects to be included or excluded in the path computation.
-        1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel Segement.
+        1. An empty 'route-object-include-exclude' list for the primary path of a TE Tunnel Segment indicates that no primary LSP is required for that TE Tunnel Segment.
         1. An empty 'route-object-include-exclude' list for a reverse path means it always follows the forward path (i.e., the TE Tunnel is co-routed). When the 'route-object-include-exclude' list is not empty, the reverse path is routed independently of the forward path.
         1. An empty 'route-object-include-exclude' list for the secondary (forward) path of a TE Tunnel segment indicates that the secondary path has the same endpoints as the primary path.
 - path-in-segment: A YANG container that contains a list of label restrictions
-  that have to be taken into considerations when stitching to another tunnel
+  that have to be taken into consideration when stitching to another tunnel
   segment such as at a domain boundary.  The TE tunnel segment in this case
   is being stitched to the upstream TE tunnel segment.
 - path-out-segment: A YANG container that contains a list of label restrictions
-  that have to be taken into considerations when stitching to another tunnel
+  that have to be taken into consideration when stitching to another tunnel
   segment such as at a domain boundary.  The TE tunnel segment in this case
   is being stitched to the downstream TE tunnel segment.
 
@@ -849,7 +849,7 @@ the 'ietf-te' module. The full tree diagram is shown in {{AppendixB}}.
 The generic TE YANG module 'ietf-te' imports the following modules:
 
 - ietf-te-types defined in {{!I-D.draft-ietf-teas-rfc8776-update}}
-- ietf-yang-types and ietf-inet-types defined in {{!RFC6991}}
+- ietf-yang-types and ietf-inet-types defined in {{!RFC9911}}
 - ietf-network and ietf-network-topology defined in {{!RFC8345}}
 
 This module references the following documents:
@@ -871,7 +871,7 @@ managing a TE device.  This module augments the generic TE YANG module.
 
 ## Module Structure
 
-The 'ietf-te-device' modufle defines the configuration and operational state data
+The 'ietf-te-device' module defines the configuration and operational state data
 that is specific to the device, including those related to the TE subsystem, tunnels, LSPs, and interfaces.
 
 ### TE Device Globals, Tunnels and LSPs
@@ -1019,7 +1019,7 @@ interface:
 
 > srlg-type:
 
->> A choice node that allows configuring Shared Risk Link Groups (SRLGs) for the interface using either direct values or named references.
+>> A choice node that allows configuring SRLGs for the interface using either direct values or named references.
 
 >> value-srlgs:
 
@@ -1268,12 +1268,12 @@ feedback on this document.
 
 This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
 
-For the example we will use a 4-node MPLS network were RSVP-TE MPLS Tunnels can be setup. The
+For the example we will use a 4-node MPLS network where RSVP-TE MPLS Tunnels can be setup. The
 loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
 described in the following sections.
 
 ~~~
-
+ 2001:db8::1      2001:db8::2    2001:db8::4
  192.0.2.1        192.0.2.2      192.0.2.4
  +-------+        +-------+      +-------+
  |       |        |       |      |       |
@@ -1286,6 +1286,7 @@ described in the following sections.
                   |       |
                   +-------+
                   192.0.2.3
+                  2001:db8::3
 ~~~
 {: #AppFig-Topo title="TE network used in data tree examples"}
 
@@ -1542,6 +1543,9 @@ The request, with status code 200 would include, for example, the following json
 
 ~~~
 {: #AppFig-Topo2 title="TE network used in data tree examples"}
+
+
+
 
 Below is the state retrieved for a TE tunnel from source 192.0.2.1 to 192.0.2.5
 with primary, secondary, reverse, and secondary reverse paths as shown in {{AppFig-Topo2}}.
