@@ -74,14 +74,6 @@ calls, and event notifications.
 
 # Introduction
 
-YANG {{!RFC6020}} and {{!RFC7950}} is a data modeling language that was
-introduced to define the contents of a conceptual data store that allows
-networked devices to be managed using NETCONF {{!RFC6241}}. YANG has proved
-relevant beyond its initial confines, as bindings to other interfaces (e.g.
-RESTCONF {{RFC8040}}) and encoding other than XML (e.g. JSON) are being defined.
-Furthermore, YANG data models can be used as the basis of implementation for
-other interfaces, such as CLI and programmatic APIs.
-
 This document defines a YANG data model intended for the provisioning and management
 of point-to-point Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs),
 and interfaces. The modeling of point-to-multipoint TE Tunnels {{?RFC4875}}
@@ -172,13 +164,6 @@ organization:
 * Where TE functions or features might be optional within the
   deployed TE network, the model declares them as optional.
 
-## State Data Organization
-
-The Network Management Datastore Architecture (NMDA) {{!RFC8342}} addresses
-modeling state data for ephemeral objects.  This document adopts the NMDA model
-for configuration and state data representation as per IETF guidelines for new
-IETF YANG data models.
-
 # Model Overview
 
 The data model defined in this document cover the core TE features that are
@@ -242,6 +227,52 @@ information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups (AGs), Shared Risk Link Groups (SRLGs), etc.).
 
 A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
+
+
+## Relationship Between TE Tunnel, LSP, and Path
+
+The TE YANG model is built around several core constructs: TE tunnel, TE path,
+and LSP. These concepts are central to the model’s structure and functionality.
+
+TE Tunnel:
+
+> In this context, a TE tunnel represents a logical construct that
+defines an engineered connectivity service between two endpoints in the
+network, typically an ingress (source) and an egress (destination). A tunnel is
+characterized by its attributes (such as name, encoding, and constraints) and
+serves as the container for the forwarding resources used to realize the
+desired connectivity.
+
+TE Path:
+
+> A path refers to a specific sequence of nodes and links through the
+network that traffic will follow to traverse the TE tunnel from source to
+destination. A TE tunnel may have one or more associated TE paths, such as a primary
+TE path (the preferred path) and secondary TE paths (used for protection or
+restoration). Each path specifies the constraints, preferences, and
+optimization criteria that guide its computation and selection.
+
+LSP:
+
+> An LSP is an actual, instantiated connection in the
+data plane that follows a computed TE path through the network. It is the result
+of signaling protocols (such as RSVP-TE or Segment Routing) setting up
+forwarding state along the TE path, enabling the tunnel to carry traffic.
+
+The relationship among these concepts is as follows:
+
+A TE tunnel is the high-level logical object that defines the desired
+connectivity and its properties.  Each TE tunnel can have one or more TE paths,
+which define candidate or active routes through the network that may be used to
+realize the tunnel's connectivity, subject to certain constraints and
+preferences.  For each TE path selected for use, one or more LSPs are instantiated
+in the network to realize the forwarding state necessary to carry traffic along
+the specified TE path.
+
+In summary, a TE tunnel defines the service, a TE path defines how to achieve the
+service, and an LSP is the instantiated mechanism that actually provides the
+service in the forwarding plane.
+
 
 ## Module Structure
 
@@ -856,7 +887,7 @@ This module references the following documents:
 {{!RFC4206}}, {{?RFC4427}},
 {{!RFC4872}}, {{!RFC3209}}, {{!RFC6780}},
 {{!RFC7471}}, {{!RFC9012}}, {{!RFC8570}},
-{{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC7308}}, and {{ITU_G.808.1}}.
+{{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC4655}}, {{!RFC8231}}, {{!RFC7308}}, {{!RFC8345}}, {{!RFC9256}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-te@2025-10-27.yang"
