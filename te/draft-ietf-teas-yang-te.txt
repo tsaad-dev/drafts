@@ -95,7 +95,7 @@ Table of Contents
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  82
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  83
    10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  84
-   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  84
+   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  85
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  85
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  85
      12.2.  Informative References . . . . . . . . . . . . . . . . .  89
@@ -596,7 +596,7 @@ Internet-Draft             TE YANG Data Model              February 2026
       -  name: A YANG leaf that holds the named path constraint entry.
          This is unique in the list and used as a key.
 
-      -  te-bandwidth: A YANG container that holds the technology
+      -  te-bandwidth: A YANG container that holds the technology-
          agnostic TE bandwidth constraint.
 
       -  link-protection: A YANG leaf that holds the link protection
@@ -1892,7 +1892,7 @@ Internet-Draft             TE YANG Data Model              February 2026
          }
          leaf hold-off-time {
            type uint32;
-           units "milli-seconds";
+           units "milliseconds";
            description
              "The time between the declaration of an SF or SD condition
               and the initialization of the protection switching
@@ -1967,11 +1967,12 @@ Internet-Draft             TE YANG Data Model              February 2026
            type boolean;
            default "false";
            description
-             "Disable restoration reversion to working path.";
+             "When 'true', disables restoration reversion to the working
+              path.";
          }
          leaf hold-off-time {
            type uint32;
-           units "milli-seconds";
+           units "milliseconds";
            description
              "The time between the declaration of an SF or SD condition
               and the initialization of the protection switching
@@ -2009,7 +2010,6 @@ Internet-Draft             TE YANG Data Model              February 2026
          "TE tunnel association grouping.";
        container association-objects {
          description
-           "TE tunnel associations.";
 
 
 
@@ -2018,6 +2018,7 @@ Saad, et al.             Expires 28 August 2026                [Page 36]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+           "TE tunnel associations.";
          list association-object {
            key "association-key";
            unique "type id source/id source/type";
@@ -2065,7 +2066,6 @@ Internet-Draft             TE YANG Data Model              February 2026
          }
          list association-object-extended {
            key "association-key";
-           unique
 
 
 
@@ -2074,6 +2074,7 @@ Saad, et al.             Expires 28 August 2026                [Page 37]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+           unique
              "type id source/id source/type global-source extended-id";
            description
              "List of extended association objects.";
@@ -2121,7 +2122,6 @@ Internet-Draft             TE YANG Data Model              February 2026
              type uint32;
              description
                "Association global source.";
-             reference
 
 
 
@@ -2130,6 +2130,7 @@ Saad, et al.             Expires 28 August 2026                [Page 38]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+             reference
                "RFC 6780: RSVP ASSOCIATION Object Extensions";
            }
            leaf extended-id {
@@ -2177,7 +2178,6 @@ Internet-Draft             TE YANG Data Model              February 2026
        description
          "Common grouping to define the TE tunnel parameters";
        container source {
-         description
 
 
 
@@ -2186,6 +2186,7 @@ Saad, et al.             Expires 28 August 2026                [Page 39]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+         description
            "TE tunnel source end-point.";
          uses tunnel-end-point;
        }
@@ -2198,7 +2199,7 @@ Internet-Draft             TE YANG Data Model              February 2026
          type boolean;
          default "false";
          description
-           "Indicates a bidirectional tunnel";
+           "When 'true', it indicates a bidirectional tunnel";
        }
      }
 
@@ -2233,7 +2234,6 @@ Internet-Draft             TE YANG Data Model              February 2026
              "Identifies a hierarchical link (in client layer)
               that this tunnel is associated with. By default, the
               topology of the hierarchical link is the same topology of
-              the tunnel;";
 
 
 
@@ -2242,6 +2242,7 @@ Saad, et al.             Expires 28 August 2026                [Page 40]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+              the tunnel;";
            reference
              "RFC 4206: Label Switched Paths (LSP) Hierarchy with
                         Generalized Multi-Protocol Label Switching
@@ -2250,8 +2251,8 @@ Internet-Draft             TE YANG Data Model              February 2026
              type boolean;
              default "false";
              description
-               "Enables the hierarchical link properties supported by
-                this tunnel";
+               "When 'true', enables the hierarchical link properties
+                supported by this tunnel";
            }
            leaf local-node-id {
              type nw:node-id;
@@ -2289,7 +2290,6 @@ Internet-Draft             TE YANG Data Model              February 2026
            }
            leaf remote-te-link-tp-id {
              type te-types:te-tp-id;
-             description
 
 
 
@@ -2298,6 +2298,7 @@ Saad, et al.             Expires 28 August 2026                [Page 41]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+             description
                "The remote TE link termination point identifier.";
            }
            leaf remote-te-node-id {
@@ -2345,7 +2346,6 @@ Internet-Draft             TE YANG Data Model              February 2026
             segment.";
          uses te-types:label-set-info;
        }
-       container path-out-segment {
 
 
 
@@ -2354,6 +2354,7 @@ Saad, et al.             Expires 28 August 2026                [Page 42]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+       container path-out-segment {
          presence
            "The end-to-end tunnel is not terminated in this domain;
             this tunnel is a segment in the current domain.";
@@ -2377,7 +2378,7 @@ Internet-Draft             TE YANG Data Model              February 2026
        leaf enable {
          type boolean;
          description
-           "Enables the TE component features.";
+           "When 'true', the TE component features are enabled.";
        }
 
        /* TE Global Data */
@@ -2401,7 +2402,6 @@ Internet-Draft             TE YANG Data Model              February 2026
              }
              leaf bit-position {
                type uint32;
-               description
 
 
 
@@ -2410,6 +2410,7 @@ Saad, et al.             Expires 28 August 2026                [Page 43]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+               description
                  "Bit-position value for a named Administrative Group
                   (AG).  The value is an integer that represents one of
                   the bit positions in the administrative group bitmask.
@@ -2457,7 +2458,6 @@ Internet-Draft             TE YANG Data Model              February 2026
          container named-path-constraints {
            description
              "TE named path constraints container.";
-           list named-path-constraint {
 
 
 
@@ -2466,6 +2466,7 @@ Saad, et al.             Expires 28 August 2026                [Page 44]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+           list named-path-constraint {
              if-feature "te-types:named-path-constraints";
              key "name";
              leaf name {
@@ -2513,7 +2514,6 @@ Internet-Draft             TE YANG Data Model              February 2026
                 signaling.";
              reference
                "RFC 3209: RSVP-TE: Extensions to RSVP for LSP Tunnels";
-           }
 
 
 
@@ -2522,6 +2522,7 @@ Saad, et al.             Expires 28 August 2026                [Page 45]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+           }
            leaf color {
              type uint32;
              description
@@ -2569,7 +2570,6 @@ Internet-Draft             TE YANG Data Model              February 2026
                 This target node may be augmented by external modules,
                 for example, to add data for PCEP initiated and/or
                 delegated tunnels.";
-             leaf protocol-origin {
 
 
 
@@ -2578,6 +2578,7 @@ Saad, et al.             Expires 28 August 2026                [Page 46]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+             leaf protocol-origin {
                type identityref {
                  base te-types:protocol-origin-type;
                }
@@ -2622,10 +2623,9 @@ Internet-Draft             TE YANG Data Model              February 2026
                  type boolean;
                  config false;
                  description
-                   "Indicates an active path that
-                    has been selected from the primary paths list.";
+                   "When 'true', indicates an active path has been
+                    selected from the primary paths list.";
                }
-               uses path-common-properties;
 
 
 
@@ -2634,6 +2634,7 @@ Saad, et al.             Expires 28 August 2026                [Page 47]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+               uses path-common-properties;
                uses path-forward-properties;
                uses k-requested-paths;
                uses path-compute-info;
@@ -2670,7 +2671,7 @@ Internet-Draft             TE YANG Data Model              February 2026
                        type boolean;
                        config false;
                        description
-                         "Indicates an active path that has been
+                         "When 'true', indicates an active path has been
                           selected from the secondary reverse paths
                           list.";
                      }
@@ -2681,7 +2682,6 @@ Internet-Draft             TE YANG Data Model              February 2026
                  description
                    "The set of candidate secondary paths which may be
                     used for this primary path. When secondary paths are
-                    specified in the list the path of the secondary LSP
 
 
 
@@ -2690,6 +2690,7 @@ Saad, et al.             Expires 28 August 2026                [Page 48]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+                    specified in the list the path of the secondary LSP
                     in use must be restricted to those paths
                     referenced.
                     The priority of the secondary paths is specified
@@ -2718,8 +2719,8 @@ Internet-Draft             TE YANG Data Model              February 2026
                      type boolean;
                      config false;
                      description
-                       "Indicates an active path that has been selected
-                        from the candidate secondary paths.";
+                       "When 'true', indicates an active path has been
+                        selected from the candidate secondary paths.";
                    }
                  }
                }
@@ -2737,7 +2738,6 @@ Internet-Draft             TE YANG Data Model              February 2026
                description
                  "List of secondary paths for this tunnel.";
                uses path-common-properties;
-               leaf preference {
 
 
 
@@ -2746,6 +2746,7 @@ Saad, et al.             Expires 28 August 2026                [Page 49]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+               leaf preference {
                  type uint8 {
                    range "1..255";
                  }
@@ -2793,7 +2794,6 @@ Internet-Draft             TE YANG Data Model              February 2026
              }
            }
            action tunnel-action {
-             description
 
 
 
@@ -2802,6 +2802,7 @@ Saad, et al.             Expires 28 August 2026                [Page 50]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+             description
                "Action commands to manipulate the TE tunnel state.";
              reference
                "RFC 3209: RSVP-TE: Extensions to RSVP for LSP Tunnels,
@@ -2849,7 +2850,6 @@ Internet-Draft             TE YANG Data Model              February 2026
                     applied on the ingress node.
                     By default, the action applies to the ingress
                     node";
-               }
 
 
 
@@ -2858,14 +2858,14 @@ Saad, et al.             Expires 28 August 2026                [Page 51]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
+               }
                leaf egress-node {
                  type boolean;
                  default "false";
                  description
-                   "When set to 'true', indicates that the action is
-                    applied on the egress node.
-                    By default, the action applies to the ingress
-                    node.";
+                   "When 'true', indicates that the action is
+                    applied on the egress node. By default,
+                    the action applies to the ingress node.";
                }
                leaf path-name {
                  type string;
@@ -4598,21 +4598,22 @@ Internet-Draft             TE YANG Data Model              February 2026
       Namespace:  urn:ietf:params:xml:ns:yang:ietf-te
       Prefix:     te
       Reference:  RFCXXXX
+      Maintained by IANA: N
 
       Name:       ietf-te-device
       Namespace:  urn:ietf:params:xml:ns:yang:ietf-te-device
       Prefix:     te-device
       Reference:  RFCXXXX
+      Maintained by IANA: N
 
 9.  Security Considerations
 
    The YANG module specified in this document defines a schema for data
-   that is designed to be accessed via network management protocols such
-   as NETCONF [RFC6241] or RESTCONF [RFC8040].  The lowest NETCONF layer
-   is the secure transport layer, and the mandatory-to-implement secure
-   transport is Secure Shell (SSH) [RFC6242].  The lowest RESTCONF layer
-   is HTTPS, and the mandatory-to-implement secure transport is TLS
-   [RFC8446].
+   that is designed to be accessed via YANG-based management protocols,
+   such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These YANG-based
+   management protocols (1) have to use a secure transport layer (e.g.,
+   SSH [RFC6242], TLS [RFC8446], and QUIC [RFC9000]) and (2) have to use
+   mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -4641,7 +4642,6 @@ Internet-Draft             TE YANG Data Model              February 2026
    "/te/interfaces": This list specifies the configuration and state TE
    interfaces on a device.  Unauthorized access to this list could cause
    the device to ignore packets it should receive and process.
-
 
 
 
@@ -4674,12 +4674,21 @@ Internet-Draft             TE YANG Data Model              February 2026
    sensitive information about the network provider which can be used to
    orchestrate further attacks.
 
-   The security considerations spelled out in the YANG 1.1 specification
-   [RFC7950] apply for this document as well.
+   The YANG module defines a set of identities, types, and groupings.
+   These nodes are intended to be reused by other YANG modules.  The
+   module by itself does not expose any data nodes that are writable,
+   data nodes that contain read-only state, or RPCs.  As such, there are
+   no additional security issues related to the YANG module that need to
+   be considered.
+
+   Modules that use the groupings that are defined in this document
+   should identify the corresponding security considerations.  For
+   example, reusing some of these groupings will expose privacy-related
+   information (e.g., 'node-example').
 
 10.  Acknowledgement
 
-   The authors would like to thank the members of the multi-vendor YANG
+   The authors would like to thank the members of the multivendor YANG
    design team who are involved in the definition of this model.
 
    The authors would like to thank Tom Petch and Adrian Farrel for
@@ -4687,15 +4696,6 @@ Internet-Draft             TE YANG Data Model              February 2026
    authors would also like to thank Loa Andersson, Lou Berger, Sergio
    Belotti, Italo Busi, Carlo Perocchio, Francesco Lazzeri, Aihua Guo,
    Dhruv Dhody, and Raqib Jones for providing feedback on this document.
-
-11.  Contributors
-
-
-
-
-
-
-
 
 
 
@@ -4705,6 +4705,8 @@ Saad, et al.             Expires 28 August 2026                [Page 84]
 
 Internet-Draft             TE YANG Data Model              February 2026
 
+
+11.  Contributors
 
       Oscar Gonzalez de Dios
       Telefonica
@@ -4749,8 +4751,6 @@ Internet-Draft             TE YANG Data Model              February 2026
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
               <https://www.rfc-editor.org/rfc/rfc3209>.
-
-
 
 
 
@@ -4916,10 +4916,10 @@ Internet-Draft             TE YANG Data Model              February 2026
               DOI 10.17487/RFC8795, August 2020,
               <https://www.rfc-editor.org/rfc/rfc8795>.
 
-   [RFC9012]  Patel, K., Van de Velde, G., Sangli, S., and J. Scudder,
-              "The BGP Tunnel Encapsulation Attribute", RFC 9012,
-              DOI 10.17487/RFC9012, April 2021,
-              <https://www.rfc-editor.org/rfc/rfc9012>.
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
 
 
 
@@ -4929,6 +4929,11 @@ Saad, et al.             Expires 28 August 2026                [Page 88]
 
 Internet-Draft             TE YANG Data Model              February 2026
 
+
+   [RFC9012]  Patel, K., Van de Velde, G., Sangli, S., and J. Scudder,
+              "The BGP Tunnel Encapsulation Attribute", RFC 9012,
+              DOI 10.17487/RFC9012, April 2021,
+              <https://www.rfc-editor.org/rfc/rfc9012>.
 
    [RFC9256]  Filsfils, C., Talaulikar, K., Ed., Voyer, D., Bogdanov,
               A., and P. Mattes, "Segment Routing Policy Architecture",
@@ -4970,11 +4975,6 @@ Internet-Draft             TE YANG Data Model              February 2026
               DOI 10.17487/RFC4875, May 2007,
               <https://www.rfc-editor.org/rfc/rfc4875>.
 
-   [RFC6107]  Shiomoto, K., Ed. and A. Farrel, Ed., "Procedures for
-              Dynamically Signaled Hierarchical Label Switched Paths",
-              RFC 6107, DOI 10.17487/RFC6107, February 2011,
-              <https://www.rfc-editor.org/rfc/rfc6107>.
-
 
 
 
@@ -4985,6 +4985,11 @@ Saad, et al.             Expires 28 August 2026                [Page 89]
 
 Internet-Draft             TE YANG Data Model              February 2026
 
+
+   [RFC6107]  Shiomoto, K., Ed. and A. Farrel, Ed., "Procedures for
+              Dynamically Signaled Hierarchical Label Switched Paths",
+              RFC 6107, DOI 10.17487/RFC6107, February 2011,
+              <https://www.rfc-editor.org/rfc/rfc6107>.
 
 Appendix A.  Data Tree Examples
 
@@ -5023,11 +5028,6 @@ A.1.  Basic Tunnel Setup
 
    In this case, the TE Tunnel is created without specifying additional
    information about the primary paths.
-
-
-
-
-
 
 
 
@@ -5189,7 +5189,7 @@ Internet-Draft             TE YANG Data Model              February 2026
 
 A.4.  Tunnel with Per-tunnel Path Constraint
 
-   In this example, the a per-tunnel path constraint is explicitly
+   In this example, the per-tunnel path constraint is explicitly
    indicated under the TE Tunnel created in Appendix A.1 to constrain
    the computed path for the tunnel.
 

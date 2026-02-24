@@ -389,7 +389,7 @@ formed of the path constraints shown in {{fig-named-constraints}}:
 
 >
 - name: A YANG leaf that holds the named path constraint entry. This is unique in the list and used as a key.
-- te-bandwidth: A YANG container that holds the technology agnostic TE bandwidth constraint.
+- te-bandwidth: A YANG container that holds the technology-agnostic TE bandwidth constraint.
 - link-protection: A YANG leaf that holds the link protection type constraint required for the links to be included in the computed path.
 - setup/hold priority: YANG leafs that hold the LSP setup and hold admission priority as defined in {{?RFC3209}}.
 - signaling-type: A YANG leaf that holds the LSP setup type, such as RSVP-TE or SR.
@@ -1181,21 +1181,23 @@ registry {{!RFC6020}}.
    Namespace:  urn:ietf:params:xml:ns:yang:ietf-te
    Prefix:     te
    Reference:  RFCXXXX
+   Maintained by IANA: N
 
    Name:       ietf-te-device
    Namespace:  urn:ietf:params:xml:ns:yang:ietf-te-device
    Prefix:     te-device
    Reference:  RFCXXXX
+   Maintained by IANA: N
 ~~~~
 
 # Security Considerations
 
 The YANG module specified in this document defines a schema for data that is
-designed to be accessed via network management protocols such as NETCONF
-{{!RFC6241}} or RESTCONF {{!RFC8040}}. The lowest NETCONF layer is the secure
-transport layer, and the mandatory-to-implement secure transport is Secure
-Shell (SSH) {{!RFC6242}}. The lowest RESTCONF layer is HTTPS, and the
-mandatory-to-implement secure transport is TLS {{!RFC8446}}.
+designed to be accessed via YANG-based management protocols, such as
+NETCONF {{!RFC6241}} and RESTCONF {{!RFC8040}}. These YANG-based management
+protocols (1) have to use a secure transport layer
+(e.g., SSH {{!RFC6242}}, TLS {{!RFC8446}}, and QUIC {{!RFC9000}}) and (2) have
+to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the
 means to restrict access for particular NETCONF or RESTCONF users to a
@@ -1245,12 +1247,20 @@ carried over the network.
 information about the network provider which can be used to orchestrate further
 attacks.
 
-The security considerations spelled out in the YANG 1.1 specification
-{{!RFC7950}} apply for this document as well.
+The YANG module defines a set of identities, types, and groupings. These nodes
+are intended to be reused by other YANG modules. The module by itself does not
+expose any data nodes that are writable, data nodes that contain read-only
+state, or RPCs.  As such, there are no additional security issues related to
+the YANG module that need to be considered.
+
+Modules that use the groupings that are defined in this document should
+identify the corresponding security considerations. For example, reusing some
+of these groupings will expose privacy-related information (e.g.,
+'node-example').
 
 # Acknowledgement
 
-The authors would like to thank the  members of the multi-vendor YANG design
+The authors would like to thank the  members of the multivendor YANG design
 team who are involved in the definition of this model.
 
 The authors would like to thank Tom Petch and Adrian Farrel for reviewing and
@@ -1438,7 +1448,7 @@ POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
 
 ## Tunnel with Per-tunnel Path Constraint
 
-In this example, the a per-tunnel path constraint is explicitly indicated under the TE Tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
+In this example, the per-tunnel path constraint is explicitly indicated under the TE Tunnel created in {{TeTunnel}} to constrain the computed path for the tunnel.
 
 ~~~
 POST /restconf/data/ietf-te:te/tunnels HTTP/1.1
