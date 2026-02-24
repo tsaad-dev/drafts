@@ -43,12 +43,6 @@ author:
     email: i_bryskin@yahoo.com
 
 normative:
-  RFC3209:
-  RFC6020:
-  RFC6241:
-  RFC9911:
-  RFC6107:
-  RFC8040:
   ITU_G.808.1:
     title: Generic protection switching - Linear trail and subnetwork protection
     author:
@@ -87,7 +81,7 @@ module addresses device-specific data.
 This document outlines the high-level relationships between the YANG modules it
 defines and other external protocol YANG modules. The TE YANG data
 model intentionally excludes data specific to any signaling protocol, 
-such as RSVP-TE ({{RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
+such as RSVP-TE ({{?RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
 {{?RFC9256}} with the
 expectation that such technology models will be defined in separate documents
 and will augment the generic TE model as needed.
@@ -621,7 +615,7 @@ hierarchy:
 
 > A YANG container that holds hierarchy related properties of the TE Tunnel. A TE LSP
   can be set up in MPLS or Generalized MPLS (GMPLS) networks to be used as
-  a TE link to carry traffic in other (client) networks {{RFC6107}}.  In this
+  a TE link to carry traffic in other (client) networks {{?RFC6107}}.  In this
   case, the model introduces the TE Tunnel hierarchical link endpoint parameters
   to identify the specific link in the client layer that the underlying TE Tunnel is
   associated with. The hierarchy container includes the following:
@@ -890,7 +884,7 @@ This module references the following documents:
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC4655}}, {{!RFC8231}}, {{!RFC7308}}, {{!RFC8345}}, {{!RFC9256}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2025-10-27.yang"
+<CODE BEGINS> file "ietf-te@2026-02-24.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1142,7 +1136,7 @@ The 'ietf-te-device' module imports the following modules:
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2025-10-27.yang"
+<CODE BEGINS> file "ietf-te-device@2026-02-24.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1180,7 +1174,7 @@ requested to be made.
 ~~~~
 
 This document registers two YANG modules in the YANG Module Names
-registry {{RFC6020}}.
+registry {{!RFC6020}}.
 
 ~~~~
    Name:       ietf-te
