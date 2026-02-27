@@ -90,7 +90,7 @@ and will augment the generic TE model as needed.
 
 ## Terminology
 
-The following terms are defined in {{!RFC6241}} and are used in this specification:
+The following terms are defined in {{?RFC6241}} and are used in this specification:
 
 * client
 * configuration data
@@ -226,7 +226,7 @@ A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
 ## Relationship Between TE Tunnel, LSP, and Path
 
 The TE YANG model is built around several core constructs: TE tunnel, TE path,
-and LSP. These concepts are central to the model’s structure and functionality.
+and LSP. These concepts are central to the model's structure and functionality.
 
 TE Tunnel:
 
@@ -529,7 +529,8 @@ to ensure that TE Tunnel names are unique.
 
 alias:
 
-> A YANG leaf that holds an alternate name to the TE tunnel. Unlike the TE tunnel
+> A YANG leaf that holds a user-friendly alternate name to the TE tunnel,
+which is typically, but not necessarily, unique. Unlike the TE tunnel
 name, the alias can be modified at any time during the lifetime of the TE tunnel.
 
 identifier:
@@ -1194,9 +1195,9 @@ registry {{!RFC6020}}.
 
 The YANG module specified in this document defines a schema for data that is
 designed to be accessed via YANG-based management protocols, such as
-NETCONF {{!RFC6241}} and RESTCONF {{!RFC8040}}. These YANG-based management
+NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management
 protocols (1) have to use a secure transport layer
-(e.g., SSH {{!RFC6242}}, TLS {{!RFC8446}}, and QUIC {{!RFC9000}}) and (2) have
+(e.g., SSH {{?RFC6242}}, TLS {{?RFC8446}}, and QUIC {{!RFC9000}}) and (2) have
 to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the
@@ -1301,7 +1302,7 @@ feedback on this document.
 
 # Data Tree Examples {#AppendixA}
 
-This section contains examples of use of the model with RESTCONF {{RFC8040}} and JSON encoding.
+This section contains examples of use of the model with RESTCONF {{?RFC8040}} and JSON encoding.
 
 For the example we will use a 4-node MPLS network where RSVP-TE MPLS Tunnels can be setup. The
 loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
