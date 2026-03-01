@@ -79,12 +79,11 @@ module contains generic, device-independent data, and the 'ietf-te-device'
 module addresses device-specific data.
 
 This document outlines the high-level relationships between the YANG modules it
-defines and other external protocol YANG modules. The TE YANG data
+defines and other external protocol YANG modules. The TE data
 model intentionally excludes data specific to any signaling protocol, 
-such as RSVP-TE ({{?RFC3209}}, {{!RFC3473}}), or Segment-Routing TE (SR-TE) 
-{{?RFC9256}} with the
+such as RSVP-TE ({{?RFC3209}}, {{!RFC3473}}), or Segment-Routing ({{?RFC8402}}, {{?RFC9256}}) with the
 expectation that such technology models will be defined in separate documents
-and will augment the generic TE model as needed.
+and will augment the TE model as needed.
 
 # Terms and Conventions
 
@@ -122,22 +121,22 @@ modules, as shown in {{tab1}}.
 
 ## Model Tree Diagrams
 
-The tree diagrams extracted from the modules defined in this document are given in
+The YANG tree diagrams extracted from the modules defined in this document are given in
 subsequent sections as per the syntax defined in {{!RFC8340}}.
 
 # Design Considerations
 
-This document describes a generic TE YANG data model that is independent of
+This document describes a TE data model that is independent of
 any dataplane technology.  One of the design objectives is to allow specific
-data plane technology models to reuse the TE generic data model and possibly
+data plane technology models to reuse the TE data model and possibly
 augment it with technology-specific data.
 
-The elements of the generic TE YANG data model, including TE Tunnels, LSPs, and
+The elements of the TE data model, including TE Tunnels, LSPs, and
 interfaces have leafs that identify the technology layer where they reside.
 For example, the LSP encoding type can identify the technology associated with a
 TE Tunnel or LSP.
 
-Also, the generic TE YANG data model does not cover signaling protocol data.
+Also, the TE data model does not cover signaling protocol data.
 The signaling protocols used to instantiate TE LSPs are outside the scope of this
 document and expected to be covered by augmentations defined in other documents.
 
@@ -151,12 +150,25 @@ organization:
   controller, the 'tunnel' list contains all TE Tunnels and TE tunnel segments
   originating from devices that the TE controller manages.
 * The device-specific TE data is defined in the 'ietf-te-device' module.
+* The TE interfaces in the 'ietf-te-device' module are modeled as references
+  to existing interfaces defined in the 'ietf-interfaces' YANG module
+  {{!RFC8343}}. This approach ensures consistency by leveraging standardized
+  interface definitions, allowing TE-specific parameters to be associated with
+  interfaces already defined elsewhere, rather than redefining interface
+  structures within the TE module."
 * Minimal elements in the model are designated as "mandatory" to
   allow freedom to vendors to adapt the data model to their specific product
   implementation.
 * Suitable defaults are specified for all configurable elements.
 * Where TE functions or features might be optional within the
   deployed TE network, the model declares them as optional.
+* Some groupings defined in this document include "default" statements, which
+  do not conform to the guidelines specified in Section 4.13 of
+  {{?I-D.ietf-netmod-rfc8407bis}}. This deviation is intentional because these
+  groupings are specifically tailored for use within the YANG modules defined
+  in this document as well as in {{?I-D.ietf-teas-yang-path-computation}}.
+  The customization ensures appropriate behavior and consistency across these
+  related modules.
 
 # Model Overview
 
@@ -168,21 +180,20 @@ deviations to this model that are defined in separate documents.
 
 ## Module Relationship
 
-The generic TE YANG data model, defined in the 'ietf-te' YANG module, provides
+The TE YANG module, defined in the 'ietf-te', provides
 device-independent building blocks that are agnostic of specific technologies
-or control plane instances. The TE device YANG data model, defined in the
-'ietf-te-device' YANG module, augments the 'ietf-te' YANG module as illustrated in
+or control plane instances. The TE device YANG module, defined in the
+'ietf-te-device', augments the 'ietf-te' YANG module as illustrated in
 {{figctrl}} by including device-specific data such as TE interface attributes and
 local TE node timers.
 
-The TE data models for specific instances of data plane technology and
-signaling protocols are outside the scope of this document.  They could be
-defined in separate YANG modules that augment the generic TE YANG data model.
+The augmentation of the TE data model for specific instances of data plane technology and
+signaling protocols are outside the scope of this document.
 
 ~~~
 
-     TE generic     +---------+
-     module         | ietf-te |o-------------+
+     TE module      +---------+
+                    | ietf-te |o-------------+
                     +---------+               \
                         o  o                   \
                         |   \                   \
@@ -213,19 +224,19 @@ defined in separate YANG modules that augment the generic TE YANG data model.
 ~~~
 {: #figctrl title="Relationship of TE modules with signaling protocol modules"}
 
-# TE YANG Model
+# TE YANG Module
 
-The generic TE YANG data model defined in the 'ietf-te' module supports the management and
+The TE YANG module defined in the 'ietf-te' supports the management and
 operation of a TE network. This includes creating, modifying, and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups (AGs), Shared Risk Link Groups (SRLGs), etc.).
 
-A full tree diagram of the TE YANG data model is shown in {{AppendixB}}.
+A full tree diagram of the TE data model is shown in {{AppendixB}}.
 
 
 ## Relationship Between TE Tunnel, LSP, and Path
 
-The TE YANG model is built around several core constructs: TE tunnel, TE path,
+The TE model is built around several core constructs: TE tunnel, TE path,
 and LSP. These concepts are central to the model's structure and functionality.
 
 TE Tunnel:
@@ -311,7 +322,7 @@ on a specific tunnel or all tunnels.
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-01.tree}
 ~~~~~~~~~~~
-{: #fig-highlevel title="TE Tunnel model high-level YANG tree view"}
+{: #fig-highlevel title="TE Tunnel high-level YANG tree view"}
 
 ### TE Globals {#TeGlobals}
 
@@ -485,7 +496,7 @@ module: ietf-te
 {: #fig-te-tunnel title="TE Tunnel YANG subtree structure"}
 
 
-When the model is used to manage a specific device, the 'tunnel' list contains
+When the TE model is used to manage a specific device, the 'tunnel' list contains
 the TE Tunnels originating from the specific device. When the model is used to
 manage a TE controller, the 'tunnel' list contains all TE Tunnels and TE
 tunnel segments originating from devices that the TE controller manages.
@@ -861,18 +872,18 @@ TE LSPs on devices managed by the controller that act as transit or egress role.
 
 ## Tree Diagram
 
-{{fig-te-tree}} shows the tree diagram of depth=4 for the generic TE YANG data model defined in
-the 'ietf-te' module. The full tree diagram is shown in {{AppendixB}}.
+{{fig-te-tree}} shows the YANG tree diagram of depth=4 for the TE YANG module in
+'ietf-te'. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-02.tree}
 ~~~~~~~~~~~
-{: #fig-te-tree title="Tree diagram of depth-4 of TE Tunnel YANG data model"}
+{: #fig-te-tree title="Tree diagram of depth-4 of TE Tunnels"}
 
 
 ## YANG Module
 
-The generic TE YANG module 'ietf-te' imports the following modules:
+The TE YANG module 'ietf-te' imports the following modules:
 
 - ietf-te-types defined in {{!I-D.draft-ietf-teas-rfc8776-update}}
 - ietf-yang-types and ietf-inet-types defined in {{!RFC9911}}
@@ -890,10 +901,10 @@ This module references the following documents:
 <CODE ENDS>
 ~~~~~~~~~~
 
-# TE Device YANG Model
+# TE Device YANG Moule
 
-The device TE YANG module 'ietf-te-device' models data that is specific to
-managing a TE device.  This module augments the generic TE YANG module.
+The TE device YANG module 'ietf-te-device' models data that is specific to
+managing a TE device.  This module augments the TE YANG module.
 
 ## Module Structure
 
@@ -902,7 +913,7 @@ that is specific to the device, including those related to the TE subsystem, tun
 
 ### TE Device Globals, Tunnels and LSPs
 
-The 'ietf-te-device' module augments the generic 'ietf-te' module at the
+The 'ietf-te-device' module augments the TE YANG module 'ietf-te' at the
 'globals', 'tunnels', and 'lsps' levels to include the device-specific
 configurations and operational state.
 
@@ -982,6 +993,9 @@ upstream-info
 : A container that holds information about the upstream neighbor and label for the LSP, applicable when the LSP is not at its ingress.
 
 ### TE Device Interfaces
+
+The TE interface is modeled as a reference to an existing interface as defined
+in the 'ietf-interfaces' YANG module {{!RFC8343}}.
 
 {{fig-if-te-02}} shows the TE interface subtree from the TE device module 'ietf-te-device' with depth=4.
 The full tree diagram is shown in {{AppendixB}}.
@@ -1118,8 +1132,8 @@ interface:
 
 ## Tree Diagram
 
-{{fig-te-dev-tree}} shows the tree diagram of the device TE YANG data model defined in
-the 'ietf-te-device' module.
+{{fig-te-dev-tree}} shows the YANG tree diagram of the TE device YANG module defined in
+'ietf-te-device'.
 
 ~~~~~~~~~~~
 {::include ../../te/ietf-te-dev.tree}
@@ -1302,11 +1316,20 @@ feedback on this document.
 
 # Data Tree Examples {#AppendixA}
 
-This section contains examples of use of the model with RESTCONF {{?RFC8040}} and JSON encoding.
+This section provides examples demonstrating the use of the model with RESTCONF {{?RFC8040}} and JSON encoding.
+The examples are based on a 4-node network topology depicted in {{AppFig-Topo}}, where RSVP-TE tunnels can be established.
+The loopback addresses for each node, which serve as the TE Node IDs, are detailed in Table 2 below:
 
-For the example we will use a 4-node MPLS network where RSVP-TE MPLS Tunnels can be setup. The
-loopbacks of each router are shown. The network in {{AppFig-Topo}} will be used in the examples
-described in the following sections.
+| Node      | TE Node ID (IPv4) |  TE Node ID (IPv6) |
+|-----------|-----------------|------------------|
+|        A  |  192.0.2.1      | 2001:db8::1      |
+|        B  |  192.0.2.2      | 2001:db8::2      |
+|        C  |  192.0.2.3      | 2001:db8::3      |
+|        D  |  192.0.2.4      | 2001:db8::4      |
+{: #tab2 title="Loopback addresses used in the following examples"}
+
+This network topology forms the foundation for the subsequent examples, which
+illustrate the setup and configuration of RSVP-TE tunnels using the model.
 
 ~~~
  2001:db8::1      2001:db8::2    2001:db8::4
@@ -1556,6 +1579,24 @@ The request, with status code 200 would include, for example, the following json
 
 ## Example TE Tunnel with Primary and Secondary Paths
 
+The example in this section uses the network topology depicted in {{AppFig-Topo2}}.
+The loopback addresses for each node, which serve as the TE Node IDs, are detailed in {{tab3}} below:
+
+| Node      | TE Node ID (IPv4) |  TE Node ID (IPv6) |
+|-----------|-----------------|------------------|
+|        A  |  192.0.2.1      | 2001:db8::1      |
+|        B  |  192.0.2.2      | 2001:db8::2      |
+|        C  |  192.0.2.3      | 2001:db8::3      |
+|        D  |  192.0.2.4      | 2001:db8::4      |
+|        E  |  192.0.2.5      | 2001:db8::5      |
+|        F  |  192.0.2.6      | 2001:db8::6      |
+|        G  |  192.0.2.7      | 2001:db8::7      |
+|        H  |  192.0.2.8      | 2001:db8::8      |
+|        I  |  192.0.2.9      | 2001:db8::9      |
+|        J  |  192.0.2.10     | 2001:db8::a      |
+{: #tab3 title="Loopback addresses used in this section"}
+
+
 ~~~
                        +----------+          +----------+
                      +-|192.0.2.9 |---+      |192.0.2.10|
@@ -1583,8 +1624,9 @@ The request, with status code 200 would include, for example, the following json
 
 
 
-Below is the state retrieved for a TE tunnel from source 192.0.2.1 to 192.0.2.5
-with primary, secondary, reverse, and secondary reverse paths as shown in {{AppFig-Topo2}}.
+Below is the state retrieved for a TE tunnel that is setup from ingress node A
+(192.0.2.1) to egress node E (192.0.2.5) with primary, secondary, reverse, and
+secondary reverse paths as shown in {{AppFig-Topo2}}.
 
 ~~~
 {
