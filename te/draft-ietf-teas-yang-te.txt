@@ -292,12 +292,12 @@ Internet-Draft             TE YANG Data Model              February 2026
 
 4.1.  Module Relationship
 
-   The TE YANG module, defined in the 'ietf-te', provides device-
-   independent building blocks that are agnostic of specific
-   technologies or control plane instances.  The TE device YANG module,
-   defined in the 'ietf-te-device', augments the 'ietf-te' YANG module
-   as illustrated in Figure 1 by including device-specific data such as
-   TE interface attributes and local TE node timers.
+   The TE YANG module 'ietf-te' provides device-independent building
+   blocks that are agnostic of specific technologies or control plane
+   instances.  The TE device YANG module, defined in the 'ietf-te-
+   device', augments the 'ietf-te' YANG module as illustrated in
+   Figure 1 by including device-specific data such as TE interface
+   attributes and local TE node timers.
 
    The augmentation of the TE data model for specific instances of data
    plane technology and signaling protocols are outside the scope of
@@ -371,11 +371,11 @@ Internet-Draft             TE YANG Data Model              February 2026
 
 5.  TE YANG Module
 
-   The TE YANG module defined in the 'ietf-te' supports the management
-   and operation of a TE network.  This includes creating, modifying,
-   and retrieving information about TE Tunnels, LSPs, and interfaces and
-   their associated attributes (e.g.  Administrative-Groups (AGs),
-   Shared Risk Link Groups (SRLGs), etc.).
+   The TE YANG module 'ietf-te' supports the management and operation of
+   a TE network.  This includes creating, modifying, and retrieving
+   information about TE Tunnels, LSPs, and interfaces and their
+   associated attributes (e.g.  Administrative-Groups (AGs), Shared Risk
+   Link Groups (SRLGs), etc.).
 
    A full tree diagram of the TE data model is shown in Appendix B.
 
@@ -1293,7 +1293,7 @@ Internet-Draft             TE YANG Data Model              February 2026
 5.3.  Tree Diagram
 
    Figure 6 shows the YANG tree diagram of depth=4 for the TE YANG
-   module in 'ietf-te'.  The full tree diagram is shown in Appendix B.
+   module 'ietf-te'.  The full tree diagram is shown in Appendix B.
 
    module: ietf-te
      +--rw te
@@ -1435,7 +1435,7 @@ Internet-Draft             TE YANG Data Model              February 2026
    [RFC8232], [RFC7271], [RFC8234], [RFC4655], [RFC8231], [RFC7308],
    [RFC8345], [RFC9256], and [ITU_G.808.1].
 
-   <CODE BEGINS> file "ietf-te@2026-02-24.yang"
+   <CODE BEGINS> file "ietf-te@2026-02-28.yang"
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te";
 
@@ -1528,7 +1528,7 @@ Internet-Draft             TE YANG Data Model              February 2026
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2025-02-24 {
+     revision 2026-02-28 {
        description
          "Initial revision for the TE generic YANG module.";
        reference
@@ -3922,7 +3922,7 @@ Saad, et al.            Expires 1 September 2026               [Page 70]
 Internet-Draft             TE YANG Data Model              February 2026
 
 
-   <CODE BEGINS> file "ietf-te-device@2026-02-24.yang"
+   <CODE BEGINS> file "ietf-te-device@2026-02-28.yang"
    module ietf-te-device {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-device";
@@ -4013,7 +4013,7 @@ Internet-Draft             TE YANG Data Model              February 2026
      // RFC Ed.: update the date below with the date of RFC publication
      // and remove this note.
 
-     revision 2025-02-24 {
+     revision 2026-02-28 {
        description
          "Initial revision for the TE device YANG module.";
        reference

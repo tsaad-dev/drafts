@@ -180,7 +180,7 @@ deviations to this model that are defined in separate documents.
 
 ## Module Relationship
 
-The TE YANG module, defined in the 'ietf-te', provides
+The TE YANG module 'ietf-te' provides
 device-independent building blocks that are agnostic of specific technologies
 or control plane instances. The TE device YANG module, defined in the
 'ietf-te-device', augments the 'ietf-te' YANG module as illustrated in
@@ -226,7 +226,7 @@ signaling protocols are outside the scope of this document.
 
 # TE YANG Module
 
-The TE YANG module defined in the 'ietf-te' supports the management and
+The TE YANG module 'ietf-te' supports the management and
 operation of a TE network. This includes creating, modifying, and retrieving
 information about TE Tunnels, LSPs, and interfaces and their associated
 attributes (e.g.  Administrative-Groups (AGs), Shared Risk Link Groups (SRLGs), etc.).
@@ -872,7 +872,7 @@ TE LSPs on devices managed by the controller that act as transit or egress role.
 
 ## Tree Diagram
 
-{{fig-te-tree}} shows the YANG tree diagram of depth=4 for the TE YANG module in
+{{fig-te-tree}} shows the YANG tree diagram of depth=4 for the TE YANG module
 'ietf-te'. The full tree diagram is shown in {{AppendixB}}.
 
 ~~~~~~~~~~~
@@ -896,7 +896,7 @@ This module references the following documents:
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC4655}}, {{!RFC8231}}, {{!RFC7308}}, {{!RFC8345}}, {{!RFC9256}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2026-02-24.yang"
+<CODE BEGINS> file "ietf-te@2026-02-28.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1151,7 +1151,7 @@ The 'ietf-te-device' module imports the following modules:
 - ietf-te defined in this document
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te-device@2026-02-24.yang"
+<CODE BEGINS> file "ietf-te-device@2026-02-28.yang"
 {::include ../../te/ietf-te-device.yang}
 <CODE ENDS>
 ~~~~~~~~~~
