@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths, and Interfaces
 abbrev: TE YANG Data Model
-docname: draft-ietf-teas-yang-te-43
+docname: draft-ietf-teas-yang-te-44
 ipr: trust200902
 category: std
 workgroup: TEAS Working Group
@@ -162,11 +162,14 @@ organization:
 * Suitable defaults are specified for all configurable elements.
 * Where TE functions or features might be optional within the
   deployed TE network, the model declares them as optional.
-* Some groupings defined in this document include "default" statements, which
-  do not conform to the guidelines specified in Section 4.13 of
-  {{?I-D.ietf-netmod-rfc8407bis}}. This deviation is intentional because these
-  groupings are specifically tailored for use within the YANG modules defined
-  in this document as well as in {{?I-D.ietf-teas-yang-path-computation}}.
+
+* Some groupings defined in this document include 'default' statements,
+  which can be problematic for use cases involving templates or profiling.
+  This design does not conform to the guidelines specified in Section
+  4.13 of {{?I-D.ietf-netmod-rfc8407bis}}. 
+  However, this deviation is intentional as these groupings are specifically
+  tailored for use within the YANG modules defined in this document 
+  as well as in {{?I-D.ietf-teas-yang-path-computation}}.
   The customization ensures appropriate behavior and consistency across these
   related modules.
 
@@ -896,7 +899,7 @@ This module references the following documents:
 {{!RFC8232}}, {{!RFC7271}}, {{!RFC8234}}, {{!RFC4655}}, {{!RFC8231}}, {{!RFC7308}}, {{!RFC8345}}, {{!RFC9256}}, and {{ITU_G.808.1}}.
 
 ~~~~~~~~~~
-<CODE BEGINS> file "ietf-te@2026-02-28.yang"
+<CODE BEGINS> file "ietf-te@2026-03-26.yang"
 {::include ../../te/ietf-te.yang}
 <CODE ENDS>
 ~~~~~~~~~~
@@ -1211,7 +1214,7 @@ The YANG module specified in this document defines a schema for data that is
 designed to be accessed via YANG-based management protocols, such as
 NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management
 protocols (1) have to use a secure transport layer
-(e.g., SSH {{?RFC6242}}, TLS {{?RFC8446}}, and QUIC {{!RFC9000}}) and (2) have
+(e.g., SSH {{?RFC6242}}, TLS {{?RFC8446}}, and QUIC {{?RFC9000}}) and (2) have
 to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the
@@ -1271,7 +1274,7 @@ the YANG module that need to be considered.
 Modules that use the groupings that are defined in this document should
 identify the corresponding security considerations. For example, reusing some
 of these groupings will expose privacy-related information (e.g.,
-'node-example').
+'path-forward-properties').
 
 # Acknowledgement
 
