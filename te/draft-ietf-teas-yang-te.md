@@ -57,12 +57,11 @@ informative:
 
 This document defines a YANG data model for the provisioning and management of
 Traffic Engineering (TE) tunnels, Label Switched Paths (LSPs), and interfaces.
-The model covers data that is independent of any technology or dataplane encapsulation
-and is divided into two YANG modules that cover device-specific, and device independent
-data.
-
-This model covers data for configuration, operational state, remote procedural
-calls, and event notifications.
+The model covers data pertinent to TE tunnels, TE LSPs, and TE interfaces that
+are independent of any technology or dataplane encapsulation. The model is
+divided into two YANG modules that address both device-specific
+and device-independent data, supporting configuration, operational state,
+Remote Procedure Calls (RPCs), and event notifications.
 
 --- middle
 
@@ -126,8 +125,8 @@ subsequent sections as per the syntax defined in {{!RFC8340}}.
 
 # Design Considerations
 
-This document describes a TE data model that is independent of
-any dataplane technology.  One of the design objectives is to allow specific
+This document describes a data model for TE tunnels, TE LSPs, and TE interfaces
+that are independent of any dataplane technology. One of the design objectives is to allow specific
 data plane technology models to reuse the TE data model and possibly
 augment it with technology-specific data.
 
