@@ -46,6 +46,7 @@ author:
 normative:
 
 informative:
+  RFC5440:
 
 --- abstract
 
@@ -56,7 +57,7 @@ services or customers. Multiple network slices can be realized on the same
 network while ensuring slice elasticity in terms of network resource
 allocation. This document describes a scalable solution to realize network
 slicing in IP/MPLS networks by supporting multiple services on top of a single
-physical network by by requiring compliant domains and nodes to provide
+physical network by requiring compliant domains and nodes to provide
 forwarding treatment (scheduling, drop policy, resource usage) based on
 slice identifiers.
 
@@ -458,7 +459,21 @@ forwarding path of packets to the destination. The NRP Selector field carried in
 packet determines the specific NRP-PHB treatment along the
 selected path.
 
-## Control Plane Network Resource Partition Mode
+The data plane NRP mode can provide two levels of isolation between
+NRPs:
+
+*  Strict isolation: Each NRP is assigned dedicated hardware
+   resources (e.g., queues, schedulers, and policers) that are not
+   shared with other NRPs.  This ensures that traffic of one NRP
+   cannot contend with or impact traffic of another NRP.
+
+*  Shared hardware isolation: Multiple NRPs may share the same
+   underlying hardware resources, but are differentiated by the NRP
+   Selector and the NRP-PHB applied to their traffic.  In this case,
+   isolation is statistical and depends on the configured scheduling
+   and policing policies.
+
+## Control Plane Network Resource Partition Mode {#ControlplaneSlicing}
 
 Multiple NRPs can be realized over the same set of physical resources.  Each
 NRP is identified by an identifier (NRP-ID) that is globally unique within the
@@ -482,7 +497,7 @@ To perform NRP state aware Traffic Engineering (NRP-TE), the resource reservatio
 on each link needs to be NRP aware. The NRP reservations state can be managed
 locally on the device or off device (e.g. on a controller).
 
-The same physical link may be member of multiple slice policies that
+The same physical link may be a member of multiple slice policies that
 instantiate different NRPs. The NRP
 reservable or utilized bandwidth on such a link is updated (and may be
 advertised) whenever new paths are placed in the network. The NRP
@@ -503,7 +518,7 @@ available bandwidth portion allocated to each amongst them.
 Similarly, NRP3 and NRP4 can share amongst themselves any available bandwidth
 allocated to them, but they cannot share available bandwidth allocated to
 NRP1 or NRP2.  In both cases, the Max Reservable Bandwidth may exceed the
-actual physical link resource capacity to allow for over subscription.
+actual physical link resource capacity to allow for oversubscription.
 
 ~~~~~~
   I-----------------------------I     I-----------------------------I 
@@ -546,8 +561,16 @@ actual physical link resource capacity to allow for over subscription.
 ~~~~~~
 {: #resource-sharing title="Bandwidth isolation/sharing among NRPs."}
 
+The control plane NRP mode provides isolation at admission time by
+ensuring that the total bandwidth reserved across NRPs does not
+exceed the available physical link capacity (subject to any
+configured oversubscription).  However, since no per-packet
+forwarding enforcement is applied in this mode, traffic from
+different NRPs may contend for the same physical resources at
+runtime, and isolation guarantees are soft.
 
-## Data and Control Plane Network Resource Partition Mode
+
+## Data and Control Plane Network Resource Partition Mode {#DataControlplaneSlicing}
 
 In order to support strict guarantees for Slice-Flow
 Aggregates, the network resources can be partitioned in both the control plane
@@ -561,6 +584,13 @@ to determine optimal path placement for specific demand flows using NRP-TE.
 The data plane partitioning provides isolation for Slice-Flow Aggregate traffic, and
 protection when resource contention occurs due to bursts of traffic from other Slice-Flow
 Aggregate traffic that traverses the same shared network resource.
+
+The combination of control and data plane partitioning provides the
+strongest form of NRP isolation.  The control plane ensures that
+admitted traffic across NRPs does not exceed the available network
+resources, while the data plane enforces per-packet forwarding
+treatment at runtime, preventing traffic bursts from one NRP from
+impacting the resources available to other NRPs.
 
 # Network Resource Partition Instantiation {#SlicePolicyInstantiation}
 
@@ -666,7 +696,7 @@ packet:
 +------+       +------+         +------+        +------+
 | Pay- |       | 9023 |         | 1001 |        | IP   | 
 | Load |       +------+         +------+        +------+
-+----- +       | 1001 |         | IP   |        | Pay- |
++------+       | 1001 |         | IP   |        | Pay- |
                +------+         +------+        | Load |
                | IP   |         | Pay- |        +------+
                +------+         | Load |
@@ -679,7 +709,7 @@ packet:
 
 Dedicated identifier as NRP Selector:
 
-> A dedicated identifier may be defined as to act as the NRP Selector
+> A dedicated identifier may be defined to act as the NRP Selector
 > ID to be carried in packets of Slice-Flow Aggregate, independent of
 > the forwarding address or MPLS forwarding label bound to the
 > destination and independent of any VPN identifiers.  Routers within
@@ -691,23 +721,40 @@ Dedicated identifier as NRP Selector:
 > The NRP Selector, in this case, can be carried in one of multiple
 > fields in the packet, depending on the data plane in use. All packets
 > that belong to the same Slice-Flow Aggregate may carry the same
-> NRP Selector, but it is also possible to have multiple NRP Selector's
+> NRP Selector, but it is also possible to have multiple NRP Selectors
 > map to the same Slice-Flow Aggregate.
 
 
 Fallback treatment for unclassified packets:
 
-> When a dedicated identifier is used as the NRP Selector, it is
-> beneficial to specify a fallback action for situations where an
-> NRP packet cannot be mapped to an NRP on an NRP-capable node.  In
-> such cases, a field within the NRP Selector ID can be used to
-> indicate whether to apply the default drop action or permit a
-> fallback treatment.  The fallback treatment can be specified by a
-> local policy.
+> A packet carrying an NRP Selector may arrive at an NRP-capable
+> node on which no NRP matching that NRP Selector value is
+> instantiated.  In such cases, the node is unable to associate the
+> packet with any NRP and therefore cannot apply the corresponding
+> NRP-PHB forwarding treatment.
 >
+> The following fallback treatments MAY be applied in this case:
+>
+> *  Drop: The packet is discarded.  This is the RECOMMENDED default
+>    behavior, as it prevents packets with unrecognized NRP Selectors
+>    from consuming resources of other NRPs on the node.
+>
+> *  Best-effort forwarding: The packet is forwarded using the
+>    node's default best-effort forwarding treatment, without any
+>    NRP-specific resource guarantees.
+>
+> *  Default NRP forwarding: The packet is mapped to a pre-configured
+>    default NRP on the node, which provides a baseline forwarding
+>    treatment for unmatched traffic.
+>
+> The choice of fallback treatment SHOULD be configurable via local
+> policy.  When a dedicated identifier is used as the NRP Selector,
+> a field within the NRP Selector ID MAY be used to signal the
+> desired fallback treatment, allowing the ingress node to influence
+> the behavior at downstream nodes.
 
 
-### Network Resource Partition Resource Reservation
+### Network Resource Partition Resource Reservation {#SliceResourceReservation}
 
 Bandwidth and network resource allocation strategies for slice policies are
 essential to achieve optimal placement of paths within the
@@ -744,7 +791,7 @@ treatments or services that can be carried over the same logical network.
 
 The Slice-Flow Aggregate traffic may be identified at NRP ingress boundary
 nodes by carrying a NRP Selector to allow routers to apply a specific forwarding
-treatment that guarantee the SLA(s). 
+treatment that guarantees the SLA(s). 
 
 To support multiple forwarding treatments over the same Slice-Flow Aggregate, a
 Slice-Flow Aggregate packet may also carry a Diffserv CS to identify the
@@ -757,6 +804,30 @@ treatment before packets are forwarded, and in some cases, drop probability for
 each packet.
 
 ### Network Resource Partition Topology {#SlicePolicyTopology}
+
+The relationship between the physical network, the filter topology,
+and the NRP topology can be described as follows:
+
+1.  The Physical Network comprises the underlying nodes and links
+    with their actual hardware resources (e.g., bandwidth,
+    processing capacity).
+
+2.  A Filter Topology is derived from the Physical Network by
+    applying topology filtering policies that select specific nodes
+    and links based on their capabilities and attributes (as
+    described in {{SliceDefinition}}).  The same Filter Topology may
+    be shared by multiple NRPs.
+
+3.  An NRP is instantiated on a Filter Topology by associating
+    NRP-specific resource reservations ({{SliceResourceReservation}})
+    and Per Hop Behavior ({{SlicePHB}}) with the topological elements
+    of the Filter Topology.  The resulting topology, comprising the
+    filtered nodes and links together with their NRP-specific
+    resource attributes, is referred to as the NRP Topology.
+
+Since the same Filter Topology may underlie multiple NRPs, two NRPs
+may share the same set of nodes and links while having different
+resource reservations and forwarding treatments applied to them.
 
 A key element of the NRP Policy is a customized topology that may include the
 full or subset of the physical network topology. The NRP topology
@@ -774,7 +845,7 @@ Aggregate.
 
 The NRP Policy may also include a reference to a
 predefined topology (e.g., derived from a Flexible Algorithm Definition (FAD)
-as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined
+as defined in {{?I-D.ietf-lsr-flex-algo}}, or Multi-Topology ID as defined in
 {{?RFC4915}}.
 
 ## Network Resource Partition Boundary {#NRPBoundary}
@@ -808,6 +879,39 @@ When data plane NRP mode is employed, the NRP ingress nodes are responsible for
 setting a suitable NRP Selector on packets that belong to the Slice-Flow
 Aggregate, and optionally the desired Diffserv CS.
 
+{{?RFC9543}} describes different IETF Network Slice Service Demarcation
+Point (SDP) locations that determine where the NRP edge function
+is performed.  The following describes how the solution described
+in this document caters to each SDP location:
+
+SDP within the CE:
+: When the CE is operated by the IETF Network Slice Service provider,
+  the CE itself acts as the NRP ingress node.  The CE may classify
+  inbound traffic, set the NRP Selector, and enforce the NRP-PHB on
+  the outgoing interface.  In this case, slicing resources may include
+  buffers and queues on the CE outgoing interfaces.
+
+SDP at the CE/AC boundary:
+: When the IETF Network Slice extends to include the Attachment Circuit
+  (AC), traffic conditioning and policing are applied at the AC ends.
+  The CE or PE may use traffic tagging (e.g., Ethernet VLAN tags) to
+  identify the IETF Network Slice.  The NRP Selector may be set by the
+  CE or by the PE upon receiving the tagged traffic from the AC.
+
+SDP at the PE customer-facing port:
+: The PE's customer-facing port acts as the NRP ingress node.  In this
+  case, the port or VLAN tag on the incoming traffic identifies the
+  IETF Network Slice and the corresponding Slice-Flow Aggregate.  The
+  PE sets the NRP Selector on the inbound packets before forwarding
+  them into the NRP domain.
+
+SDP within the PE:
+: The PE classifies inbound traffic from the AC by inspecting multiple
+  packet fields (e.g., the IP 5-tuple) to identify the IETF Network
+  Slice and the corresponding Slice-Flow Aggregate.  The PE then sets
+  the NRP Selector on the classified packets before forwarding them
+  into the NRP domain.
+
 ### Network Resource Partition Interior Nodes
 
 An NRP interior node receives slice traffic and may be able to identify the
@@ -833,7 +937,7 @@ the network -- including NRP capable and incapable devices.
 
 For example, when the NRP Selector is an MPLS label at the bottom of the MPLS
 label stack, packets can traverse over devices that are NRP incapable without
-any further considerations. On the other hand when the NRP Selector label is at
+any further considerations. On the other hand, when the NRP Selector label is at
 the top of the MPLS label stack, packets can be bypassed (or tunneled) over the
 NRP incapable devices towards the next device that supports NRP as shown in
 {{sl-interworking}}.
@@ -867,11 +971,43 @@ NRP incapable devices towards the next device that supports NRP as shown in
             +------+       +------+        | Load |
             | Pay- |       | IP   |        +------+
             | Load |       +------+
-            +----- +       | Pay- |
+            +------+       | Pay- |
                            | Load |
                            +------+
 ~~~~
 {:#sl-interworking title="Extending network slice over NRP incapable device(s)."}
+
+An NRP-capable node needs to identify which of its downstream
+neighbors are NRP incapable in order to apply the appropriate
+bypass or tunnel treatment described above.  The following
+mechanisms MAY be used for this purpose:
+
+IGP-based capability advertisement:
+: NRP-capable nodes MAY advertise their NRP capability via extensions
+  to routing protocols such as IS-IS or OSPF.  A node that does not
+  advertise NRP capability is considered NRP incapable by its
+  neighbors.  Since NRP capability is a relatively static property of
+  a node, such advertisements are infrequent and have minimal impact
+  on routing protocol convergence.  Note that while routing protocols
+  MAY be extended to advertise NRP capability, the advertisement of
+  dynamic NRP state (e.g., per-NRP resource reservations or available
+  bandwidth) via routing protocols SHOULD be avoided, as frequent
+  updates to NRP state may negatively impact routing protocol
+  performance and convergence.
+
+Controller-based discovery:
+: In controller-based deployments, NRP node capabilities MAY be
+  distributed to a controller using mechanisms such as
+  NETCONF {{?RFC6241}}, BGP-LS {{!RFC7752}}, or PCEP {{?RFC5440}}.
+  The controller or PCE can then use this information when computing
+  paths to steer traffic around NRP incapable nodes or to select
+  appropriate bypass tunnels.
+
+Static configuration:
+: As a fallback, operators MAY statically configure on each node which
+  of its downstream neighbors are NRP incapable.  This approach is
+  simple but does not adapt automatically to topology or capability
+  changes.
 
 ### Combining Network Resource Partition Modes
 
@@ -886,6 +1022,56 @@ network that apply the data plane NRP mode. The NRP Selector can be
 maintained while traffic traverses nodes that do not enforce data plane NRP
 mode, and so slice PHB enforcement can resume once traffic traverses
 capable nodes.
+
+### Multi-domain Network Resource Partition Considerations {#MultiDomainNRP}
+
+A network slice may span multiple NRP domains, each administered
+by the same or different providers.  In such deployments, the
+NRP boundary nodes at the edges of each domain are responsible
+for ensuring that the appropriate NRP treatment is applied within
+their domain and that end-to-end SLAs are maintained across
+domain boundaries.
+
+When a network slice traverses multiple NRP domains, the NRP
+Selector carried in packets may be handled at domain boundaries
+in one of the following ways:
+
+NRP Selector Stacking:
+: The original NRP Selector (e.g., for NRP1) is preserved in the
+  packet end-to-end.  When entering an intermediate NRP domain
+  (e.g., NRP2), the ingress boundary node of that domain adds the
+  intermediate domain's NRP Selector to the packet.  Interior nodes
+  within the intermediate domain use the added NRP Selector to apply
+  the corresponding NRP-PHB treatment.  Upon exiting the intermediate
+  domain, the egress boundary node removes the intermediate domain's
+  NRP Selector, re-exposing the original NRP Selector.  The original
+  NRP treatment resumes in the next NRP domain.  The specific
+  mechanism for adding and removing the NRP Selector is data-plane
+  dependent (e.g., pushing and popping a label in MPLS, or encoding
+  in a packet header field in other data planes).  This approach does
+  not require NRP-ID coordination across domain boundaries.
+
+NRP Selector Remapping:
+: At the boundary between two NRP domains, the boundary node replaces
+  the incoming NRP Selector with the appropriate NRP Selector for the
+  downstream domain.  This requires coordination of NRP-ID mappings at
+  inter-domain boundaries, which may be achieved via static
+  configuration or via a controller (e.g., using NETCONF {{?RFC6241}},
+  BGP-LS {{!RFC7752}}, or PCEP {{?RFC5440}}).  The boundary node is
+  also responsible for conditioning traffic to conform to the
+  downstream domain's SLA allocation before forwarding.
+
+In both approaches, each NRP domain is responsible for provisioning
+sufficient resources within its domain to meet its portion of the
+end-to-end SLA.  The overall end-to-end SLA is satisfied when the
+combined resource allocations across all NRP domains collectively meet
+the SLOs and SLEs agreed upon in the IETF Network Slice Service
+request.
+
+Inter-domain path computation for network slices spanning multiple NRP
+domains may be performed using a hierarchical PCE (H-PCE)
+architecture, per-domain PCEs coordinating via PCEP {{?RFC5440}}, or
+a centralized controller with visibility across all domains.
 
 # Mapping Traffic on Slice-Flow Aggregates {#TrafficToSFAPath}
 
@@ -1038,29 +1224,62 @@ This section records non-blocking issues that were raised during the Working
 Group Adoption Poll for the document. The below list of issues needs to be fully
 addressed before progressing the document to publication in IESG.
 
-1. Add new Appendix section with examples for the NRP modes described in
-   {{SliceModes}}.
+1. \[DONE\] Add new Appendix section with examples for the NRP modes
+   described in {{SliceModes}}.  Addressed by adding Appendix A with
+   three sub-sections (A.1, A.2, A.3) providing concrete examples for
+   the data plane, control plane, and combined NRP modes respectively,
+   using a common 4-node topology.
 
-4. Elaborate on the Slice-Flow Aggregate packet treatment when no rules to associate the packet
-   to an NRP are defined in the NRP Policy.
+2. \[DONE\] Elaborate on the Slice-Flow Aggregate packet treatment when
+   no rules to associate the packet to an NRP are defined in the NRP
+   Policy.  Addressed in {{SliceSelector}} by adding fallback treatment
+   options for packets carrying an NRP Selector that does not match any
+   NRP instantiated on the node.
 
-6. Clarify how the solution caters to the different IETF Network Slice Service
-   Demarcation Point locations described in Section 4.2 of
-   {{?RFC9543}}.
+3. \[DONE\] Clarify how the solution caters to the different IETF Network
+   Slice Service Demarcation Point locations described in Section 4.2 of
+   {{?RFC9543}}.  Addressed by adding explicit descriptions of how the
+   NRP ingress classification and NRP Selector setting applies to each
+   of the four SDP location options: SDP within the CE, SDP at the
+   CE/AC boundary, SDP at the PE customer-facing port, and SDP within
+   the PE.
 
-7. Clarify the relationship the underlay physical network, the filter topology
-   and the NRP resources.
+4. \[DONE\] Clarify the relationship the underlay physical network, the
+   filter topology and the NRP resources.  Addressed in
+   {{SlicePolicyTopology}} by adding a three-step description of the
+   layering: Physical Network -> Filter Topology -> NRP Topology, and
+   clarifying that the same Filter Topology may be shared by multiple
+   NRPs, each with its own resource reservations and forwarding
+   treatments.
 
-8. Expand on how isolation between NRPs can be realized depending on the
-   deployed NRP mode.
+5. \[DONE\] Expand on how isolation between NRPs can be realized
+   depending on the deployed NRP mode.  Addressed in
+   {{DataplaneSlicing}}, {{ControlplaneSlicing}}, and
+   {{DataControlplaneSlicing}} by adding explicit isolation
+   characterization for each mode.
 
-9. Revise {{NRPIncapbale}} to describe how nodes can discover NRP incapable
-   downstream neighbors.
+6. \[DONE\] Revise {{NRPIncapbale}} to describe how nodes can discover
+   NRP incapable downstream neighbors.  Addressed by adding three
+   discovery mechanisms: IGP-based capability advertisement (IS-IS/OSPF
+   extensions), controller-based discovery (NETCONF {{?RFC6241}},
+   BGP-LS {{!RFC7752}}, or PCEP {{?RFC5440}}), and static configuration
+   as a fallback.  Also clarified that dynamic NRP state SHOULD NOT be
+   advertised via routing protocols to avoid convergence impact.
 
-10. Expand {{SecurityConsiderations}} on additional security threats introduced
-    with the solution.
+7. \[DONE\] Expand {{SecurityConsiderations}} on additional security
+   threats introduced with the solution.  Added four new threat
+   descriptions: NRP Policy Manipulation, NRP State Disclosure, Fallback
+   NRP Abuse, and Inter-domain NRP Selector Spoofing, with corresponding
+   mitigation guidance for each.
 
-11. Expand {{NRPBoundary}} on NRP domain boundary and multi-domain aspects.
+8. \[DONE\] Expand {{NRPBoundary}} on NRP domain boundary and multi-domain
+   aspects.  Addressed by adding {{MultiDomainNRP}} describing two
+   approaches for handling NRP Selectors at inter-domain boundaries: NRP
+   Selector Stacking (original NRP Selector preserved end-to-end,
+   intermediate domain adds/removes its own NRP Selector) and NRP
+   Selector Remapping (boundary node replaces NRP Selector with
+   downstream domain equivalent).  Also covers end-to-end SLA stitching
+   and inter-domain path computation options.
 
 # IANA Considerations
 
@@ -1088,6 +1307,46 @@ The defense against this type of theft and denial-of-service attacks consists
 of a combination of traffic conditioning at NRP domain boundaries
 with security and integrity of the network infrastructure within an NRP
 domain.
+
+NRP Policy Manipulation:
+
+: The NRP Policy controls resource allocation, topology membership, and
+  forwarding treatment for each NRP.  An adversary that gains access to
+  the management plane (e.g., via a compromised controller or network
+  device) may modify NRP Policies to reroute traffic, alter resource
+  reservations, or deprive legitimate NRPs of network resources.
+  Securing the management plane through authentication, authorization,
+  and integrity protection of NRP Policy distribution mechanisms (e.g.,
+  NETCONF/RESTCONF) is therefore essential.
+
+NRP State Disclosure:
+
+: Routing protocol extensions that advertise NRP topology and resource
+  reservation states may expose sensitive information about the
+  network's internal resource allocations to any adversary participating
+  in the routing protocol.  Operators SHOULD apply appropriate route
+  filtering and authentication mechanisms on routing protocol sessions
+  to limit the propagation of NRP state information to trusted
+  participants only.
+
+Fallback NRP Abuse:
+
+: When a fallback NRP or best-effort treatment is configured for packets
+  carrying unrecognized NRP Selectors, an adversary may deliberately
+  inject packets with invalid or unrecognized NRP Selector values to
+  consume the resources of the fallback NRP.  Operators SHOULD apply
+  traffic conditioning and rate limiting at NRP domain boundaries to
+  mitigate this threat.
+
+Inter-domain NRP Selector Spoofing:
+
+: In deployments where NRP Selectors traverse administrative domain
+  boundaries, an adversary at a peering point may inject or modify NRP
+  Selector values to gain access to resources of a specific NRP in the
+  downstream domain.  Operators SHOULD validate and condition NRP
+  Selector values at inter-domain boundaries, and SHOULD NOT trust NRP
+  Selectors received from untrusted domains without appropriate
+  verification.
 
 # Acknowledgement
 
@@ -1148,3 +1407,149 @@ The following individuals contributed to this document:
    Email: luay.jalil@verizon.com
 
 ~~~
+
+# Appendix A: NRP Mode Examples {#NRPModeExamples}
+
+This appendix provides examples to illustrate the NRP modes described
+in {{SliceModes}}.  All examples use the following common network
+topology:
+
+~~~~
+   /-----\   10G   /----\   10G   /----\   10G   /-----\
+   | PE1 |--------| P1 |--------| P2 |--------| PE2 |
+   \-----/        \----/        \----/        \-----/
+     |                                           |
+   [CE1]                                       [CE2]
+~~~~
+{: #fig-common-topology title="Common topology for NRP mode examples."}
+
+Two NRPs are instantiated over this network:
+
+*  NRP1: supports low-latency Slice-Flow Aggregate (SFA1), with a
+   minimum bandwidth guarantee of 4 Gbps per link.
+
+*  NRP2: supports best-effort Slice-Flow Aggregate (SFA2), with up to
+   6 Gbps per link.
+
+## A.1. Data Plane NRP Mode Example {#A.1}
+
+In this example, network resource partitioning is performed in the
+data plane only.  PE1 acts as the NRP ingress node and classifies
+inbound CE1 traffic into two Slice-Flow Aggregates based on the IP
+5-tuple, and pushes a dedicated NRP Selector label onto each packet:
+
+*  SFA1 (NRP1): NRP Selector label = 1001
+*  SFA2 (NRP2): NRP Selector label = 1002
+
+Transit nodes P1 and P2 use the NRP Selector label to apply the
+corresponding NRP-PHB.  PE2 pops the NRP Selector label before
+forwarding traffic to CE2.
+
+~~~~
+   NRP Selectors:                NRP-PHB at P1 and P2:
+     1001: NRP1 (SFA1)          +-----------------------------+
+     1002: NRP2 (SFA2)          | NRP1: strict-priority queue |
+                                |        (4 Gbps guaranteed)  |
+                                | NRP2: weighted fair queue   |
+                                |        (up to 6 Gbps)       |
+                                +-----------------------------+
+
+   /-----\  10G  /----\  10G  /----\  10G  /-----\
+   | PE1 |------| P1 |------| P2 |------| PE2 |
+   \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
+     |                                     |
+   [CE1]       @@@@: NRP-PHB enforced    [CE2]
+~~~~
+
+The packet label stack at each node for an SFA1 (NRP1) packet:
+
+~~~~
+   At PE1 (ingress):  At P1 and P2:    At PE2 (egress):
+   +-----------+      +--------+       +-----------+
+   | IP Header |      |  1001  |       | IP Header |
+   +-----------+      +--------+       +-----------+
+   | Payload   |      | IP Hdr |       | Payload   |
+   +-----------+      +--------+       +-----------+
+                      | Payload|
+                      +--------+
+~~~~
+
+Since data plane only NRP mode is used, P1 and P2 do not maintain
+per-NRP routing state.  The forwarding path is determined by standard
+best-path selection; the NRP Selector solely determines the NRP-PHB
+applied at each hop.
+
+## A.2. Control Plane NRP Mode Example {#A.2}
+
+In this example, network resource partitioning is performed in the
+control plane only.  No NRP Selector is carried in packets.  Instead,
+per-NRP bandwidth is reserved on each link, and NRP-aware TE paths are
+computed using these reservations.
+
+The 10 Gbps physical link bandwidth is divided between the two NRPs:
+
+*  NRP1: 4 Gbps reserved bandwidth per link
+*  NRP2: 6 Gbps reserved bandwidth per link
+
+The per-NRP reservations are maintained on each network element (or on
+a controller) and may be advertised via a routing protocol for
+NRP-state-aware path computation.
+
+~~~~
+   /-----\  10G  /----\  10G  /----\  10G  /-----\
+   | PE1 |------| P1 |------| P2 |------| PE2 |
+   \-----/      \----/      \----/      \-----/
+
+   Per-link NRP reservations:
+     NRP1: 4 Gbps
+     NRP2: 6 Gbps
+     Total: 10 Gbps (= physical capacity)
+~~~~
+
+The ingress node PE1 (or a PCE) uses the NRP-specific topology and
+available bandwidth to compute TE paths for each SFA:
+
+*  SFA1 path: PE1->P1->P2->PE2 (using NRP1's 4 Gbps pool)
+*  SFA2 path: PE1->P1->P2->PE2 (using NRP2's 6 Gbps pool)
+
+Since no NRP Selector is carried in packets, transit nodes P1 and P2
+apply no per-packet NRP-specific forwarding treatment.  Isolation
+between NRP1 and NRP2 is enforced at admission time only; traffic from
+both NRPs shares the same physical queues at runtime, and isolation
+guarantees are soft.
+
+## A.3. Data and Control Plane NRP Mode Example {#A.3}
+
+In this example, network resource partitioning is performed in both
+the control plane and the data plane, combining the mechanisms of
+{{A.1}} and {{A.2}}.
+
+As in A.2, per-NRP bandwidth is reserved per link (NRP1: 4 Gbps,
+NRP2: 6 Gbps), and NRP-aware TE paths are computed for each SFA.
+Additionally, as in A.1, PE1 pushes an NRP Selector label onto each
+packet, and P1/P2 apply dedicated per-NRP queues based on the NRP
+Selector.
+
+~~~~
+   /-----\  10G  /----\  10G  /----\  10G  /-----\
+   | PE1 |------| P1 |------| P2 |------| PE2 |
+   \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
+     |                                     |
+   [CE1]   @@@@: NRP-PHB enforced        [CE2]
+
+   Per-link NRP reservations (control plane):
+     NRP1: 4 Gbps, NRP2: 6 Gbps
+
+   NRP-PHB at P1 and P2 (data plane):
+     NRP1 (label 1001): strict-priority queue (4 Gbps)
+     NRP2 (label 1002): weighted fair queue   (6 Gbps)
+~~~~
+
+The combined mode provides the strongest isolation:
+
+*  The control plane ensures the total admitted traffic across NRP1
+   and NRP2 does not exceed the physical link capacity.
+
+*  The data plane enforces per-packet forwarding treatment at runtime,
+   preventing traffic bursts from NRP2 from consuming resources
+   reserved for NRP1.
