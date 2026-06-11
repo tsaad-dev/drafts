@@ -46,7 +46,6 @@ author:
 normative:
 
 informative:
-  RFC5440:
 
 --- abstract
 
@@ -147,7 +146,7 @@ Network Resource Partition:
 
 Slice-Flow Aggregate:
 : a collection of packets that are mapped to an NRP and are given the same
-forwarding treatment; a Slice-Flow Aggregate comprises of one or more IETF
+forwarding treatment; a Slice-Flow Aggregate comprises one or more IETF
 network slice traffic streams from one or more connectivity constructs
 (belonging to one or more IETF network slices); the mapping of one or more IETF
 network slice streams to a Slice-Flow Aggregate is maintained by the IETF Network
@@ -179,7 +178,7 @@ NRP Incapable Node:
 : a node that does not support any of the NRP modes described in this document.
 
 Slice-Flow Aggregate Path:
-: a path that is setup over the NRP that is associated with a specific Slice-Flow Aggregate.
+: a path that is set up over the NRP that is associated with a specific Slice-Flow Aggregate.
 
 Slice-Flow Aggregate Packet:
 : a packet that traverses over the NRP that is associated with a specific Slice-Flow Aggregate.
@@ -356,7 +355,7 @@ Slices, and this could present scaling challenges in the operation
 of the network.  In order to overcome this, the IETF Network Slice
 streams may be aggregated into groups according to similar characteristics.
 
-A Slice-Flow Aggregate is a construct that comprises of the traffic flows of one or
+A Slice-Flow Aggregate is a construct that comprises the traffic flows of one or
 more IETF Network Slices. The mapping of IETF Network Slices into a Slice-Flow
 Aggregate is a matter of local operator policy is a function executed by the
 Controller.  The Slice-Flow Aggregate may be preconfigured, created on demand, or
@@ -1152,7 +1151,7 @@ aware TE (NRP-TE).
 ## Applicability of Path Control Technologies to Slice-Flow Aggregates
 
 The NRP modes described in this document are agnostic to the
-technology used to setup paths that carry Slice-Flow Aggregate traffic.
+technology used to set up paths that carry Slice-Flow Aggregate traffic.
 One or more paths connecting the endpoints of the mapped IETF network
 slices may be selected to steer the corresponding traffic streams
 over the resources allocated for the NRP that
@@ -1171,7 +1170,7 @@ outside the scope of this document.
 
 ### SR Based Slice-Flow Aggregate Paths
 
-Segment Routing (SR) {{?RFC8402}} can be used to setup and steer traffic over
+Segment Routing (SR) {{?RFC8402}} can be used to set up and steer traffic over
 the computed Slice-Flow Aggregate feasible paths.
 
 The SR architecture defines a number of building blocks that can be leveraged to support
