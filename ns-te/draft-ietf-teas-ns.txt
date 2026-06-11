@@ -1906,7 +1906,7 @@ Saad, et al.            Expires 13 December 2026               [Page 34]
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
-      /-----\   10G   /----\   10G   /----\   10G   /-----\
+      /-----\  10G   /----\  10G   /----\  10G   /-----\
       | PE1 |--------| P1 |--------| P2 |--------| PE2 |
       \-----/        \----/        \----/        \-----/
         |                                           |
@@ -1945,7 +1945,7 @@ A.1.  A.1.  Data Plane NRP Mode Example
                                    |        (up to 6 Gbps)       |
                                    +-----------------------------+
 
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      /-----\ 10G  /----\ 10G  /----\ 10G  /-----\
       | PE1 |------| P1 |------| P2 |------| PE2 |
       \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
         |                                     |
@@ -1993,7 +1993,7 @@ A.2.  A.2.  Control Plane NRP Mode Example
    on a controller) and may be advertised via a routing protocol for
    NRP-state-aware path computation.
 
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      /-----\ 10G  /----\ 10G  /----\ 10G  /-----\
       | PE1 |------| P1 |------| P2 |------| PE2 |
       \-----/      \----/      \----/      \-----/
 
@@ -2036,7 +2036,7 @@ A.3.  A.3.  Data and Control Plane NRP Mode Example
    packet, and P1/P2 apply dedicated per-NRP queues based on the NRP
    Selector.
 
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      /-----\ 10G  /----\ 10G  /----\ 10G  /-----\
       | PE1 |------| P1 |------| P2 |------| PE2 |
       \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
         |                                     |
