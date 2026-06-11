@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-06
+docname: draft-ietf-teas-ns-ip-mpls-07
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -56,11 +56,9 @@ services or customers. Multiple network slices can be realized on the same
 network while ensuring slice elasticity in terms of network resource
 allocation. This document describes a scalable solution to realize network
 slicing in IP/MPLS networks by supporting multiple services on top of a single
-physical network by relying on compliant domains and nodes to provide
-forwarding treatment (scheduling, drop policy, resource usage) on to packets
-that carry identifiers that indicate the slicing service that is to be applied
-to the packets.
-
+physical network by by requiring compliant domains and nodes to provide
+forwarding treatment (scheduling, drop policy, resource usage) based on
+slice identifiers.
 
 --- middle
 
@@ -153,7 +151,7 @@ network slice traffic streams from one or more connectivity constructs
 (belonging to one or more IETF network slices); the mapping of one or more IETF
 network slice streams to a Slice-Flow Aggregate is maintained by the IETF Network
 Slice Controller.  The boundary nodes MAY also maintain a mapping of specific
-IETF network slice service(s) to a SFA.
+IETF network slice service(s) to a Slice-Flow Aggregate.
 
 
 Network Resource Partition Policy (NRP):
@@ -337,7 +335,7 @@ The customer requests an IETF Network Slice Service specifying the
 CE-AC-PE points of attachment, the connectivity matrix, and the
 SLOs/SLEs as described in {{?RFC9543}}.
 These capabilities are always provided based on a Service Level Agreement (SLA)
-between the network slice costumer and the provider.
+between the network slice customer and the provider.
 
 This defines the traffic flows that need to be supported
 when the slice is realized.  Depending on the mechanism and
@@ -357,8 +355,8 @@ Slices, and this could present scaling challenges in the operation
 of the network.  In order to overcome this, the IETF Network Slice
 streams may be aggregated into groups according to similar characteristics.
 
-A Slice-Flow Aggregate is a construct that comprises the traffic flows of one or
-more IETF Network Slices. The mapping of IETF Network Slices into an Slice-Flow
+A Slice-Flow Aggregate is a construct that comprises of the traffic flows of one or
+more IETF Network Slices. The mapping of IETF Network Slices into a Slice-Flow
 Aggregate is a matter of local operator policy is a function executed by the
 Controller.  The Slice-Flow Aggregate may be preconfigured, created on demand, or
 modified dynamically.
@@ -708,6 +706,7 @@ Fallback treatment for unclassified packets:
 > local policy.
 >
 
+
 ### Network Resource Partition Resource Reservation
 
 Bandwidth and network resource allocation strategies for slice policies are
@@ -770,7 +769,7 @@ filtering policies can be defined as part of the NRP
 Policy to limit the specific topology elements that belong to the NRP.
 For example, a topology filtering policy can leverage Resource
 Affinities as defined in {{?RFC2702}} to include or exclude certain links that
-the NRP is instantiated on in supports of the Slice-Flow
+the NRP is instantiated on in support of the Slice-Flow
 Aggregate.
 
 The NRP Policy may also include a reference to a
@@ -1042,7 +1041,7 @@ addressed before progressing the document to publication in IESG.
 1. Add new Appendix section with examples for the NRP modes described in
    {{SliceModes}}.
 
-4. Elaborate on the SFA packet treatment when no rules to associate the packet
+4. Elaborate on the Slice-Flow Aggregate packet treatment when no rules to associate the packet
    to an NRP are defined in the NRP Policy.
 
 6. Clarify how the solution caters to the different IETF Network Slice Service
