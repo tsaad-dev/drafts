@@ -357,7 +357,7 @@ streams may be aggregated into groups according to similar characteristics.
 
 A Slice-Flow Aggregate is a construct that comprises the traffic flows of one or
 more IETF Network Slices. The mapping of IETF Network Slices into a Slice-Flow
-Aggregate is a matter of local operator policy is a function executed by the
+Aggregate is a matter of local operator policy and is a function executed by the
 Controller.  The Slice-Flow Aggregate may be preconfigured, created on demand, or
 modified dynamically.
 
@@ -614,7 +614,7 @@ of this document and will be addressed in separate documents.
 
 ## NRP Policy Definition {#SliceDefinition}
 
-The NRP Policy is network-wide construct that is supplied to network devices,
+The NRP Policy is a network-wide construct that is supplied to network devices,
 and may include rules that control the following:
 
 - Data plane specific policies: This includes the NRP Selector, any firewall rules or
@@ -663,7 +663,7 @@ Overloaded forwarding identifier as NRP Selector:
 >  This approach requires maintaining per Slice-Flow Aggregate state
 >  for each destination in the network in both the control and data
 >  plane and on each router in the network. Hence this approach
->  scales as the multiple of the number of Slice-Flow Aggregates
+>  scales as a multiple of the number of Slice-Flow Aggregates
 >  and the number of adjacencies each node has which is a
 >  scalability challenge in both the control and data planes.
 
@@ -829,7 +829,7 @@ may share the same set of nodes and links while having different
 resource reservations and forwarding treatments applied to them.
 
 A key element of the NRP Policy is a customized topology that may include the
-full or subset of the physical network topology. The NRP topology
+full or a subset of the physical network topology. The NRP topology
 could also span multiple administrative domains and/or multiple dataplane
 technologies.
 
@@ -1406,6 +1406,8 @@ The following individuals contributed to this document:
    Email: luay.jalil@verizon.com
 
 ~~~
+
+--- back
 
 # Appendix A: NRP Mode Examples {#NRPModeExamples}
 

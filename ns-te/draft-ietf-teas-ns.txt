@@ -127,13 +127,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    11. Security Considerations . . . . . . . . . . . . . . . . . . .  30
    12. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  31
    13. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  32
-   14. Appendix A: NRP Mode Examples . . . . . . . . . . . . . . . .  33
-     14.1.  A.1.  Data Plane NRP Mode Example  . . . . . . . . . . .  33
-     14.2.  A.2.  Control Plane NRP Mode Example . . . . . . . . . .  34
-     14.3.  A.3.  Data and Control Plane NRP Mode Example  . . . . .  35
-   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
-     15.1.  Normative References . . . . . . . . . . . . . . . . . .  36
-     15.2.  Informative References . . . . . . . . . . . . . . . . .  36
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  33
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  33
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  33
+   Appendix A.  Appendix A: NRP Mode Examples  . . . . . . . . . . .  34
+     A.1.  A.1.  Data Plane NRP Mode Example . . . . . . . . . . . .  35
+     A.2.  A.2.  Control Plane NRP Mode Example  . . . . . . . . . .  36
+     A.3.  A.3.  Data and Control Plane NRP Mode Example . . . . . .  37
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 1.  Introduction
@@ -493,9 +493,9 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    A Slice-Flow Aggregate is a construct that comprises the traffic
    flows of one or more IETF Network Slices.  The mapping of IETF
    Network Slices into a Slice-Flow Aggregate is a matter of local
-   operator policy is a function executed by the Controller.  The Slice-
-   Flow Aggregate may be preconfigured, created on demand, or modified
-   dynamically.
+   operator policy and is a function executed by the Controller.  The
+   Slice-Flow Aggregate may be preconfigured, created on demand, or
+   modified dynamically.
 
 
 
@@ -844,8 +844,8 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 5.1.  NRP Policy Definition
 
-   The NRP Policy is network-wide construct that is supplied to network
-   devices, and may include rules that control the following:
+   The NRP Policy is a network-wide construct that is supplied to
+   network devices, and may include rules that control the following:
 
    *  Data plane specific policies: This includes the NRP Selector, any
       firewall rules or flow-spec filters, and QoS profiles associated
@@ -907,7 +907,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       This approach requires maintaining per Slice-Flow Aggregate state
       for each destination in the network in both the control and data
       plane and on each router in the network.  Hence this approach
-      scales as the multiple of the number of Slice-Flow Aggregates and
+      scales as a multiple of the number of Slice-Flow Aggregates and
       the number of adjacencies each node has which is a scalability
       challenge in both the control and data planes.
 
@@ -1098,8 +1098,8 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    resource reservations and forwarding treatments applied to them.
 
    A key element of the NRP Policy is a customized topology that may
-   include the full or subset of the physical network topology.  The NRP
-   topology could also span multiple administrative domains and/or
+   include the full or a subset of the physical network topology.  The
+   NRP topology could also span multiple administrative domains and/or
    multiple dataplane technologies.
 
    An NRP topology can overlap or share a subset of links with another
@@ -1794,184 +1794,9 @@ Saad, et al.            Expires 13 December 2026               [Page 32]
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
-14.  Appendix A: NRP Mode Examples
+14.  References
 
-   This appendix provides examples to illustrate the NRP modes described
-   in Section 4.  All examples use the following common network
-   topology:
-
-      /-----\   10G   /----\   10G   /----\   10G   /-----\
-      | PE1 |--------| P1 |--------| P2 |--------| PE2 |
-      \-----/        \----/        \----/        \-----/
-        |                                           |
-      [CE1]                                       [CE2]
-
-              Figure 5: Common topology for NRP mode examples.
-
-   Two NRPs are instantiated over this network:
-
-   *  NRP1: supports low-latency Slice-Flow Aggregate (SFA1), with a
-      minimum bandwidth guarantee of 4 Gbps per link.
-
-   *  NRP2: supports best-effort Slice-Flow Aggregate (SFA2), with up to
-      6 Gbps per link.
-
-14.1.  A.1.  Data Plane NRP Mode Example
-
-   In this example, network resource partitioning is performed in the
-   data plane only.  PE1 acts as the NRP ingress node and classifies
-   inbound CE1 traffic into two Slice-Flow Aggregates based on the IP
-   5-tuple, and pushes a dedicated NRP Selector label onto each packet:
-
-   *  SFA1 (NRP1): NRP Selector label = 1001
-
-   *  SFA2 (NRP2): NRP Selector label = 1002
-
-   Transit nodes P1 and P2 use the NRP Selector label to apply the
-   corresponding NRP-PHB.  PE2 pops the NRP Selector label before
-   forwarding traffic to CE2.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 33]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
-      NRP Selectors:                NRP-PHB at P1 and P2:
-        1001: NRP1 (SFA1)          +-----------------------------+
-        1002: NRP2 (SFA2)          | NRP1: strict-priority queue |
-                                   |        (4 Gbps guaranteed)  |
-                                   | NRP2: weighted fair queue   |
-                                   |        (up to 6 Gbps)       |
-                                   +-----------------------------+
-
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
-      | PE1 |------| P1 |------| P2 |------| PE2 |
-      \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
-        |                                     |
-      [CE1]       @@@@: NRP-PHB enforced    [CE2]
-
-   The packet label stack at each node for an SFA1 (NRP1) packet:
-
-      At PE1 (ingress):  At P1 and P2:    At PE2 (egress):
-      +-----------+      +--------+       +-----------+
-      | IP Header |      |  1001  |       | IP Header |
-      +-----------+      +--------+       +-----------+
-      | Payload   |      | IP Hdr |       | Payload   |
-      +-----------+      +--------+       +-----------+
-                         | Payload|
-                         +--------+
-
-   Since data plane only NRP mode is used, P1 and P2 do not maintain
-   per-NRP routing state.  The forwarding path is determined by standard
-   best-path selection; the NRP Selector solely determines the NRP-PHB
-   applied at each hop.
-
-14.2.  A.2.  Control Plane NRP Mode Example
-
-   In this example, network resource partitioning is performed in the
-   control plane only.  No NRP Selector is carried in packets.  Instead,
-   per-NRP bandwidth is reserved on each link, and NRP-aware TE paths
-   are computed using these reservations.
-
-   The 10 Gbps physical link bandwidth is divided between the two NRPs:
-
-   *  NRP1: 4 Gbps reserved bandwidth per link
-
-   *  NRP2: 6 Gbps reserved bandwidth per link
-
-   The per-NRP reservations are maintained on each network element (or
-   on a controller) and may be advertised via a routing protocol for
-   NRP-state-aware path computation.
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 34]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
-      | PE1 |------| P1 |------| P2 |------| PE2 |
-      \-----/      \----/      \----/      \-----/
-
-      Per-link NRP reservations:
-        NRP1: 4 Gbps
-        NRP2: 6 Gbps
-        Total: 10 Gbps (= physical capacity)
-
-   The ingress node PE1 (or a PCE) uses the NRP-specific topology and
-   available bandwidth to compute TE paths for each SFA:
-
-   *  SFA1 path: PE1->P1->P2->PE2 (using NRP1's 4 Gbps pool)
-
-   *  SFA2 path: PE1->P1->P2->PE2 (using NRP2's 6 Gbps pool)
-
-   Since no NRP Selector is carried in packets, transit nodes P1 and P2
-   apply no per-packet NRP-specific forwarding treatment.  Isolation
-   between NRP1 and NRP2 is enforced at admission time only; traffic
-   from both NRPs shares the same physical queues at runtime, and
-   isolation guarantees are soft.
-
-14.3.  A.3.  Data and Control Plane NRP Mode Example
-
-   In this example, network resource partitioning is performed in both
-   the control plane and the data plane, combining the mechanisms of
-   Section 14.1 and Section 14.2.
-
-   As in A.2, per-NRP bandwidth is reserved per link (NRP1: 4 Gbps,
-   NRP2: 6 Gbps), and NRP-aware TE paths are computed for each SFA.
-   Additionally, as in A.1, PE1 pushes an NRP Selector label onto each
-   packet, and P1/P2 apply dedicated per-NRP queues based on the NRP
-   Selector.
-
-      /-----\  10G  /----\  10G  /----\  10G  /-----\
-      | PE1 |------| P1 |------| P2 |------| PE2 |
-      \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
-        |                                     |
-      [CE1]   @@@@: NRP-PHB enforced        [CE2]
-
-      Per-link NRP reservations (control plane):
-        NRP1: 4 Gbps, NRP2: 6 Gbps
-
-      NRP-PHB at P1 and P2 (data plane):
-        NRP1 (label 1001): strict-priority queue (4 Gbps)
-        NRP2 (label 1002): weighted fair queue   (6 Gbps)
-
-   The combined mode provides the strongest isolation:
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 35]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
-   *  The control plane ensures the total admitted traffic across NRP1
-      and NRP2 does not exceed the physical link capacity.
-
-   *  The data plane enforces per-packet forwarding treatment at
-      runtime, preventing traffic bursts from NRP2 from consuming
-      resources reserved for NRP1.
-
-15.  References
-
-15.1.  Normative References
+14.1.  Normative References
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
@@ -1993,7 +1818,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
               DOI 10.17487/RFC7752, March 2016,
               <https://www.rfc-editor.org/rfc/rfc7752>.
 
-15.2.  Informative References
+14.2.  Informative References
 
    [I-D.ietf-lsr-flex-algo]
               Psenak, P., Hegde, S., Filsfils, C., Talaulikar, K., and
@@ -2009,19 +1834,21 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
               rfc3272bis-27>.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 36]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
               Services", RFC 2475, DOI 10.17487/RFC2475, December 1998,
               <https://www.rfc-editor.org/rfc/rfc2475>.
+
+
+
+
+
+
+
+Saad, et al.            Expires 13 December 2026               [Page 33]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    [RFC2702]  Awduche, D., Malcolm, J., Agogbua, J., O'Dell, M., and J.
               McManus, "Requirements for Traffic Engineering Over MPLS",
@@ -2063,7 +1890,180 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
               Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
               <https://www.rfc-editor.org/rfc/rfc9543>.
 
+Appendix A.  Appendix A: NRP Mode Examples
+
+   This appendix provides examples to illustrate the NRP modes described
+   in Section 4.  All examples use the following common network
+   topology:
+
+
+
+
+
+
+Saad, et al.            Expires 13 December 2026               [Page 34]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+      /-----\   10G   /----\   10G   /----\   10G   /-----\
+      | PE1 |--------| P1 |--------| P2 |--------| PE2 |
+      \-----/        \----/        \----/        \-----/
+        |                                           |
+      [CE1]                                       [CE2]
+
+              Figure 5: Common topology for NRP mode examples.
+
+   Two NRPs are instantiated over this network:
+
+   *  NRP1: supports low-latency Slice-Flow Aggregate (SFA1), with a
+      minimum bandwidth guarantee of 4 Gbps per link.
+
+   *  NRP2: supports best-effort Slice-Flow Aggregate (SFA2), with up to
+      6 Gbps per link.
+
+A.1.  A.1.  Data Plane NRP Mode Example
+
+   In this example, network resource partitioning is performed in the
+   data plane only.  PE1 acts as the NRP ingress node and classifies
+   inbound CE1 traffic into two Slice-Flow Aggregates based on the IP
+   5-tuple, and pushes a dedicated NRP Selector label onto each packet:
+
+   *  SFA1 (NRP1): NRP Selector label = 1001
+
+   *  SFA2 (NRP2): NRP Selector label = 1002
+
+   Transit nodes P1 and P2 use the NRP Selector label to apply the
+   corresponding NRP-PHB.  PE2 pops the NRP Selector label before
+   forwarding traffic to CE2.
+
+      NRP Selectors:                NRP-PHB at P1 and P2:
+        1001: NRP1 (SFA1)          +-----------------------------+
+        1002: NRP2 (SFA2)          | NRP1: strict-priority queue |
+                                   |        (4 Gbps guaranteed)  |
+                                   | NRP2: weighted fair queue   |
+                                   |        (up to 6 Gbps)       |
+                                   +-----------------------------+
+
+      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      | PE1 |------| P1 |------| P2 |------| PE2 |
+      \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
+        |                                     |
+      [CE1]       @@@@: NRP-PHB enforced    [CE2]
+
+   The packet label stack at each node for an SFA1 (NRP1) packet:
+
+
+
+
+
+Saad, et al.            Expires 13 December 2026               [Page 35]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+      At PE1 (ingress):  At P1 and P2:    At PE2 (egress):
+      +-----------+      +--------+       +-----------+
+      | IP Header |      |  1001  |       | IP Header |
+      +-----------+      +--------+       +-----------+
+      | Payload   |      | IP Hdr |       | Payload   |
+      +-----------+      +--------+       +-----------+
+                         | Payload|
+                         +--------+
+
+   Since data plane only NRP mode is used, P1 and P2 do not maintain
+   per-NRP routing state.  The forwarding path is determined by standard
+   best-path selection; the NRP Selector solely determines the NRP-PHB
+   applied at each hop.
+
+A.2.  A.2.  Control Plane NRP Mode Example
+
+   In this example, network resource partitioning is performed in the
+   control plane only.  No NRP Selector is carried in packets.  Instead,
+   per-NRP bandwidth is reserved on each link, and NRP-aware TE paths
+   are computed using these reservations.
+
+   The 10 Gbps physical link bandwidth is divided between the two NRPs:
+
+   *  NRP1: 4 Gbps reserved bandwidth per link
+
+   *  NRP2: 6 Gbps reserved bandwidth per link
+
+   The per-NRP reservations are maintained on each network element (or
+   on a controller) and may be advertised via a routing protocol for
+   NRP-state-aware path computation.
+
+      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      | PE1 |------| P1 |------| P2 |------| PE2 |
+      \-----/      \----/      \----/      \-----/
+
+      Per-link NRP reservations:
+        NRP1: 4 Gbps
+        NRP2: 6 Gbps
+        Total: 10 Gbps (= physical capacity)
+
+   The ingress node PE1 (or a PCE) uses the NRP-specific topology and
+   available bandwidth to compute TE paths for each SFA:
+
+   *  SFA1 path: PE1->P1->P2->PE2 (using NRP1's 4 Gbps pool)
+
+   *  SFA2 path: PE1->P1->P2->PE2 (using NRP2's 6 Gbps pool)
+
+
+
+
+
+Saad, et al.            Expires 13 December 2026               [Page 36]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+   Since no NRP Selector is carried in packets, transit nodes P1 and P2
+   apply no per-packet NRP-specific forwarding treatment.  Isolation
+   between NRP1 and NRP2 is enforced at admission time only; traffic
+   from both NRPs shares the same physical queues at runtime, and
+   isolation guarantees are soft.
+
+A.3.  A.3.  Data and Control Plane NRP Mode Example
+
+   In this example, network resource partitioning is performed in both
+   the control plane and the data plane, combining the mechanisms of
+   Appendix A.1 and Appendix A.2.
+
+   As in A.2, per-NRP bandwidth is reserved per link (NRP1: 4 Gbps,
+   NRP2: 6 Gbps), and NRP-aware TE paths are computed for each SFA.
+   Additionally, as in A.1, PE1 pushes an NRP Selector label onto each
+   packet, and P1/P2 apply dedicated per-NRP queues based on the NRP
+   Selector.
+
+      /-----\  10G  /----\  10G  /----\  10G  /-----\
+      | PE1 |------| P1 |------| P2 |------| PE2 |
+      \-----/ @@@@ \----/ @@@@ \----/ @@@@ \-----/
+        |                                     |
+      [CE1]   @@@@: NRP-PHB enforced        [CE2]
+
+      Per-link NRP reservations (control plane):
+        NRP1: 4 Gbps, NRP2: 6 Gbps
+
+      NRP-PHB at P1 and P2 (data plane):
+        NRP1 (label 1001): strict-priority queue (4 Gbps)
+        NRP2 (label 1002): weighted fair queue   (6 Gbps)
+
+   The combined mode provides the strongest isolation:
+
+   *  The control plane ensures the total admitted traffic across NRP1
+      and NRP2 does not exceed the physical link capacity.
+
+   *  The data plane enforces per-packet forwarding treatment at
+      runtime, preventing traffic bursts from NRP2 from consuming
+      resources reserved for NRP1.
+
 Authors' Addresses
+
+   Tarek Saad
+   Cisco Systems Inc.
+   Email: tsaad.net@gmail.com
+
 
 
 
@@ -2072,11 +2072,6 @@ Authors' Addresses
 Saad, et al.            Expires 13 December 2026               [Page 37]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
-   Tarek Saad
-   Cisco Systems Inc.
-   Email: tsaad.net@gmail.com
 
 
    Vishnu Pavan Beeram
@@ -2097,6 +2092,11 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    Shaofu Peng
    ZTE Corporation
    Email: peng.shaofu@zte.com.cn
+
+
+
+
+
 
 
 
