@@ -5,13 +5,13 @@
 TEAS Working Group                                          V. P. Beeram
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                                 T. Saad
-Expires: 3 April 2026                                  Cisco Systems Inc
+Expires: 22 June 2026                                  Cisco Systems Inc
                                                                R. Gandhi
                                                      Cisco Systems, Inc.
                                                                   X. Liu
                                                               I. Bryskin
                                                               Individual
-                                                       30 September 2025
+                                                        19 December 2025
 
 
        A YANG Data Model for Resource Reservation Protocol (RSVP)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2026.
+   This Internet-Draft will expire on 22 June 2026.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 1]
+Beeram, et al.            Expires 22 June 2026                  [Page 1]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    Please review these documents carefully, as they describe your rights
@@ -98,8 +98,8 @@ Table of Contents
    introduced to define the contents of a conceptual data store that
    allows networked devices to be managed using NETCONF [RFC6241].  YANG
    has proved relevant beyond its initial confines, as bindings to other
-   interfaces (e.g.  RESTCONF [RFC8040]) and encoding other than XML
-   (e.g.  JSON) are being defined.  Furthermore, YANG data models can be
+   interfaces (e.g. RESTCONF [RFC8040]) and encoding other than XML
+   (e.g. JSON) are being defined.  Furthermore, YANG data models can be
    used as the basis of implementation for other interfaces, such as CLI
    and programmatic APIs.
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 2]
+Beeram, et al.            Expires 22 June 2026                  [Page 2]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    base YANG 'ietf-rsvp' module covers the data that is core to the
@@ -165,9 +165,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 3]
+Beeram, et al.            Expires 22 June 2026                  [Page 3]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
               +===========+====================+===========+
@@ -221,9 +221,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 4]
+Beeram, et al.            Expires 22 June 2026                  [Page 4]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
 3.1.  Module(s) Relationship
@@ -277,9 +277,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 5]
+Beeram, et al.            Expires 22 June 2026                  [Page 5]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    *  Basic RSVP authentication feature as defined in [RFC2747]) using
@@ -333,9 +333,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 6]
+Beeram, et al.            Expires 22 June 2026                  [Page 6]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    *  neighbors
@@ -389,9 +389,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 7]
+Beeram, et al.            Expires 22 June 2026                  [Page 7]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
       The 'interfaces' container includes a list of RSVP enabled
@@ -445,9 +445,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 8]
+Beeram, et al.            Expires 22 June 2026                  [Page 8]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
 4.  RSVP Base YANG Model
@@ -501,9 +501,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                  [Page 9]
+Beeram, et al.            Expires 22 June 2026                  [Page 9]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
           |  |  |  +--ro resv-err-sent?                  yang:counter64
@@ -557,9 +557,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 10]
+Beeram, et al.            Expires 22 June 2026                 [Page 10]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
           |        |  +--ro notify-received?
@@ -613,9 +613,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 11]
+Beeram, et al.            Expires 22 June 2026                 [Page 11]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
           |     +--ro source?             inet:ip-address
@@ -669,9 +669,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 12]
+Beeram, et al.            Expires 22 June 2026                 [Page 12]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        |           +---w session-info
@@ -725,9 +725,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 13]
+Beeram, et al.            Expires 22 June 2026                 [Page 13]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      prefix rsvp;
@@ -781,9 +781,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 14]
+Beeram, et al.            Expires 22 June 2026                 [Page 14]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
         Editor:   Xufeng Liu
@@ -837,9 +837,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 15]
+Beeram, et al.            Expires 22 June 2026                 [Page 15]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        description
@@ -893,9 +893,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 16]
+Beeram, et al.            Expires 22 June 2026                 [Page 16]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        }
@@ -949,9 +949,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 17]
+Beeram, et al.            Expires 22 June 2026                 [Page 17]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
            leaf ack-sent {
@@ -1005,9 +1005,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 18]
+Beeram, et al.            Expires 22 June 2026                 [Page 18]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                "RSVP Integrity Response message received count.";
@@ -1061,9 +1061,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 19]
+Beeram, et al.            Expires 22 June 2026                 [Page 19]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
              type yang:counter64;
@@ -1117,9 +1117,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 20]
+Beeram, et al.            Expires 22 June 2026                 [Page 20]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
            }
@@ -1173,9 +1173,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 21]
+Beeram, et al.            Expires 22 June 2026                 [Page 21]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        description
@@ -1229,9 +1229,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 22]
+Beeram, et al.            Expires 22 June 2026                 [Page 22]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                reference
@@ -1285,9 +1285,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 23]
+Beeram, et al.            Expires 22 June 2026                 [Page 23]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                      "RFC2205";
@@ -1341,9 +1341,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 24]
+Beeram, et al.            Expires 22 June 2026                 [Page 24]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                type inet:ip-address;
@@ -1397,9 +1397,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 25]
+Beeram, et al.            Expires 22 June 2026                 [Page 25]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                  config false;
@@ -1453,9 +1453,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 26]
+Beeram, et al.            Expires 22 June 2026                 [Page 26]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                  enum up {
@@ -1509,9 +1509,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 27]
+Beeram, et al.            Expires 22 June 2026                 [Page 27]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
              "Graceful restart local information.";
@@ -1565,9 +1565,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 28]
+Beeram, et al.            Expires 22 June 2026                 [Page 28]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                default "20";
@@ -1621,9 +1621,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 29]
+Beeram, et al.            Expires 22 June 2026                 [Page 29]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      rpc clear-session {
@@ -1677,9 +1677,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 30]
+Beeram, et al.            Expires 22 June 2026                 [Page 30]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        }
@@ -1733,9 +1733,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 31]
+Beeram, et al.            Expires 22 June 2026                 [Page 31]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        }
@@ -1789,9 +1789,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 32]
+Beeram, et al.            Expires 22 June 2026                 [Page 32]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    <CODE ENDS>
@@ -1845,9 +1845,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 33]
+Beeram, et al.            Expires 22 June 2026                 [Page 33]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                /rsvp:authentication:
@@ -1901,9 +1901,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 34]
+Beeram, et al.            Expires 22 June 2026                 [Page 34]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
 5.2.  YANG Module
@@ -1957,9 +1957,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 35]
+Beeram, et al.            Expires 22 June 2026                 [Page 35]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
         Working Group";
@@ -2013,9 +2013,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 36]
+Beeram, et al.            Expires 22 June 2026                 [Page 36]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      grouping authentication-extended {
@@ -2069,9 +2069,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 37]
+Beeram, et al.            Expires 22 June 2026                 [Page 37]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      grouping hellos-extended {
@@ -2125,9 +2125,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 38]
+Beeram, et al.            Expires 22 June 2026                 [Page 38]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        }
@@ -2181,9 +2181,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 39]
+Beeram, et al.            Expires 22 June 2026                 [Page 39]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
        }
@@ -2237,9 +2237,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 40]
+Beeram, et al.            Expires 22 June 2026                 [Page 40]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
            "In RSVP packet drop count.";
@@ -2293,9 +2293,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 41]
+Beeram, et al.            Expires 22 June 2026                 [Page 41]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      /* RSVP hellos extension */
@@ -2349,9 +2349,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 42]
+Beeram, et al.            Expires 22 June 2026                 [Page 42]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
      /* RSVP hellos extension */
@@ -2405,9 +2405,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 43]
+Beeram, et al.            Expires 22 June 2026                 [Page 43]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
 7.  Security Considerations
@@ -2461,9 +2461,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 44]
+Beeram, et al.            Expires 22 June 2026                 [Page 44]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    For RSVP authentication, the configuration supported is via the
@@ -2517,9 +2517,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 45]
+Beeram, et al.            Expires 22 June 2026                 [Page 45]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    State on R1:
@@ -2573,9 +2573,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 46]
+Beeram, et al.            Expires 22 June 2026                 [Page 46]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                  "hellos": {
@@ -2629,9 +2629,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 47]
+Beeram, et al.            Expires 22 June 2026                 [Page 47]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                      "packet-length": "267"
@@ -2685,9 +2685,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 48]
+Beeram, et al.            Expires 22 June 2026                 [Page 48]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                      }
@@ -2741,9 +2741,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 49]
+Beeram, et al.            Expires 22 June 2026                 [Page 49]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                  ],
@@ -2797,9 +2797,9 @@ Internet-Draft            RSVP YANG Data Model            September 2025
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 50]
+Beeram, et al.            Expires 22 June 2026                 [Page 50]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
                      "hello-status": "enabled",
@@ -2842,150 +2842,150 @@ Internet-Draft            RSVP YANG Data Model            September 2025
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/info/rfc3688>.
+              <https://www.rfc-editor.org/rfc/rfc3688>.
 
 
 
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 51]
+Beeram, et al.            Expires 22 June 2026                 [Page 51]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
-              <https://www.rfc-editor.org/info/rfc6020>.
+              <https://www.rfc-editor.org/rfc/rfc6020>.
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
-              <https://www.rfc-editor.org/info/rfc6241>.
+              <https://www.rfc-editor.org/rfc/rfc6241>.
 
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/info/rfc6242>.
+              <https://www.rfc-editor.org/rfc/rfc6242>.
 
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
-              <https://www.rfc-editor.org/info/rfc6991>.
+              <https://www.rfc-editor.org/rfc/rfc6991>.
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://www.rfc-editor.org/info/rfc7950>.
+              <https://www.rfc-editor.org/rfc/rfc7950>.
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
+              <https://www.rfc-editor.org/rfc/rfc8040>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
    [RFC8177]  Lindem, A., Ed., Qu, Y., Yeung, D., Chen, I., and J.
               Zhang, "YANG Data Model for Key Chains", RFC 8177,
               DOI 10.17487/RFC8177, June 2017,
-              <https://www.rfc-editor.org/info/rfc8177>.
+              <https://www.rfc-editor.org/rfc/rfc8177>.
 
    [RFC8294]  Liu, X., Qu, Y., Lindem, A., Hopps, C., and L. Berger,
               "Common YANG Data Types for the Routing Area", RFC 8294,
               DOI 10.17487/RFC8294, December 2017,
-              <https://www.rfc-editor.org/info/rfc8294>.
+              <https://www.rfc-editor.org/rfc/rfc8294>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
-              <https://www.rfc-editor.org/info/rfc8340>.
+              <https://www.rfc-editor.org/rfc/rfc8340>.
 
    [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
               Access Control Model", STD 91, RFC 8341,
               DOI 10.17487/RFC8341, March 2018,
-              <https://www.rfc-editor.org/info/rfc8341>.
+              <https://www.rfc-editor.org/rfc/rfc8341>.
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 52]
+Beeram, et al.            Expires 22 June 2026                 [Page 52]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
-              <https://www.rfc-editor.org/info/rfc8343>.
+              <https://www.rfc-editor.org/rfc/rfc8343>.
 
    [RFC8349]  Lhotka, L., Lindem, A., and Y. Qu, "A YANG Data Model for
               Routing Management (NMDA Version)", RFC 8349,
               DOI 10.17487/RFC8349, March 2018,
-              <https://www.rfc-editor.org/info/rfc8349>.
+              <https://www.rfc-editor.org/rfc/rfc8349>.
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/info/rfc8446>.
+              <https://www.rfc-editor.org/rfc/rfc8446>.
 
    [RFC8639]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Subscription to YANG Notifications",
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
-              <https://www.rfc-editor.org/info/rfc8639>.
+              <https://www.rfc-editor.org/rfc/rfc8639>.
 
    [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
-              September 2019, <https://www.rfc-editor.org/info/rfc8641>.
+              September 2019, <https://www.rfc-editor.org/rfc/rfc8641>.
 
 11.2.  Informative References
 
    [RFC2205]  Braden, R., Ed., Zhang, L., Berson, S., Herzog, S., and S.
               Jamin, "Resource ReSerVation Protocol (RSVP) -- Version 1
               Functional Specification", RFC 2205, DOI 10.17487/RFC2205,
-              September 1997, <https://www.rfc-editor.org/info/rfc2205>.
+              September 1997, <https://www.rfc-editor.org/rfc/rfc2205>.
 
    [RFC2747]  Baker, F., Lindell, B., and M. Talwar, "RSVP Cryptographic
               Authentication", RFC 2747, DOI 10.17487/RFC2747, January
-              2000, <https://www.rfc-editor.org/info/rfc2747>.
+              2000, <https://www.rfc-editor.org/rfc/rfc2747>.
 
    [RFC2961]  Berger, L., Gan, D., Swallow, G., Pan, P., Tommasi, F.,
               and S. Molendini, "RSVP Refresh Overhead Reduction
               Extensions", RFC 2961, DOI 10.17487/RFC2961, April 2001,
-              <https://www.rfc-editor.org/info/rfc2961>.
+              <https://www.rfc-editor.org/rfc/rfc2961>.
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
-              <https://www.rfc-editor.org/info/rfc3209>.
+              <https://www.rfc-editor.org/rfc/rfc3209>.
 
    [RFC3473]  Berger, L., Ed., "Generalized Multi-Protocol Label
               Switching (GMPLS) Signaling Resource ReserVation Protocol-
               Traffic Engineering (RSVP-TE) Extensions", RFC 3473,
               DOI 10.17487/RFC3473, January 2003,
-              <https://www.rfc-editor.org/info/rfc3473>.
+              <https://www.rfc-editor.org/rfc/rfc3473>.
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 53]
+Beeram, et al.            Expires 22 June 2026                 [Page 53]
 
-Internet-Draft            RSVP YANG Data Model            September 2025
+Internet-Draft            RSVP YANG Data Model             December 2025
 
 
    [rfc4558]  Ali, Z., Rahman, R., Prairie, D., and D. Papadimitriou,
               "Node-ID Based Resource Reservation Protocol (RSVP) Hello:
               A Clarification Statement", RFC 4558,
               DOI 10.17487/RFC4558, June 2006,
-              <https://www.rfc-editor.org/info/rfc4558>.
+              <https://www.rfc-editor.org/rfc/rfc4558>.
 
    [RFC5063]  Satyanarayana, A., Ed. and R. Rahman, Ed., "Extensions to
               GMPLS Resource Reservation Protocol (RSVP) Graceful
               Restart", RFC 5063, DOI 10.17487/RFC5063, October 2007,
-              <https://www.rfc-editor.org/info/rfc5063>.
+              <https://www.rfc-editor.org/rfc/rfc5063>.
 
    [RFC5495]  Li, D., Gao, J., Satyanarayana, A., and S. Bardalai,
               "Description of the Resource Reservation Protocol -
               Traffic-Engineered (RSVP-TE) Graceful Restart Procedures",
               RFC 5495, DOI 10.17487/RFC5495, March 2009,
-              <https://www.rfc-editor.org/info/rfc5495>.
+              <https://www.rfc-editor.org/rfc/rfc5495>.
 
 Authors' Addresses
 
@@ -3021,4 +3021,4 @@ Authors' Addresses
 
 
 
-Beeram, et al.            Expires 3 April 2026                 [Page 54]
+Beeram, et al.            Expires 22 June 2026                 [Page 54]
