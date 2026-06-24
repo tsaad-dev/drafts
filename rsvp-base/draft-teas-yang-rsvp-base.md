@@ -1,7 +1,7 @@
 ---
 title: A YANG Data Model for Resource Reservation Protocol (RSVP)
 abbrev: RSVP YANG Data Model
-docname: draft-ietf-teas-yang-rsvp-20
+docname: draft-ietf-teas-yang-rsvp-21
 category: std
 ipr: trust200902
 workgroup: TEAS Working Group

@@ -13,7 +13,7 @@
 
 <?rfc comments="yes"?>
 
-<rfc ipr="trust200902" docName="draft-ietf-teas-yang-rsvp-20" category="std" consensus="true" submissionType="IETF" tocInclude="true" sortRefs="true" symRefs="true">
+<rfc ipr="trust200902" docName="draft-ietf-teas-yang-rsvp-21" category="std" consensus="true" submissionType="IETF" tocInclude="true" sortRefs="true" symRefs="true">
   <front>
     <title abbrev="RSVP YANG Data Model">A YANG Data Model for Resource Reservation Protocol (RSVP)</title>
 
@@ -48,7 +48,7 @@
       </address>
     </author>
 
-    <date year="2025" month="December" day="19"/>
+    <date year="2026" month="June" day="24"/>
 
     
     <workgroup>TEAS Working Group</workgroup>
@@ -2741,7 +2741,7 @@ Neighbor Address    Interface
   <front>
     <title>Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions</title>
     <author fullname="L. Berger" initials="L." role="editor" surname="Berger"/>
-    <date month="January" year="2003"/>
+    <date month="February" year="2003"/>
     <abstract>
       <t>This document describes extensions to Multi-Protocol Label Switching (MPLS) Resource ReserVation Protocol - Traffic Engineering (RSVP-TE) signaling required to support Generalized MPLS. Generalized MPLS extends the MPLS control plane to encompass time-division (e.g., Synchronous Optical Network and Synchronous Digital Hierarchy, SONET/SDH), wavelength (optical lambdas) and spatial switching (e.g., incoming port or fiber to outgoing port or fiber). This document presents a RSVP-TE specific description of the extensions. A generic functional description can be found in separate documents. [STANDARDS-TRACK]</t>
     </abstract>
@@ -2812,11 +2812,11 @@ Neighbor Address    Interface
   </back>
 
 <!-- ##markdown-source:
-H4sIAPJ5RWkAA+19bXfbNrLwd/4KXvVDnNaSJVl+U7rZOo7Tem/i5Im92+7Z
+H4sIAG4BPGoAA+19bXfbNrLwd/4KXvVDnNaSJVl+U7rZOo7Tem/i5Im92+7Z
 u88eWoItbiRSl6TseFPvb78zgxcCIEBRttym23DPNhYJDAaDwWAwmBm02+2g
 iIspG4aH4V8PT78PX0ZFFL5Jx2waXqZZ+J7l6SIbMfyDZddREadJ+C5Li3SU
 TsON92d/efc0iC4uMnY9DPGXDSUYp6MkmkED4yy6LNoxKy7bBYvy9m2UXLWz
-/Hre7neDUVSwqzS7HYZ5MQ7ieTYMi2yRF/1u96DbD27S7MNVli7mw/D8+PAs
+/Hre7veCUVSwqzS7HYZ5MQ7ieTYMi2yRF/1u96DbD27S7MNVli7mw/D8+PAs
 /BF+x8lV+D2+Cz6wWygwHoYnScGyhBXtl9hWEORFlIz/EU3TBNq/ZXmQLy5m
 cZ5DJ4rbObw7OT5/FczjYfg36NBmmKdZkbHLHP66nfE/RulsxpIi/3sQRIti
 kmbDIGwHITxxkg/Dv3TCd53wBWNZNKO3vK9/ifNJsgjfRddRon9Ns6soif9F
@@ -3133,7 +3133,7 @@ IFstbA98LWg1zEa2By43Evf8EvsikLgLGhlJCu/ZX1NLtOwGpapAStWWEpjX
 6DoP5OUGzLCEDdwMUOU938hX/R68Y15f1ITbr57i46DOWYbBc8zJ9FZPre8m
 YfVf1VtUOdHlLapGIJ+6mpcciiynJPKr+9PZ29OQJZgIXvhmK08krNPhgX0U
 mYI54EEQCe8jbPSHeBYl+WQRnk0iyv10FEOv6NMxZt0fhpMcvnw3wteYcF/W
-/T/u1Dv24TMBAA==
+/T/RHVTY4TMBAA==
 
 -->
 
