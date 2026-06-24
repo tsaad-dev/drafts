@@ -5,18 +5,18 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                        Cisco Systems Inc.
 Intended status: Informational                                 V. Beeram
-Expires: 13 December 2026                               Juniper Networks
+Expires: 26 December 2026                               Juniper Networks
                                                                  J. Dong
                                                      Huawei Technologies
                                                               J. Halpern
                                                                 Ericsson
                                                                  S. Peng
                                                          ZTE Corporation
-                                                            11 June 2026
+                                                            24 June 2026
 
 
               Realizing Network Slices in IP/MPLS Networks
-                     draft-ietf-teas-ns-ip-mpls-07
+                     draft-ietf-teas-ns-ip-mpls-08
 
 Abstract
 
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 December 2026.
+   This Internet-Draft will expire on 26 December 2026.
 
 
 
 
 
-Saad, et al.            Expires 13 December 2026                [Page 1]
+Saad, et al.            Expires 26 December 2026                [Page 1]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -93,23 +93,23 @@ Table of Contents
      4.3.  Data and Control Plane Network Resource Partition Mode  .  15
    5.  Network Resource Partition Instantiation  . . . . . . . . . .  15
      5.1.  NRP Policy Definition . . . . . . . . . . . . . . . . . .  16
-       5.1.1.  Network Resource Partition Selector . . . . . . . . .  16
+       5.1.1.  Network Resource Partition Selector . . . . . . . . .  17
        5.1.2.  Network Resource Partition Resource Reservation . . .  19
-       5.1.3.  Network Resource Partition Per Hop Behavior . . . . .  19
+       5.1.3.  Network Resource Partition Per Hop Behavior . . . . .  20
        5.1.4.  Network Resource Partition Topology . . . . . . . . .  20
      5.2.  Network Resource Partition Boundary . . . . . . . . . . .  21
        5.2.1.  Network Resource Partition Edge Nodes . . . . . . . .  21
-       5.2.2.  Network Resource Partition Interior Nodes . . . . . .  22
-       5.2.3.  Network Resource Partition Incapable Nodes  . . . . .  22
-       5.2.4.  Combining Network Resource Partition Modes  . . . . .  24
+       5.2.2.  Network Resource Partition Interior Nodes . . . . . .  23
+       5.2.3.  Network Resource Partition Incapable Nodes  . . . . .  23
+       5.2.4.  Combining Network Resource Partition Modes  . . . . .  25
        5.2.5.  Multi-domain Network Resource Partition
-               Considerations  . . . . . . . . . . . . . . . . . . .  24
-   6.  Mapping Traffic on Slice-Flow Aggregates  . . . . . . . . . .  25
-     6.1.  Network Slice-Flow Aggregate Relationships  . . . . . . .  26
+               Considerations  . . . . . . . . . . . . . . . . . . .  25
+   6.  Mapping Traffic on Slice-Flow Aggregates  . . . . . . . . . .  26
+     6.1.  Network Slice-Flow Aggregate Relationships  . . . . . . .  27
 
 
 
-Saad, et al.            Expires 13 December 2026                [Page 2]
+Saad, et al.            Expires 26 December 2026                [Page 2]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -118,23 +118,23 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
      7.1.  Applicability of Path Selection to Slice-Flow
            Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  27
      7.2.  Applicability of Path Control Technologies to Slice-Flow
-           Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  27
-       7.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . .  27
+           Aggregates  . . . . . . . . . . . . . . . . . . . . . . .  28
+       7.2.1.  RSVP-TE Based Slice-Flow Aggregate Paths  . . . . . .  28
        7.2.2.  SR Based Slice-Flow Aggregate Paths . . . . . . . . .  28
-   8.  Network Resource Partition Protocol Extensions  . . . . . . .  28
+   8.  Network Resource Partition Protocol Extensions  . . . . . . .  29
    9.  Outstanding Issues  . . . . . . . . . . . . . . . . . . . . .  29
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  30
-   11. Security Considerations . . . . . . . . . . . . . . . . . . .  30
-   12. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  31
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  31
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  31
+   12. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  32
    13. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  32
    14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  33
      14.1.  Normative References . . . . . . . . . . . . . . . . . .  33
-     14.2.  Informative References . . . . . . . . . . . . . . . . .  33
-   Appendix A.  Appendix A: NRP Mode Examples  . . . . . . . . . . .  34
-     A.1.  A.1.  Data Plane NRP Mode Example . . . . . . . . . . . .  35
-     A.2.  A.2.  Control Plane NRP Mode Example  . . . . . . . . . .  36
-     A.3.  A.3.  Data and Control Plane NRP Mode Example . . . . . .  37
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  34
+   Appendix A.  NRP Mode Examples  . . . . . . . . . . . . . . . . .  35
+     A.1.  Data Plane NRP Mode Example . . . . . . . . . . . . . . .  36
+     A.2.  Control Plane NRP Mode Example  . . . . . . . . . . . . .  37
+     A.3.  Data and Control Plane NRP Mode Example . . . . . . . . .  38
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026                [Page 3]
+Saad, et al.            Expires 26 December 2026                [Page 3]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -221,7 +221,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026                [Page 4]
+Saad, et al.            Expires 26 December 2026                [Page 4]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -277,7 +277,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026                [Page 5]
+Saad, et al.            Expires 26 December 2026                [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -286,9 +286,20 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       a packet that traverses over the NRP that is associated with a
       specific Slice-Flow Aggregate.
 
-   NRP Filtered Topology:
-      a set of topological elements associated with a Network Resource
-      Partition.
+   Filtered Topology:
+      a topology derived from the physical network by applying topology
+      filtering policies that select specific nodes and links based on
+      their capabilities and attributes (e.g., Resource Affinities or
+      Flexible Algorithm membership).  The same Filtered Topology may be
+      shared by multiple NRPs.
+
+   NRP Topology:
+      the topology resulting from instantiating an NRP on a Filtered
+      Topology by associating NRP-specific resource reservations and Per
+      Hop Behavior (NRP-PHB) with the topological elements of the
+      Filtered Topology.  Two NRPs may share the same Filtered Topology
+      while having different resource reservations and forwarding
+      treatments.
 
    NRP state aware TE (NRP-TE):
       a mechanism for TE path selection that takes into account the
@@ -320,6 +331,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
       SR: Segment Routing
 
+
+
+Saad, et al.            Expires 26 December 2026                [Page 6]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
       VRF: VPN Routing and Forwarding
 
       AC: Attachment Circuit
@@ -329,14 +347,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       PE: Provider Edge
 
       PCEP: Path Computation Element (PCE) Communication Protocol (PCEP)
-
-
-
-
-Saad, et al.            Expires 13 December 2026                [Page 6]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
 2.  Network Resource Slicing Membership
 
@@ -377,6 +387,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
    Each of the steps is further elaborated on in a subsequent section.
 
+
+
+Saad, et al.            Expires 26 December 2026                [Page 7]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
                            --      --      --
                           |CE|    |CE|    |CE|
                            --      --      --
@@ -386,14 +403,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
        IETF Network    (   --:     --     :--   )   ( Network )
        Slice Service   (     :............:     )   (  Slice  )
        Request          (  IETF Network Slice  )     (       )  Customer
-
-
-
-Saad, et al.            Expires 13 December 2026                [Page 7]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
          v               ----------------------       -------     View
          v        ............................\........./...............
          v                                     \       /        Provider
@@ -434,21 +443,14 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
     * : NRP Policy installation and path placement can be centralized
         or distributed.
 
-              Figure 1: IETF network slice realization steps.
 
 
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026                [Page 8]
+Saad, et al.            Expires 26 December 2026                [Page 8]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
+
+              Figure 1: IETF network slice realization steps.
 
 3.1.  Network Topology Filters
 
@@ -499,9 +501,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-
-
-Saad, et al.            Expires 13 December 2026                [Page 9]
+Saad, et al.            Expires 26 December 2026                [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -557,7 +557,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026               [Page 10]
+Saad, et al.            Expires 26 December 2026               [Page 10]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -613,7 +613,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026               [Page 11]
+Saad, et al.            Expires 26 December 2026               [Page 11]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -669,7 +669,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026               [Page 12]
+Saad, et al.            Expires 26 December 2026               [Page 12]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -725,7 +725,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026               [Page 13]
+Saad, et al.            Expires 26 December 2026               [Page 13]
 
 Internet-Draft           IP/MPLS Network Slicing               June 2026
 
@@ -769,22 +769,33 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
              Figure 2: Bandwidth isolation/sharing among NRPs.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 14]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    The control plane NRP mode provides isolation at admission time by
    ensuring that the total bandwidth reserved across NRPs does not
    exceed the available physical link capacity (subject to any
    configured oversubscription).  However, since no per-packet
    forwarding enforcement is applied in this mode, traffic from
    different NRPs may contend for the same physical resources at
-   runtime, and isolation guarantees are soft.
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 14]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
+   runtime, and isolation guarantees are soft.  To compensate, the
+   control plane MAY monitor link utilization and detect congestion, and
+   react by reoptimizing the placement of affected traffic flows onto
+   less loaded paths within the NRP topology.
 
 4.3.  Data and Control Plane Network Resource Partition Mode
 
@@ -821,6 +832,16 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    specifying requirements rather than mechanisms to realize the slice
    as described in Section 3.2.
 
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 15]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    The network slice controller is fed with the network slice service
    intent and realizes it with an appropriate Network Resource Partition
    Policy (NRP Policy).  Multiple IETF network slices are mapped to the
@@ -832,15 +853,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    controller and the mechanism used to map the network slice to a
    Slice-Flow Aggregate are outside the scope of this document and will
    be addressed in separate documents.
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 15]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
 5.1.  NRP Policy Definition
 
@@ -876,6 +888,16 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    extensions to enable specific protocols to carry an NRP Policy
    definition will be described in separate documents.
 
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 16]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
 5.1.1.  Network Resource Partition Selector
 
    A router needs to be able to identify a packet belonging to a Slice-
@@ -884,19 +906,23 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    packet are used as an NRP Selector to do this.  There are several
    possible approaches as follows.
 
+   The NRP Selector can be defined for and carried in different
+   forwarding data planes.  For example:
+
+   *  In MPLS networks, the NRP Selector may be encoded within the MPLS
+      label stack or post stack.
+
+   *  In IPv6 networks, the NRP Selector may be carried within fields of
+      the IPv6 header (e.g., source or destination address), or within
+      an IPv6 extension header.
+
+   *  In SRv6 networks, the NRP Selector may be encoded as a SRv6 SID or
+      carried within the Segment Routing Header (SRH) (e.g., as a TLV).
+
+   The specific encoding depends on the data plane technology deployed
+   in the NRP domain and is outside the scope of this document.
+
    Overloaded forwarding identifier as NRP Selector:
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 16]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
       It is possible to assign a different forwarding address or MPLS
       forwarding label for each Slice-Flow Aggregate on a specific node
@@ -919,6 +945,14 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       allow VPN packets to be mapped to the Slice-Flow Aggregate.  In
       this case, a single VPN identifier acting as an NRP Selector needs
       to be allocated by all Egress PEs of a VPN.
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 17]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
       In other cases, a range of VPN identifiers can map to a single NRP
       Selector to map traffic from multiple VPNs to a Slice-Flow
@@ -947,13 +981,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
                   | Load |
                   +------+
 
-
-
-Saad, et al.            Expires 13 December 2026               [Page 17]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
        Figure 3: NRP Selector as VPN label at bottom of label stack.
 
    Dedicated identifier as NRP Selector:
@@ -974,6 +1001,14 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       Selectors map to the same Slice-Flow Aggregate.
 
    Fallback treatment for unclassified packets:
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 18]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
       A packet carrying an NRP Selector may arrive at an NRP-capable
       node on which no NRP matching that NRP Selector value is
@@ -1001,15 +1036,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       desired fallback treatment, allowing the ingress node to influence
       the behavior at downstream nodes.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 18]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
 5.1.2.  Network Resource Partition Resource Reservation
 
    Bandwidth and network resource allocation strategies for slice
@@ -1030,6 +1056,15 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    preemption of some Slice-Flow Aggregate paths may be desirable to
    alleviate congestion.  A preference-based allocation scheme enables
    prioritization of Slice-Flow Aggregate paths that can be preempted.
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 19]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    Since network characteristics and its state can change over time, the
    NRP topology and its network state need to be propagated in the
@@ -1056,16 +1091,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    to identify the specific Diffserv forwarding treatment to be applied
    on the traffic belonging to the same NRP.
 
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 19]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    At transit nodes, the CS field carried inside the packets are used to
    determine the specific PHB that determines the forwarding and
    scheduling treatment before packets are forwarded, and in some cases,
@@ -1073,27 +1098,35 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 5.1.4.  Network Resource Partition Topology
 
-   The relationship between the physical network, the filter topology,
+   The relationship between the physical network, the Filtered Topology,
    and the NRP topology can be described as follows:
 
    1.  The Physical Network comprises the underlying nodes and links
        with their actual hardware resources (e.g., bandwidth, processing
        capacity).
 
-   2.  A Filter Topology is derived from the Physical Network by
+   2.  A Filtered Topology is derived from the Physical Network by
        applying topology filtering policies that select specific nodes
        and links based on their capabilities and attributes (as
-       described in Section 5.1).  The same Filter Topology may be
+       described in Section 5.1).  The same Filtered Topology may be
        shared by multiple NRPs.
 
-   3.  An NRP is instantiated on a Filter Topology by associating NRP-
+   3.  An NRP is instantiated on a Filtered Topology by associating NRP-
        specific resource reservations (Section 5.1.2) and Per Hop
        Behavior (Section 5.1.3) with the topological elements of the
-       Filter Topology.  The resulting topology, comprising the filtered
-       nodes and links together with their NRP-specific resource
-       attributes, is referred to as the NRP Topology.
 
-   Since the same Filter Topology may underlie multiple NRPs, two NRPs
+
+
+Saad, et al.            Expires 26 December 2026               [Page 20]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+       Filtered Topology.  The resulting topology, comprising the
+       filtered nodes and links together with their NRP-specific
+       resource attributes, is referred to as the NRP Topology.
+
+   Since the same Filtered Topology may underlie multiple NRPs, two NRPs
    may share the same set of nodes and links while having different
    resource reservations and forwarding treatments applied to them.
 
@@ -1114,13 +1147,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    (e.g., derived from a Flexible Algorithm Definition (FAD) as defined
    in [I-D.ietf-lsr-flex-algo], or Multi-Topology ID as defined in
    [RFC4915].
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 20]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
 5.2.  Network Resource Partition Boundary
 
@@ -1144,6 +1170,14 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    specific traffic flows by possibly inspecting multiple fields from
    inbound packets (e.g., implementations may inspect IP traffic's
    network 5-tuple in the IP and transport protocol headers) to decide
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 21]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    on which NRP it can be steered.
 
    Network slice ingress nodes may condition the inbound traffic at
@@ -1170,14 +1204,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       interfaces.
 
    SDP at the CE/AC boundary:  When the IETF Network Slice extends to
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 21]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
       include the Attachment Circuit (AC), traffic conditioning and
       policing are applied at the AC ends.  The CE or PE may use traffic
       tagging (e.g., Ethernet VLAN tags) to identify the IETF Network
@@ -1195,6 +1221,18 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       identify the IETF Network Slice and the corresponding Slice-Flow
       Aggregate.  The PE then sets the NRP Selector on the classified
       packets before forwarding them into the NRP domain.
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 22]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
 5.2.2.  Network Resource Partition Interior Nodes
 
@@ -1221,25 +1259,36 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    they traverse devices within the network -- including NRP capable and
    incapable devices.
 
-
-
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 22]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    For example, when the NRP Selector is an MPLS label at the bottom of
    the MPLS label stack, packets can traverse over devices that are NRP
    incapable without any further considerations.  On the other hand,
    when the NRP Selector label is at the top of the MPLS label stack,
    packets can be bypassed (or tunneled) over the NRP incapable devices
    towards the next device that supports NRP as shown in Figure 4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 23]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
      SR Node-SID:           NRP Selector: 1001     @@@: NRP Policy
         1601: P1            Label                       enforced
@@ -1280,28 +1329,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    or tunnel treatment described above.  The following mechanisms MAY be
    used for this purpose:
 
-   IGP-based capability advertisement:  NRP-capable nodes MAY advertise
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 23]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
-      their NRP capability via extensions to routing protocols such as
-      IS-IS or OSPF.  A node that does not advertise NRP capability is
-      considered NRP incapable by its neighbors.  Since NRP capability
-      is a relatively static property of a node, such advertisements are
-      infrequent and have minimal impact on routing protocol
-      convergence.  Note that while routing protocols MAY be extended to
-      advertise NRP capability, the advertisement of dynamic NRP state
-      (e.g., per-NRP resource reservations or available bandwidth) via
-      routing protocols SHOULD be avoided, as frequent updates to NRP
-      state may negatively impact routing protocol performance and
-      convergence.
-
    Controller-based discovery:  In controller-based deployments, NRP
       node capabilities MAY be distributed to a controller using
       mechanisms such as NETCONF [RFC6241], BGP-LS [RFC7752], or PCEP
@@ -1310,6 +1337,15 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       or to select appropriate bypass tunnels.
 
    Static configuration:  As a fallback, operators MAY statically
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 24]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
       configure on each node which of its downstream neighbors are NRP
       incapable.  This approach is simple but does not adapt
       automatically to topology or capability changes.
@@ -1337,15 +1373,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    domain and that end-to-end SLAs are maintained across domain
    boundaries.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 24]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    When a network slice traverses multiple NRP domains, the NRP Selector
    carried in packets may be handled at domain boundaries in one of the
    following ways:
@@ -1366,6 +1393,15 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       across domain boundaries.
 
    NRP Selector Remapping:  At the boundary between two NRP domains, the
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 25]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
       boundary node replaces the incoming NRP Selector with the
       appropriate NRP Selector for the downstream domain.  This requires
       coordination of NRP-ID mappings at inter-domain boundaries, which
@@ -1393,15 +1429,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    when steering traffic over paths established for a specific Slice-
    Flow Aggregate.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 25]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    For example, one or more (layer-2 or layer-3) VPN services can be
    directly mapped to paths established for a Slice-Flow Aggregate.  In
    this case, the per Virtual Routing and Forwarding (VRF) instance
@@ -1423,6 +1450,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    rich set of rules to identify specific packets to be mapped to a
    Slice-Flow Aggregate.  However, it requires data plane network
    resources to be able to perform the additional checks in hardware.
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 26]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
 6.1.  Network Slice-Flow Aggregate Relationships
 
@@ -1449,15 +1483,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    absence of any Filtered Topology, Slice-Flow Aggregate are free to
    operate over the full physical network.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 26]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    o It is anticipated that there may be very many IETF Network Slices
    supported by a network operator over a single physical network.  A
    network may support a limited number of Slice-Flow Aggregates, with
@@ -1478,6 +1503,16 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    usually done with RSVP-TE).  TE extensions exist today to allow IGPs
    (e.g., [RFC3630] and [RFC5305]), and BGP-LS [RFC7752] to advertise
    such link state reservations.
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 27]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    When the network resource reservations are maintained for NRPs, the
    link state can carry per NRP state (e.g., reservable bandwidth).
@@ -1507,13 +1542,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    signaling of NRP aware RSVP-TE LSPs are outside the scope of this
    document.
 
-
-
-Saad, et al.            Expires 13 December 2026               [Page 27]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
 7.2.2.  SR Based Slice-Flow Aggregate Paths
 
    Segment Routing (SR) [RFC8402] can be used to set up and steer
@@ -1531,6 +1559,16 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
    *  SR Operation, Administration and Management (OAM) and Performance
       Management (PM)
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 28]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    SR allows a headend node to steer packets onto specific SR paths
    using a Segment Routing Policy (SR Policy).  The SR policy supports
@@ -1560,16 +1598,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    Multiple options are possible to facilitate automation of
    distribution of an NRP Policy to capable devices.
 
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 28]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    For example, a YANG data model for the NRP Policy may be supported on
    network devices and controllers.  A suitable transport (e.g., NETCONF
    [RFC6241], RESTCONF [RFC8040], or gRPC) may be used to enable
@@ -1585,6 +1613,18 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    Working Group Adoption Poll for the document.  The below list of
    issues needs to be fully addressed before progressing the document to
    publication in IESG.
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 29]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    1.  [DONE] Add new Appendix section with examples for the NRP modes
        described in Section 4.  Addressed by adding Appendix A with
@@ -1607,10 +1647,10 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
        PE customer-facing port, and SDP within the PE.
 
    4.  [DONE] Clarify the relationship the underlay physical network,
-       the filter topology and the NRP resources.  Addressed in
+       the Filtered Topology and the NRP resources.  Addressed in
        Section 5.1.4 by adding a three-step description of the layering:
-       Physical Network -> Filter Topology -> NRP Topology, and
-       clarifying that the same Filter Topology may be shared by
+       Physical Network -> Filtered Topology -> NRP Topology, and
+       clarifying that the same Filtered Topology may be shared by
        multiple NRPs, each with its own resource reservations and
        forwarding treatments.
 
@@ -1618,13 +1658,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
        depending on the deployed NRP mode.  Addressed in Section 4.1,
        Section 4.2, and Section 4.3 by adding explicit isolation
        characterization for each mode.
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 29]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
    6.  [DONE] Revise Section 5.2.3 to describe how nodes can discover
        NRP incapable downstream neighbors.  Addressed by adding three
@@ -1639,6 +1672,15 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
        descriptions: NRP Policy Manipulation, NRP State Disclosure,
        Fallback NRP Abuse, and Inter-domain NRP Selector Spoofing, with
        corresponding mitigation guidance for each.
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 30]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    8.  [DONE] Expand Section 5.2 on NRP domain boundary and multi-domain
        aspects.  Addressed by adding Section 5.2.5 describing two
@@ -1673,15 +1715,6 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    modified or injected traffic depletes the resources available to
    forward legitimate traffic belonging to a specific NRP.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 30]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    The defense against this type of theft and denial-of-service attacks
    consists of a combination of traffic conditioning at NRP domain
    boundaries with security and integrity of the network infrastructure
@@ -1697,13 +1730,21 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       integrity protection of NRP Policy distribution mechanisms (e.g.,
       NETCONF/RESTCONF) is therefore essential.
 
-   NRP State Disclosure:  Routing protocol extensions that advertise NRP
-      topology and resource reservation states may expose sensitive
-      information about the network's internal resource allocations to
-      any adversary participating in the routing protocol.  Operators
-      SHOULD apply appropriate route filtering and authentication
-      mechanisms on routing protocol sessions to limit the propagation
-      of NRP state information to trusted participants only.
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 31]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+   NRP State Disclosure:  Extensions that advertise NRP topology and
+      resource reservation states may expose sensitive information about
+      the network's internal resource allocations to any adversary
+      participating in the routing protocol.  Operators SHOULD apply
+      appropriate route filtering and authentication mechanisms on
+      routing protocol sessions to limit the propagation of NRP state
+      information to trusted participants only.
 
    Fallback NRP Abuse:  When a fallback NRP or best-effort treatment is
       configured for packets carrying unrecognized NRP Selectors, an
@@ -1729,18 +1770,29 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    valuable feedback on it.  The authors would also like to thank Adrian
    Farrel for detailed discussions that resulted in Section 3.
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 31]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
 13.  Contributors
 
    The following individuals contributed to this document:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 32]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
       Colby Barth
       Juniper Networks
@@ -1787,16 +1839,16 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
       Verizon
       Email: luay.jalil@verizon.com
 
-
-
-Saad, et al.            Expires 13 December 2026               [Page 32]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
 14.  References
 
 14.1.  Normative References
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 33]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
               and G. Swallow, "RSVP-TE: Extensions to RSVP for LSP
@@ -1839,21 +1891,20 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
               Services", RFC 2475, DOI 10.17487/RFC2475, December 1998,
               <https://www.rfc-editor.org/rfc/rfc2475>.
 
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 33]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    [RFC2702]  Awduche, D., Malcolm, J., Agogbua, J., O'Dell, M., and J.
               McManus, "Requirements for Traffic Engineering Over MPLS",
               RFC 2702, DOI 10.17487/RFC2702, September 1999,
               <https://www.rfc-editor.org/rfc/rfc2702>.
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 34]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
 
    [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
               Pillay-Esnault, "Multi-Topology (MT) Routing in OSPF",
@@ -1890,21 +1941,11 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
               Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
               <https://www.rfc-editor.org/rfc/rfc9543>.
 
-Appendix A.  Appendix A: NRP Mode Examples
+Appendix A.  NRP Mode Examples
 
    This appendix provides examples to illustrate the NRP modes described
    in Section 4.  All examples use the following common network
    topology:
-
-
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 34]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
 
       /-----\  10G   /----\  10G   /----\  10G   /-----\
       | PE1 |--------| P1 |--------| P2 |--------| PE2 |
@@ -1914,6 +1955,13 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
               Figure 5: Common topology for NRP mode examples.
 
+
+
+Saad, et al.            Expires 26 December 2026               [Page 35]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    Two NRPs are instantiated over this network:
 
    *  NRP1: supports low-latency Slice-Flow Aggregate (SFA1), with a
@@ -1922,7 +1970,7 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
    *  NRP2: supports best-effort Slice-Flow Aggregate (SFA2), with up to
       6 Gbps per link.
 
-A.1.  A.1.  Data Plane NRP Mode Example
+A.1.  Data Plane NRP Mode Example
 
    In this example, network resource partitioning is performed in the
    data plane only.  PE1 acts as the NRP ingress node and classifies
@@ -1953,15 +2001,6 @@ A.1.  A.1.  Data Plane NRP Mode Example
 
    The packet label stack at each node for an SFA1 (NRP1) packet:
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 35]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
       At PE1 (ingress):  At P1 and P2:    At PE2 (egress):
       +-----------+      +--------+       +-----------+
       | IP Header |      |  1001  |       | IP Header |
@@ -1971,12 +2010,20 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
                          | Payload|
                          +--------+
 
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 36]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    Since data plane only NRP mode is used, P1 and P2 do not maintain
    per-NRP routing state.  The forwarding path is determined by standard
    best-path selection; the NRP Selector solely determines the NRP-PHB
    applied at each hop.
 
-A.2.  A.2.  Control Plane NRP Mode Example
+A.2.  Control Plane NRP Mode Example
 
    In this example, network resource partitioning is performed in the
    control plane only.  No NRP Selector is carried in packets.  Instead,
@@ -2009,22 +2056,25 @@ A.2.  A.2.  Control Plane NRP Mode Example
 
    *  SFA2 path: PE1->P1->P2->PE2 (using NRP2's 6 Gbps pool)
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 36]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    Since no NRP Selector is carried in packets, transit nodes P1 and P2
    apply no per-packet NRP-specific forwarding treatment.  Isolation
    between NRP1 and NRP2 is enforced at admission time only; traffic
    from both NRPs shares the same physical queues at runtime, and
    isolation guarantees are soft.
 
-A.3.  A.3.  Data and Control Plane NRP Mode Example
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 37]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
+A.3.  Data and Control Plane NRP Mode Example
 
    In this example, network resource partitioning is performed in both
    the control plane and the data plane, combining the mechanisms of
@@ -2065,15 +2115,6 @@ Authors' Addresses
    Email: tsaad.net@gmail.com
 
 
-
-
-
-
-Saad, et al.            Expires 13 December 2026               [Page 37]
-
-Internet-Draft           IP/MPLS Network Slicing               June 2026
-
-
    Vishnu Pavan Beeram
    Juniper Networks
    Email: vbeeram@juniper.net
@@ -2081,6 +2122,14 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
    Jie Dong
    Huawei Technologies
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 38]
+
+Internet-Draft           IP/MPLS Network Slicing               June 2026
+
+
    Email: jie.dong@huawei.com
 
 
@@ -2125,4 +2174,11 @@ Internet-Draft           IP/MPLS Network Slicing               June 2026
 
 
 
-Saad, et al.            Expires 13 December 2026               [Page 38]
+
+
+
+
+
+
+
+Saad, et al.            Expires 26 December 2026               [Page 39]

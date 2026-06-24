@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-07
+docname: draft-ietf-teas-ns-ip-mpls-08
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -183,8 +183,18 @@ Slice-Flow Aggregate Path:
 Slice-Flow Aggregate Packet:
 : a packet that traverses over the NRP that is associated with a specific Slice-Flow Aggregate.
 
-NRP Filtered Topology:
-: a set of topological elements associated with a Network Resource Partition.
+Filtered Topology:
+: a topology derived from the physical network by applying topology filtering
+policies that select specific nodes and links based on their capabilities and
+attributes (e.g., Resource Affinities or Flexible Algorithm membership).  The
+same Filtered Topology may be shared by multiple NRPs.
+
+NRP Topology:
+: the topology resulting from instantiating an NRP on a Filtered Topology by
+associating NRP-specific resource reservations and Per Hop Behavior (NRP-PHB)
+with the topological elements of the Filtered Topology.  Two NRPs may share
+the same Filtered Topology while having different resource reservations and
+forwarding treatments.
 
 NRP state aware TE (NRP-TE):
 : a mechanism for TE path selection that takes into account the available network resources associated with a specific NRP.
@@ -566,7 +576,10 @@ exceed the available physical link capacity (subject to any
 configured oversubscription).  However, since no per-packet
 forwarding enforcement is applied in this mode, traffic from
 different NRPs may contend for the same physical resources at
-runtime, and isolation guarantees are soft.
+runtime, and isolation guarantees are soft.  To compensate, the
+control plane MAY monitor link utilization and detect congestion,
+and react by reoptimizing the placement of affected traffic flows
+onto less loaded paths within the NRP topology.
 
 
 ## Data and Control Plane Network Resource Partition Mode {#DataControlplaneSlicing}
@@ -651,6 +664,22 @@ Flow Aggregate before it can apply the associated data plane
 forwarding treatment or NRP-PHB.  One or more fields within the
 packet are used as an NRP Selector to do this. There are several
 possible approaches as follows.
+
+The NRP Selector can be defined for and carried in different forwarding
+data planes.  For example:
+
+*  In MPLS networks, the NRP Selector may be encoded within the MPLS
+   label stack or post stack.
+
+*  In IPv6 networks, the NRP Selector may be carried within fields of
+   the IPv6 header (e.g., source or destination address), or within an
+   IPv6 extension header.
+
+*  In SRv6 networks, the NRP Selector may be encoded as a SRv6 SID or
+   carried within the Segment Routing Header (SRH) (e.g., as a TLV).
+
+The specific encoding depends on the data plane technology deployed in
+the NRP domain and is outside the scope of this document.
 
 Overloaded forwarding identifier as NRP Selector:
 
@@ -804,27 +833,27 @@ each packet.
 
 ### Network Resource Partition Topology {#SlicePolicyTopology}
 
-The relationship between the physical network, the filter topology,
+The relationship between the physical network, the Filtered Topology,
 and the NRP topology can be described as follows:
 
 1.  The Physical Network comprises the underlying nodes and links
     with their actual hardware resources (e.g., bandwidth,
     processing capacity).
 
-2.  A Filter Topology is derived from the Physical Network by
+2.  A Filtered Topology is derived from the Physical Network by
     applying topology filtering policies that select specific nodes
     and links based on their capabilities and attributes (as
-    described in {{SliceDefinition}}).  The same Filter Topology may
+    described in {{SliceDefinition}}).  The same Filtered Topology may
     be shared by multiple NRPs.
 
-3.  An NRP is instantiated on a Filter Topology by associating
+3.  An NRP is instantiated on a Filtered Topology by associating
     NRP-specific resource reservations ({{SliceResourceReservation}})
     and Per Hop Behavior ({{SlicePHB}}) with the topological elements
-    of the Filter Topology.  The resulting topology, comprising the
+    of the Filtered Topology.  The resulting topology, comprising the
     filtered nodes and links together with their NRP-specific
     resource attributes, is referred to as the NRP Topology.
 
-Since the same Filter Topology may underlie multiple NRPs, two NRPs
+Since the same Filtered Topology may underlie multiple NRPs, two NRPs
 may share the same set of nodes and links while having different
 resource reservations and forwarding treatments applied to them.
 
@@ -980,19 +1009,6 @@ An NRP-capable node needs to identify which of its downstream
 neighbors are NRP incapable in order to apply the appropriate
 bypass or tunnel treatment described above.  The following
 mechanisms MAY be used for this purpose:
-
-IGP-based capability advertisement:
-: NRP-capable nodes MAY advertise their NRP capability via extensions
-  to routing protocols such as IS-IS or OSPF.  A node that does not
-  advertise NRP capability is considered NRP incapable by its
-  neighbors.  Since NRP capability is a relatively static property of
-  a node, such advertisements are infrequent and have minimal impact
-  on routing protocol convergence.  Note that while routing protocols
-  MAY be extended to advertise NRP capability, the advertisement of
-  dynamic NRP state (e.g., per-NRP resource reservations or available
-  bandwidth) via routing protocols SHOULD be avoided, as frequent
-  updates to NRP state may negatively impact routing protocol
-  performance and convergence.
 
 Controller-based discovery:
 : In controller-based deployments, NRP node capabilities MAY be
@@ -1244,10 +1260,10 @@ addressed before progressing the document to publication in IESG.
    the PE.
 
 4. \[DONE\] Clarify the relationship the underlay physical network, the
-   filter topology and the NRP resources.  Addressed in
+   Filtered Topology and the NRP resources.  Addressed in
    {{SlicePolicyTopology}} by adding a three-step description of the
-   layering: Physical Network -> Filter Topology -> NRP Topology, and
-   clarifying that the same Filter Topology may be shared by multiple
+   layering: Physical Network -> Filtered Topology -> NRP Topology, and
+   clarifying that the same Filtered Topology may be shared by multiple
    NRPs, each with its own resource reservations and forwarding
    treatments.
 
@@ -1320,7 +1336,7 @@ NRP Policy Manipulation:
 
 NRP State Disclosure:
 
-: Routing protocol extensions that advertise NRP topology and resource
+: Extensions that advertise NRP topology and resource
   reservation states may expose sensitive information about the
   network's internal resource allocations to any adversary participating
   in the routing protocol.  Operators SHOULD apply appropriate route
@@ -1409,7 +1425,7 @@ The following individuals contributed to this document:
 
 --- back
 
-# Appendix A: NRP Mode Examples {#NRPModeExamples}
+# NRP Mode Examples {#NRPModeExamples}
 
 This appendix provides examples to illustrate the NRP modes described
 in {{SliceModes}}.  All examples use the following common network
@@ -1432,7 +1448,7 @@ Two NRPs are instantiated over this network:
 *  NRP2: supports best-effort Slice-Flow Aggregate (SFA2), with up to
    6 Gbps per link.
 
-## A.1. Data Plane NRP Mode Example {#A.1}
+## Data Plane NRP Mode Example {#A.1}
 
 In this example, network resource partitioning is performed in the
 data plane only.  PE1 acts as the NRP ingress node and classifies
@@ -1480,7 +1496,7 @@ per-NRP routing state.  The forwarding path is determined by standard
 best-path selection; the NRP Selector solely determines the NRP-PHB
 applied at each hop.
 
-## A.2. Control Plane NRP Mode Example {#A.2}
+## Control Plane NRP Mode Example {#A.2}
 
 In this example, network resource partitioning is performed in the
 control plane only.  No NRP Selector is carried in packets.  Instead,
@@ -1519,7 +1535,7 @@ between NRP1 and NRP2 is enforced at admission time only; traffic from
 both NRPs shares the same physical queues at runtime, and isolation
 guarantees are soft.
 
-## A.3. Data and Control Plane NRP Mode Example {#A.3}
+## Data and Control Plane NRP Mode Example {#A.3}
 
 In this example, network resource partitioning is performed in both
 the control plane and the data plane, combining the mechanisms of
