@@ -95,6 +95,7 @@ pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp-extended.yang > ietf
 pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp.yang > ietf-rsvp.yang.tree
 pyang -f yang --keep-comments --yang-line-length 69 ietf-mpls.yang
 pyang --ietf --max-line-length 69 FILE
+pyang --ietf --lint -f tree --tree-depth=4 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  -p /Users/tsaad/IETF/yang > ietf-te-dev_d4.tree
 
 open -a "Microsoft Word" draft-ip-rsvp-te.txt
 
@@ -136,4 +137,46 @@ protoc \
 
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk
+
+
+❯ h | grep pyang
+  544  1/12/2024 09:39  pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp.yang ietf-rsvp-te.yang ietf-rsvp-te-mpls.yang ietf-rsvp-extended.yang ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-packet-types.yang > rsvp_te_model.tree
+  623  1/26/2024 13:00  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  625  1/26/2024 13:01  pyang -h
+  632  1/26/2024 13:03  pyang --ietf --lint -f tree --tree-line-length=69 -p /Users/tsaad/IETF/yang ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  638  1/26/2024 13:44  pyang -h
+  639  1/26/2024 13:46  pyang --ietf --lint -f tree --tree-line-length=69 -p /Users/tsaad/IETF/yang --tree-no-expand-uses --tree-print-groupings ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  643  1/26/2024 13:47  pyang --ietf --lint -f tree --tree-line-length=69 -p /Users/tsaad/IETF/yang --tree-no-expand-uses --tree-print-groupings ietf-te.yang  > ietf-te.tree
+  715  2/2/2024 09:08  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev.tree
+  723  2/2/2024 09:09  pyang --ietf --lint -I /Users/tsaad/IETF/yang/standard -f tree --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev.tree
+  724  2/2/2024 09:09  pyang -h
+  725  2/2/2024 09:10  pyang --ietf --lint -p /Users/tsaad/IETF/yang/standard -f tree --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev.tree
+  785  2/25/2024 14:12  pyang --ietf --lint -f tree ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang > ietf-te-all.tree
+  795  2/25/2024 14:14  pyang -h
+  796  2/25/2024 14:14  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree ietf-te.yang ietf-te-device.yang ietf-te-types.yang ietf-te-mpls.yang ietf-te-sr-mpls.yang > ietf-te-all.tree
+  797  2/25/2024 14:15  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree ietf-te.yang ietf-te-device.yang ietf-te-types.yang  > ietf-te-all.tree
+  799  2/25/2024 14:52  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  800  2/25/2024 14:53  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  802  2/25/2024 14:54  pyang
+  803  2/25/2024 14:54  pyang -h
+  804  2/25/2024 14:55  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree --tree-line-length=69 --tree-no-expand-uses --tree-no-expand-uses ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  805  2/25/2024 14:55  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree --tree-line-length=69 --tree-no-expand-uses --tree-print-groupings ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+  808  2/25/2024 14:56  pyang -p /Users/tsaad/IETF/yang/standard --ietf --lint -f tree --tree-line-length=69 --tree-no-expand-uses --tree-print-groupings ietf-te.yang  > ietf-te.tree
+  869  2/28/2024 13:58  pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp.yang > ietf-rsvp.yang.tree
+  872  2/28/2024 13:59  pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp.yang > ietf-rsvp.yang.tree
+  874  2/28/2024 13:59  pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp-extended.yang > ietf-rsvp-extended.yang.tree
+  881  2/28/2024 14:02  pyang --ietf --lint -f tree --tree-line-length=69 ietf-rsvp-extended.yang > ietf-rsvp-extended.yang.tree
+  930  3/1/2024 11:25  pyang --ietf --lint -f tree --tree-line-length=69 ietf-mpls-static.yang > ietf-mpls-static.tree
+  934  3/1/2024 11:25  pyang --ietf --lint -f tree --tree-line-length=69 ietf-mpls-static.yang > ietf-mpls-static.tree
+  974  3/1/2024 11:45  pyang --ietf --lint -f tree --tree-line-length=69 ietf-mpls-static.yang > ietf-mpls-static.tree
+ 4094  10/5/2025 11:15  pyang --ietf --lint -f tree --tree-depth=2 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev_d2.tree
+ 4104  10/5/2025 11:16  pyang --ietf --lint -f tree --tree-depth=2 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  > ietf-te-dev_d2.tree
+ 4108  10/5/2025 11:17  pyang -h
+ 4126  10/5/2025 11:18  pyang --ietf --lint -f tree --tree-depth=2 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  -p /Users/tsaad/IETF/yang > ietf-te-dev_d2.tree
+ 4128  10/5/2025 11:19  pyang --ietf --lint -f tree --tree-depth=3 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  -p /Users/tsaad/IETF/yang > ietf-te-dev_d3.tree
+ 4130  10/5/2025 14:18  pyang --ietf --lint -f tree --tree-depth=4 --tree-line-length=69 ietf-te-device.yang ietf-te-types.yang  -p /Users/tsaad/IETF/yang > ietf-te-dev_d4.tree
+ 4145  10/6/2025 11:30  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang  > ietf-te.tree
+ 4152  10/6/2025 11:31  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang -p /Users/tsaad/IETF/yang > ietf-te.tree
+ 4157  10/6/2025 11:38  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang -p /Users/tsaad/IETF/yang > ietf-te.tree
+ 4165  10/6/2025 12:51  pyang --ietf --lint -f tree --tree-line-length=69 ietf-te.yang ietf-te-types.yang -p /Users/tsaad/IETF/yang > ietf-te.tree
 
