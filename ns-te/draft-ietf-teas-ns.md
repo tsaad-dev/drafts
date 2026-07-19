@@ -160,6 +160,18 @@ of IETF network slice specific control and data plane behaviors
 on select topological elements; the enforcement of an NRP Policy 
 results in the creation of an NRP.
 
+NRP Domain:
+: a network region under common administrative control within
+which NRP Identifiers (NRP-IDs) are uniquely allocated and
+managed, and within which NRP Policies are instantiated on
+network elements to govern the partitioning of network
+resources. An NRP domain has boundary nodes that are
+responsible for NRP Selector handling (e.g., addition,
+removal, stacking, or remapping) at the edges of the domain.
+A network slice may span one or more NRP domains, each of
+which independently manages its own NRP-ID space and resource
+allocations.
+
 NRP Identifier (NRP-ID):
 : an identifier that is globally unique within an NRP domain and that can
 be used in the control or management plane to identify the resources associated with the NRP.
