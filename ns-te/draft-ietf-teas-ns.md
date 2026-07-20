@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-08
+docname: draft-ietf-teas-ns-ip-mpls-09
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -22,8 +22,8 @@ author:
  -
     ins: V. Beeram
     name: Vishnu Pavan Beeram
-    organization: Juniper Networks
-    email: vbeeram@juniper.net
+    organization: HPE
+    email: vishnupavan.ietf@gmail.com
 
  -
     ins: J. Dong
@@ -34,8 +34,8 @@ author:
  -
    ins: J. Halpern
    name: Joel Halpern
-   organization: Ericsson
-   email: joel.halpern@ericsson.com
+   organization: HPE
+   email: joel.halpern@hpe.com
 
  -
    ins: S. Peng
