@@ -173,8 +173,7 @@ which independently manages its own NRP-ID space and resource
 allocations.
 
 NRP Identifier (NRP-ID):
-: an identifier that is globally unique within an NRP domain and that can
-be used in the control or management plane to identify the resources associated with the NRP.
+: an identifier that is globally unique within an NRP domain and that can be used in the control or management plane to identify the resources associated with the NRP. The NRP-ID is represented as a 32-bit unsigned integer, with a value of 0 reserved for future use.
 
 NRP Selector:
 : one or more fields (markings) in a packet's network layer header

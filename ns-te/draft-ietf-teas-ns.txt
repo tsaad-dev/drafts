@@ -265,15 +265,15 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
    NRP Identifier (NRP-ID):
       an identifier that is globally unique within an NRP domain and
       that can be used in the control or management plane to identify
-      the resources associated with the NRP.
+      the resources associated with the NRP.  The NRP-ID is represented
+      as a 32-bit unsigned integer, with a value of 0 reserved for
+      future use.
 
    NRP Selector:
       one or more fields (markings) in a packet's network layer header
       that are used to map the packet to an NRP.
 
    NRP Selector Identifier (NRP Selector ID):
-      a dedicated identifier that acts as an NRP Selector.
-
 
 
 
@@ -281,6 +281,8 @@ Saad, et al.              Expires 1 April 2027                  [Page 5]
 
 Internet-Draft           IP/MPLS Network Slicing          September 2026
 
+
+      a dedicated identifier that acts as an NRP Selector.
 
    NRP Capable Node:
       a node that supports one of the NRP modes described in this
@@ -329,14 +331,14 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
 
       SLO: Service Level Objectives
 
-      SLE: Service Level Expectations
-
 
 
 Saad, et al.              Expires 1 April 2027                  [Page 6]
 
 Internet-Draft           IP/MPLS Network Slicing          September 2026
 
+
+      SLE: Service Level Expectations
 
       Diffserv: Differentiated Services
 
@@ -379,13 +381,11 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
    dedicated network resources since only one Slice-Flow Aggregate
    traffic stream can traverse the dedicated resource at any time.
 
-
-
-
-
-
-
-
+   To optimize network utilization, sharing of the physical network
+   resources may be desirable.  In such case, the same physical network
+   resource capacity is divided among multiple NRPs that support
+   multiple Slice-Flow Aggregates.  The shared physical network
+   resources can be partitioned in the data plane (for example by
 
 
 
@@ -394,11 +394,6 @@ Saad, et al.              Expires 1 April 2027                  [Page 7]
 Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
-   To optimize network utilization, sharing of the physical network
-   resources may be desirable.  In such case, the same physical network
-   resource capacity is divided among multiple NRPs that support
-   multiple Slice-Flow Aggregates.  The shared physical network
-   resources can be partitioned in the data plane (for example by
    applying hardware policers and shapers) and/or partitioned in the
    control plane by providing a logical representation of the physical
    link that has a subset of the network resources available to it.
@@ -442,6 +437,11 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
          v   v           (|PE|..-..|PE|... ..|PE|..|PE|)    (        )
          v   v          ( :--  |P|  --   :-:  --   :--  )  (  Filter  )
          v   v          ( :.-   -:.......|P|       :-   )  ( Topology )
+         v   v          (  |P|...........:-:.......|P|  )   (        )
+         v   v           (  -    Filtered Topology      )     --------
+         v   v            -----------------------------       ^
+         v    >>>>>>>>>>>>  Topology Filter ^                /
+         v        ...........................\............../...........
 
 
 
@@ -450,11 +450,6 @@ Saad, et al.              Expires 1 April 2027                  [Page 8]
 Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
-         v   v          (  |P|...........:-:.......|P|  )   (        )
-         v   v           (  -    Filtered Topology      )     --------
-         v   v            -----------------------------       ^
-         v    >>>>>>>>>>>>  Topology Filter ^                /
-         v        ...........................\............../...........
          v                                    \            /  Underlay
         ----------                             \          /  (Physical)
        |          |                             \        /    Network
@@ -498,6 +493,11 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
    This defines the traffic flows that need to be supported when the
    slice is realized.  Depending on the mechanism and encoding of the
    Attachment Circuit (AC), the IETF Network Slice Service may also
+   include information that will allow the operator's controllers to
+   configure the PEs to determine what customer traffic is intended for
+   this IETF Network Slice.
+
+
 
 
 
@@ -505,10 +505,6 @@ Saad, et al.              Expires 1 April 2027                  [Page 9]
 
 Internet-Draft           IP/MPLS Network Slicing          September 2026
 
-
-   include information that will allow the operator's controllers to
-   configure the PEs to determine what customer traffic is intended for
-   this IETF Network Slice.
 
    IETF Network Slice Service Requests are likely to arrive at various
    times in the life of the network, and may also be modified.
@@ -552,6 +548,10 @@ Internet-Draft           IP/MPLS Network Slicing          September 2026
    support of the IETF network slice service.  The NRP Policy
    encompasses policy actions (see Section 5.1) that manage the specific
    resources in the network associated with the NRP.
+
+
+
+
 
 
 
