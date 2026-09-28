@@ -5,18 +5,18 @@
 TEAS Working Group                                               T. Saad
 Internet-Draft                                        Cisco Systems Inc.
 Intended status: Informational                                 V. Beeram
-Expires: 20 January 2027                                             HPE
+Expires: 1 April 2027                                                HPE
                                                                  J. Dong
                                                      Huawei Technologies
                                                               J. Halpern
                                                                      HPE
                                                                  S. Peng
                                                          ZTE Corporation
-                                                            19 July 2026
+                                                       28 September 2026
 
 
               Realizing Network Slices in IP/MPLS Networks
-                     draft-ietf-teas-ns-ip-mpls-09
+                     draft-ietf-teas-ns-ip-mpls-10
 
 Abstract
 
@@ -47,15 +47,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 January 2027.
+   This Internet-Draft will expire on 1 April 2027.
 
 
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 1]
+Saad, et al.              Expires 1 April 2027                  [Page 1]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 2]
+Saad, et al.              Expires 1 April 2027                  [Page 2]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    7.  Path Selection and Instantiation  . . . . . . . . . . . . . .  27
@@ -165,9 +165,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 3]
+Saad, et al.              Expires 1 April 2027                  [Page 3]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    The IETF Network Slice Controller is responsible for the aggregation
@@ -221,9 +221,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 4]
+Saad, et al.              Expires 1 April 2027                  [Page 4]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    IETF Network Slice:
@@ -277,9 +277,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 5]
+Saad, et al.              Expires 1 April 2027                  [Page 5]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    NRP Capable Node:
@@ -333,9 +333,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 6]
+Saad, et al.              Expires 1 April 2027                  [Page 6]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
       Diffserv: Differentiated Services
@@ -389,9 +389,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 7]
+Saad, et al.              Expires 1 April 2027                  [Page 7]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    To optimize network utilization, sharing of the physical network
@@ -445,9 +445,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 8]
+Saad, et al.              Expires 1 April 2027                  [Page 8]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
          v   v          (  |P|...........:-:.......|P|  )   (        )
@@ -501,9 +501,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027                [Page 9]
+Saad, et al.              Expires 1 April 2027                  [Page 9]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    include information that will allow the operator's controllers to
@@ -557,9 +557,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 10]
+Saad, et al.              Expires 1 April 2027                 [Page 10]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 3.6.  NRP Policy Installation
@@ -613,9 +613,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 11]
+Saad, et al.              Expires 1 April 2027                 [Page 11]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 4.1.  Data plane Network Resource Partition Mode
@@ -669,9 +669,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 12]
+Saad, et al.              Expires 1 April 2027                 [Page 12]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 4.2.  Control Plane Network Resource Partition Mode
@@ -725,9 +725,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 13]
+Saad, et al.              Expires 1 April 2027                 [Page 13]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    they cannot share available bandwidth allocated to NRP1 or NRP2.  In
@@ -781,9 +781,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 14]
+Saad, et al.              Expires 1 April 2027                 [Page 14]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    different NRPs may contend for the same physical resources at
@@ -837,9 +837,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 15]
+Saad, et al.              Expires 1 April 2027                 [Page 15]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    The network wide consistent NRP Policy definition is distributed to
@@ -893,9 +893,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 16]
+Saad, et al.              Expires 1 April 2027                 [Page 16]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    The NRP Selector can be defined for and carried in different
@@ -942,16 +942,16 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
       Selector to map traffic from multiple VPNs to a Slice-Flow
       Aggregate.
 
+   The following figure illustrates this overloading approach using a
+   VPN identifier and an MPLS data plane as an example.  Other service
+   identifiers and data plane technologies may be used in a similar
+   manner.
 
 
 
-
-
-
-
-Saad, et al.             Expires 20 January 2027               [Page 17]
+Saad, et al.              Expires 1 April 2027                 [Page 17]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
      SR Adj-SID:          NRP Selector (VPN service label) on PE2: 1001
@@ -1005,9 +1005,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 18]
+Saad, et al.              Expires 1 April 2027                 [Page 18]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
       A packet carrying an NRP Selector may arrive at an NRP-capable
@@ -1031,10 +1031,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
          forwarding treatment for unmatched traffic.
 
       The choice of fallback treatment SHOULD be configurable via local
-      policy.  When a dedicated identifier is used as the NRP Selector,
-      a field within the NRP Selector ID MAY be used to signal the
-      desired fallback treatment, allowing the ingress node to influence
-      the behavior at downstream nodes.
+      policy.  A field in the data plane MAY be used to signal the
+      desired fallback treatment for the NRP, allowing the ingress node
+      to influence the behavior at downstream nodes.
 
 5.1.2.  Network Resource Partition Resource Reservation
 
@@ -1061,9 +1060,10 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 19]
+
+Saad, et al.              Expires 1 April 2027                 [Page 19]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    Since network characteristics and its state can change over time, the
@@ -1117,9 +1117,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 20]
+Saad, et al.              Expires 1 April 2027                 [Page 20]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
        Filtered Topology.  The resulting topology, comprising the
@@ -1173,9 +1173,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 21]
+Saad, et al.              Expires 1 April 2027                 [Page 21]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    on which NRP it can be steered.
@@ -1229,9 +1229,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 22]
+Saad, et al.              Expires 1 April 2027                 [Page 22]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 5.2.2.  Network Resource Partition Interior Nodes
@@ -1285,9 +1285,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 23]
+Saad, et al.              Expires 1 April 2027                 [Page 23]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
      SR Node-SID:           NRP Selector: 1001     @@@: NRP Policy
@@ -1341,9 +1341,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 24]
+Saad, et al.              Expires 1 April 2027                 [Page 24]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
       configure on each node which of its downstream neighbors are NRP
@@ -1397,9 +1397,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 25]
+Saad, et al.              Expires 1 April 2027                 [Page 25]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
       boundary node replaces the incoming NRP Selector with the
@@ -1453,9 +1453,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 26]
+Saad, et al.              Expires 1 April 2027                 [Page 26]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 6.1.  Network Slice-Flow Aggregate Relationships
@@ -1509,9 +1509,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 27]
+Saad, et al.              Expires 1 April 2027                 [Page 27]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    When the network resource reservations are maintained for NRPs, the
@@ -1565,9 +1565,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 28]
+Saad, et al.              Expires 1 April 2027                 [Page 28]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    SR allows a headend node to steer packets onto specific SR paths
@@ -1621,9 +1621,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 29]
+Saad, et al.              Expires 1 April 2027                 [Page 29]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    1.  [DONE] Add new Appendix section with examples for the NRP modes
@@ -1677,9 +1677,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 30]
+Saad, et al.              Expires 1 April 2027                 [Page 30]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    8.  [DONE] Expand Section 5.2 on NRP domain boundary and multi-domain
@@ -1733,9 +1733,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 31]
+Saad, et al.              Expires 1 April 2027                 [Page 31]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    NRP State Disclosure:  Extensions that advertise NRP topology and
@@ -1789,9 +1789,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 32]
+Saad, et al.              Expires 1 April 2027                 [Page 32]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
       Colby Barth
@@ -1845,9 +1845,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 33]
+Saad, et al.              Expires 1 April 2027                 [Page 33]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    [RFC3209]  Awduche, D., Berger, L., Gan, D., Li, T., Srinivasan, V.,
@@ -1901,9 +1901,9 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 34]
+Saad, et al.              Expires 1 April 2027                 [Page 34]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
@@ -1957,9 +1957,9 @@ Appendix A.  NRP Mode Examples
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 35]
+Saad, et al.              Expires 1 April 2027                 [Page 35]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    Two NRPs are instantiated over this network:
@@ -2013,9 +2013,9 @@ A.1.  Data Plane NRP Mode Example
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 36]
+Saad, et al.              Expires 1 April 2027                 [Page 36]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    Since data plane only NRP mode is used, P1 and P2 do not maintain
@@ -2069,9 +2069,9 @@ A.2.  Control Plane NRP Mode Example
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 37]
+Saad, et al.              Expires 1 April 2027                 [Page 37]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
 A.3.  Data and Control Plane NRP Mode Example
@@ -2125,9 +2125,9 @@ Authors' Addresses
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 38]
+Saad, et al.              Expires 1 April 2027                 [Page 38]
 
-Internet-Draft           IP/MPLS Network Slicing               July 2026
+Internet-Draft           IP/MPLS Network Slicing          September 2026
 
 
    Email: jie.dong@huawei.com
@@ -2181,4 +2181,4 @@ Internet-Draft           IP/MPLS Network Slicing               July 2026
 
 
 
-Saad, et al.             Expires 20 January 2027               [Page 39]
+Saad, et al.              Expires 1 April 2027                 [Page 39]

@@ -1,7 +1,7 @@
 ---
 title: Realizing Network Slices in IP/MPLS Networks
 abbrev: IP/MPLS Network Slicing
-docname: draft-ietf-teas-ns-ip-mpls-09
+docname: draft-ietf-teas-ns-ip-mpls-10
 category: info
 ipr: trust200902
 workgroup: TEAS Working Group
@@ -720,6 +720,10 @@ Overloaded service identifier as NRP Selector:
 >  In other cases, a range of VPN identifiers can map to a single NRP
 >  Selector to map traffic from multiple VPNs to a Slice-Flow Aggregate.
 
+The following figure illustrates this overloading approach using a VPN
+identifier and an MPLS data plane as an example. Other service identifiers
+and data plane technologies may be used in a similar manner.
+
 ~~~~
   SR Adj-SID:          NRP Selector (VPN service label) on PE2: 1001
      9012: P1-P2
@@ -788,10 +792,9 @@ Fallback treatment for unclassified packets:
 >    treatment for unmatched traffic.
 >
 > The choice of fallback treatment SHOULD be configurable via local
-> policy.  When a dedicated identifier is used as the NRP Selector,
-> a field within the NRP Selector ID MAY be used to signal the
-> desired fallback treatment, allowing the ingress node to influence
-> the behavior at downstream nodes.
+> policy. A field in the data plane MAY be used to signal the
+> desired fallback treatment for the NRP, allowing the ingress node
+> to influence the behavior at downstream nodes.
 
 
 ### Network Resource Partition Resource Reservation {#SliceResourceReservation}
